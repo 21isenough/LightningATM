@@ -39,3 +39,12 @@ draw.text((10, 30), '1 cent = 112 sats', fill=BLACK, font=date_font2)
 papirus.display(image)
 papirus.partial_update()
 time.sleep(3)
+
+draw.rectangle((3, 30, 197, 50), fill=WHITE, outline=WHITE)
+draw.text((10, 30), '1 cent = 102 sats', fill=BLACK, font=date_font2)
+
+papirus.display(image)
+papirus.partial_update()
+
+time.sleep(5)
+papirus.clear()
