@@ -20,6 +20,10 @@ if EPD_SIZE == 0.0:
     print("Please select your screen size by running 'papirus-config'.")
     sys.exit()
 
+# set sat and fiat value to 0
+FIAT = 0
+SATS = 0
+
 # Command line usage
 # papirus-buttons
 
@@ -53,6 +57,8 @@ if (os.path.exists(hatdir + '/product')) and (os.path.exists(hatdir + '/vendor')
 
 def main(argv):
     global SIZE
+    global FIAT
+    global SATS
 
     GPIO.setmode(GPIO.BCM)
 
@@ -74,6 +80,7 @@ def main(argv):
 #    update_screen(papirus, "Ready... SW1 + SW2 to exit.", SIZE)
 
     while True:
+
         # Exit when SW1 and SW2 are pressed simultaneously
         if (GPIO.input(SW1) == False) and (GPIO.input(SW2) == False) :
             update_screen(papirus, "Exiting ...", SIZE)
@@ -82,23 +89,33 @@ def main(argv):
             sys.exit()
 
         if GPIO.input(SW1) == False:
-            update_screen(papirus, "One", SIZE)
+            FIAT += 0.01
+            SATS = FIAT * 100 * 110
+            update_screen(papirus, SIZE)
 
         if GPIO.input(SW2) == False:
-            update_screen(papirus, "Two", SIZE)
+            FIAT += 0.02
+            SATS = FIAT * 100 * 110
+            update_screen(papirus, SIZE)
 
         if GPIO.input(SW3) == False:
-            update_screen(papirus, "Three", SIZE)
+            FIAT += 0.05
+            SATS = FIAT * 100 * 110
+            update_screen(papirus, SIZE)
 
         if GPIO.input(SW4) == False:
-            update_screen(papirus, "Four", SIZE)
+            FIAT += 0.1
+            SATS = FIAT * 100 * 110
+            update_screen(papirus, SIZE)
 
         if (GPIO.input(SW5) == False):
-            update_screen(papirus, "Five", SIZE)
+            FIAT += 0.2
+            SATS = FIAT * 100 * 110
+            update_screen(papirus, SIZE)
 
         sleep(0.1)
 
-def update_screen(papirus, text, size):
+def update_screen(papirus, size):
 
     # initially set all white background
     image = Image.new('1', papirus.size, WHITE)
@@ -106,15 +123,21 @@ def update_screen(papirus, text, size):
     # prepare for drawing
     draw = ImageDraw.Draw(image)
 
+    # set font sizes
     font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', size)
-
+    font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 14)
 
     width, height = image.size
+
+#    fiat = 0.2
+    price = '1 cent = 110 sats'
 
 
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
-    draw.text((30, 20), '10\'520 sats', fill=BLACK, font=font)
+    draw.text((30, 10), str(SATS) + ' sats', fill=BLACK, font=font)
+    draw.text((30, 30), '(' + str(FIAT) + ' EUR)', fill=BLACK, font=font)
+    draw.text((30, 70), price, fill=BLACK, font=font1)
 
     papirus.display(image)
     papirus.partial_update()
