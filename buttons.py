@@ -1,10 +1,12 @@
-#!/usr/bin/env python3
+#! /usr/bin/python3
 
 # from __future__ import print_function
 
 import os
 import sys
 import string
+import requests
+import json
 
 from papirus import Papirus
 from PIL import Image
@@ -26,6 +28,8 @@ if EPD_SIZE == 0.0:
     sys.exit()
 
 # set sat and fiat value to 0
+
+CURRENCY = 'EUR'
 FIAT = 0
 SATS = 0
 
@@ -82,6 +86,9 @@ def main(argv):
 
     papirus.clear()
 
+    btcprice = price_request(CURRENCY)
+    satprice = round((1 / (btcprice * 100)) * 100000000, 2)
+
 #    update_screen(papirus, "Ready... SW1 + SW2 to exit.", SIZE)
 
     while True:
@@ -97,27 +104,27 @@ def main(argv):
 
         if GPIO.input(SW1) == False:
             FIAT += 0.01
-            SATS = FIAT * 100 * 110
+            SATS = FIAT * 100 * satprice
             update_screen(papirus, SIZE)
 
         if GPIO.input(SW2) == False:
             FIAT += 0.02
-            SATS = FIAT * 100 * 110
+            SATS = FIAT * 100 * satprice
             update_screen(papirus, SIZE)
 
         if GPIO.input(SW3) == False:
             FIAT += 0.05
-            SATS = FIAT * 100 * 110
+            SATS = FIAT * 100 * satprice
             update_screen(papirus, SIZE)
 
         if GPIO.input(SW4) == False:
             FIAT += 0.1
-            SATS = FIAT * 100 * 110
+            SATS = FIAT * 100 * satprice
             update_screen(papirus, SIZE)
 
         if (GPIO.input(SW5) == False):
             FIAT += 0.2
-            SATS = FIAT * 100 * 110
+            SATS = FIAT * 100 * satprice
             update_screen(papirus, SIZE)
 
         sleep(0.1)
@@ -137,17 +144,29 @@ def update_screen(papirus, size):
     width, height = image.size
 
 #    fiat = 0.2
-    price = '1 cent = 110 sats'
+
+    btcprice = price_request(CURRENCY)
+
+    satprice = round((1 / (btcprice * 100)) * 100000000, 2)
+
 
 
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
-    draw.text((30, 10), str(SATS) + ' sats', fill=BLACK, font=font)
-    draw.text((30, 30), '(' + str(FIAT) + ' EUR)', fill=BLACK, font=font)
-    draw.text((30, 70), price, fill=BLACK, font=font1)
+    draw.text((15, 10), str(round(SATS)) + ' sats', fill=BLACK, font=font)
+    draw.text((15, 30), '(' + '%.2f' % round(FIAT,2) + ' ' + CURRENCY + ')', fill=BLACK, font=font)
+    draw.text((15, 70), '(1 cent = ' + str(satprice) + ' sats)', fill=BLACK, font=font1)
 
     papirus.display(image)
     papirus.partial_update()
+
+def price_request(fiatcode):
+
+    price = requests.get('https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC' + fiatcode)
+
+    json_data = json.loads(price.text)
+
+    return json_data['last']
 
 
 if __name__ == '__main__':
