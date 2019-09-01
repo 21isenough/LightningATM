@@ -155,15 +155,15 @@ def update_payout_screen(papirus, size):
 
     # set font sizes
     font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 20)
-    font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 14)
+    font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 15)
 
     # set btc and sat price
 #    btcprice = price_request(CURRENCY)
 #    satprice = round((1 / btcprice) * 10e5, 2)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
-    draw.text((15, 10), str(SATS) + 'sats' , fill=BLACK, font=font)
-    draw.text((15, 40), 'on the way!' , fill=BLACK, font=font)
+    draw.text((15, 30), str(round(SATS)) + ' sats' , fill=BLACK, font=font)
+    draw.text((15, 50), 'on the way!' , fill=BLACK, font=font1)
 #    draw.text((15, 30), '(' + '%.2f' % round(FIAT,2) + ' ' + CURRENCY + ')', fill=BLACK, font=font)
 #    draw.text((15, 70), '(1 cent = ' + str(satprice) + ' sats)', fill=BLACK, font=font1)
 
@@ -182,7 +182,7 @@ def payout(amt):
         macaroon_bytes = f.read()
         macaroon = codecs.encode(macaroon_bytes, 'hex')
 
-    payment_request = 'lnbc1pwkc2lcpp5dw4k3d793krpx05k72a05e28nwfs3awskxur3vu4pmm8g9njavyqdqu2askcmr9wssx7e3q2dshgmmndp5scqzpgxqrrssndpcdypaj2trxs2jx8fqc6wydzysln2mvdarppslstg030ekhpdkszayvuw5g4s6zsedj5vv2ucqzu4wjmd56dqvx2g5w3kplczj6ssq87txt4'
+    payment_request = 'lnbc1pwkc3etpp5htvq3syc...'
 
     data = {
             'payment_request': payment_request,
@@ -194,7 +194,6 @@ def payout(amt):
         headers = {'Grpc-Metadata-macaroon': macaroon},
         data=json.dumps(data),
     )
-    print(response)
 
 if __name__ == '__main__':
     try:
