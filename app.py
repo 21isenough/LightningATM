@@ -3,18 +3,18 @@
 
 import os
 import sys
+import json
 import string
 import requests
-import json
-
-from papirus import Papirus
-from PIL import Image
-from PIL import ImageDraw
-from PIL import ImageFont
-from time import sleep
+import lnd_grpc
 import RPi.GPIO as GPIO
 
-import lnd_grpc
+from PIL import Image
+from time import sleep
+from PIL import ImageDraw
+from PIL import ImageFont
+from papirus import Papirus
+
 
 # Check EPD_SIZE is defined
 EPD_SIZE=0.0
@@ -24,8 +24,7 @@ if EPD_SIZE == 0.0:
     print("Please select your screen size by running 'papirus-config'.")
     sys.exit()
 
-# set sat and fiat value to 0
-
+# set sat,fiat, currency value
 CURRENCY = 'EUR'
 FIAT = 0
 SATS = 0
@@ -76,7 +75,6 @@ def main(argv):
 
     papirus = Papirus(rotation = int(argv[0]) if len(sys.argv) > 1 else 0)
 
-
     # Use smaller font for smaller displays
     if papirus.height <= 96:
         SIZE = 18
@@ -85,8 +83,6 @@ def main(argv):
 
     btcprice = price_request(CURRENCY)
     satprice = round((1 / (btcprice * 100)) * 100000000, 2)
-
-#    update_screen(papirus, "Ready... SW1 + SW2 to exit.", SIZE)
 
     while True:
 
@@ -131,23 +127,20 @@ def update_screen(papirus, size):
     # initially set all white background
     image = Image.new('1', papirus.size, WHITE)
 
+    # Set width and heigt of screen
+    width, height = image.size
+
     # prepare for drawing
     draw = ImageDraw.Draw(image)
+
 
     # set font sizes
     font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', size)
     font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 14)
 
-    width, height = image.size
-
-#    fiat = 0.2
-
+    # set btc and sat price
     btcprice = price_request(CURRENCY)
-
-    satprice = round((1 / (btcprice * 100)) * 100000000, 2)
-
-
-
+    satprice = round((1 / btcprice) * 10e5, 2)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
     draw.text((15, 10), str(round(SATS)) + ' sats', fill=BLACK, font=font)
@@ -159,12 +152,9 @@ def update_screen(papirus, size):
 
 def price_request(fiatcode):
 
-    price = requests.get('https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC' + fiatcode)
-
-    json_data = json.loads(price.text)
-
+    request = requests.get('https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC' + fiatcode)
+    json_data = json.loads(request.text)
     return json_data['last']
-
 
 if __name__ == '__main__':
     try:
