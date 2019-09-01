@@ -7,7 +7,7 @@ import json
 import codecs
 import string
 import requests
-import lnd_grpc
+# import lnd_grpc
 import RPi.GPIO as GPIO
 
 from PIL import Image
@@ -87,40 +87,33 @@ def main(argv):
 
     while True:
 
-        # Exit when SW1 and SW2 are pressed simultaneously
-        if (GPIO.input(SW1) == False) and (GPIO.input(SW2) == False) :
-            sleep(10)
-            papirus.clear()
-#           sys.exit()
-
         if GPIO.input(SW1) == False:
             FIAT += 0.01
             SATS = FIAT * 100 * satprice
-            update_screen(papirus, SIZE)
+            update_amount_screen(papirus, SIZE)
 
         if GPIO.input(SW2) == False:
             FIAT += 0.02
             SATS = FIAT * 100 * satprice
-            update_screen(papirus, SIZE)
+            update_amount_screen(papirus, SIZE)
 
         if GPIO.input(SW3) == False:
             FIAT += 0.05
             SATS = FIAT * 100 * satprice
-            update_screen(papirus, SIZE)
+            update_amount_screen(papirus, SIZE)
 
         if GPIO.input(SW4) == False:
             FIAT += 0.1
             SATS = FIAT * 100 * satprice
-            update_screen(papirus, SIZE)
+            update_amount_screen(papirus, SIZE)
 
         if (GPIO.input(SW5) == False):
-            FIAT += 0.2
-            SATS = FIAT * 100 * satprice
-            update_screen(papirus, SIZE)
+            update_payout_screen(papirus, SIZE)
+            payout(SATS)
 
         sleep(0.1)
 
-def update_screen(papirus, size):
+def update_amount_screen(papirus, size):
 
     # initially set all white background
     image = Image.new('1', papirus.size, WHITE)
@@ -148,6 +141,35 @@ def update_screen(papirus, size):
     papirus.display(image)
     papirus.partial_update()
 
+def update_payout_screen(papirus, size):
+
+    # initially set all white background
+    image = Image.new('1', papirus.size, WHITE)
+
+    # Set width and heigt of screen
+    width, height = image.size
+
+    # prepare for drawing
+    draw = ImageDraw.Draw(image)
+
+
+    # set font sizes
+    font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 20)
+    font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 14)
+
+    # set btc and sat price
+#    btcprice = price_request(CURRENCY)
+#    satprice = round((1 / btcprice) * 10e5, 2)
+
+    draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
+    draw.text((15, 10), str(SATS) + 'sats' , fill=BLACK, font=font)
+    draw.text((15, 40), 'on the way!' , fill=BLACK, font=font)
+#    draw.text((15, 30), '(' + '%.2f' % round(FIAT,2) + ' ' + CURRENCY + ')', fill=BLACK, font=font)
+#    draw.text((15, 70), '(1 cent = ' + str(satprice) + ' sats)', fill=BLACK, font=font1)
+
+    papirus.display(image)
+    papirus.update()
+
 def price_request(fiatcode):
 
     request = requests.get('https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC' + fiatcode)
@@ -160,11 +182,11 @@ def payout(amt):
         macaroon_bytes = f.read()
         macaroon = codecs.encode(macaroon_bytes, 'hex')
 
-    payment_request = 'lnbc1pwkcxh5pp58e40fc0gqcfw4aa9v4cmcv5ecdtafl9mu22a9rphw6pgk5el9jrqdqu2askcmr9wssx7e3q2dshgmmndp5scqzpgxqrrssy5npx2rg52mjwlejttyvy7m4dhjj3kzv74rdwn28w57ur6awq23xc4lzp2gvdlxntwlztgph25lgqgyhpt6lghnjshpmq65rvqfzl5gqshu4yx'
+    payment_request = 'lnbc1pwkc2lcpp5dw4k3d793krpx05k72a05e28nwfs3awskxur3vu4pmm8g9njavyqdqu2askcmr9wssx7e3q2dshgmmndp5scqzpgxqrrssndpcdypaj2trxs2jx8fqc6wydzysln2mvdarppslstg030ekhpdkszayvuw5g4s6zsedj5vv2ucqzu4wjmd56dqvx2g5w3kplczj6ssq87txt4'
 
     data = {
             'payment_request': payment_request,
-            'amt': amt,
+            'amt': round(amt),
     }
 
     response =  requests.post(
@@ -172,6 +194,7 @@ def payout(amt):
         headers = {'Grpc-Metadata-macaroon': macaroon},
         data=json.dumps(data),
     )
+    print(response)
 
 if __name__ == '__main__':
     try:
