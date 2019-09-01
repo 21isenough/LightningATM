@@ -88,12 +88,9 @@ def main(argv):
 
         # Exit when SW1 and SW2 are pressed simultaneously
         if (GPIO.input(SW1) == False) and (GPIO.input(SW2) == False) :
-            lnd = lnd_grpc.Client(macaroon_path='/home/pi/admin.macaroon', tls_cert_path='/etc/ssl/certs/ca-certificates.crt', grpc_host='btcpay.21isenough.me', grpc_port='443')
-            sleep(10)
-            lnd.send_payment(payment_request='lnbc1pwkjeadpp5dz5ve8hqdw95gec4ptjwkcdp9np6uvlkpqa6alv7gdrpdmw2wvqsdqu2askcmr9wssx7e3q2dshgmmndp5scqzpgxqrrsszfqu3sew2glpay66w0d4ff92dvt96jwjgmj5wehz7ldsgz3hhzlz49360ar76vvzvrmdjmmv8phzj6rm7qmzj90cut94kzald35yhncqwh35nt', amt=SATS)
             sleep(10)
             papirus.clear()
-#            sys.exit()
+#           sys.exit()
 
         if GPIO.input(SW1) == False:
             FIAT += 0.01

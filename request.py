@@ -1,15 +1,19 @@
-import codecs, os, requests, json
+import os, codecs, requests, json
 
 with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
     macaroon_bytes = f.read()
     macaroon = codecs.encode(macaroon_bytes, 'hex')
 
+payment_request = 'lnbc1pwkcxh5pp58e40fc0gqcfw4aa9v4cmcv5ecdtafl9mu22a9rphw6pgk5el9jrqdqu2askcmr9wssx7e3q2dshgmmndp5scqzpgxqrrssy5npx2rg52mjwlejttyvy7m4dhjj3kzv74rdwn28w57ur6awq23xc4lzp2gvdlxntwlztgph25lgqgyhpt6lghnjshpmq65rvqfzl5gqshu4yx'
+amt = 7
+
 data = {
-        'payment_request': 'lnbc50n1pwkktx3pp5h8hz57fvjpnf8lfhp7xaxu83dgm95e37v6phwf3k4455wd4xreaqdqu2askcmr9wssx7e3q2dshgmmndp5scqzpgxqrrsskl7yekx4g7xcrk26034lw85mfyuwn9jj9zxuvn6egnacta4pkcrx6wl4n7ehrphdyh4lj3vw899rk283a7m4qtmd9ht05nq6shutdzqpv5cwg3',
+        'payment_request': payment_request,
+        'amt': amt,
 }
 
-response =  requests.get(
-    'https://btcpay.21isenough.me/lnd-rest/btc/v1/transactions',
+response =  requests.post(
+    'https://btcpay.21isenough.me/lnd-rest/btc/v1/channels/transactions',
     headers = {'Grpc-Metadata-macaroon': macaroon},
     data=json.dumps(data),
 )
