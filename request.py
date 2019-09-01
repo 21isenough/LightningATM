@@ -15,4 +15,4 @@ json_data = json.loads(r.text)
 payment_data = json_data['payments']
 last_payment = payment_data[-1]
 
-print(last_payment['value'])
+print(last_payment['value'] + ' ' +last_payment['status'])
