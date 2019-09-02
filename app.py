@@ -1,12 +1,10 @@
 
-# from __future__ import print_function
-
 import os
 import sys
-import json
-import codecs
-import string
-import requests
+
+import price
+import lightning
+
 # import lnd_grpc
 import RPi.GPIO as GPIO
 
@@ -30,36 +28,16 @@ CURRENCY = 'EUR'
 FIAT = 0
 SATS = 0
 
-# Command line usage
-# papirus-buttons
-
-hatdir = '/proc/device-tree/hat'
-
 WHITE = 1
 BLACK = 0
-
 SIZE = 27
 
-# Assume Papirus Zero
+# Assign GPIO pins for PaPiRus Zero
 SW1 = 21
 SW2 = 16
 SW3 = 20
 SW4 = 19
 SW5 = 26
-
-# Check for HAT, and if detected redefine SW1 .. SW5
-if (os.path.exists(hatdir + '/product')) and (os.path.exists(hatdir + '/vendor')) :
-   with open(hatdir + '/product') as f :
-      prod = f.read()
-   with open(hatdir + '/vendor') as f :
-      vend = f.read()
-   if (prod.find('PaPiRus ePaper HAT') == 0) and (vend.find('Pi Supply') == 0) :
-       # Papirus HAT detected
-       SW1 = 16
-       SW2 = 26
-       SW3 = 20
-       SW4 = 21
-       SW5 = -1
 
 def main(argv):
     global SIZE
@@ -82,7 +60,7 @@ def main(argv):
 
     papirus.clear()
 
-    btcprice = price_request(CURRENCY)
+    btcprice = price.getbtcprice(CURRENCY)
     satprice = round((1 / (btcprice * 100)) * 100000000, 2)
 
     while True:
@@ -109,7 +87,7 @@ def main(argv):
 
         if (GPIO.input(SW5) == False):
             update_payout_screen(papirus, SIZE)
-            payout(SATS)
+            lightning.payout(SATS)
 
         sleep(0.1)
 
@@ -130,7 +108,7 @@ def update_amount_screen(papirus, size):
     font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 14)
 
     # set btc and sat price
-    btcprice = price_request(CURRENCY)
+    btcprice = price.getbtcprice(CURRENCY)
     satprice = round((1 / btcprice) * 10e5, 2)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
@@ -158,7 +136,7 @@ def update_payout_screen(papirus, size):
     font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 15)
 
     # set btc and sat price
-#    btcprice = price_request(CURRENCY)
+#    btcprice = price.getbtcprice(CURRENCY)
 #    satprice = round((1 / btcprice) * 10e5, 2)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
@@ -170,30 +148,7 @@ def update_payout_screen(papirus, size):
     papirus.display(image)
     papirus.update()
 
-def price_request(fiatcode):
 
-    request = requests.get('https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC' + fiatcode)
-    json_data = json.loads(request.text)
-    return json_data['last']
-
-def payout(amt):
-
-    with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
-        macaroon_bytes = f.read()
-        macaroon = codecs.encode(macaroon_bytes, 'hex')
-
-    payment_request = 'lnbc1pwkc3etpp5htvq3syc...'
-
-    data = {
-            'payment_request': payment_request,
-            'amt': round(amt),
-    }
-
-    response =  requests.post(
-        'https://btcpay.21isenough.me/lnd-rest/btc/v1/channels/transactions',
-        headers = {'Grpc-Metadata-macaroon': macaroon},
-        data=json.dumps(data),
-    )
 
 if __name__ == '__main__':
     try:
