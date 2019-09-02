@@ -2,10 +2,6 @@
 import os
 import sys
 
-import price
-import lightning
-
-# import lnd_grpc
 import RPi.GPIO as GPIO
 
 from PIL import Image
@@ -58,40 +54,33 @@ def main(argv):
     if papirus.height <= 96:
         SIZE = 18
 
-    update_startup_screen()
-
-    # papirus.clear()
-
-    btcprice = price.getbtcprice(CURRENCY)
-    satprice = round((1 / (btcprice * 100)) * 100000000, 2)
+    papirus.clear()
 
     while True:
 
         if GPIO.input(SW1) == False:
-            FIAT += 0.01
-            SATS = FIAT * 100 * satprice
-            update_amount_screen(papirus, SIZE)
+            update_img_screen(papirus)
 
         if GPIO.input(SW2) == False:
-            FIAT += 0.02
-            SATS = FIAT * 100 * satprice
-            update_amount_screen(papirus, SIZE)
+            pass
 
         if GPIO.input(SW3) == False:
-            FIAT += 0.05
-            SATS = FIAT * 100 * satprice
-            update_amount_screen(papirus, SIZE)
+            pass
 
         if GPIO.input(SW4) == False:
-            FIAT += 0.1
-            SATS = FIAT * 100 * satprice
-            update_amount_screen(papirus, SIZE)
+            pass
 
         if (GPIO.input(SW5) == False):
-            update_payout_screen(papirus, SIZE)
-            lightning.payout(SATS)
+            pass
+
 
         sleep(0.1)
+
+def update_img_screen(papirus):
+    image = Image.new('1', papirus.size, WHITE)
+    papirus.display('~/LightningATM/resources/startup.png')
+    # papirus.display(image)
+    papirus.update()
 
 def update_amount_screen(papirus, size):
 
@@ -149,26 +138,6 @@ def update_payout_screen(papirus, size):
 
     papirus.display(image)
     papirus.update()
-
-def update_startup_screen():
-
-    font1 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/FreeMono.ttf'), 18)
-    font = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/Sawasdee-Bold.ttf'), 30)
-    font2 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/FreeMono.ttf'), 14)
-
-    papirus = Papirus(rotation = int(argv[0]) if len(sys.argv) > 1 else 0)
-
-    image = Image.new('1', papirus.size, WHITE)
-
-    draw = ImageDraw.Draw(image)
-
-    draw.text((20, 10), 'Welcome to the', fill=BLACK, font=font1)
-    draw.text((10, 20), 'LightningATM', fill=BLACK, font=font)
-    draw.text((7, 75), '- please insert coins -', fill=BLACK, font=font2)
-
-    papirus.display(image)
-    papirus.update()
-
 
 
 if __name__ == '__main__':

@@ -2,7 +2,6 @@ import os, codecs, requests, json
 
 
 def payout(amt):
-
     with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
         macaroon_bytes = f.read()
         macaroon = codecs.encode(macaroon_bytes, 'hex')
@@ -21,7 +20,6 @@ def payout(amt):
     )
 
 def lastpayment(amt):
-
     with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
         macaroon_bytes = f.read()
         macaroon = codecs.encode(macaroon_bytes, 'hex')
