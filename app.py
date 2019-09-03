@@ -1,11 +1,11 @@
 
 import os
 import sys
+import time
 
 import price
 import lightning
 
-# import lnd_grpc
 import RPi.GPIO as GPIO
 
 from PIL import Image
@@ -27,6 +27,7 @@ if EPD_SIZE == 0.0:
 CURRENCY = 'EUR'
 FIAT = 0
 SATS = 0
+INVOICE = 'lnbc1pwkakwxpp5p3mg26m6y4...'
 
 WHITE = 1
 BLACK = 0
@@ -88,8 +89,8 @@ def main(argv):
             update_amount_screen(papirus, SIZE)
 
         if (GPIO.input(SW5) == False):
+            lightning.payout(SATS, INVOICE)
             update_payout_screen(papirus, SIZE)
-            lightning.payout(SATS)
 
         sleep(0.1)
 
@@ -137,18 +138,25 @@ def update_payout_screen(papirus, size):
     font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 20)
     font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 15)
 
+
     # set btc and sat price
-#    btcprice = price.getbtcprice(CURRENCY)
-#    satprice = round((1 / btcprice) * 10e5, 2)
+    # btcprice = price.getbtcprice(CURRENCY)
+    # satprice = round((1 / btcprice) * 10e5, 2)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
     draw.text((15, 30), str(round(SATS)) + ' sats' , fill=BLACK, font=font)
     draw.text((15, 50), 'on the way!' , fill=BLACK, font=font1)
-#    draw.text((15, 30), '(' + '%.2f' % round(FIAT,2) + ' ' + CURRENCY + ')', fill=BLACK, font=font)
-#    draw.text((15, 70), '(1 cent = ' + str(satprice) + ' sats)', fill=BLACK, font=font1)
 
     papirus.display(image)
     papirus.update()
+
+    time.sleep(7)
+    result = lightning.lastpayment(INVOICE)
+
+    draw.text((15, 70), str(result), fill=BLACK, font=font1)
+
+    papirus.display(image)
+    papirus.partial_update()
 
 def update_startup_screen():
 

@@ -1,12 +1,10 @@
 import os, codecs, requests, json
 
 
-def payout(amt):
+def payout(amt, payment_request):
     with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
         macaroon_bytes = f.read()
         macaroon = codecs.encode(macaroon_bytes, 'hex')
-
-        payment_request = 'lnbc1pwk6xx0pp5m7f9mnkstxks9gphft6hfx0x9tzpfmlghxc37lyhupkd4cnsn26qdqu2askcmr9wssx7e3q2dshgmmndp5scqzpgxqrrssj2g95uwqxzrpaadyneqr2gmeefg6j4d6htdhxhgm3cz6nvhzuvphukkdzpkv488846xn97tp0av7pz0qkz0ttq7h3wcs29mq6hgp66qpk72vsu'
 
     data = {
             'payment_request': payment_request,
@@ -19,7 +17,7 @@ def payout(amt):
         data=json.dumps(data),
     )
 
-def lastpayment(amt):
+def lastpayment(payment_request):
     with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
         macaroon_bytes = f.read()
         macaroon = codecs.encode(macaroon_bytes, 'hex')
@@ -35,4 +33,7 @@ def lastpayment(amt):
     payment_data = json_data['payments']
     last_payment = payment_data[-1]
 
-    print(last_payment['value'] + ' ' +last_payment['status'])
+    if (last_payment['payment_request'] == payment_request) and (last_payment['status'] == 'SUCCEEDED'):
+        return 'Success'
+    else:
+        return 'Payment failed'
