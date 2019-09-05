@@ -13,3 +13,10 @@ def scan():
     except:
         scan = False
         print('Picture couldn\'t be taken..')
+    if(scan):
+        print('Scanning image..')
+        with open('resources/qr_codes/qr_'+str(qr_count)+'.jpg','rb') as f:
+            qr = Image.open(f)
+            qr.load()
+
+        codes = zbarlight.scan_codes('qrcode',qr)
