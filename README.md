@@ -4,6 +4,8 @@ This LightningATM was built to distribute small amounts of BTC - obviously - it 
 
 A pysical coin exchanged into bitcoin and send to your lightning wallet in less than 30 seconds. Use this project to educate your family and friends or guests at your bitcoin meetup - a convenient and easy on-boarding process for people that are new to bitcoin.
 
+![alt text](https://github.com/21isenough/LightningATM/blob/master/resources/startup_screen.jpg)
+
 ### Todo
 
 - [x] QR code scan function
