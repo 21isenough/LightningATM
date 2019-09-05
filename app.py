@@ -5,6 +5,7 @@ import time
 
 import price
 import lightning
+import qr
 
 import RPi.GPIO as GPIO
 
@@ -89,7 +90,6 @@ def main(argv):
             update_amount_screen(papirus, SIZE)
 
         if (GPIO.input(SW5) == False):
-            lightning.payout(SATS, INVOICE)
             update_payout_screen(papirus, SIZE)
 
         sleep(0.1)
@@ -124,6 +124,8 @@ def update_amount_screen(papirus, size):
 
 def update_payout_screen(papirus, size):
 
+    global INVOICE
+
     # initially set all white background
     image = Image.new('1', papirus.size, WHITE)
 
@@ -150,7 +152,13 @@ def update_payout_screen(papirus, size):
     papirus.display(image)
     papirus.update()
 
-    time.sleep(7)
+    INVOICE = qr.scan()
+
+    print(INVOICE)
+
+    lightning.payout(SATS, INVOICE)
+
+    # time.sleep(5)
     result = lightning.lastpayment(INVOICE)
 
     draw.text((15, 70), str(result), fill=BLACK, font=font1)
