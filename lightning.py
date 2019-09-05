@@ -39,19 +39,20 @@ def lastpayment(payment_request):
         return 'Payment failed'
 
 def decoderequest(payment_request):
-    with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
-        macaroon_bytes = f.read()
-        macaroon = codecs.encode(macaroon_bytes, 'hex')
+    if payment_request:
+        with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
+            macaroon_bytes = f.read()
+            macaroon = codecs.encode(macaroon_bytes, 'hex')
 
-    url = 'https://btcpay.21isenough.me/lnd-rest/btc/v1/payreq/' + str(payment_request)
+        url = 'https://btcpay.21isenough.me/lnd-rest/btc/v1/payreq/' + str(payment_request)
 
-    data = {
-            'payment_request': payment_request,
+        r = requests.get(url, headers = {'Grpc-Metadata-macaroon': macaroon})
+        json_data = json.loads(r.text)
+        request_data = json_data
 
-    }
-
-    r = requests.get(url, headers = {'Grpc-Metadata-macaroon': macaroon}, data=json.dumps(data))
-    json_data = json.loads(r.text)
-    request_data = json_data
-
-    return request_data['num_satoshis']
+        if 'lnbc1p' in payment_request:
+            print('Zero sat invoice')
+        else:
+            return request_data['num_satoshis']
+    else:
+        pass
