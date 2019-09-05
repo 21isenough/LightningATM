@@ -28,7 +28,7 @@ if EPD_SIZE == 0.0:
 CURRENCY = 'EUR'
 FIAT = 0
 SATS = 0
-INVOICE = 'lnbc1pwkakwxpp5p3mg26m6y4...'
+INVOICE = ''
 
 WHITE = 1
 BLACK = 0
@@ -69,6 +69,11 @@ def main(argv):
 
     while True:
 
+        if (GPIO.input(SW1) == False) and (GPIO.input(SW4) == False):
+            FIAT = 0
+            SATS = 0
+            update_startup_screen()
+
         if GPIO.input(SW1) == False:
             FIAT += 0.01
             SATS = FIAT * 100 * satprice
@@ -89,8 +94,10 @@ def main(argv):
             SATS = FIAT * 100 * satprice
             update_amount_screen(papirus, SIZE)
 
-        if (GPIO.input(SW5) == False):
+        if GPIO.input(SW5) == False:
             update_payout_screen(papirus, SIZE)
+
+
 
         sleep(0.1)
 
@@ -155,6 +162,8 @@ def update_payout_screen(papirus, size):
     INVOICE = qr.scan()
 
     print(INVOICE)
+
+    lightning.decoderequest(INVOICE)
 
     lightning.payout(SATS, INVOICE)
 
