@@ -20,6 +20,7 @@ def scan():
             qr.load()
 
         codes = zbarlight.scan_codes('qrcode',qr)
+        
         if(codes==None):
             print('No QR code found in the picture')
         else:
