@@ -20,3 +20,12 @@ def scan():
             qr.load()
 
         codes = zbarlight.scan_codes('qrcode',qr)
+        if(codes==None):
+            print('No QR code found in the picture')
+        else:
+            code = codes[0]
+
+            with open('resources/qr_codes/qr_code_scans.txt','a+') as f:
+                f.write(code.decode() + ' ' + str(datetime.now()) + '\n')
+
+            return code.decode()
