@@ -11,3 +11,4 @@ A pysical coin exchanged into bitcoin and send to your lightning wallet in less 
 - [ ] Reject to high amounts
 - [ ] Inform about failed scan
 - [ ] Ask for rescan of QR code
+- [ ] Find a faster solution for QR scans
