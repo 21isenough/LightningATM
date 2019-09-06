@@ -52,6 +52,7 @@ def decoderequest(payment_request):
 
         if 'lnbc1p' in payment_request:
             print('Zero sat invoice')
+            return True
         else:
             return request_data['num_satoshis']
     else:

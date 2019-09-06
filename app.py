@@ -163,17 +163,24 @@ def update_payout_screen(papirus, size):
 
     print(INVOICE)
 
-    lightning.decoderequest(INVOICE)
+    decodreq = lightning.decoderequest(INVOICE)
 
-    lightning.payout(SATS, INVOICE)
+    print(decodreq,round(SATS))
 
-    # time.sleep(5)
-    result = lightning.lastpayment(INVOICE)
+    if (decodreq == str(round(SATS))) or (decodreq == True):
+            lightning.payout(SATS, INVOICE)
 
-    draw.text((15, 70), str(result), fill=BLACK, font=font1)
+            # time.sleep(5)
+            result = lightning.lastpayment(INVOICE)
 
-    papirus.display(image)
-    papirus.partial_update()
+            draw.text((15, 70), str(result), fill=BLACK, font=font1)
+
+            papirus.display(image)
+            papirus.partial_update()
+    else:
+        print('Please show correct invoice')
+
+
 
 def update_startup_screen():
 
