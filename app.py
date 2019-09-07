@@ -9,12 +9,10 @@ import qr
 
 import RPi.GPIO as GPIO
 
-from PIL import Image
+from PIL import Image, ImageFont, ImageDraw
 from time import sleep
-from PIL import ImageDraw
-from PIL import ImageFont
 from papirus import Papirus
-
+from utils import *
 
 # Check EPD_SIZE is defined
 EPD_SIZE=0.0
@@ -24,140 +22,139 @@ if EPD_SIZE == 0.0:
     print("Please select your screen size by running 'papirus-config'.")
     sys.exit()
 
-# set sat,fiat, currency value
+# Set sat,fiat, currency value
 CURRENCY = 'EUR'
 FIAT = 0
 SATS = 0
 INVOICE = ''
 
+#
 WHITE = 1
 BLACK = 0
-SIZE = 27
+PAPIRUSROT = 0
 
-# Assign GPIO pins for PaPiRus Zero
-SW1 = 21
-SW2 = 16
-SW3 = 20
-SW4 = 19
-SW5 = 26
+PAPIRUS = Papirus(rotation = PAPIRUSROT)
 
-def main(argv):
-    global SIZE
+# Set btc and sat price
+BTCPRICE = getbtcprice(CURRENCY)
+SATPRICE = round((1 / (BTCPRICE * 100)) * 100000000, 2)
+
+# INIT VARIABLES
+LASTIMPULSE = 0
+PULSES = 0
+
+LASTPUSHES = 0
+PUSHES = 0
+
+def main():
     global FIAT
     global SATS
+    global PULSES
+    global PUSHES
 
+    ## Defining GPIO BCM Mode
     GPIO.setmode(GPIO.BCM)
 
-    GPIO.setup(SW1, GPIO.IN)
-    GPIO.setup(SW2, GPIO.IN)
-    GPIO.setup(SW3, GPIO.IN)
-    GPIO.setup(SW4, GPIO.IN)
-    GPIO.setup(SW5, GPIO.IN)
+    ## Setup GPIO Pins for coin acceptor and button
+    GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
+    GPIO.setup(6,GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
-    papirus = Papirus(rotation = int(argv[0]) if len(sys.argv) > 1 else 0)
-
-    # Use smaller font for smaller displays
-    if papirus.height <= 96:
-        SIZE = 18
+    ## Setup coin interrupt channel (bouncetime for switch bounce)
+    GPIO.add_event_detect(5, GPIO.RISING,callback=buttonevent, bouncetime=200)
+    GPIO.add_event_detect(6,GPIO.FALLING,callback=coinevent)
 
     update_startup_screen()
 
-    # papirus.clear()
-
-    btcprice = price.getbtcprice(CURRENCY)
-    satprice = round((1 / (btcprice * 100)) * 100000000, 2)
-
     while True:
+        time.sleep(0.5)
+        ## Detect when coins are being inserted
+        if((time.time() - LASTIMPULSE > 0.5) and (PULSES > 0)):
+            if (PULSES == 1):
+                 FIAT += 0.02
+                 SATS = FIAT * 100 * SATPRICE
+                 update_amount_screen(PAPIRUS, SIZE)
+            if (PULSES == 2):
+                 FIAT += 0.05
+                 SATS = FIAT * 100 * SATPRICE
+                 update_amount_screen(PAPIRUS, SIZE)
+            if (PULSES == 3):
+                 FIAT += 0.1
+                 SATS = FIAT * 100 * SATPRICE
+                 update_amount_screen(PAPIRUS, SIZE)
+            if (PULSES == 4):
+                 FIAT += 0.2
+                 SATS = FIAT * 100 * SATPRICE
+                 update_amount_screen(PAPIRUS, SIZE)
+            if (PULSES == 5):
+                 FIAT += 0.5
+                 SATS = FIAT * 100 * SATPRICE
+                 update_amount_screen(PAPIRUS, SIZE)
+            PULSES = 0
 
-        if (GPIO.input(SW1) == False) and (GPIO.input(SW4) == False):
-            FIAT = 0
-            SATS = 0
-            update_startup_screen()
-
-        if GPIO.input(SW1) == False:
-            FIAT += 0.01
-            SATS = FIAT * 100 * satprice
-            update_amount_screen(papirus, SIZE)
-
-        if GPIO.input(SW2) == False:
-            FIAT += 0.02
-            SATS = FIAT * 100 * satprice
-            update_amount_screen(papirus, SIZE)
-
-        if GPIO.input(SW3) == False:
-            FIAT += 0.05
-            SATS = FIAT * 100 * satprice
-            update_amount_screen(papirus, SIZE)
-
-        if GPIO.input(SW4) == False:
-            FIAT += 0.1
-            SATS = FIAT * 100 * satprice
-            update_amount_screen(papirus, SIZE)
-
-        if GPIO.input(SW5) == False:
-            update_payout_screen(papirus, SIZE)
+        ## Detect if the buttons has been pushed
+        if((time.time() - LASTPUSHES > 0.5) and (PUSHES > 0)):
+            if (PUSHES == 1):
+                 update_payout_screen(PAPIRUS, SIZE)
+            if (PUSHES == 2):
+                 print("Pushed twice")
+            if (PUSHES == 3):
+                GPIO.cleanup()
+                os.execl(sys.executable, os.path.abspath(__file__), *sys.argv)
+            PUSHES = 0
 
 
+def buttonevent(channel):
+    global LASTPUSHES
+    global PUSHES
+    LASTPUSHES = time.time()
+    PUSHES = PUSHES + 1
+    print(PUSHES)
 
-        sleep(0.1)
+def coinevent(channel):
+    global LASTIMPULSE
+    global PULSES
+    LASTIMPULSE = time.time()
+    PULSES = PULSES + 1
 
 def update_amount_screen(papirus, size):
 
-    # initially set all white background
-    image = Image.new('1', papirus.size, WHITE)
+    ## initially set all white background
+    image = Image.new('1', PAPIRUS.size, WHITE)
 
-    # Set width and heigt of screen
+    ## Set width and heigt of screen
     width, height = image.size
 
-    # prepare for drawing
+    ## prepare for drawing
     draw = ImageDraw.Draw(image)
 
-
-    # set font sizes
-    font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', size)
-    font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 14)
-
-    # set btc and sat price
-    btcprice = price.getbtcprice(CURRENCY)
-    satprice = round((1 / btcprice) * 10e5, 2)
-
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
-    draw.text((15, 10), str(round(SATS)) + ' sats', fill=BLACK, font=font)
-    draw.text((15, 30), '(' + '%.2f' % round(FIAT,2) + ' ' + CURRENCY + ')', fill=BLACK, font=font)
-    draw.text((15, 70), '(1 cent = ' + str(satprice) + ' sats)', fill=BLACK, font=font1)
+    draw.text((13, 10), str(round(SATS)) + ' sats', fill=BLACK, font=createfont('freemono',28))
+    draw.text((11, 37), '(' + '%.2f' % round(FIAT,2) + ' ' + CURRENCY + ')', fill=BLACK, font=createfont('freemono',20))
+    draw.text((13, 70), '(1 cent = ' + str(SATPRICE) + ' sats)', fill=BLACK, font=createfont('freemono',14))
 
-    papirus.display(image)
-    papirus.partial_update()
+    PAPIRUS.display(image)
+    PAPIRUS.partial_update()
 
 def update_payout_screen(papirus, size):
 
     global INVOICE
 
-    # initially set all white background
-    image = Image.new('1', papirus.size, WHITE)
+    ## initially set all white background
+    image = Image.new('1', PAPIRUS.size, WHITE)
 
-    # Set width and heigt of screen
+    ## Set width and heigt of screen
     width, height = image.size
 
-    # prepare for drawing
+    ## prepare for drawing
     draw = ImageDraw.Draw(image)
 
 
-    # set font sizes
-    font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 20)
-    font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 15)
-
-
-    # set btc and sat price
-    # btcprice = price.getbtcprice(CURRENCY)
-    # satprice = round((1 / btcprice) * 10e5, 2)
-
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
-    draw.text((15, 30), str(round(SATS)) + ' sats' , fill=BLACK, font=font)
-    draw.text((15, 50), 'on the way!' , fill=BLACK, font=font1)
+    draw.text((15, 30), str(round(SATS)) + ' sats' , fill=BLACK, font=createfont('freemono',20))
+    draw.text((15, 50), 'on the way!' , fill=BLACK, font=createfont('freemono',15))
 
-    papirus.display(image)
-    papirus.update()
+    PAPIRUS.display(image)
+    PAPIRUS.update()
 
     INVOICE = qr.scan()
 
@@ -170,41 +167,31 @@ def update_payout_screen(papirus, size):
     if (decodreq == str(round(SATS))) or (decodreq == True):
             lightning.payout(SATS, INVOICE)
 
-            # time.sleep(5)
             result = lightning.lastpayment(INVOICE)
 
-            draw.text((15, 70), str(result), fill=BLACK, font=font1)
+            draw.text((15, 70), str(result), fill=BLACK, font=createfont('freemono',15))
 
-            papirus.display(image)
-            papirus.partial_update()
+            PAPIRUS.display(image)
+            PAPIRUS.partial_update()
     else:
         print('Please show correct invoice')
 
-
-
 def update_startup_screen():
 
-    font1 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/FreeMono.ttf'), 18)
-    font = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/Sawasdee-Bold.ttf'), 30)
-    font2 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/FreeMono.ttf'), 14)
-
-    papirus = Papirus(rotation = int(argv[0]) if len(sys.argv) > 1 else 0)
-
-    image = Image.new('1', papirus.size, WHITE)
+    image = Image.new('1', PAPIRUS.size, WHITE)
 
     draw = ImageDraw.Draw(image)
 
-    draw.text((20, 10), 'Welcome to the', fill=BLACK, font=font1)
-    draw.text((10, 20), 'LightningATM', fill=BLACK, font=font)
-    draw.text((7, 75), '- please insert coins -', fill=BLACK, font=font2)
+    draw.text((20, 10), 'Welcome to the', fill=BLACK, font=createfont('freemono',18))
+    draw.text((10, 20), 'LightningATM', fill=BLACK, font=createfont('sawasdee',30))
+    draw.text((7, 75), '- please insert coins -', fill=BLACK, font=createfont('freemono',14))
 
-    papirus.display(image)
-    papirus.update()
-
-
+    PAPIRUS.display(image)
+    PAPIRUS.update()
 
 if __name__ == '__main__':
     try:
-        main(sys.argv[1:])
+        main()
     except KeyboardInterrupt:
         sys.exit('interrupted')
+        GPIO.cleanup()
