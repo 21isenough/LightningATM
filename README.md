@@ -1,8 +1,8 @@
 # LightningATM
 
-This LightningATM was built to distribute small amounts of BTC - obviously - it only accepts coins. It shall demonstrate the power of Bitcoins Lightning Network. A one cent coin is enough to buy some satoshis at the LightningATM.
+This LightningATM was built to distribute small amounts of BTC - obviously - it only accepts coins. It shall demonstrate the power of Bitcoins Lightning Network. A two cent coin is enough to buy some satoshis at the LightningATM.
 
-A pysical coin exchanged into bitcoin and send to your lightning wallet in less than 30 seconds. Use this project to educate your family and friends or guests at your bitcoin meetup - a convenient and easy on-boarding process for people that are new to bitcoin.
+A physical coin exchanged into bitcoin and send to your lightning wallet in seconds. Use this project to educate your family and friends or guests at your bitcoin meetup - a convenient and easy on-boarding process for people that are new to bitcoin.
 
 ![alt text](https://github.com/21isenough/LightningATM/blob/master/resources/startup_screen.jpg)
 
@@ -16,4 +16,4 @@ A pysical coin exchanged into bitcoin and send to your lightning wallet in less 
 - [ ] Find a faster solution for QR scans (zbarcam)
 - [ ] Store data in database
 - [ ] Add config file
-- [ ] Add encryption of admin.macaroon in idle mode 
+- [ ] Add encryption of admin.macaroon in idle mode
