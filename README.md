@@ -9,8 +9,11 @@ A pysical coin exchanged into bitcoin and send to your lightning wallet in less 
 ### Todo
 
 - [x] QR code scan function
-- [ ] Validate requested amount
-- [ ] Reject to high amounts
+- [x] Validate requested amount
+- [x] Reject to high amounts
 - [ ] Inform about failed scan
 - [ ] Ask for rescan of QR code
-- [ ] Find a faster solution for QR scans
+- [ ] Find a faster solution for QR scans (zbarcam)
+- [ ] Store data in database
+- [ ] Add config file
+- [ ] Add encryption of admin.macaroon in idle mode 
