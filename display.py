@@ -7,9 +7,9 @@ from papirus import Papirus
 BLACK = 0
 WHITE = 1
 
-font1 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/FreeMono.ttf'), 18)
-font = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/Sawasdee-Bold.ttf'), 30)
-font2 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/FreeMono.ttf'), 14)
+font1 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/fonts/FreeMono.ttf'), 18)
+font = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/fonts/Sawasdee-Bold.ttf'), 30)
+font2 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/fonts/FreeMono.ttf'), 14)
 
 def startupdisplay():
     papirus = Papirus(rotation = int(argv[0]) if len(sys.argv) > 1 else 0)
