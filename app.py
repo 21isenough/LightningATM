@@ -1,19 +1,22 @@
+#!/usr/bin/python3
 
 import os
 import sys
 import time
 
 import lightning
+
+import display
 import qr
 
 import RPi.GPIO as GPIO
 
 from PIL import Image, ImageFont, ImageDraw
-from time import sleep
-from papirus import Papirus
+# from time import sleep
 from utils import *
+from config import *
 
-# Check EPD_SIZE is defined
+## Check EPD_SIZE is defined
 EPD_SIZE=0.0
 if os.path.exists('/etc/default/epd-fuse'):
     exec(open('/etc/default/epd-fuse').read())
@@ -21,27 +24,19 @@ if EPD_SIZE == 0.0:
     print("Please select your screen size by running 'papirus-config'.")
     sys.exit()
 
-# Set sat,fiat, currency value
+## Set sat, fiat, currency value
 CURRENCY = 'EUR'
 FIAT = 0
 SATS = 0
 INVOICE = ''
 
-#
-WHITE = 1
-BLACK = 0
-PAPIRUSROT = 0
-
-PAPIRUS = Papirus(rotation = PAPIRUSROT)
-
-# Set btc and sat price
+## Set btc and sat price
 BTCPRICE = getbtcprice(CURRENCY)
 SATPRICE = round((1 / (BTCPRICE * 100)) * 100000000, 2)
 
-# INIT VARIABLES
+## Button / Acceptor Pulses
 LASTIMPULSE = 0
 PULSES = 0
-
 LASTPUSHES = 0
 PUSHES = 0
 
@@ -50,6 +45,10 @@ def main():
     global SATS
     global PULSES
     global PUSHES
+    global INVOICE
+
+    ## Display startup startup_screen
+    display.update_startup_screen()
 
     ## Defining GPIO BCM Mode
     GPIO.setmode(GPIO.BCM)
@@ -62,45 +61,45 @@ def main():
     GPIO.add_event_detect(5, GPIO.RISING,callback=buttonevent, bouncetime=200)
     GPIO.add_event_detect(6,GPIO.FALLING,callback=coinevent)
 
-    update_startup_screen()
-
     while True:
         time.sleep(0.5)
         ## Detect when coins are being inserted
         if((time.time() - LASTIMPULSE > 0.5) and (PULSES > 0)):
             if (PULSES == 1):
-                 FIAT += 0.02
-                 SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS)
+                FIAT += 0.02
+                SATS = FIAT * 100 * SATPRICE
+                update_amount_screen(PAPIRUS)
             if (PULSES == 2):
-                 FIAT += 0.05
-                 SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS)
+                FIAT += 0.05
+                SATS = FIAT * 100 * SATPRICE
+                update_amount_screen(PAPIRUS)
             if (PULSES == 3):
-                 FIAT += 0.1
-                 SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS)
+                FIAT += 0.1
+                SATS = FIAT * 100 * SATPRICE
+                update_amount_screen(PAPIRUS)
             if (PULSES == 4):
-                 FIAT += 0.2
-                 SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS)
+                FIAT += 0.2
+                SATS = FIAT * 100 * SATPRICE
+                update_amount_screen(PAPIRUS)
             if (PULSES == 5):
-                 FIAT += 0.5
-                 SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS)
+                FIAT += 0.5
+                SATS = FIAT * 100 * SATPRICE
+                update_amount_screen(PAPIRUS)
             PULSES = 0
 
         ## Detect if the buttons has been pushed
         if((time.time() - LASTPUSHES > 0.5) and (PUSHES > 0)):
             if (PUSHES == 1):
-                 update_payout_screen(PAPIRUS)
+                display.update_qr_request()
+                INVOICE = qr.scan()
+                update_payout_screen(PAPIRUS)
             if (PUSHES == 2):
-                 FIAT += 0.05
-                 SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS)
+                FIAT += 0.05
+                SATS = FIAT * 100 * SATPRICE
+                update_amount_screen(PAPIRUS)
             if (PUSHES == 3):
+                os.execv('/home/pi/LightningATM/app.py', [''])
                 GPIO.cleanup()
-                os.execl(sys.executable, os.path.abspath(__file__), *sys.argv)
             PUSHES = 0
 
 
@@ -138,7 +137,7 @@ def update_amount_screen(papirus):
 
 def update_payout_screen(papirus):
 
-    global INVOICE
+    # global INVOICE
 
     ## initially set all white background
     image = Image.new('1', PAPIRUS.size, WHITE)
@@ -157,9 +156,7 @@ def update_payout_screen(papirus):
     PAPIRUS.display(image)
     PAPIRUS.update()
 
-    INVOICE = qr.scan()
-
-    print(INVOICE)
+    # INVOICE = qr.scan()
 
     decodreq = lightning.decoderequest(INVOICE)
 
@@ -174,21 +171,14 @@ def update_payout_screen(papirus):
 
             PAPIRUS.display(image)
             PAPIRUS.partial_update()
+            time.sleep(1)
+
+            display.update_thankyou_screen()
+            #os.execl(os.path.expanduser('~/LightningATM/app.py'), *sys.argv)
+            os.execv('/home/pi/LightningATM/app.py', [''])
     else:
         print('Please show correct invoice')
 
-def update_startup_screen():
-
-    image = Image.new('1', PAPIRUS.size, WHITE)
-
-    draw = ImageDraw.Draw(image)
-
-    draw.text((20, 10), 'Welcome to the', fill=BLACK, font=createfont('freemono',18))
-    draw.text((10, 20), 'LightningATM', fill=BLACK, font=createfont('sawasdee',30))
-    draw.text((7, 75), '- please insert coins -', fill=BLACK, font=createfont('freemono',14))
-
-    PAPIRUS.display(image)
-    PAPIRUS.update()
 
 if __name__ == '__main__':
     try:
