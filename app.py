@@ -3,7 +3,6 @@ import os
 import sys
 import time
 
-import price
 import lightning
 import qr
 
@@ -72,31 +71,33 @@ def main():
             if (PULSES == 1):
                  FIAT += 0.02
                  SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS, SIZE)
+                 update_amount_screen(PAPIRUS)
             if (PULSES == 2):
                  FIAT += 0.05
                  SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS, SIZE)
+                 update_amount_screen(PAPIRUS)
             if (PULSES == 3):
                  FIAT += 0.1
                  SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS, SIZE)
+                 update_amount_screen(PAPIRUS)
             if (PULSES == 4):
                  FIAT += 0.2
                  SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS, SIZE)
+                 update_amount_screen(PAPIRUS)
             if (PULSES == 5):
                  FIAT += 0.5
                  SATS = FIAT * 100 * SATPRICE
-                 update_amount_screen(PAPIRUS, SIZE)
+                 update_amount_screen(PAPIRUS)
             PULSES = 0
 
         ## Detect if the buttons has been pushed
         if((time.time() - LASTPUSHES > 0.5) and (PUSHES > 0)):
             if (PUSHES == 1):
-                 update_payout_screen(PAPIRUS, SIZE)
+                 update_payout_screen(PAPIRUS)
             if (PUSHES == 2):
-                 print("Pushed twice")
+                 FIAT += 0.05
+                 SATS = FIAT * 100 * SATPRICE
+                 update_amount_screen(PAPIRUS)
             if (PUSHES == 3):
                 GPIO.cleanup()
                 os.execl(sys.executable, os.path.abspath(__file__), *sys.argv)
@@ -116,7 +117,7 @@ def coinevent(channel):
     LASTIMPULSE = time.time()
     PULSES = PULSES + 1
 
-def update_amount_screen(papirus, size):
+def update_amount_screen(papirus):
 
     ## initially set all white background
     image = Image.new('1', PAPIRUS.size, WHITE)
@@ -135,7 +136,7 @@ def update_amount_screen(papirus, size):
     PAPIRUS.display(image)
     PAPIRUS.partial_update()
 
-def update_payout_screen(papirus, size):
+def update_payout_screen(papirus):
 
     global INVOICE
 
