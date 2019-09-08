@@ -15,5 +15,5 @@ A physical coin exchanged into bitcoin and send to your lightning wallet in seco
 - [ ] Ask for rescan of QR code
 - [ ] Find a faster solution for QR scans (zbarcam)
 - [ ] Store data in database
-- [ ] Add config file
+- [x] Add config file
 - [ ] Add encryption of admin.macaroon in idle mode
