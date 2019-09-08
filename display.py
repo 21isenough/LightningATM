@@ -1,26 +1,40 @@
-import PIL, os
-from PIL import ImageDraw
-from PIL import ImageFont
+import time
 
-from papirus import Papirus
+from utils import *
+from config import *
 
-BLACK = 0
-WHITE = 1
+from PIL import Image, ImageFont, ImageDraw
 
-font1 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/fonts/FreeMono.ttf'), 18)
-font = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/fonts/Sawasdee-Bold.ttf'), 30)
-font2 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/fonts/FreeMono.ttf'), 14)
 
-def startupdisplay():
-    papirus = Papirus(rotation = int(argv[0]) if len(sys.argv) > 1 else 0)
 
-    image = PIL.Image.new('1', papirus.size, WHITE)
+def update_startup_screen():
+
+    image = Image.new('1', PAPIRUS.size, WHITE)
 
     draw = ImageDraw.Draw(image)
 
-    draw.text((20, 10), 'Welcome to the', fill=BLACK, font=font1)
-    draw.text((10, 20), 'LightningATM', fill=BLACK, font=font)
-    draw.text((7, 75), '- please insert coins -', fill=BLACK, font=font2)
+    draw.text((20, 10), 'Welcome to the', fill=BLACK, font=createfont('freemono',18))
+    draw.text((10, 20), 'LightningATM', fill=BLACK, font=createfont('sawasdee',30))
+    draw.text((7, 75), '- please insert coins -', fill=BLACK, font=createfont('freemono',14))
 
-    papirus.display(image)
-    papirus.update()
+    PAPIRUS.display(image)
+    PAPIRUS.update()
+
+def update_qr_request():
+
+    image = Image.new('1', PAPIRUS.size, WHITE)
+
+    draw = ImageDraw.Draw(image)
+
+    draw.text((25, 10), 'Please scan', fill=BLACK, font=createfont('freemono',20))
+    draw.text((10, 30), 'your invoice in 5 sec', fill=BLACK, font=createfont('freemono',20))
+
+    PAPIRUS.display(image)
+    PAPIRUS.update()
+
+    for i in range(0,5):
+        draw.text((80, 50), str(5 - i), fill=BLACK, font=createfont('freemono',50))
+        PAPIRUS.display(image)
+        PAPIRUS.partial_update()
+        draw.rectangle((75, 55 , 115, 95), fill=WHITE, outline=WHITE)
+        time.sleep(1)
