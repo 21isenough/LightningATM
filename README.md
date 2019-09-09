@@ -6,14 +6,20 @@ A physical coin exchanged into bitcoin and send to your lightning wallet in seco
 
 ![alt text](https://github.com/21isenough/LightningATM/blob/master/resources/startup_screen.jpg)
 
+### Partslist
+
+Coming soon - list with all the parts needed for this setup
+
 ### Todo
 
 - [x] QR code scan function
 - [x] Validate requested amount
 - [x] Reject to high amounts
+- [x] Add config file
+- [ ] Store data in database
 - [ ] Inform about failed scan
 - [ ] Ask for rescan of QR code
 - [ ] Find a faster solution for QR scans (zbarcam)
-- [ ] Store data in database
-- [x] Add config file
+- [ ] Rethink the design decisions in regards to hardware
 - [ ] Add encryption of admin.macaroon in idle mode
+- [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
