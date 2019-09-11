@@ -1,18 +1,12 @@
 #!/usr/bin/python3
 
-import os
-import sys
-import time
-
-import lightning
-
-import display
-import qr
+import os, sys, time
 
 import RPi.GPIO as GPIO
+import lightning, display, qr
 
 from PIL import Image, ImageFont, ImageDraw
-# from time import sleep
+
 from utils import *
 from config import *
 
@@ -24,8 +18,7 @@ if EPD_SIZE == 0.0:
     print("Please select your screen size by running 'papirus-config'.")
     sys.exit()
 
-## Set sat, fiat, currency value
-CURRENCY = 'EUR'
+## Set sat, fiat
 FIAT = 0
 SATS = 0
 INVOICE = ''
