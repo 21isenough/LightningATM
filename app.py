@@ -177,5 +177,5 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        sys.exit('interrupted')
+        sys.exit('manually interrupted')
         GPIO.cleanup()
