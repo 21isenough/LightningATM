@@ -1,4 +1,5 @@
 import os, codecs, requests, json
+from config import *
 
 
 def payout(amt, payment_request):
@@ -12,7 +13,7 @@ def payout(amt, payment_request):
     }
 
     response =  requests.post(
-        'https://btcpay.21isenough.me/lnd-rest/btc/v1/channels/transactions',
+        str(APIURL) + '/channels/transactions',
         headers = {'Grpc-Metadata-macaroon': macaroon},
         data=json.dumps(data),
     )
@@ -22,7 +23,7 @@ def lastpayment(payment_request):
         macaroon_bytes = f.read()
         macaroon = codecs.encode(macaroon_bytes, 'hex')
 
-    url = 'https://btcpay.21isenough.me/lnd-rest/btc/v1/payments'
+    url = str(APIURL) + '/payments'
 
     data = {
             'include_incomplete': True,
@@ -44,7 +45,7 @@ def decoderequest(payment_request):
             macaroon_bytes = f.read()
             macaroon = codecs.encode(macaroon_bytes, 'hex')
 
-        url = 'https://btcpay.21isenough.me/lnd-rest/btc/v1/payreq/' + str(payment_request)
+        url = str(APIURL) + '/payreq/' + str(payment_request)
 
         r = requests.get(url, headers = {'Grpc-Metadata-macaroon': macaroon})
         json_data = json.loads(r.text)
