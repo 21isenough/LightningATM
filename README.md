@@ -4,6 +4,8 @@ This LightningATM was built to distribute small amounts of BTC - obviously - it 
 
 A physical coin exchanged into bitcoin and send to your lightning wallet in seconds. Use this project to educate your family and friends or guests at your bitcoin meetup - a convenient and easy on-boarding process for people that are new to bitcoin.
 
+A comprehensive guide on how to setup the LightningATM will follow here - please stay tuned. Meanwhile just just send me messages and ask questions via Twitter (@21iseough).  
+
 ![alt text](https://github.com/21isenough/LightningATM/blob/master/resources/startup_screen.jpg)
 
 ### Parts list

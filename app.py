@@ -95,7 +95,6 @@ def main():
                 GPIO.cleanup()
             PUSHES = 0
 
-
 def buttonevent(channel):
     global LASTPUSHES
     global PUSHES
