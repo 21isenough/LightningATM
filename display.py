@@ -33,7 +33,7 @@ def update_qr_request():
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
     draw.text((25, 10), 'Please scan', fill=BLACK, font=createfont('freemono',20))
-    draw.text((10, 30), 'your invoice in 5 sec', fill=BLACK, font=createfont('freemono',20))
+    draw.text((10, 30), 'your invoice in', fill=BLACK, font=createfont('freemono',20))
 
     PAPIRUS.display(image)
     PAPIRUS.update()
@@ -47,6 +47,24 @@ def update_qr_request():
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
     draw.text((25, 10), 'Scanning...', fill=BLACK, font=createfont('freemono',20))
+    PAPIRUS.display(image)
+    PAPIRUS.partial_update()
+
+def update_qr_failed():
+
+    ## initially set all white background
+    image = Image.new('1', PAPIRUS.size, WHITE)
+
+    ## Set width and heigt of screen
+    width, height = image.size
+
+    ## prepare for drawing
+    draw = ImageDraw.Draw(image)
+
+    draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
+    draw.text((25, 10), 'Scanning...', fill=BLACK, font=createfont('freemono',20))
+    draw.text((25, 40), 'Scan failed.', fill=BLACK, font=createfont('freemono',20))
+    draw.text((25, 70), 'Try again.', fill=BLACK, font=createfont('freemono',20))
     PAPIRUS.display(image)
     PAPIRUS.partial_update()
 
