@@ -2,8 +2,6 @@ import os, zbarlight, sys
 from PIL import Image
 from datetime import datetime
 
-
-
 def scan():
 
     qr_count = len(os.listdir('resources/qr_codes'))
@@ -36,6 +34,7 @@ def scan():
 
         if not codes:
             print('No QR code found in the picture')
+            return False
         else:
             code = codes[0][0]
 
