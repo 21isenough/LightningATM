@@ -85,7 +85,13 @@ def main():
             if (PUSHES == 1):
                 display.update_qr_request()
                 INVOICE = qr.scan()
+                while INVOICE == False:
+                    display.update_qr_failed()
+                    time.sleep(1)
+                    display.update_qr_request()
+                    INVOICE = qr.scan()
                 update_payout_screen(PAPIRUS)
+
             if (PUSHES == 2):
                 FIAT += 0.05
                 SATS = FIAT * 100 * SATPRICE
