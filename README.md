@@ -49,3 +49,13 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 - [ ] Find solution to work without jumper cables
 - [ ] Add encryption of admin.macaroon in idle mode
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
+- [ ] Implement QR Scan from Ketominer
+- [ ] Change to wide angle camera
+- [ ] Sort out scan errors
+- [ ] Lower case ln invoices
+- [ ] Design ideas for case
+- [ ] Check out BTCPay API to integrate backend
+- [ ] Run certain functions in threads
+- [ ] PCB Board design
+- [ ] 5V-12V step up transformer
+- [ ] Implement multilingual
