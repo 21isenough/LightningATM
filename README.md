@@ -58,4 +58,6 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 - [ ] Run certain functions in threads
 - [ ] PCB Board design
 - [ ] 5V-12V step up transformer
-- [ ] Implement multilingual
+- [ ] Implement multilingual support
+- [ ] 2 layer for coins to reject before accepted
+- [ ] Write list of all compatible wallets/qr qr_codes
