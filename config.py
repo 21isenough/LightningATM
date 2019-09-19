@@ -10,4 +10,4 @@ PAPIRUSROT = 0
 PAPIRUS = Papirus(rotation = PAPIRUSROT)
 
 ## set currency value
-CURRENCY = 'CHF'
+CURRENCY = 'EUR'
