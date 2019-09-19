@@ -41,9 +41,9 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 - [x] Reject to high amounts
 - [x] Add config file
 - [x] Add parts list to readme
+- [x] Ask for rescan of QR code
+- [x] Inform about failed scan
 - [ ] Store data in database
-- [ ] Inform about failed scan
-- [ ] Ask for rescan of QR code
 - [ ] Find a faster solution for QR scans (zbarcam)
 - [ ] Rethink the design decisions in regards to hardware
 - [ ] Find solution to work without jumper cables
