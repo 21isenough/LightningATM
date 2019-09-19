@@ -37,8 +37,13 @@ def scan():
             return False
         else:
             code = codes[0][0]
+            print(code)
+            code = code.decode()
+            print(code)
+            code = code.lower()
+            print(code)
 
             with open('resources/qr_codes/qr_code_scans.txt','a+') as f:
-                f.write(code.decode() + ' ' + str(datetime.now()) + '\n')
+                f.write(code + ' ' + str(datetime.now()) + '\n')
 
-            return code.decode()
+            return code
