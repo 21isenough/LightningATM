@@ -5,8 +5,6 @@ from config import *
 
 from PIL import Image, ImageFont, ImageDraw
 
-
-
 def update_startup_screen():
 
     image = Image.new('1', PAPIRUS.size, WHITE)
@@ -67,6 +65,19 @@ def update_qr_failed():
     draw.text((25, 70), 'Try again.', fill=BLACK, font=createfont('freemono',20))
     PAPIRUS.display(image)
     PAPIRUS.partial_update()
+
+def update_payment_failed():
+
+    image = Image.new('1', PAPIRUS.size, WHITE)
+
+    draw = ImageDraw.Draw(image)
+
+    draw.text((15, 10), 'Payment failed!', fill=BLACK, font=createfont('freemono',19))
+    draw.text((25, 45), 'Please contact', fill=BLACK, font=createfont('freemono',17))
+    draw.text((45, 65), 'operator.', fill=BLACK, font=createfont('freemono',17))
+
+    PAPIRUS.display(image)
+    PAPIRUS.update()
 
 def update_thankyou_screen():
 
