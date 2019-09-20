@@ -93,10 +93,12 @@ def main():
                 update_payout_screen(PAPIRUS)
 
             if (PUSHES == 2):
-                FIAT += 0.05
+                print('Button pushed twice')
+                FIAT += 0.01
                 SATS = FIAT * 100 * SATPRICE
                 update_amount_screen(PAPIRUS)
             if (PUSHES == 3):
+                print('Button pushed three times - restart')
                 os.execv('/home/pi/LightningATM/app.py', [''])
                 GPIO.cleanup()
             PUSHES = 0
@@ -106,7 +108,6 @@ def buttonevent(channel):
     global PUSHES
     LASTPUSHES = time.time()
     PUSHES = PUSHES + 1
-    print(PUSHES)
 
 def coinevent(channel):
     global LASTIMPULSE
