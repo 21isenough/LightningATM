@@ -35,8 +35,10 @@ def lastpayment(payment_request):
     last_payment = payment_data[-1]
 
     if (last_payment['payment_request'] == payment_request) and (last_payment['status'] == 'SUCCEEDED'):
+        print('Payment succeeded')
         return 'Success'
     else:
+        print('Payment failed')
         return 'Payment failed'
 
 def decoderequest(payment_request):
