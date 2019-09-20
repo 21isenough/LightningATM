@@ -172,7 +172,12 @@ def update_payout_screen(papirus):
             PAPIRUS.partial_update()
             time.sleep(1)
 
-            display.update_thankyou_screen()
+            if result == 'Success':
+                display.update_thankyou_screen()
+            else:
+                display.update_payment_failed()
+                time.sleep(120)
+
             #os.execl(os.path.expanduser('~/LightningATM/app.py'), *sys.argv)
             os.execv('/home/pi/LightningATM/app.py', [''])
     else:
