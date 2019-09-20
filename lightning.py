@@ -18,6 +18,11 @@ def payout(amt, payment_request):
         data=json.dumps(data),
     )
 
+    response = json.loads(response.text)
+
+    if response.get('payment_error'):
+        print('Error: ' + response.get('payment_error'))
+
 def lastpayment(payment_request):
     with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
         macaroon_bytes = f.read()
