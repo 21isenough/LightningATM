@@ -91,3 +91,16 @@ def update_thankyou_screen():
 
     PAPIRUS.display(image)
     PAPIRUS.update()
+
+def update_shutdown_screen():
+
+    image = Image.new('1', PAPIRUS.size, WHITE)
+
+    draw = ImageDraw.Draw(image)
+
+    draw.text((20, 10), 'ATM turned off!', fill=BLACK, font=createfont('freemono',18))
+    draw.text((25, 45), 'Please contact', fill=BLACK, font=createfont('freemono',17))
+    draw.text((45, 65), 'operator.', fill=BLACK, font=createfont('freemono',17))
+
+    PAPIRUS.display(image)
+    PAPIRUS.update()
