@@ -66,30 +66,35 @@ def main():
         time.sleep(0.5)
         ## Detect when coins are being inserted
         if((time.time() - LASTIMPULSE > 0.5) and (PULSES > 0)):
-            if (PULSES == 1):
+            if (PULSES == 2):
                 FIAT += 0.02
                 SATS = FIAT * 100 * SATPRICE
                 logging.info('2 cents added')
                 update_amount_screen(PAPIRUS)
-            if (PULSES == 2):
+            if (PULSES == 3):
                 FIAT += 0.05
                 SATS = FIAT * 100 * SATPRICE
                 logging.info('5 cents added')
                 update_amount_screen(PAPIRUS)
-            if (PULSES == 3):
+            if (PULSES == 4):
                 FIAT += 0.1
                 SATS = FIAT * 100 * SATPRICE
                 logging.info('10 cents added')
                 update_amount_screen(PAPIRUS)
-            if (PULSES == 4):
+            if (PULSES == 5):
                 FIAT += 0.2
                 SATS = FIAT * 100 * SATPRICE
                 logging.info('20 cents added')
                 update_amount_screen(PAPIRUS)
-            if (PULSES == 5):
+            if (PULSES == 6):
                 FIAT += 0.5
                 SATS = FIAT * 100 * SATPRICE
                 logging.info('50 cents added')
+                update_amount_screen(PAPIRUS)
+            if (PULSES == 7):
+                FIAT += 1
+                SATS = FIAT * 100 * SATPRICE
+                logging.info('100 cents added')
                 update_amount_screen(PAPIRUS)
             PULSES = 0
 
@@ -108,7 +113,7 @@ def main():
             if (PUSHES == 2):
                 logging.info('Button pushed twice (add coin)')
                 print('Button pushed twice (add coin)')
-                PULSES = 1
+                PULSES = 2
 
             if (PUSHES == 3):
                 logging.warning('Button pushed three times (restart)')
