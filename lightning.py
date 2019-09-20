@@ -1,4 +1,4 @@
-import os, codecs, requests, json
+import os, codecs, requests, json, logging
 from config import *
 
 
@@ -21,6 +21,8 @@ def payout(amt, payment_request):
     response = json.loads(response.text)
 
     if response.get('payment_error'):
+        errormessage = response.get('payment_error')
+        logging.error('Payment failed (%s)' % errormessage)
         print('Error: ' + response.get('payment_error'))
 
 def lastpayment(payment_request):
@@ -40,6 +42,7 @@ def lastpayment(payment_request):
     last_payment = payment_data[-1]
 
     if (last_payment['payment_request'] == payment_request) and (last_payment['status'] == 'SUCCEEDED'):
+        logging.info('Payment succeeded')
         print('Payment succeeded')
         return 'Success'
     else:
