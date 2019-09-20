@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import os, sys, time
+import os, sys, time, logging
 
 import RPi.GPIO as GPIO
 import lightning, display, qr
@@ -40,6 +40,14 @@ def main():
     global PUSHES
     global INVOICE
 
+    ## Initiating logging instance
+    logging.basicConfig(filename='/home/pi/LightningATM/resources/debug.log',
+                            format='%(asctime)s %(name)s %(levelname)s %(message)s',
+                            datefmt='%Y/%m/%d %I:%M:%S %p',
+                            level=logging.INFO)
+
+    logging.info('Application started')
+
     ## Display startup startup_screen
     display.update_startup_screen()
 
@@ -61,22 +69,27 @@ def main():
             if (PULSES == 1):
                 FIAT += 0.02
                 SATS = FIAT * 100 * SATPRICE
+                logging.info('2 cents added')
                 update_amount_screen(PAPIRUS)
             if (PULSES == 2):
                 FIAT += 0.05
                 SATS = FIAT * 100 * SATPRICE
+                logging.info('5 cents added')
                 update_amount_screen(PAPIRUS)
             if (PULSES == 3):
                 FIAT += 0.1
                 SATS = FIAT * 100 * SATPRICE
+                logging.info('10 cents added')
                 update_amount_screen(PAPIRUS)
             if (PULSES == 4):
                 FIAT += 0.2
                 SATS = FIAT * 100 * SATPRICE
+                logging.info('20 cents added')
                 update_amount_screen(PAPIRUS)
             if (PULSES == 5):
                 FIAT += 0.5
                 SATS = FIAT * 100 * SATPRICE
+                logging.info('50 cents added')
                 update_amount_screen(PAPIRUS)
             PULSES = 0
 
@@ -93,12 +106,13 @@ def main():
                 update_payout_screen(PAPIRUS)
 
             if (PUSHES == 2):
-                print('Button pushed twice')
-                FIAT += 0.01
-                SATS = FIAT * 100 * SATPRICE
-                update_amount_screen(PAPIRUS)
+                logging.info('Button pushed twice (add coin)')
+                print('Button pushed twice (add coin)')
+                PULSES = 1
+
             if (PUSHES == 3):
-                print('Button pushed three times - restart')
+                logging.warning('Button pushed three times (restart)')
+                print('Button pushed three times (restart)')
                 os.execv('/home/pi/LightningATM/app.py', [''])
                 GPIO.cleanup()
             PUSHES = 0
@@ -188,5 +202,7 @@ if __name__ == '__main__':
     try:
         main()
     except KeyboardInterrupt:
-        sys.exit('manually interrupted')
+        display.update_shutdown_screen()
         GPIO.cleanup()
+        logging.info('Application finished (Keyboard Interrupt)')
+        sys.exit('Manually Interrupted')
