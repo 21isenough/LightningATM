@@ -49,3 +49,5 @@ def scan():
                     f.write(code + ' ' + str(datetime.now()) + '\n')
 
                 return code
+    print('4 failed attempts ... try again.')
+    return False
