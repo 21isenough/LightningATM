@@ -57,7 +57,7 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 - [ ] Check out BTCPay API to integrate backend
 - [ ] Run certain functions in threads
 - [ ] PCB Board design
-- [ ] 5V-12V step up transformer
+- [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
 - [ ] Implement multilingual support
 - [ ] 2 layer for coins to reject before accepted
 - [ ] Write list of all compatible wallets/qr qr_codes
