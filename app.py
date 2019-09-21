@@ -120,6 +120,12 @@ def main():
                 print('Button pushed three times (restart)')
                 os.execv('/home/pi/LightningATM/app.py', [''])
                 GPIO.cleanup()
+
+            if (PUSHES == 4):
+                display.update_shutdown_screen()
+                GPIO.cleanup()
+                logging.info('ATM shutdown (4 times button)')
+                os.system('sudo shutdown -h now')
             PUSHES = 0
 
 def buttonevent(channel):
