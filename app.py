@@ -101,14 +101,19 @@ def main():
         ## Detect if the buttons has been pushed
         if((time.time() - LASTPUSHES > 0.5) and (PUSHES > 0)):
             if (PUSHES == 1):
-                display.update_qr_request()
-                INVOICE = qr.scan()
-                while INVOICE == False:
-                    display.update_qr_failed()
-                    time.sleep(1)
+                if FIAT == 0:
+                    display.update_nocoin_screen()
+                    time.sleep(3)
+                    display.update_startup_screen()
+                else:
                     display.update_qr_request()
                     INVOICE = qr.scan()
-                update_payout_screen(PAPIRUS)
+                    while INVOICE == False:
+                        display.update_qr_failed()
+                        time.sleep(1)
+                        display.update_qr_request()
+                        INVOICE = qr.scan()
+                    update_payout_screen(PAPIRUS)
 
             if (PUSHES == 2):
                 logging.info('Button pushed twice (add coin)')
