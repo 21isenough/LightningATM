@@ -92,6 +92,19 @@ def update_thankyou_screen():
     PAPIRUS.display(image)
     PAPIRUS.update()
 
+def update_nocoin_screen():
+
+    image = Image.new('1', PAPIRUS.size, WHITE)
+
+    draw = ImageDraw.Draw(image)
+
+    draw.text((15, 10), 'No coins added!', fill=BLACK, font=createfont('freemono',19))
+    draw.text((25, 45), 'Please add', fill=BLACK, font=createfont('freemono',17))
+    draw.text((45, 65), 'coins first.', fill=BLACK, font=createfont('freemono',17))
+
+    PAPIRUS.display(image)
+    PAPIRUS.update()
+
 def update_shutdown_screen():
 
     image = Image.new('1', PAPIRUS.size, WHITE)
