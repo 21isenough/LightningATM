@@ -46,6 +46,7 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 - [x] Implement continuous QR Scan
 - [x] Lower case ln invoices
 - [x] Find a faster solution for QR scans (zbarcam)
+- [ ] Check if there's other zbar python libraries
 - [ ] Store data in database
 - [ ] Rethink the design decisions in regards to hardware
 - [ ] Find solution to work without jumper cables
