@@ -10,7 +10,13 @@ from PIL import Image, ImageFont, ImageDraw
 from utils import *
 from config import *
 
-
+## Check EPD_SIZE is defined
+EPD_SIZE=0.0
+if os.path.exists('/etc/default/epd-fuse'):
+    exec(open('/etc/default/epd-fuse').read())
+if EPD_SIZE == 0.0:
+    print("Please select your screen size by running 'papirus-config'.")
+    sys.exit()
 
 ## Set sat, fiat
 FIAT = 0
