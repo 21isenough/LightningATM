@@ -144,6 +144,7 @@ def coinevent(channel):
     global PULSES
     LASTIMPULSE = time.time()
     PULSES = PULSES + 1
+    print(PULSES)
 
 def update_amount_screen(papirus):
 
