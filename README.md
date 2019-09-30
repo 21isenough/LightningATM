@@ -37,28 +37,28 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 ### Todo
 
 #### Prio 1
-- [ ] Research camera resolutions / qr code scanning
-- [ ] Check if there's other zbar python libraries
-- [ ] Store data in database
 - [ ] Rethink the design decisions in regards to hardware
-- [ ] Find solution to work without jumper cables
-- [ ] Add encryption of admin.macaroon in idle mode
-- [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
-- [ ] Change to wide angle camera
-- [ ] Sort out scan errors
-- [ ] Design ideas for case
-- [ ] Check out BTCPay API to integrate backend
-- [ ] Run certain functions in threads
+- [ ] Research camera resolutions / qr code scanning
 - [ ] PCB Board design (https://easyeda.com/)
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
-- [ ] Implement multilingual support
-- [ ] 2 layer for coins to reject before accepted
+- [ ] Change to wide angle camera
+- [ ] Sort out scan errors
 - [ ] Write list of all compatible wallets/qr qr_codes
 - [ ] Draw printer and boards in 3D (https://www.onshape.com/)
 
 #### Prio 2
+- [ ] Run certain functions in threads
+- [ ] Check if there's other zbar python libraries
+- [ ] Find solution to work without jumper cables
+- [ ] Add encryption of admin.macaroon in idle mode
+- [ ] Design ideas for case
+- [ ] Check out BTCPay API to integrate backend
 
 #### Prio 3
+- [ ] Store data in database
+- [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
+- [ ] Implement multilingual support
+- [ ] 2 layer for coins to reject before accepted
 
 #### Done
 - [x] QR code scan function
