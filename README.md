@@ -47,7 +47,7 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 - [x] Lower case ln invoices
 - [x] Find a faster solution for QR scans (zbarcam)
 - [ ] Organize todos better
-- [ ] Research camera resolutions / qr code scanning 
+- [ ] Research camera resolutions / qr code scanning
 - [ ] Check if there's other zbar python libraries
 - [ ] Store data in database
 - [ ] Rethink the design decisions in regards to hardware
@@ -59,7 +59,7 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 - [ ] Design ideas for case
 - [ ] Check out BTCPay API to integrate backend
 - [ ] Run certain functions in threads
-- [ ] PCB Board design
+- [ ] PCB Board design (https://easyeda.com/)
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
 - [ ] Implement multilingual support
 - [ ] 2 layer for coins to reject before accepted
