@@ -36,17 +36,7 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 
 ### Todo
 
-- [x] QR code scan function
-- [x] Validate requested amount
-- [x] Reject to high amounts
-- [x] Add config file
-- [x] Add parts list to readme
-- [x] Ask for rescan of QR code
-- [x] Inform about failed scan
-- [x] Implement continuous QR Scan
-- [x] Lower case ln invoices
-- [x] Find a faster solution for QR scans (zbarcam)
-- [ ] Organize todos better
+#### Prio 1
 - [ ] Research camera resolutions / qr code scanning
 - [ ] Check if there's other zbar python libraries
 - [ ] Store data in database
@@ -64,3 +54,21 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 - [ ] Implement multilingual support
 - [ ] 2 layer for coins to reject before accepted
 - [ ] Write list of all compatible wallets/qr qr_codes
+- [ ] Draw printer and boards in 3D (https://www.onshape.com/)
+
+#### Prio 2
+
+#### Prio 3
+
+#### Done
+- [x] QR code scan function
+- [x] Validate requested amount
+- [x] Reject to high amounts
+- [x] Add config file
+- [x] Add parts list to readme
+- [x] Ask for rescan of QR code
+- [x] Inform about failed scan
+- [x] Implement continuous QR Scan
+- [x] Lower case ln invoices
+- [x] Find a faster solution for QR scans (zbarcam)
+- [x] Organize todos better
