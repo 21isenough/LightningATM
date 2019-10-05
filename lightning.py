@@ -46,6 +46,7 @@ def lastpayment(payment_request):
         print('Payment succeeded')
         return 'Success'
     else:
+        logging.info('Payment failed')
         print('Payment failed')
         return 'Payment failed'
 
