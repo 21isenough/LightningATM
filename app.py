@@ -1,12 +1,14 @@
 #!/usr/bin/python3
 
-import os, sys, time, logging
-
+## Import python libraries
 import RPi.GPIO as GPIO
-import lightning, display, qr
-
+import os, sys, time, logging
 from PIL import Image, ImageFont, ImageDraw
 
+## Import own modules
+import lightning, display, qr
+
+## Import utils.py and config.py
 from utils import *
 from config import *
 
