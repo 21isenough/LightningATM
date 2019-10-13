@@ -36,8 +36,31 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 8. Power supply  
   I'm working on a solution that lets you use just one power supply. For now you need 5V for the Raspberry Pi Zero (supplied through USB) and another 12V power supply to power the coin acceptor (preferably with a balun for easier connecting).
 
+
 ### Todo
 
+#### Prio 1
+- [ ] Rethink the design decisions in regards to hardware (https://www.arrow.com/en/products)
+- [ ] Research camera resolutions / qr code scanning
+- [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)
+- [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
+- [ ] Change to wide angle camera
+- [ ] Sort out scan errors
+- [ ] Write list of all compatible wallets/qr qr_codes
+- [ ] Draw printer and boards in 3D (https://www.onshape.com/)
+#### Prio 2
+- [ ] Run certain functions in threads
+- [ ] Check if there's other zbar python libraries
+- [ ] Find solution to work without jumper cables
+- [ ] Add encryption of admin.macaroon in idle mode
+- [ ] Design ideas for case
+- [ ] Check out BTCPay API to integrate backend
+#### Prio 3
+- [ ] Store data in database
+- [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
+- [ ] Implement multilingual support
+- [ ] 2 layer for coins to reject before accepted
+#### Done
 - [x] QR code scan function
 - [x] Validate requested amount
 - [x] Reject to high amounts
@@ -48,21 +71,4 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [x] Implement continuous QR Scan
 - [x] Lower case ln invoices
 - [x] Find a faster solution for QR scans (zbarcam)
-- [ ] Organize todos better
-- [ ] Research camera resolutions / qr code scanning
-- [ ] Check if there's other zbar python libraries
-- [ ] Store data in database
-- [ ] Rethink the design decisions in regards to hardware
-- [ ] Find solution to work without jumper cables
-- [ ] Add encryption of admin.macaroon in idle mode
-- [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
-- [ ] Change to wide angle camera
-- [ ] Sort out scan errors
-- [ ] Design ideas for case
-- [ ] Check out BTCPay API to integrate backend
-- [ ] Run certain functions in threads
-- [ ] PCB Board design
-- [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
-- [ ] Implement multilingual support
-- [ ] 2 layer for coins to reject before accepted
-- [ ] Write list of all compatible wallets/qr qr_codes
+- [x] Organize todos better
