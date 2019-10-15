@@ -65,7 +65,7 @@ def main():
     GPIO.add_event_detect(6,GPIO.FALLING,callback=coinevent)
 
     while True:
-        time.sleep(0.5)
+        time.sleep(0.2)
         ## Detect when coins are being inserted
         if((time.time() - LASTIMPULSE > 0.5) and (PULSES > 0)):
             if (PULSES == 2):
