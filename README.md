@@ -41,16 +41,12 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 
 #### Prio 1
 - [ ] Rethink the design decisions in regards to hardware (https://www.arrow.com/en/products)
-- [ ] Research camera resolutions / qr code scanning
 - [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
-- [ ] Change to wide angle camera
-- [ ] Sort out scan errors
 - [ ] Write list of all compatible wallets/qr qr_codes
 - [ ] Draw printer and boards in 3D (https://www.onshape.com/)
 #### Prio 2
 - [ ] Run certain functions in threads
-- [ ] Check if there's other zbar python libraries
 - [ ] Find solution to work without jumper cables
 - [ ] Add encryption of admin.macaroon in idle mode
 - [ ] Design ideas for case
@@ -58,9 +54,12 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 #### Prio 3
 - [ ] Store data in database
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
-- [ ] Implement multilingual support
 - [ ] 2 layer for coins to reject before accepted
 #### Done
+- [X] Research camera resolutions / qr code scanning
+- [X] Check if there's other zbar python libraries
+- [X] Change to wide angle camera
+- [X] Sort out scan errors
 - [x] QR code scan function
 - [x] Validate requested amount
 - [x] Reject to high amounts
