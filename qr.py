@@ -1,4 +1,4 @@
-import os, zbarlight, sys
+import os, zbarlight, sys, logging
 from PIL import Image
 from datetime import datetime
 
