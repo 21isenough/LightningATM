@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os, zbarlight, sys, logging
 from PIL import Image
 from datetime import datetime

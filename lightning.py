@@ -1,3 +1,5 @@
+#!/usr/bin/python3
+
 import os, codecs, requests, json, logging
 from config import *
 
