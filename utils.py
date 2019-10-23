@@ -4,10 +4,13 @@ from PIL import ImageFont
 
 def createfont(font, size):
     pathfreemono = os.path.expanduser('~/LightningATM/resources/fonts/FreeMono.ttf')
+    pathfreemonobold = os.path.expanduser('~/LightningATM/resources/fonts/FreeMonoBold.ttf')
     pathsawasdee = os.path.expanduser('~/LightningATM/resources/fonts/Sawasdee-Bold.ttf')
 
     if font == 'freemono':
         return ImageFont.truetype(pathfreemono, size)
+    if font == 'freemonobold':
+        return ImageFont.truetype(pathfreemonobold, size)
     if font == 'sawasdee':
         return ImageFont.truetype(pathsawasdee, size)
     else:
