@@ -43,8 +43,6 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Rethink the design decisions in regards to hardware (https://www.arrow.com/en/products)
 - [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
-- [ ] Write list of all compatible wallets/qr qr_codes
-- [ ] Test qr code on 2" eInk display
 - [ ] Draw printer and boards in 3D (https://www.onshape.com/)
 - [ ] Try different e-ink screen
 - [ ] Implement lnurl
@@ -59,6 +57,8 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
 - [ ] 2 layer for coins to reject before accepted
 #### Done
+- [X] Write list of all compatible wallets/qr qr_codes
+- [X] Test qr code on 2" eInk display (works)
 - [X] Research camera resolutions / qr code scanning
 - [X] Check if there's other zbar python libraries
 - [X] Change to wide angle camera
