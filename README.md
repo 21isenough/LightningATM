@@ -48,6 +48,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Implement lnurl
 #### Prio 2
 - [ ] Run certain functions in threads
+- [ ] Additional button for restart and shutdown
 - [ ] Find solution to work without jumper cables
 - [ ] Add encryption of admin.macaroon in idle mode
 - [ ] Design ideas for case
