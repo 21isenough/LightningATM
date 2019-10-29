@@ -10,7 +10,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 
 ![alt text](https://github.com/21isenough/LightningATM/blob/master/resources/images/startup_screen.jpg)
 
-### Parts list
+### Parts list (price estimate: 50-70 USD)
 
 1. Raspberry Pi Zero WH - http://bit.ly/2maXBr6  
   If you can, get the version WH (not just W). It comes with pre soldered headers and can be used out of the box.
@@ -46,6 +46,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Draw printer and boards in 3D (https://www.onshape.com/)
 - [ ] Try different e-ink screen
 - [ ] Implement lnurl
+- [ ] Add coin return stopper to 3d design
 #### Prio 2
 - [ ] Run certain functions in threads
 - [ ] Additional button for restart and shutdown
