@@ -46,6 +46,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
 - [ ] Try different e-ink screen
 - [ ] Implement lnurl
+- [ ] Solve security concerns in regards to lnurl (scan over the shoulder)
 - [ ] Add coin return stopper to 3d design
 #### Prio 2
 - [ ] Run certain functions in threads
