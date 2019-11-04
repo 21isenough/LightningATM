@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
-### Add the "verify=False" param to all post en get requests for local api querries 
+### Add the "verify=False" param to all post en get requests for local api querries
+### Add opption to use LNtxbot with the ATM
 
 import os, codecs, requests, json, logging
 from config import *
