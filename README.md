@@ -53,6 +53,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Additional button for restart and shutdown
 - [ ] Find solution to work without jumper cables
 - [ ] Add encryption of admin.macaroon in idle mode
+- [ ] Add encrypted partition with sensible data
 - [ ] Design ideas for case
 - [ ] Check out BTCPay API to integrate backend
 #### Prio 3
