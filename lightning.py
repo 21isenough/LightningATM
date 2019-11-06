@@ -38,9 +38,13 @@ def lastpayment(payment_request):
             'include_incomplete': True,
     }
 
-    r = requests.get(url, headers = {'Grpc-Metadata-macaroon': macaroon}, data=json.dumps(data))
+    response = requests.get(
+        url,
+        headers = {'Grpc-Metadata-macaroon': macaroon},
+        data=json.dumps(data)
+    )
 
-    json_data = json.loads(r.text)
+    json_data = json.loads(response.text)
     payment_data = json_data['payments']
     last_payment = payment_data[-1]
 
@@ -58,9 +62,12 @@ def decoderequest(payment_request):
 
         url = str(APIURL) + '/payreq/' + str(payment_request)
 
-        r = requests.get(url, headers = {'Grpc-Metadata-macaroon': macaroon})
+        response = requests.get(
+            url,
+            headers = {'Grpc-Metadata-macaroon': macaroon}
+        )
 
-        json_data = json.loads(r.text)
+        json_data = json.loads(response.text)
         request_data = json_data
 
         if 'lnbc1p' in payment_request:
