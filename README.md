@@ -45,10 +45,12 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
 - [ ] Try different e-ink screen
-- [ ] Implement lnurl
+- [ ] Implement lnurl with lntxbot
 - [ ] Solve security concerns in regards to lnurl (scan over the shoulder)
 - [ ] Add coin return stopper to 3d design
 #### Prio 2
+- [ ] Add second button and admin menu
+- [ ] Add admin function only available through qr pass
 - [ ] Run certain functions in threads
 - [ ] Additional button for restart and shutdown
 - [ ] Find solution to work without jumper cables
