@@ -7,14 +7,15 @@ from datetime import datetime
 def scan():
 
     attempts = 0
+    qrfolder = '/home/pi/LightningATM/resources/qr_codes'
 
     while attempts < 4:
         try:
             scan = True
-            qr_count = len(os.listdir('/home/pi/LightningATM/resources/qr_codes'))
+            qr_count = len(os.listdir())
             print('Taking picture..')
             ## Take picture (make sure RaspberryPi camera is focused correctly - manually adjust it, if not)
-            os.system('sudo fswebcam -d /dev/video0 -r 1200x900 -q /home/pi/LightningATM/resources/qr_codes/qr_'+str(qr_count)+'.jpg')
+            os.system('sudo fswebcam -d /dev/video0 -r 1200x900 -q '+qrfolder+'/qr_'+str(qr_count)+'.jpg')
             print('Picture saved..')
 
         except:
@@ -25,7 +26,7 @@ def scan():
             invoice = ''
 
             print('Scanning image..')
-            with open('/home/pi/LightningATM/resources/qr_codes/qr_'+str(qr_count)+'.jpg','rb') as f:
+            with open(qrfolder+'/qr_'+str(qr_count)+'.jpg','rb') as f:
                 qr = Image.open(f)
                 qr.load()
                 invoice = zbarlight.scan_codes('qrcode',qr)
@@ -33,7 +34,7 @@ def scan():
             if not invoice:
                 logging.info('No QR code found')
                 print('No QR code found')
-                os.remove('/home/pi/LightningATM/resources/qr_codes/qr_'+str(qr_count)+'.jpg')
+                os.remove(qrfolder+'/qr_'+str(qr_count)+'.jpg')
                 attempts += 1
 
             else:
@@ -44,7 +45,7 @@ def scan():
                 invoice = invoice.lower()
                 print(invoice)
 
-                with open('/home/pi/LightningATM/resources/qr_codes/qr_code_scans.txt','a+') as f:
+                with open(qrfolder+'/qr_code_scans.txt','a+') as f:
                     f.write(invoice + ' ' + str(datetime.now()) + '\n')
 
                 ## remove "lightning:" prefix
