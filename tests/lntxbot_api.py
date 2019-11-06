@@ -17,12 +17,6 @@ def generate_lnurl():
         data=json.dumps(data),
         )
 
-    # response =  requests.post(
-    #     'https://lntxbot.alhur.es/generatelnurlwithdraw',
-    #     headers = {'Grpc-Metadata-macaroon': macaroon},
-    #     data=json.dumps(data),
-    # )
-
     response = json.loads(response.text)
     print(response)
 
