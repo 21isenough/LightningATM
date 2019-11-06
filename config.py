@@ -12,6 +12,7 @@ PAPIRUS = Papirus(rotation = PAPIRUSROT)
 
 ## set currency value
 CURRENCY = 'EUR'
+## Add var for fee in % ##
 
 ## set user and password for lntxbot
 USER = 'XXXXXX'
