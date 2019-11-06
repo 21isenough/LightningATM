@@ -211,7 +211,6 @@ def update_payout_screen(papirus):
                 display.update_payment_failed()
                 time.sleep(120)
 
-            #os.execl(os.path.expanduser('~/LightningATM/app.py'), *sys.argv)
             os.execv('/home/pi/LightningATM/app.py', [''])
     else:
         print('Please show correct invoice')
