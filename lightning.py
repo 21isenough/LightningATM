@@ -6,11 +6,11 @@
 import os, codecs, requests, json, logging
 from config import *
 
-
-def payout(amt, payment_request):
-    with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
+with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
         macaroon_bytes = f.read()
         macaroon = codecs.encode(macaroon_bytes, 'hex')
+
+def payout(amt, payment_request):
 
     data = {
             'payment_request': payment_request,
@@ -31,9 +31,6 @@ def payout(amt, payment_request):
         print('Error: ' + response.get('payment_error'))
 
 def lastpayment(payment_request):
-    with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
-        macaroon_bytes = f.read()
-        macaroon = codecs.encode(macaroon_bytes, 'hex')
 
     url = str(APIURL) + '/payments'
 
@@ -42,6 +39,7 @@ def lastpayment(payment_request):
     }
 
     r = requests.get(url, headers = {'Grpc-Metadata-macaroon': macaroon}, data=json.dumps(data))
+
     json_data = json.loads(r.text)
     payment_data = json_data['payments']
     last_payment = payment_data[-1]
@@ -57,13 +55,11 @@ def lastpayment(payment_request):
 
 def decoderequest(payment_request):
     if payment_request:
-        with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
-            macaroon_bytes = f.read()
-            macaroon = codecs.encode(macaroon_bytes, 'hex')
 
         url = str(APIURL) + '/payreq/' + str(payment_request)
 
         r = requests.get(url, headers = {'Grpc-Metadata-macaroon': macaroon})
+
         json_data = json.loads(r.text)
         request_data = json_data
 
