@@ -1,9 +1,7 @@
 #!/usr/bin/python3
 
 import requests, json
-
-USER = '#####'
-PASS = '#####'
+from config import *
 
 def generate_lnurl():
 
