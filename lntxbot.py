@@ -78,3 +78,6 @@ def generate_lnurl(amt):
         newbalance = response['AvailableBalance']
         print('Balance: ' + str(balance) +' New Balance:' + str(newbalance))
         time.sleep(3)
+
+    logging.info('Initiating restart...')
+    os.execv('/home/pi/LightningATM/app.py', [''])
