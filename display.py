@@ -118,8 +118,8 @@ def update_lnurl_generation():
     draw = ImageDraw.Draw(image)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
-    draw.text((25, 10), 'Generating', fill=BLACK, font=createfont('freemono',20))
-    draw.text((10, 30), 'QR code to scan...', fill=BLACK, font=createfont('freemono',20))
+    draw.text((30, 20), 'Generating', fill=BLACK, font=createfont('freemono',20))
+    draw.text((10, 40), 'QR code to scan', fill=BLACK, font=createfont('freemono',20))
 
     PAPIRUS.display(image)
     PAPIRUS.partial_update()
