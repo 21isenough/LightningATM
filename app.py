@@ -6,7 +6,7 @@ import os, sys, time, logging
 from PIL import Image, ImageFont, ImageDraw
 
 ## Import own modules
-import lightning, display, qr
+import lightning, display, qr, lntxbot
 
 ## Import utils.py and config.py
 from utils import *
@@ -118,20 +118,28 @@ def main():
                     update_payout_screen(PAPIRUS)
 
             if (PUSHES == 2):
-                logging.info('Button pushed twice (add coin)')
-                print('Button pushed twice (add coin)')
-                PULSES = 2
+                if FIAT == 0:
+                    display.update_nocoin_screen()
+                    time.sleep(3)
+                    display.update_startup_screen()
+                else:
+                    lntxbot.generate_lnurl(SATS)
 
             if (PUSHES == 3):
+                logging.info('Button pushed three times (add coin)')
+                print('Button pushed three times (add coin)')
+                PULSES = 2
+
+            if (PUSHES == 4):
                 logging.warning('Button pushed three times (restart)')
                 print('Button pushed three times (restart)')
                 os.execv('/home/pi/LightningATM/app.py', [''])
                 GPIO.cleanup()
 
-            if (PUSHES == 4):
+            if (PUSHES == 5):
                 display.update_shutdown_screen()
                 GPIO.cleanup()
-                logging.info('ATM shutdown (4 times button)')
+                logging.info('ATM shutdown (5 times button)')
                 os.system('sudo shutdown -h now')
             PUSHES = 0
 
