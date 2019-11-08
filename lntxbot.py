@@ -53,3 +53,12 @@ def generate_lnurl(amt):
 
     PAPIRUS.display(image)
     PAPIRUS.update()
+    response = requests.post(
+        'https://lntxbot.alhur.es/balance',
+        auth=(USER, PASS),
+        )
+
+    response = json.loads(response.text)
+    response = response['BTC']
+
+    balance = response['AvailableBalance']
