@@ -10,6 +10,11 @@ from utils import *
 
 def generate_lnurl(amt):
 
+    display.update_lnurl_generation()
+
+    logging.info('LNURL requested')
+    print('LNURL requested')
+
     data = {
             'satoshis': str(round(amt)),
     }
@@ -76,8 +81,13 @@ def generate_lnurl(amt):
         response = response['BTC']
 
         newbalance = response['AvailableBalance']
-        print('Balance: ' + str(balance) +' New Balance:' + str(newbalance))
+        print('Balance: ' + str(balance) +' (no changes)')
         time.sleep(3)
+
+    print('Balance: ' + str(balance) +' | New Balance:' + str(newbalance))
+
+    logging.info('Withdrawl succeeded')
+    print('Withdrawl succeeded')
 
     display.update_thankyou_screen()
     logging.info('Initiating restart...')
