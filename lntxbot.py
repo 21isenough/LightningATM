@@ -62,3 +62,19 @@ def generate_lnurl(amt):
     response = response['BTC']
 
     balance = response['AvailableBalance']
+    print(balance)
+
+    newbalance = balance
+
+    while balance == newbalance:
+        response = requests.post(
+        'https://lntxbot.alhur.es/balance',
+        auth=(USER, PASS),
+        )
+
+        response = json.loads(response.text)
+        response = response['BTC']
+
+        newbalance = response['AvailableBalance']
+        print('Balance: ' + str(balance) +' New Balance:' + str(newbalance))
+        time.sleep(3)
