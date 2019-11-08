@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import os, qrcode, time, logging
+import os, qrcode, time, logging, display
 from PIL import Image, ImageFont, ImageDraw
 from papirus import Papirus
 
@@ -79,5 +79,6 @@ def generate_lnurl(amt):
         print('Balance: ' + str(balance) +' New Balance:' + str(newbalance))
         time.sleep(3)
 
+    display.update_thankyou_screen()
     logging.info('Initiating restart...')
     os.execv('/home/pi/LightningATM/app.py', [''])
