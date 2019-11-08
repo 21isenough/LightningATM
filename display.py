@@ -109,6 +109,21 @@ def update_nocoin_screen():
     PAPIRUS.display(image)
     PAPIRUS.update()
 
+def update_lnurl_generation():
+
+    image = Image.new('1', PAPIRUS.size, WHITE)
+
+    width, height = image.size
+
+    draw = ImageDraw.Draw(image)
+
+    draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
+    draw.text((25, 10), 'Generating', fill=BLACK, font=createfont('freemono',20))
+    draw.text((10, 30), 'QR code to scan...', fill=BLACK, font=createfont('freemono',20))
+
+    PAPIRUS.display(image)
+    PAPIRUS.partial_update()
+
 def update_shutdown_screen():
 
     image = Image.new('1', PAPIRUS.size, WHITE)
