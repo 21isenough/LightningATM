@@ -1,12 +1,17 @@
 #!/usr/bin/python3
 
+import os, qrcode, time, logging
+from PIL import Image, ImageFont, ImageDraw
+from papirus import Papirus
+
 import requests, json
 from config import *
+from utils import *
 
-def generate_lnurl():
+def generate_lnurl(amt):
 
     data = {
-            'satoshis': '50',
+            'satoshis': str(round(amt)),
     }
 
     response = requests.post(
@@ -16,10 +21,9 @@ def generate_lnurl():
         )
 
     response = json.loads(response.text)
-    print(response)
+    print(response['lnurl'])
 
-if __name__ == '__main__':
-    try:
-        generate_lnurl()
-    except KeyboardInterrupt:
-        sys.exit('Manually Interrupted')
+    if os.path.exists('/etc/default/epd-fuse'):
+        exec(open('/etc/default/epd-fuse').read())
+
+    image = Image.new('1', PAPIRUS.size, BLACK)
