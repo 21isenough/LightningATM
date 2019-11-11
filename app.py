@@ -108,12 +108,12 @@ def main():
                     time.sleep(3)
                     display.update_startup_screen()
                 else:
-                    display.update_qr_request()
+                    display.update_qr_request(SATS)
                     INVOICE = qr.scan()
                     while INVOICE == False:
                         display.update_qr_failed()
                         time.sleep(1)
-                        display.update_qr_request()
+                        display.update_qr_request(SATS)
                         INVOICE = qr.scan()
                     update_payout_screen(PAPIRUS)
 
