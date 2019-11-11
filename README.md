@@ -40,6 +40,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 ### Todo
 
 #### Prio 1
+- [ ] Try different way of detecting inserted coins (populating a list and setting a delimiter)
 - [ ] Slightly recline front board to the back, add immersion for camera
 - [ ] Rethink the design decisions in regards to hardware (https://www.arrow.com/en/products)
 - [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)
