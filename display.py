@@ -22,7 +22,7 @@ def update_startup_screen():
     PAPIRUS.display(image)
     PAPIRUS.update()
 
-def update_qr_request():
+def update_qr_request(amt):
 
     ## initially set all white background
     image = Image.new('1', PAPIRUS.size, WHITE)
@@ -49,6 +49,7 @@ def update_qr_request():
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
     draw.text((25, 10), 'Scanning...', fill=BLACK, font=createfont('freemono',20))
+    draw.text((15, 35), 'for ' + str(round(amt)) + ' sats.', fill=BLACK, font=createfont('freemono',20))
     PAPIRUS.display(image)
     PAPIRUS.partial_update()
 
@@ -65,8 +66,8 @@ def update_qr_failed():
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
     draw.text((25, 10), 'Scanning...', fill=BLACK, font=createfont('freemono',20))
-    draw.text((25, 40), 'Scan failed.', fill=BLACK, font=createfont('freemono',20))
-    draw.text((25, 70), 'Try again.', fill=BLACK, font=createfont('freemono',20))
+    draw.text((25, 30), 'Scan failed.', fill=BLACK, font=createfont('freemono',20))
+    draw.text((25, 50), 'Try again.', fill=BLACK, font=createfont('freemono',20))
     PAPIRUS.display(image)
     PAPIRUS.partial_update()
 
