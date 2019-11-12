@@ -12,10 +12,10 @@ def scan():
     while attempts < 4:
         try:
             scan = True
-            qr_count = len(os.listdir())
+            qr_count = len(os.listdir(qrfolder))
             print('Taking picture..')
             ## Take picture (make sure RaspberryPi camera is focused correctly - manually adjust it, if not)
-            os.system('sudo fswebcam -d /dev/video0 -r 1200x900 -q '+qrfolder+'/qr_'+str(qr_count)+'.jpg')
+            os.system('sudo fswebcam -d /dev/video0 -r 700x525 -q '+qrfolder+'/qr_'+str(qr_count)+'.jpg')
             print('Picture saved..')
 
         except:
