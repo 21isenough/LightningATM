@@ -50,6 +50,8 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Solve security concerns in regards to lnurl (scan over the shoulder)
 - [ ] Add coin return stopper to 3d design
 #### Prio 2
+- [ ] Move scanning function into utils
+- [ ] Move all display functions into display.py
 - [ ] Add second button and admin menu
 - [ ] Add admin function only available through qr pass
 - [ ] Run certain functions in threads
