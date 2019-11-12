@@ -2,7 +2,7 @@
 
 ## Import python libraries
 import RPi.GPIO as GPIO
-import os, sys, time, logging
+import os, sys, time, logging, importlib
 from PIL import Image, ImageFont, ImageDraw
 
 ## Import own modules
@@ -100,7 +100,7 @@ def main():
                 update_amount_screen(PAPIRUS)
             PULSES = 0
 
-        ## Detect if the buttons has been pushed
+        ## Detect if the button has been pushed
         if((time.time() - LASTPUSHES > 0.5) and (PUSHES > 0)):
             if (PUSHES == 1):
                 if FIAT == 0:
@@ -125,18 +125,26 @@ def main():
                 else:
                     lntxbot.generate_lnurl(SATS)
 
+
             if (PUSHES == 3):
+                lntxcreds = lntxbot.scancreds()
+                print(lntxcreds)
+                updateconfig('LNTXBOTCRED',lntxcreds)
+                importlib.reload(utils)
+                print(LNTXBOTCRED)
+
+            if (PUSHES == 4):
                 logging.info('Button pushed three times (add coin)')
                 print('Button pushed three times (add coin)')
                 PULSES = 2
 
-            if (PUSHES == 4):
+            if (PUSHES == 5):
                 logging.warning('Button pushed three times (restart)')
                 print('Button pushed three times (restart)')
-                os.execv('/home/pi/LightningATM/app.py', [''])
                 GPIO.cleanup()
+                os.execv('/home/pi/LightningATM/app.py', [''])
 
-            if (PUSHES == 5):
+            if (PUSHES == 6):
                 display.update_shutdown_screen()
                 GPIO.cleanup()
                 logging.info('ATM shutdown (5 times button)')
