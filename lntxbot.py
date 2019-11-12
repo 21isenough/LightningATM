@@ -21,7 +21,7 @@ def generate_lnurl(amt):
 
     response = requests.post(
         'https://lntxbot.alhur.es/generatelnurlwithdraw',
-        auth=(USER, PASS),
+        headers = {'Authorization' : 'Basic %s' %  LNTXBOTCRED},
         data=json.dumps(data),
         )
 
