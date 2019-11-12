@@ -9,7 +9,6 @@ from config import *
 from utils import *
 
 def generate_lnurl(amt):
-
     display.update_lnurl_generation()
 
     logging.info('LNURL requested')
