@@ -130,8 +130,8 @@ def main():
                 lntxcreds = lntxbot.scancreds()
                 print(lntxcreds)
                 updateconfig('LNTXBOTCRED',lntxcreds)
-                importlib.reload(utils)
-                print(LNTXBOTCRED)
+                GPIO.cleanup()
+                os.execv('/home/pi/LightningATM/app.py', [''])
 
             if (PUSHES == 4):
                 logging.info('Button pushed three times (add coin)')
