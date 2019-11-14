@@ -25,7 +25,7 @@ def updateconfig(variable,newvalue):
     linecount = 0
 
     ## open the config.py file (read-only) and read the lines
-    with open('config.py', 'r') as file:
+    with open('~/LightningATM/config.py', 'r') as file:
         lines = file.readlines()
 
     ## find the line that contains the passed variable
@@ -37,5 +37,5 @@ def updateconfig(variable,newvalue):
         linecount += 1
 
     ## open the config.py file (with write permissions) and safe the new lines
-    with open('config.py', 'w') as file:
+    with open('~/LightningATM/config.py', 'w') as file:
         file.writelines(lines)
