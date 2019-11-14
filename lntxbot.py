@@ -93,8 +93,8 @@ def generate_lnurl(amt):
 
     print('Balance: ' + str(balance) +' | New Balance:' + str(newbalance))
 
-    logging.info('Withdrawl succeeded')
-    print('Withdrawl succeeded')
+    logging.info('LNURL withdrawl succeeded')
+    print('LNURL withdrawl succeeded')
 
     display.update_thankyou_screen()
     logging.info('Initiating restart...')
