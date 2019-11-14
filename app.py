@@ -178,7 +178,7 @@ def update_amount_screen(papirus):
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
     draw.text((13, 10), str(round(SATS)) + ' sats', fill=BLACK, font=createfont('freemono',28))
     draw.text((11, 37), '(' + '%.2f' % round(FIAT,2) + ' ' + CURRENCY + ')', fill=BLACK, font=createfont('freemono',20))
-    draw.text((11, 70), '(1 cent = ' + str(SATPRICE) + ' sats)', fill=BLACK, font=createfont('freemono',14))
+    draw.text((11, 70), '(1 cent = ' + round(str(SATPRICE)) + ' sats)', fill=BLACK, font=createfont('freemono',14))
 
     PAPIRUS.display(image)
     PAPIRUS.partial_update()
