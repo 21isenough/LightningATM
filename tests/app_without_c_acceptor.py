@@ -20,20 +20,19 @@ from PIL import ImageDraw
 from PIL import ImageFont
 from papirus import Papirus
 
-
 # Check EPD_SIZE is defined
-EPD_SIZE=0.0
-if os.path.exists('/etc/default/epd-fuse'):
-    exec(open('/etc/default/epd-fuse').read())
+EPD_SIZE = 0.0
+if os.path.exists("/etc/default/epd-fuse"):
+    exec(open("/etc/default/epd-fuse").read())
 if EPD_SIZE == 0.0:
     print("Please select your screen size by running 'papirus-config'.")
     sys.exit()
 
 # set sat,fiat, currency value
-CURRENCY = 'EUR'
+CURRENCY = "EUR"
 FIAT = 0
 SATS = 0
-INVOICE = ''
+INVOICE = ""
 
 WHITE = 1
 BLACK = 0
@@ -45,6 +44,7 @@ SW2 = 16
 SW3 = 20
 SW4 = 19
 SW5 = 26
+
 
 def main(argv):
     global SIZE
@@ -59,7 +59,7 @@ def main(argv):
     GPIO.setup(SW4, GPIO.IN)
     GPIO.setup(SW5, GPIO.IN)
 
-    papirus = Papirus(rotation = int(argv[0]) if len(sys.argv) > 1 else 0)
+    papirus = Papirus(rotation=int(argv[0]) if len(sys.argv) > 1 else 0)
 
     # Use smaller font for smaller displays
     if papirus.height <= 96:
@@ -102,14 +102,12 @@ def main(argv):
         if GPIO.input(SW5) == False:
             update_payout_screen(papirus, SIZE)
 
-
-
         sleep(0.1)
 
-def update_amount_screen(papirus, size):
 
+def update_amount_screen(papirus, size):
     # initially set all white background
-    image = Image.new('1', papirus.size, WHITE)
+    image = Image.new("1", papirus.size, WHITE)
 
     # Set width and heigt of screen
     width, height = image.size
@@ -117,29 +115,33 @@ def update_amount_screen(papirus, size):
     # prepare for drawing
     draw = ImageDraw.Draw(image)
 
-
     # set font sizes
-    font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', size)
-    font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 14)
+    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", size)
+    font1 = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 14)
 
     # set btc and sat price
     btcprice = price.getbtcprice(CURRENCY)
     satprice = round((1 / btcprice) * 10e5, 2)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
-    draw.text((15, 10), str(round(SATS)) + ' sats', fill=BLACK, font=font)
-    draw.text((15, 30), '(' + '%.2f' % round(FIAT,2) + ' ' + CURRENCY + ')', fill=BLACK, font=font)
-    draw.text((15, 70), '(1 cent = ' + str(satprice) + ' sats)', fill=BLACK, font=font1)
+    draw.text((15, 10), str(round(SATS)) + " sats", fill=BLACK, font=font)
+    draw.text(
+        (15, 30),
+        "(" + "%.2f" % round(FIAT, 2) + " " + CURRENCY + ")",
+        fill=BLACK,
+        font=font,
+    )
+    draw.text((15, 70), "(1 cent = " + str(satprice) + " sats)", fill=BLACK, font=font1)
 
     papirus.display(image)
     papirus.partial_update()
 
-def update_payout_screen(papirus, size):
 
+def update_payout_screen(papirus, size):
     global INVOICE
 
     # initially set all white background
-    image = Image.new('1', papirus.size, WHITE)
+    image = Image.new("1", papirus.size, WHITE)
 
     # Set width and heigt of screen
     width, height = image.size
@@ -147,19 +149,17 @@ def update_payout_screen(papirus, size):
     # prepare for drawing
     draw = ImageDraw.Draw(image)
 
-
     # set font sizes
-    font = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 20)
-    font1 = ImageFont.truetype('/usr/share/fonts/truetype/freefont/FreeMono.ttf', 15)
-
+    font = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 20)
+    font1 = ImageFont.truetype("/usr/share/fonts/truetype/freefont/FreeMono.ttf", 15)
 
     # set btc and sat price
     # btcprice = price.getbtcprice(CURRENCY)
     # satprice = round((1 / btcprice) * 10e5, 2)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
-    draw.text((15, 30), str(round(SATS)) + ' sats' , fill=BLACK, font=font)
-    draw.text((15, 50), 'on the way!' , fill=BLACK, font=font1)
+    draw.text((15, 30), str(round(SATS)) + " sats", fill=BLACK, font=font)
+    draw.text((15, 50), "on the way!", fill=BLACK, font=font1)
 
     papirus.display(image)
     papirus.update()
@@ -168,48 +168,51 @@ def update_payout_screen(papirus, size):
 
     print(INVOICE)
 
-    decodreq = lightning.decoderequest(INVOICE)
+    decodreq = lightning.decode_request(INVOICE)
 
-    print(decodreq,round(SATS))
+    print(decodreq, round(SATS))
 
     if (decodreq == str(round(SATS))) or (decodreq == True):
-            lightning.payout(SATS, INVOICE)
+        lightning.payout(SATS, INVOICE)
 
-            # time.sleep(5)
-            result = lightning.lastpayment(INVOICE)
+        # time.sleep(5)
+        result = lightning.last_payment(INVOICE)
 
-            draw.text((15, 70), str(result), fill=BLACK, font=font1)
+        draw.text((15, 70), str(result), fill=BLACK, font=font1)
 
-            papirus.display(image)
-            papirus.partial_update()
+        papirus.display(image)
+        papirus.partial_update()
     else:
-        print('Please show correct invoice')
-
+        print("Please show correct invoice")
 
 
 def update_startup_screen():
+    font1 = ImageFont.truetype(
+        os.path.expanduser("~/LightningATM/resources/fonts/FreeMono.ttf"), 18
+    )
+    font = ImageFont.truetype(
+        os.path.expanduser("~/LightningATM/resources/fonts/Sawasdee-Bold.ttf"), 30
+    )
+    font2 = ImageFont.truetype(
+        os.path.expanduser("~/LightningATM/resources/fonts/FreeMono.ttf"), 14
+    )
 
-    font1 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/fonts/FreeMono.ttf'), 18)
-    font = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/fonts/Sawasdee-Bold.ttf'), 30)
-    font2 = ImageFont.truetype(os.path.expanduser('~/LightningATM/resources/fonts/FreeMono.ttf'), 14)
+    papirus = Papirus(rotation=int(argv[0]) if len(sys.argv) > 1 else 0)
 
-    papirus = Papirus(rotation = int(argv[0]) if len(sys.argv) > 1 else 0)
-
-    image = Image.new('1', papirus.size, WHITE)
+    image = Image.new("1", papirus.size, WHITE)
 
     draw = ImageDraw.Draw(image)
 
-    draw.text((20, 10), 'Welcome to the', fill=BLACK, font=font1)
-    draw.text((10, 20), 'LightningATM', fill=BLACK, font=font)
-    draw.text((7, 75), '- please insert coins -', fill=BLACK, font=font2)
+    draw.text((20, 10), "Welcome to the", fill=BLACK, font=font1)
+    draw.text((10, 20), "LightningATM", fill=BLACK, font=font)
+    draw.text((7, 75), "- please insert coins -", fill=BLACK, font=font2)
 
     papirus.display(image)
     papirus.update()
 
 
-
-if __name__ == '__main__':
+if __name__ == "__main__":
     try:
         main(sys.argv[1:])
     except KeyboardInterrupt:
-        sys.exit('interrupted')
+        sys.exit("interrupted")
