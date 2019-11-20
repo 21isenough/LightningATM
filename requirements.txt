@@ -16,7 +16,7 @@ pycrypto==2.6.1
 # https://salsa.debian.org/apt-team/python-apt/-/archive/1.1.0_beta5/python-apt-1.1.0_beta5.tar.gz
 python-dateutil==2.5.3
 pyxdg==0.25
-requests==2.12.4
+requests==2.20.0
 # RPi.GPIO==0.7.0
 SecretStorage==2.3.1
 six==1.12.0
