@@ -1,79 +1,97 @@
 #!/usr/bin/python3
 
-### Add the "verify=False" param to all post en get requests for local api querries
-### Add opption to use LNtxbot with the ATM
+# TODO: Add the "verify=False" param to all post en get requests for local api queries
+# TODO: Add opption to use LNtxbot with the ATM
 
-import os, codecs, requests, json, logging
-from config import *
+import codecs
+import json
+import logging
+import os.path
+import requests
 
-with open(os.path.expanduser('~/admin.macaroon'), 'rb') as f:
-        macaroon_bytes = f.read()
-        macaroon = codecs.encode(macaroon_bytes, 'hex')
+import config
+
+logger = logging.getLogger("LIGHTNING")
+
+
+class InvoiceDecodeError(BaseException):
+    pass
+
+
+with open(os.path.expanduser("~/admin.macaroon"), "rb") as f:
+    macaroon_bytes = f.read()
+    macaroon = codecs.encode(macaroon_bytes, "hex")
+
 
 def payout(amt, payment_request):
-
+    """Attempts to pay a BOLT11 invoice
+    """
     data = {
-            'payment_request': payment_request,
-            'amt': round(amt),
+        "payment_request": payment_request,
+        "amt": round(amt),
     }
 
-    response =  requests.post(
-        str(APIURL) + '/channels/transactions',
-        headers = {'Grpc-Metadata-macaroon': macaroon},
+    response = requests.post(
+        str(config.APIURL) + "/channels/transactions",
+        headers={"Grpc-Metadata-macaroon": macaroon},
         data=json.dumps(data),
     )
+    res_json = response.json()
 
-    response = json.loads(response.text)
+    if res_json.get("payment_error"):
+        errormessage = res_json.get("payment_error")
+        logger.error("Payment failed (%s)" % errormessage)
+        print("Error: " + res_json.get("payment_error"))
 
-    if response.get('payment_error'):
-        errormessage = response.get('payment_error')
-        logging.error('Payment failed (%s)' % errormessage)
-        print('Error: ' + response.get('payment_error'))
 
-def lastpayment(payment_request):
-
-    url = str(APIURL) + '/payments'
+def last_payment(payment_request):
+    """Returns whether the last payment attempt succeeded or failed
+    """
+    url = str(config.APIURL) + "/payments"
 
     data = {
-            'include_incomplete': True,
+        "include_incomplete": True,
     }
 
     response = requests.get(
-        url,
-        headers = {'Grpc-Metadata-macaroon': macaroon},
-        data=json.dumps(data)
+        url, headers={"Grpc-Metadata-macaroon": macaroon}, data=json.dumps(data)
     )
 
-    json_data = json.loads(response.text)
-    payment_data = json_data['payments']
-    last_payment = payment_data[-1]
+    json_data = response.json()
+    payment_data = json_data["payments"]
+    _last_payment = payment_data[-1]
 
-    if (last_payment['payment_request'] == payment_request) and (last_payment['status'] == 'SUCCEEDED'):
-        logging.info('Payment succeeded')
-        print('Payment succeeded')
-        return 'Success'
+    if (_last_payment["payment_request"] == payment_request) and (
+        _last_payment["status"] == "SUCCEEDED"
+    ):
+        logger.info("Payment succeeded")
+        print("Payment succeeded")
+        return True
     else:
-        logging.info('Payment failed')
-        print('Payment failed')
-        return 'Payment failed'
+        logger.info("Payment failed")
+        print("Payment failed")
+        return False
 
-def decoderequest(payment_request):
+
+def decode_request(payment_request):
+    """Decodes a BOLT11 invoice
+    """
     if payment_request:
-
-        url = str(APIURL) + '/payreq/' + str(payment_request)
-
-        response = requests.get(
-            url,
-            headers = {'Grpc-Metadata-macaroon': macaroon}
-        )
-
-        json_data = json.loads(response.text)
-        request_data = json_data
-
-        if 'lnbc1p' in payment_request:
-            print('Zero sat invoice')
-            return True
+        url = str(config.APIURL) + "/payreq/" + str(payment_request)
+        response = requests.get(url, headers={"Grpc-Metadata-macaroon": macaroon})
+        # TODO: I don't think we handle failed decoding here
+        #   Perhaps something like:
+        if response.status_code != 200:
+            raise InvoiceDecodeError(
+                "Invoice {} got bad decode response {}".format(
+                    payment_request, response.text
+                )
+            )
+        json_data = response.json()
+        if "lnbc1p" in payment_request:
+            print("Zero sat invoice")
+            return 0
         else:
-            return request_data['num_satoshis']
+            return json_data["num_satoshis"]
     else:
         pass
