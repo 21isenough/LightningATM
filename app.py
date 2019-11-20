@@ -18,14 +18,14 @@ import utils
 logger = logging.getLogger("MAIN")
 
 
-def button_event():
+def button_event(channel):
     """Registers a button push event
     """
     config.LASTPUSHES = time.time()
     config.PUSHES = config.PUSHES + 1
 
 
-def coin_event():
+def coin_event(channel):
     """Registers a coin insertion event
     """
     config.LASTIMPULSE = time.time()
