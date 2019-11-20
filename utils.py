@@ -15,7 +15,7 @@ def check_epd_size():
         exec(open("/etc/default/epd-fuse").read())
     if epd_size == 0.0:
         print("Please select your screen size by running 'papirus-config'.")
-        sys.exit()
+        # sys.exit()
 
 
 def create_font(font, size):
