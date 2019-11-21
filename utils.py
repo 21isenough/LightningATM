@@ -10,12 +10,12 @@ logger = logging.getLogger("UTILS")
 
 def check_epd_size():
     # Check EPD_SIZE is defined
-    epd_size = 0.0
     if os.path.exists("/etc/default/epd-fuse"):
-        exec(open("/etc/default/epd-fuse").read())
-    if epd_size == 0.0:
+        exec(open("/etc/default/epd-fuse").read(), globals())
+
+    if EPD_SIZE == 0.0:
         print("Please select your screen size by running 'papirus-config'.")
-        # sys.exit()
+        sys.exit()
 
 
 def create_font(font, size):
