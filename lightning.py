@@ -90,8 +90,8 @@ def decode_request(payment_request):
         json_data = response.json()
         if "lnbc1" in payment_request:
             print("Zero sat invoice")
-            return 0
+            return int(0)
         else:
-            return json_data["num_satoshis"]
+            return int(json_data["num_satoshis"])
     else:
         pass
