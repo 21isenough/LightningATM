@@ -21,7 +21,7 @@ from PIL import Image
 import zbarlight
 
 
-logger = logging.getLogger("lntxbot")
+logger = logging.getLogger("LNTXBOT")
 
 
 def request_lnurl(amt):
