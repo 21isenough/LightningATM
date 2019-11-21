@@ -9,14 +9,12 @@ import json
 from PIL import ImageDraw
 import qrcode
 
-# TODO: Should this be `import qr`? Otherwise this is missing from requirements.txt
 import config
 import display
 import utils
 
 # Just for scanning
-import logging
-from datetime import datetime
+# from datetime import datetime
 from PIL import Image
 import zbarlight
 
