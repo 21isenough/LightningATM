@@ -46,7 +46,6 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
 - [ ] Try different e-ink screen
-- [ ] Implement lnurl with lntxbot
 - [ ] Solve security concerns in regards to lnurl (scan over the shoulder)
 - [ ] Add coin return stopper to 3d design
 #### Prio 2
@@ -66,6 +65,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
 - [ ] 2 layer for coins to reject before accepted
 #### Done
+- [x] Implement lnurl with lntxbot
 - [X] Draw printer and boards in 3D (https://www.onshape.com/)
 - [X] Write list of all compatible wallets/qr qr_codes
 - [X] Test qr code on 2" eInk display (works)
