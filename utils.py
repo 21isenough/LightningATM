@@ -7,11 +7,13 @@ from PIL import ImageFont
 from pathlib import Path
 
 logger = logging.getLogger("UTILS")
+EPD_SIZE = 0.0
 
 
 def check_epd_size():
     """Check EPD_SIZE is defined
     """
+    global EPD_SIZE
     if os.path.exists("/etc/default/epd-fuse"):
         exec(open("/etc/default/epd-fuse").read(), globals())
 
