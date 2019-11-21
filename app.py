@@ -80,9 +80,7 @@ def handle_invoice(draw, image):
     make the payment.
     """
     decode_req = lightning.decode_request(config.INVOICE)
-    print(decode_req, round(config.SATS))
-
-    if decode_req == (str(round(config.SATS)) or 0):
+    if decode_req == str(round(config.SATS)) or str(0):
         lightning.payout(config.SATS, config.INVOICE)
         result = lightning.last_payment(config.INVOICE)
 
@@ -285,4 +283,5 @@ if __name__ == "__main__":
             sys.exit("Manually Interrupted")
         except Exception:
             logger.exception("Oh no, something bad happened! Restarting...")
+            GPIO.cleanup()
             # anything else needs to happen for a clean restart?
