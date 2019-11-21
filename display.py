@@ -2,38 +2,23 @@
 
 import time
 
-from utils import *
-from config import *
+from utils import create_font
+from config import PAPIRUS, WHITE, BLACK
 
 from PIL import Image, ImageFont, ImageDraw
 
 
-## PaPiRus eInk size is 128 x 96 pixels
-
-
-def update_startup_screen():
-    image = Image.new("1", PAPIRUS.size, WHITE)
-
-    draw = ImageDraw.Draw(image)
-
-    draw.text((20, 10), "Welcome to the", fill=BLACK, font=create_font("freemono", 18))
-    draw.text((10, 20), "LightningATM", fill=BLACK, font=create_font("sawasdee", 30))
-    draw.text(
-        (7, 75), "- please insert coins -", fill=BLACK, font=create_font("freemono", 14)
-    )
-
-    PAPIRUS.display(image)
-    PAPIRUS.update()
+# PaPiRus eInk size is 128 x 96 pixels
 
 
 def update_qr_request(amt):
-    ## initially set all white background
+    # initially set all white background
     image = Image.new("1", PAPIRUS.size, WHITE)
 
-    ## Set width and heigt of screen
+    # Set width and height of screen
     width, height = image.size
 
-    ## prepare for drawing
+    # prepare for drawing
     draw = ImageDraw.Draw(image)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
@@ -62,14 +47,23 @@ def update_qr_request(amt):
     PAPIRUS.partial_update()
 
 
-def update_qr_failed():
-    ## initially set all white background
+def update_startup_screen():
     image = Image.new("1", PAPIRUS.size, WHITE)
+    draw = ImageDraw.Draw(image)
 
-    ## Set width and heigt of screen
+    draw.text((20, 10), "Welcome to the", fill=BLACK, font=create_font("freemono", 18))
+    draw.text((10, 20), "LightningATM", fill=BLACK, font=create_font("sawasdee", 30))
+    draw.text(
+        (7, 75), "- please insert coins -", fill=BLACK, font=create_font("freemono", 14)
+    )
+
+    PAPIRUS.display(image)
+    PAPIRUS.update()
+
+
+def update_qr_failed():
+    image = Image.new("1", PAPIRUS.size, WHITE)
     width, height = image.size
-
-    ## prepare for drawing
     draw = ImageDraw.Draw(image)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
@@ -82,7 +76,6 @@ def update_qr_failed():
 
 def update_payment_failed():
     image = Image.new("1", PAPIRUS.size, WHITE)
-
     draw = ImageDraw.Draw(image)
 
     draw.text((15, 10), "Payment failed!", fill=BLACK, font=create_font("freemono", 19))
@@ -95,7 +88,6 @@ def update_payment_failed():
 
 def update_thankyou_screen():
     image = Image.new("1", PAPIRUS.size, WHITE)
-
     draw = ImageDraw.Draw(image)
 
     draw.text((15, 10), "Enjoy your new", fill=BLACK, font=create_font("freemono", 19))
@@ -110,7 +102,6 @@ def update_thankyou_screen():
 
 def update_nocoin_screen():
     image = Image.new("1", PAPIRUS.size, WHITE)
-
     draw = ImageDraw.Draw(image)
 
     draw.text((15, 10), "No coins added!", fill=BLACK, font=create_font("freemono", 19))
@@ -123,9 +114,7 @@ def update_nocoin_screen():
 
 def update_lnurl_generation():
     image = Image.new("1", PAPIRUS.size, WHITE)
-
     width, height = image.size
-
     draw = ImageDraw.Draw(image)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
@@ -138,7 +127,6 @@ def update_lnurl_generation():
 
 def update_shutdown_screen():
     image = Image.new("1", PAPIRUS.size, WHITE)
-
     draw = ImageDraw.Draw(image)
 
     draw.text((20, 10), "ATM turned off!", fill=BLACK, font=create_font("freemono", 18))

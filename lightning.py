@@ -79,8 +79,6 @@ def decode_request(payment_request):
     if payment_request:
         url = str(config.APIURL) + "/payreq/" + str(payment_request)
         response = requests.get(url, headers={"Grpc-Metadata-macaroon": macaroon})
-        # TODO: I don't think we handle failed decoding here
-        #   Perhaps something like:
         if response.status_code != 200:
             raise InvoiceDecodeError(
                 "Invoice {} got bad decode response {}".format(
@@ -90,8 +88,8 @@ def decode_request(payment_request):
         json_data = response.json()
         if "lnbc1" in payment_request:
             print("Zero sat invoice")
-            return int(0)
+            return 0
         else:
             return int(json_data["num_satoshis"])
     else:
-        pass
+        raise InvoiceDecodeError("No invoice provided to decode_request")

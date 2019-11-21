@@ -80,7 +80,7 @@ def handle_invoice(draw, image):
     make the payment.
     """
     decode_req = lightning.decode_request(config.INVOICE)
-    if decode_req == round(config.SATS) or 0:
+    if decode_req in (round(config.SATS), 0):
         lightning.payout(config.SATS, config.INVOICE)
         result = lightning.last_payment(config.INVOICE)
 
