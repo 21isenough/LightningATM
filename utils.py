@@ -4,12 +4,14 @@ import requests
 import sys
 
 from PIL import ImageFont
+from pathlib import Path
 
 logger = logging.getLogger("UTILS")
 
 
 def check_epd_size():
-    # Check EPD_SIZE is defined
+    """Check EPD_SIZE is defined
+    """
     if os.path.exists("/etc/default/epd-fuse"):
         exec(open("/etc/default/epd-fuse").read(), globals())
 
@@ -25,20 +27,16 @@ def create_font(font, size):
     # have saved the LightningATM folder in ~/LightningATM/
     # something like?
     # os.path(__file__.resources/fonts/...
-    pathfreemono = os.path.expanduser("~/LightningATM/resources/fonts/FreeMono.ttf")
-    pathfreemonobold = os.path.expanduser(
-        "~/LightningATM/resources/fonts/FreeMonoBold.ttf"
-    )
-    pathsawasdee = os.path.expanduser(
-        "~/LightningATM/resources/fonts/Sawasdee-Bold.ttf"
-    )
+    pathfreemono = Path("resources/fonts/FreeMono.ttf")
+    pathfreemonobold = Path("resources/fonts/FreeMonoBold.ttf")
+    pathsawasdee = Path("resources/fonts/Sawasdee-Bold.ttf")
 
     if font == "freemono":
-        return ImageFont.truetype(pathfreemono, size)
+        return ImageFont.truetype(pathfreemono.as_posix(), size)
     if font == "freemonobold":
-        return ImageFont.truetype(pathfreemonobold, size)
+        return ImageFont.truetype(pathfreemonobold.as_posix(), size)
     if font == "sawasdee":
-        return ImageFont.truetype(pathsawasdee, size)
+        return ImageFont.truetype(pathsawasdee.as_posix(), size)
     else:
         print("Font not available")
 
