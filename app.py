@@ -261,18 +261,28 @@ def setup_coin_acceptor():
     GPIO.add_event_detect(6, GPIO.FALLING, callback=coin_event)
 
 
+def check_dangermode():
+    """Checks if DANGERMODE is YES or NO
+    """
+    if config.DANGERMODE == "NO":
+        utils.update_config("LNTXBOTCRED", "")
+        utils.update_config("LNDMACAROON", "")
+        utils.update_config("ACTIVEWALLET", "")
+        importlib.reload(config)
+    elif config.DANGERMODE == "YES":
+        pass
+    else:
+        logger.info("ATM shutdown (DANGERMODE isn't set properly)")
+        GPIO.cleanup()
+        os.system("sudo shutdown -h now")
+
+
 def main():
     utils.check_epd_size()
 
     logger.info("Application started")
 
-    # Check for DANGERMODE and scan credentials
-    if config.DANGERMODE == "NO":
-        utils.update_config("LNTXBOTCRED", "")
-        utils.update_config("LNDMACAROON", "")
-        importlib.reload(config)
-    elif config.DANGERMODE == "YES":
-        pass
+    check_dangermode()
 
     # Display startup startup_screen
     display.update_startup_screen()
