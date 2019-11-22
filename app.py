@@ -174,9 +174,12 @@ def button_pushed():
             lntxbot.process_using_lnurl(config.SATS)
 
     if config.PUSHES == 3:
+        display.update_lntxbot_scan()
         lntxcreds = lntxbot.scan_creds()
         print(lntxcreds)
         config.update_config("lntxbot", "LNTXBOTCRED", lntxcreds)
+        balance = lntxbot.get_lnurl_balance()
+        display.update_lntxbot_balance(balance)
         GPIO.cleanup()
         os.execv("/home/pi/LightningATM/app.py", [""])
 
