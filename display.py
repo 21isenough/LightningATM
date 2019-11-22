@@ -147,3 +147,50 @@ def update_shutdown_screen():
 
     PAPIRUS.display(image)
     PAPIRUS.update()
+
+
+def update_lntxbot_scan():
+    ## initially set all white background
+    image = Image.new("1", PAPIRUS.size, WHITE)
+
+    ## Set width and heigt of screen
+    width, height = image.size
+
+    ## prepare for drawing
+    draw = ImageDraw.Draw(image)
+
+    draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
+    draw.text((35, 20), "Please scan", fill=BLACK, font=create_font("freemono", 18))
+    draw.text((33, 40), "your lntxbot", fill=BLACK, font=create_font("freemono", 18))
+    draw.text((35, 60), "credentials.", fill=BLACK, font=create_font("freemono", 18))
+
+    PAPIRUS.display(image)
+    PAPIRUS.update()
+    time.sleep(2)
+
+
+def update_lntxbot_balance(balance):
+    ## initially set all white background
+    image = Image.new("1", PAPIRUS.size, WHITE)
+
+    ## Set width and heigt of screen
+    width, height = image.size
+
+    ## prepare for drawing
+    draw = ImageDraw.Draw(image)
+
+    draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
+    draw.text((45, 15), "Success!!", fill=BLACK, font=create_font("freemonobold", 20))
+    draw.text(
+        (10, 45), "Your current balance:", fill=BLACK, font=create_font("freemono", 15)
+    )
+    draw.text(
+        (45, 65),
+        str("{:,}".format(balance)) + " sats",
+        fill=BLACK,
+        font=create_font("freemono", 18),
+    )
+
+    PAPIRUS.display(image)
+    PAPIRUS.update()
+    time.sleep(3)
