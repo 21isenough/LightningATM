@@ -34,11 +34,11 @@ CURRENCY = "EUR"
 # Add var for fee in % #
 
 # base64 encoded lntxbot api credentials
-LNTXBOTCRED = "#####"
+LNTXBOTCRED = ""
 
 # HEX encoded LND macaroon
 
-LNDMACAROON = "#####"
+LNDMACAROON = ""
 
 # Set sat, fiat
 FIAT = 0

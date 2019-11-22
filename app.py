@@ -268,13 +268,11 @@ def main():
 
     # Check for DANGERMODE and scan credentials
     if config.DANGERMODE == "NO":
-        utils.update_config("LNTXBOTCRED", "*****")
-        utils.update_config("LNDMACAROON", "*****")
-        print(config.LNTXBOTCRED, config.LNDMACAROON)
+        utils.update_config("LNTXBOTCRED", "")
+        utils.update_config("LNDMACAROON", "")
         importlib.reload(config)
-        print(config.LNTXBOTCRED, config.LNDMACAROON)
-        # config.LNTXBOTCRED = "*****"
-        # config.LNDMACAROON = "*****"
+    elif config.DANGERMODE == "YES":
+        pass
 
     # Display startup startup_screen
     display.update_startup_screen()
