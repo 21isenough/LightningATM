@@ -16,6 +16,10 @@ logging.basicConfig(
 # set API URL e.g. https://btcpay.yourdomain.com/lnd-rest/btc/v1
 APIURL = "https://btcpay.21isenough.me/lnd-rest/btc/v1"
 
+# DANGERMODE = NO --> LND / API credentials will be lost after reboot
+# DANGERMODE = YES --> LND / API credentials will be stored in nonvolatile memory
+DANGERMODE = "NO"
+
 # Add variable to set certificate check to true or false #
 
 # Papirus Setup
@@ -32,6 +36,9 @@ CURRENCY = "EUR"
 # base64 encoded lntxbot api credentials
 LNTXBOTCRED = "#####"
 
+# HEX encoded LND macaroon
+
+LNDMACAROON = "#####"
 
 # Set sat, fiat
 FIAT = 0
