@@ -33,11 +33,13 @@ CURRENCY = "EUR"
 
 # Add var for fee in % #
 
+# Set during initial setup to LND or LNTXBOT
+ACTIVEWALLET = ""
+
 # base64 encoded lntxbot api credentials
 LNTXBOTCRED = ""
 
 # HEX encoded LND macaroon
-
 LNDMACAROON = ""
 
 # Set sat, fiat
