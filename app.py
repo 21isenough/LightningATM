@@ -3,6 +3,7 @@ import logging
 import os
 import sys
 import time
+import importlib
 
 import RPi.GPIO as GPIO
 from PIL import Image, ImageDraw
@@ -266,6 +267,16 @@ def main():
     utils.check_epd_size()
 
     logger.info("Application started")
+
+    # Check for DANGERMODE and scan credentials
+    if config.DANGERMODE == "NO":
+        utils.update_config("LNTXBOTCRED", "*****")
+        utils.update_config("LNDMACAROON", "*****")
+        print(config.LNTXBOTCRED, config.LNDMACAROON)
+        importlib.reload(config)
+        print(config.LNTXBOTCRED, config.LNDMACAROON)
+        # config.LNTXBOTCRED = "*****"
+        # config.LNDMACAROON = "*****"
 
     # Display startup startup_screen
     display.update_startup_screen()
