@@ -173,6 +173,7 @@ def button_pushed():
         display.update_lntxbot_scan()
         lntxcreds = lntxbot.scan_creds()
         utils.update_config("LNTXBOTCRED", lntxcreds)
+        importlib.reload(config)
         balance = lntxbot.get_lnurl_balance()
         display.update_lntxbot_balance(balance)
         GPIO.cleanup()
