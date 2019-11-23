@@ -9,7 +9,7 @@ import logging
 import os.path
 import requests
 
-from config import CONFIG
+from config import conf
 
 logger = logging.getLogger("LIGHTNING")
 
@@ -32,7 +32,7 @@ def payout(amt, payment_request):
     }
 
     response = requests.post(
-        str(CONFIG["btcpay"]["URL"]) + "/channels/transactions",
+        str(conf["btcpay"]["url"]) + "/channels/transactions",
         headers={"Grpc-Metadata-macaroon": macaroon},
         data=json.dumps(data),
     )
@@ -47,7 +47,7 @@ def payout(amt, payment_request):
 def last_payment(payment_request):
     """Returns whether the last payment attempt succeeded or failed
     """
-    url = str(CONFIG["btcpay"]["URL"]) + "/payments"
+    url = str(conf["btcpay"]["url"]) + "/payments"
 
     data = {
         "include_incomplete": True,
@@ -77,7 +77,7 @@ def decode_request(payment_request):
     """Decodes a BOLT11 invoice
     """
     if payment_request:
-        url = str(CONFIG["btcpay"]["URL"]) + "/payreq/" + str(payment_request)
+        url = str(conf["btcpay"]["url"]) + "/payreq/" + str(payment_request)
         response = requests.get(url, headers={"Grpc-Metadata-macaroon": macaroon})
         if response.status_code != 200:
             raise InvoiceDecodeError(
