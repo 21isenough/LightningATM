@@ -1,6 +1,7 @@
-import os
+from configparser import RawConfigParser
 import logging
-import sys
+import os
+from shutil import copyfile
 
 from papirus import Papirus
 
@@ -13,25 +14,56 @@ logging.basicConfig(
     datefmt="%Y/%m/%d %I:%M:%S %p",
     level=logging.INFO,
 )
-# set API URL e.g. https://btcpay.yourdomain.com/lnd-rest/btc/v1
-APIURL = "https://btcpay.21isenough.me/lnd-rest/btc/v1"
 
-# Add variable to set certificate check to true or false #
+home = os.path.expanduser("~")
+config_dir = home + "/.lightningATM/"
+DEFAULT_CONFIG_FILE = config_dir + "config.ini"
 
-# Papirus Setup
+
+def update_config(section, variable, value):
+    """Update the config with the new value for the variable
+    """
+
+    config = create_config()
+    config[section][variable] = value
+
+    with open(CONFIG_FILE, "w") as configfile:
+        config.write(configfile)
+
+
+# config file handling
+def get_config_file():
+    # check the config directory exists, create it if not
+    if not os.path.exists(config_dir):
+        logging.debug(
+            "Config directory not found, creating directory at: {}".format(config_dir)
+        )
+        os.makedirs(config_dir)
+    # check that the config file exists, if not copy over the example_config
+    if not os.path.exists(config_dir + "config.ini"):
+        example_config = os.path.join(os.path.dirname(__file__), "example_config.ini")
+        copyfile(example_config, config_dir + "config.ini")
+    return os.environ.get("CONFIG_FILE", DEFAULT_CONFIG_FILE)
+
+
+def create_config(config_file=None):
+    parser = RawConfigParser()
+    parser.read(config_file or CONFIG_FILE)
+    return parser
+
+
+CONFIG_FILE = get_config_file()
+CONFIG = create_config()
+
+
+# TODO: Add variable to set certificate check to true or false
+# TODO: Add var for fee in %
+
+# Papirus
 WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
 PAPIRUS = Papirus(rotation=PAPIRUSROT)
-
-# set currency value
-CURRENCY = "EUR"
-
-# Add var for fee in % #
-
-# base64 encoded lntxbot api credentials
-LNTXBOTCRED = "#####"
-
 
 # Set sat, fiat
 FIAT = 0
@@ -39,7 +71,7 @@ SATS = 0
 INVOICE = ""
 
 # Set btc and sat price
-BTCPRICE = utils.get_btc_price(CURRENCY)
+BTCPRICE = utils.get_btc_price(CONFIG["atm"]["CURRENCY"])
 SATPRICE = round((1 / (BTCPRICE * 100)) * 100000000, 2)
 
 # Button / Acceptor Pulses
@@ -47,6 +79,3 @@ LASTIMPULSE = 0
 PULSES = 0
 LASTPUSHES = 0
 PUSHES = 0
-
-# lntxbot
-QRFOLDER = "/home/pi/LightningATM/resources/qr_codes"

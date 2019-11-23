@@ -60,7 +60,11 @@ def update_amount_screen():
     )
     draw.text(
         (11, 37),
-        "(" + "%.2f" % round(config.FIAT, 2) + " " + config.CURRENCY + ")",
+        "("
+        + "%.2f" % round(config.FIAT, 2)
+        + " "
+        + config.CONFIG["atm"]["CURRENCY"]
+        + ")",
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -171,7 +175,7 @@ def button_pushed():
     if config.PUSHES == 3:
         lntxcreds = lntxbot.scan_creds()
         print(lntxcreds)
-        utils.update_config("LNTXBOTCRED", lntxcreds)
+        config.update_config("lntxbot", "LNTXBOTCRED", lntxcreds)
         GPIO.cleanup()
         os.execv("/home/pi/LightningATM/app.py", [""])
 

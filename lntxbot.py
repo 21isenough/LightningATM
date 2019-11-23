@@ -30,7 +30,7 @@ def request_lnurl(amt):
     }
     response = requests.post(
         "https://lntxbot.alhur.es/generatelnurlwithdraw",
-        headers={"Authorization": "Basic %s" % config.LNTXBOTCRED},
+        headers={"Authorization": "Basic %s" % config.CONFIG["lntxbot"]["LNTXBOTCRED"]},
         data=json.dumps(data),
     )
     return response.json()
@@ -78,7 +78,7 @@ def get_lnurl_balance():
     """
     response = requests.post(
         "https://lntxbot.alhur.es/balance",
-        headers={"Authorization": "Basic %s" % config.LNTXBOTCRED},
+        headers={"Authorization": "Basic %s" % config.CONFIG["lntxbot"]["LNTXBOTCRED"]},
     )
     return response.json()["BTC"]["AvailableBalance"]
 
