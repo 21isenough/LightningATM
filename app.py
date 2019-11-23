@@ -3,7 +3,6 @@ import logging
 import os
 import sys
 import time
-import importlib
 
 import RPi.GPIO as GPIO
 from PIL import Image, ImageDraw
@@ -61,11 +60,7 @@ def update_amount_screen():
     )
     draw.text(
         (11, 37),
-        "("
-        + "%.2f" % round(config.FIAT, 2)
-        + " "
-        + config.CONFIG["atm"]["CURRENCY"]
-        + ")",
+        "(" + "%.2f" % round(config.FIAT, 2) + " " + config.CONFIG["atm"]["CUR"] + ")",
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -177,7 +172,9 @@ def button_pushed():
         display.update_lntxbot_scan()
         lntxcreds = lntxbot.scan_creds()
         print(lntxcreds)
-        config.update_config("lntxbot", "LNTXBOTCRED", lntxcreds)
+        # TODO: I think here, should only update config if dangermode == YES
+        #   else we should just save to config.CONFIG["lntxbot"]["CRED"]
+        config.update_config("lntxbot", "CRED", lntxcreds)
         balance = lntxbot.get_lnurl_balance()
         display.update_lntxbot_balance(balance)
         GPIO.cleanup()
@@ -270,8 +267,8 @@ def check_dangermode():
     """Check for DANGERMODE and wipe credentials unless is "YES"
     """
     if config.CONFIG["atm"]["DANGERMODE"].upper() == "NO":
-        config.update_config("lntxbot", "LNTXBOTCRED", "")
-        config.update_config("lnd", "LNDMACAROON", "")
+        config.update_config("lntxbot", "CRED", "")
+        config.update_config("lnd", "MACAROON", "")
         config.update_config("atm", "ACTIVEWALLET", "")
     elif config.CONFIG["atm"]["DANGERMODE"].upper() == "YES":
         pass

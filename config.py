@@ -71,7 +71,7 @@ SATS = 0
 INVOICE = ""
 
 # Set btc and sat price
-BTCPRICE = utils.get_btc_price(CONFIG["atm"]["CURRENCY"])
+BTCPRICE = utils.get_btc_price(CONFIG["atm"]["CUR"])
 SATPRICE = round((1 / (BTCPRICE * 100)) * 100000000, 2)
 
 # Button / Acceptor Pulses

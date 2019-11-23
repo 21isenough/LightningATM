@@ -30,7 +30,7 @@ def request_lnurl(amt):
     }
     response = requests.post(
         "https://lntxbot.alhur.es/generatelnurlwithdraw",
-        headers={"Authorization": "Basic %s" % config.CONFIG["lntxbot"]["LNTXBOTCRED"]},
+        headers={"Authorization": "Basic %s" % config.CONFIG["lntxbot"]["CRED"]},
         data=json.dumps(data),
     )
     return response.json()
@@ -78,7 +78,7 @@ def get_lnurl_balance():
     """
     response = requests.post(
         "https://lntxbot.alhur.es/balance",
-        headers={"Authorization": "Basic %s" % config.CONFIG["lntxbot"]["LNTXBOTCRED"]},
+        headers={"Authorization": "Basic %s" % config.CONFIG["lntxbot"]["CRED"]},
     )
     return response.json()["BTC"]["AvailableBalance"]
 
@@ -154,7 +154,7 @@ def photograph_qr_code(qr_count):
         # adjust it, if not)
         os.system(
             "sudo fswebcam -d /dev/video0 -r 700x525 -q "
-            + config.QRFOLDER
+            + config.CONFIG["qr"]["SCAN_DIR"]
             + "/lntxcred_"
             + str(qr_count)
             + ".jpg"
@@ -171,7 +171,9 @@ def extract_qr_from_image(qr_count):
     """Attempt to read the QR code from the image
     """
     print("Scanning image..")
-    with open(config.QRFOLDER + "/lntxcred_" + str(qr_count) + ".jpg", "rb") as f:
+    with open(
+        config.CONFIG["qr"]["SCAN_DIR"] + "/lntxcred_" + str(qr_count) + ".jpg", "rb"
+    ) as f:
         qr = Image.open(f)
         qr.load()
         invoice = zbarlight.scan_codes("qrcode", qr)
@@ -179,7 +181,9 @@ def extract_qr_from_image(qr_count):
     if not invoice:
         logger.info("No QR code found")
         print("No QR code found")
-        os.remove(config.QRFOLDER + "/lntxcred_" + str(qr_count) + ".jpg")
+        os.remove(
+            config.CONFIG["qr"]["SCAN_DIR"] + "/lntxcred_" + str(qr_count) + ".jpg"
+        )
         return False
 
     else:
@@ -190,7 +194,7 @@ def extract_qr_from_image(qr_count):
         # invoice = invoice.lower()
         # print(invoice)
 
-        # with open(config.QRFOLDER+'/qr_code_scans.txt','a+') as f:
+        # with open(config.CONFIG["qr"]["SCAN_DIR"]+'/qr_code_scans.txt','a+') as f:
         #    f.write(invoice + ' ' + str(datetime.now()) + '\n')
 
         # remove "lightning:" prefix
@@ -206,7 +210,7 @@ def scan_creds():
     attempts = 0
 
     while attempts < 4:
-        qr_count = len(os.listdir(config.QRFOLDER))
+        qr_count = len(os.listdir(config.CONFIG["qr"]["SCAN_DIR"]))
         qr_image = photograph_qr_code(qr_count)
         if qr_image:
             invoice = extract_qr_from_image(qr_count)
