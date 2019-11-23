@@ -3,7 +3,6 @@ import logging
 import os
 import sys
 import time
-import importlib
 
 import RPi.GPIO as GPIO
 from PIL import Image, ImageDraw
@@ -61,7 +60,11 @@ def update_amount_screen():
     )
     draw.text(
         (11, 37),
-        "(" + "%.2f" % round(config.FIAT, 2) + " " + config.CURRENCY + ")",
+        "("
+        + "%.2f" % round(config.FIAT, 2)
+        + " "
+        + config.CONFIG["atm"]["CURRENCY"]
+        + ")",
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -81,7 +84,7 @@ def handle_invoice(draw, image):
     make the payment.
     """
     decode_req = lightning.decode_request(config.INVOICE)
-    if decode_req == str(round(config.SATS)) or str(0):
+    if decode_req in (round(config.SATS), 0):
         lightning.payout(config.SATS, config.INVOICE)
         result = lightning.last_payment(config.INVOICE)
 
@@ -170,12 +173,9 @@ def button_pushed():
             lntxbot.process_using_lnurl(config.SATS)
 
     if config.PUSHES == 3:
-        display.update_lntxbot_scan()
         lntxcreds = lntxbot.scan_creds()
-        utils.update_config("LNTXBOTCRED", lntxcreds)
-        importlib.reload(config)
-        balance = lntxbot.get_lnurl_balance()
-        display.update_lntxbot_balance(balance)
+        print(lntxcreds)
+        config.update_config("lntxbot", "LNTXBOTCRED", lntxcreds)
         GPIO.cleanup()
         os.execv("/home/pi/LightningATM/app.py", [""])
 
@@ -262,28 +262,10 @@ def setup_coin_acceptor():
     GPIO.add_event_detect(6, GPIO.FALLING, callback=coin_event)
 
 
-def check_dangermode():
-    """Checks if DANGERMODE is YES or NO
-    """
-    if config.DANGERMODE == "NO":
-        utils.update_config("LNTXBOTCRED", "")
-        utils.update_config("LNDMACAROON", "")
-        utils.update_config("ACTIVEWALLET", "")
-        importlib.reload(config)
-    elif config.DANGERMODE == "YES":
-        pass
-    else:
-        logger.info("ATM shutdown (DANGERMODE isn't set properly)")
-        GPIO.cleanup()
-        os.system("sudo shutdown -h now")
-
-
 def main():
     utils.check_epd_size()
 
     logger.info("Application started")
-
-    check_dangermode()
 
     # Display startup startup_screen
     display.update_startup_screen()

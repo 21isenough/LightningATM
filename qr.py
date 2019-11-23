@@ -2,59 +2,71 @@
 
 import os
 import zbarlight
-import sys
 import logging
-import config
-import time
 
 from PIL import Image
 from datetime import datetime
-from io import BytesIO
-from picamera import PiCamera
+
+from config import CONFIG
 
 
 def scan():
 
-    with PiCamera() as camera:
+    attempts = 0
+    qr_folder = CONFIG["qr"]["SCAN_DIR"]
+
+    while attempts < 4:
         try:
-            camera.start_preview()
-            time.sleep(1)
-            logging.info("Start scanning for QR code")
+            _scan = True
+            qr_count = len(os.listdir(qr_folder))
+            print("Taking picture..")
+            # Take picture (make sure RaspberryPi camera is focused correctly - manually adjust it, if not)
+            os.system(
+                "sudo fswebcam -d /dev/video0 -r 700x525 -q "
+                + qr_folder
+                + "/qr_"
+                + str(qr_count)
+                + ".jpg"
+            )
+            print("Picture saved..")
+
         except:
-            logging.info("Picture couldn't be taken..")
+            _scan = False
+            print("Picture couldn't be taken..")
 
-        stream = BytesIO()
-        qrcodes = None
-        # Set timeout to 10 seconds
-        timeout = time.time() + 10
+        if _scan:
+            invoice = ""
 
-        while qrcodes is None and (time.time() < timeout):
-            stream.seek(0)
-            ## Start camera stream (make sure RaspberryPi camera is focused correctly - manually adjust it, if not)
-            camera.capture(stream, "jpeg")
-            stream.seek(0)
-            qrcodes = zbarlight.scan_codes("qrcode", Image.open(stream))
-            time.sleep(0.05)
-        camera.stop_preview()
+            print("Scanning image..")
+            with open(qr_folder + "/qr_" + str(qr_count) + ".jpg", "rb") as f:
+                qr = Image.open(f)
+                qr.load()
+                invoice = zbarlight.scan_codes("qrcode", qr)
 
-        if qrcodes:
-            invoice = qrcodes[0].decode().lower()
+            if not invoice:
+                logging.info("No QR code found")
+                print("No QR code found")
+                os.remove(qr_folder + "/qr_" + str(qr_count) + ".jpg")
+                attempts += 1
 
-        if not (time.time() < timeout):
-            logging.info("No QR within 10 seconds detected")
-            return False
+            else:
+                # extract invoice from list
+                logging.info("Invoice detected")
+                invoice = invoice[0]
+                invoice = invoice.decode()
+                invoice = invoice.lower()
+                print(invoice)
 
-        elif "lnbc" in invoice:
-            logging.info("Lightning invoice detected")
-            ## Write Lightning invoice into a text file
-            now = datetime.now()
-            with open(config.QRFOLDER + "/qr_code_scans.txt", "a+") as f:
-                f.write(invoice + " " + str(now.strftime("%d/%m/%Y %H:%M:%S")) + "\n")
+                with open(qr_folder + "/qr_code_scans.txt", "a+") as f:
+                    f.write(invoice + " " + str(datetime.now()) + "\n")
 
-            if "lightning:" in invoice:
-                invoice = invoice[10:]
-            return invoice
+                # remove "lightning:" prefix
+                if "lightning:" in invoice:
+                    invoice = invoice[10:]
 
-        else:
-            logging.info("This QR does not contain a Lightning invoice")
-            return False
+                return invoice
+
+    # return False after 4 failed attempts
+    logging.info("4 failed scanning attempts.")
+    print("4 failed attempts ... try again.")
+    return False
