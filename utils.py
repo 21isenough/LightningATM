@@ -45,5 +45,5 @@ def get_btc_price(fiat_code):
     """Get BTC -> FIAT conversion
     """
     return requests.get(
-        "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC" + fiat_code
+        "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC" + fiat_code.upper()
     ).json()["last"]

@@ -60,7 +60,11 @@ def update_amount_screen():
     )
     draw.text(
         (11, 37),
-        "(" + "%.2f" % round(config.FIAT, 2) + " " + config.CONFIG["atm"]["CUR"] + ")",
+        "("
+        + "%.2f" % round(config.FIAT, 2)
+        + " "
+        + config.conf["atm"]["cur"].upper()
+        + ")",
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -173,7 +177,7 @@ def button_pushed():
         lntxcreds = lntxbot.scan_creds()
         print(lntxcreds)
         # TODO: I think here, should only update config if dangermode == YES
-        #   else we should just save to config.CONFIG["lntxbot"]["CRED"]
+        #   else we should just save to config.CONFIG["lntxbot"]["cred"]
         config.update_config("lntxbot", "CRED", lntxcreds)
         balance = lntxbot.get_lnurl_balance()
         display.update_lntxbot_balance(balance)
@@ -266,11 +270,11 @@ def setup_coin_acceptor():
 def check_dangermode():
     """Check for DANGERMODE and wipe credentials unless is "YES"
     """
-    if config.CONFIG["atm"]["DANGERMODE"].upper() == "NO":
-        config.update_config("lntxbot", "CRED", "")
-        config.update_config("lnd", "MACAROON", "")
-        config.update_config("atm", "ACTIVEWALLET", "")
-    elif config.CONFIG["atm"]["DANGERMODE"].upper() == "YES":
+    if config.conf["atm"]["dangermode"].lower() == "no":
+        config.update_config("lntxbot", "cred", "")
+        config.update_config("lnd", "macaroon", "")
+        config.update_config("atm", "activewallet", "")
+    elif config.conf["atm"]["dangermode"].lower() == "no":
         pass
     else:
         logger.info("ATM shutdown (DANGERMODE isn't set properly)")

@@ -9,7 +9,7 @@ from datetime import datetime
 from io import BytesIO
 from picamera import PiCamera
 
-from config import CONFIG
+from config import conf
 
 
 def scan():
@@ -47,7 +47,7 @@ def scan():
             logging.info("Lightning invoice detected")
             # Write Lightning invoice into a text file
             now = datetime.now()
-            with open(CONFIG["qr"]["SCAN_DIR"] + "/qr_code_scans.txt", "a+") as f:
+            with open(conf["qr"]["scan_dir"] + "/qr_code_scans.txt", "a+") as f:
                 f.write(invoice + " " + str(now.strftime("%d/%m/%Y %H:%M:%S")) + "\n")
 
             if "lightning:" in invoice:
