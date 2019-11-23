@@ -8,16 +8,16 @@ from papirus import Papirus
 import utils
 
 
+home = os.path.expanduser("~")
+config_dir = home + "/.lightningATM/"
+DEFAULT_CONFIG_FILE = config_dir + "config.ini"
+
 logging.basicConfig(
-    filename="/home/pi/LightningATM/resources/debug.log",
+    filename="{}/debug.log".format(config_dir),
     format="%(asctime)-23s %(name)-9s %(levelname)-7s | %(message)s",
     datefmt="%Y/%m/%d %I:%M:%S %p",
     level=logging.INFO,
 )
-
-home = os.path.expanduser("~")
-config_dir = home + "/.lightningATM/"
-DEFAULT_CONFIG_FILE = config_dir + "config.ini"
 
 
 def update_config(section, variable, value):
