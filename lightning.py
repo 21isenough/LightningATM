@@ -32,7 +32,7 @@ def payout(amt, payment_request):
     }
 
     response = requests.post(
-        str(CONFIG["btcpay"]["APIURL"]) + "/channels/transactions",
+        str(CONFIG["btcpay"]["URL"]) + "/channels/transactions",
         headers={"Grpc-Metadata-macaroon": macaroon},
         data=json.dumps(data),
     )
@@ -47,7 +47,7 @@ def payout(amt, payment_request):
 def last_payment(payment_request):
     """Returns whether the last payment attempt succeeded or failed
     """
-    url = str(CONFIG["btcpay"]["APIURL"]) + "/payments"
+    url = str(CONFIG["btcpay"]["URL"]) + "/payments"
 
     data = {
         "include_incomplete": True,
@@ -77,7 +77,7 @@ def decode_request(payment_request):
     """Decodes a BOLT11 invoice
     """
     if payment_request:
-        url = str(CONFIG["btcpay"]["APIURL"]) + "/payreq/" + str(payment_request)
+        url = str(CONFIG["btcpay"]["URL"]) + "/payreq/" + str(payment_request)
         response = requests.get(url, headers={"Grpc-Metadata-macaroon": macaroon})
         # TODO: I don't think we handle failed decoding here
         #   Perhaps something like:
