@@ -3,6 +3,7 @@ import logging
 import os
 import sys
 import time
+import importlib
 
 import RPi.GPIO as GPIO
 from PIL import Image, ImageDraw
@@ -262,10 +263,26 @@ def setup_coin_acceptor():
     GPIO.add_event_detect(6, GPIO.FALLING, callback=coin_event)
 
 
+def check_dangermode():
+    """Check for DANGERMODE and wipe credentials unless is "YES"
+    """
+    if config.CONFIG["atm"]["DANGERMODE"].upper() == "NO":
+        config.update_config("lntxbot", "LNTXBOTCRED", "")
+        config.update_config("lnd", "LNDMACAROON", "")
+        config.update_config("atm", "ACTIVEWALLET", "")
+    elif config.CONFIG["atm"]["DANGERMODE"].upper() == "YES":
+        pass
+    else:
+        logger.info("ATM shutdown (DANGERMODE isn't set properly)")
+        GPIO.cleanup()
+        os.system("sudo shutdown -h now")
+
+
 def main():
     utils.check_epd_size()
-
     logger.info("Application started")
+
+    check_dangermode()
 
     # Display startup startup_screen
     display.update_startup_screen()
