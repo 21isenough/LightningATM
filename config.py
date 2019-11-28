@@ -3,27 +3,33 @@ import logging
 import os
 from shutil import copyfile
 
-from papirus import Papirus
+# from papirus import Papirus
 
 import utils
-
 
 home = os.path.expanduser("~")
 ATM_data_dir = home + "/.lightningATM/"
 config_file_path = ATM_data_dir + "config.ini"
-# check the config directory exists, create it if not
-if not os.path.exists(ATM_data_dir):
-    os.makedirs(ATM_data_dir)
-    logging.debug(
-        "Config directory not found, creating directory at: {}".format(ATM_data_dir)
-    )
+
 
 logging.basicConfig(
     filename="{}/debug.log".format(ATM_data_dir),
     format="%(asctime)-23s %(name)-9s %(levelname)-7s | %(message)s",
     datefmt="%Y/%m/%d %I:%M:%S %p",
-    level=logging.INFO,
+    level=logging.DEBUG,
 )
+
+logger = logging.getLogger("CONFIG")
+
+
+# check the config directory exists, create it if not
+if not os.path.exists(ATM_data_dir):
+    os.makedirs(ATM_data_dir)
+    logger.debug(
+        "Config directory not found, creating directory at: {}".format(ATM_data_dir)
+    )
+else:
+    logger.debug("Config dir already created")
 
 
 def update_config(section, variable, value):
@@ -63,7 +69,7 @@ conf = create_config()
 WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
-PAPIRUS = Papirus(rotation=PAPIRUSROT)
+# PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
 # Set sat, fiat
 FIAT = 0
