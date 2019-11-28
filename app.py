@@ -274,6 +274,7 @@ def check_dangermode():
         config.update_config("lntxbot", "cred", "")
         config.update_config("lnd", "macaroon", "")
         config.update_config("atm", "activewallet", "")
+        config.conf = config.conf._sections
         print("Scan lntxbot creds now\n")
         time.sleep(2)
         try:
