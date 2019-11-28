@@ -11,6 +11,12 @@ import utils
 home = os.path.expanduser("~")
 ATM_data_dir = home + "/.lightningATM/"
 config_file_path = ATM_data_dir + "config.ini"
+# check the config directory exists, create it if not
+if not os.path.exists(ATM_data_dir):
+    os.makedirs(ATM_data_dir)
+    logging.debug(
+        "Config directory not found, creating directory at: {}".format(ATM_data_dir)
+    )
 
 logging.basicConfig(
     filename="{}/debug.log".format(ATM_data_dir),
@@ -33,12 +39,6 @@ def update_config(section, variable, value):
 
 # config file handling
 def get_config_file():
-    # check the config directory exists, create it if not
-    if not os.path.exists(ATM_data_dir):
-        logging.debug(
-            "Config directory not found, creating directory at: {}".format(ATM_data_dir)
-        )
-        os.makedirs(ATM_data_dir)
     # check that the config file exists, if not copy over the example_config
     if not os.path.exists(ATM_data_dir + "config.ini"):
         example_config = os.path.join(os.path.dirname(__file__), "example_config.ini")
