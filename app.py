@@ -278,6 +278,13 @@ def check_dangermode():
         config.update_config("atm", "activewallet", "")
     else:
         logger.info("DANGERMODE not activated")
+        input("Scan lntxbot creds now\n")
+        time.sleep(2)
+        try:
+            config.conf["lntxbot"]["creds"] = lntxbot.scan_creds()
+        except Exception:
+            logger.exception("Error scanning lntxbot creds")
+            return
 
 
 def main():

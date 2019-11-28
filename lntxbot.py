@@ -7,7 +7,8 @@ import requests
 import json
 
 from PIL import ImageDraw
-import qrcode
+
+# import qrcode
 
 # TODO: Should this be `import qr`? Otherwise this is missing from requirements.txt
 import config
