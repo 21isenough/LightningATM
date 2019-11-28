@@ -25,6 +25,14 @@ logging.basicConfig(
 logger = logging.getLogger("CONFIG")
 
 
+def check_config():
+    if conf["lnd"]["macaroon"] is (None or ""):
+        logger.warning("Missing value for lnd macaroon in config")
+        # TODO: ask to scan macaroon qr code here?
+    if conf["lntxbot"]["cred"] is (None or ""):
+        logger.warning("Missing value for lntxbot credential in config")
+
+
 def update_config(section, variable, value):
     """Update the config with the new value for the variable
     """

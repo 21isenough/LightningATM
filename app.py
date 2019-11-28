@@ -114,7 +114,6 @@ def handle_invoice(draw, image):
 def update_payout_screen():
     """Update the payout screen to reflect balance of deposited coins.
     Scan the invoice??? I don't think so!
-    Handle the invoice??? I also don't think so!
     """
     image, width, height, draw = init_screen(color=config.WHITE)
 
@@ -176,7 +175,7 @@ def button_pushed():
         display.update_lntxbot_scan()
         lntxcreds = lntxbot.scan_creds()
         print(lntxcreds)
-        if config.conf["atm"]["dangermode"].lower() == "yes":
+        if config.conf["atm"]["dangermode"].lower() == "on":
             config.update_config("lntxbot", "CRED", lntxcreds)
         else:
             config.conf["lntxbot"]["cred"] = lntxcreds
@@ -269,15 +268,13 @@ def setup_coin_acceptor():
 
 
 def check_dangermode():
-    """Check for DANGERMODE and wipe credentials unless is "YES"
+    """Check for DANGERMODE and wipe any saved credentials if not enabled"
     """
-    if config.conf["atm"]["dangermode"].lower() != "yes":
-        logger.warning("DANGERMODE activated")
+    if config.conf["atm"]["dangermode"].lower() != "on":
+        logger.warning("DANGERMODE not activated")
         config.update_config("lntxbot", "cred", "")
         config.update_config("lnd", "macaroon", "")
         config.update_config("atm", "activewallet", "")
-    else:
-        logger.info("DANGERMODE not activated")
         input("Scan lntxbot creds now\n")
         time.sleep(2)
         try:
@@ -285,6 +282,9 @@ def check_dangermode():
         except Exception:
             logger.exception("Error scanning lntxbot creds")
             return
+    else:
+        logger.info("DANGERMODE activated")
+        config.check_config()
 
 
 def main():
