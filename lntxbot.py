@@ -16,7 +16,6 @@ import display
 import utils
 
 # Just for scanning
-import logging
 from datetime import datetime
 from PIL import Image
 import zbarlight

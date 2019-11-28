@@ -79,8 +79,7 @@ def decode_request(payment_request):
     if payment_request:
         url = str(conf["btcpay"]["url"]) + "/payreq/" + str(payment_request)
         response = requests.get(url, headers={"Grpc-Metadata-macaroon": macaroon})
-        # TODO: I don't think we handle failed decoding here
-        #   Perhaps something like:
+        # successful response
         if response.status_code != 200:
             raise InvoiceDecodeError(
                 "Invoice {} got bad decode response {}".format(
