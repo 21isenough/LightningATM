@@ -8,7 +8,7 @@ from config import *
 from PIL import Image, ImageFont, ImageDraw
 
 
-## PaPiRus eInk size is 128 x 96 pixels
+# PaPiRus eInk size is 128 x 96 pixels
 
 
 def update_startup_screen():
@@ -27,13 +27,13 @@ def update_startup_screen():
 
 
 def update_qr_request(amt):
-    ## initially set all white background
+    # initially set all white background
     image = Image.new("1", PAPIRUS.size, WHITE)
 
-    ## Set width and heigt of screen
+    # Set width and height of screen
     width, height = image.size
 
-    ## prepare for drawing
+    # prepare for drawing
     draw = ImageDraw.Draw(image)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
@@ -63,13 +63,13 @@ def update_qr_request(amt):
 
 
 def update_qr_failed():
-    ## initially set all white background
+    # initially set all white background
     image = Image.new("1", PAPIRUS.size, WHITE)
 
-    ## Set width and heigt of screen
+    # Set width and height of screen
     width, height = image.size
 
-    ## prepare for drawing
+    # prepare for drawing
     draw = ImageDraw.Draw(image)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
@@ -150,13 +150,13 @@ def update_shutdown_screen():
 
 
 def update_lntxbot_scan():
-    ## initially set all white background
+    # initially set all white background
     image = Image.new("1", PAPIRUS.size, WHITE)
 
-    ## Set width and heigt of screen
+    # Set width and heigt of screen
     width, height = image.size
 
-    ## prepare for drawing
+    # prepare for drawing
     draw = ImageDraw.Draw(image)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
@@ -170,13 +170,13 @@ def update_lntxbot_scan():
 
 
 def update_lntxbot_balance(balance):
-    ## initially set all white background
+    # initially set all white background
     image = Image.new("1", PAPIRUS.size, WHITE)
 
-    ## Set width and heigt of screen
+    # Set width and height of screen
     width, height = image.size
 
-    ## prepare for drawing
+    # prepare for drawing
     draw = ImageDraw.Draw(image)
 
     draw.rectangle((2, 2, width - 2, height - 2), fill=WHITE, outline=BLACK)
