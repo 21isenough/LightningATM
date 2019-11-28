@@ -3,7 +3,7 @@ import logging
 import os
 from shutil import copyfile
 
-# from papirus import Papirus
+from papirus import Papirus
 
 import utils
 
@@ -69,7 +69,7 @@ conf = create_config()
 WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
-# PAPIRUS = Papirus(rotation=PAPIRUSROT)
+PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
 # Set sat, fiat
 FIAT = 0
