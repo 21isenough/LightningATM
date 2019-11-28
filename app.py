@@ -182,7 +182,6 @@ def button_pushed():
         balance = lntxbot.get_lnurl_balance()
         display.update_lntxbot_balance(balance)
         GPIO.cleanup()
-        os.execv("/home/pi/LightningATM/app.py", [""])
 
     if config.PUSHES == 4:
         logger.info("Button pushed three times (add coin)")
