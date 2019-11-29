@@ -18,6 +18,15 @@ import utils
 logger = logging.getLogger("MAIN")
 
 
+def softreset():
+    """Displays startup screen and deletes fiat amount
+    """
+    config.SATS = 0
+    config.FIAT = 0
+    display.update_startup_screen()
+    logger.info("Softreset executed")
+
+
 def button_event(channel):
     """Registers a button push event
     """
@@ -105,8 +114,7 @@ def handle_invoice(draw, image):
             display.update_payment_failed()
             time.sleep(120)
 
-        logger.info("Initiating restart...")
-        os.execv("/home/pi/LightningATM/app.py", [""])
+        logger.info("Initiating softreset...")
     else:
         print("Please show correct invoice")
 
@@ -165,6 +173,7 @@ def button_pushed():
                 display.update_qr_request(config.SATS)
                 config.INVOICE = qr.scan()
             update_payout_screen()
+            softreset()
 
     if config.PUSHES == 2:
         """If no coins inserted, update the screen.
@@ -176,6 +185,8 @@ def button_pushed():
             display.update_startup_screen()
         else:
             lntxbot.process_using_lnurl(config.SATS)
+            # Softreset and startup screen
+            softreset()
 
     if config.PUSHES == 3:
         """Store new lntxbot credential via a QR code scan
@@ -207,7 +218,7 @@ def button_pushed():
         logger.warning("Button pushed five times (restart)")
         print("Button pushed five times (restart)")
         GPIO.cleanup()
-        os.execv("/home/pi/LightningATM/app.py", [""])
+        utils.softreset()
 
     if config.PUSHES == 6:
         """Shutdown the host machine
@@ -310,6 +321,7 @@ def check_dangermode():
         time.sleep(2)
         try:
             config.conf["lntxbot"]["creds"] = lntxbot.scan_creds()
+            logger.info("Credentials saved in volatile memory (deleted after reboot)")
         except utils.ScanError:
             logger.error("Error scanning lntxbot creds with dangermode off")
             return
