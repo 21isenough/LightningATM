@@ -31,7 +31,6 @@ def print_conf():
 def request_lnurl(amt):
     """Request a new lnurl for 'amt' from the server
     """
-    print("Creds: " + config.conf["lntxbot"]["creds"])
     data = {
         "satoshis": str(round(amt)),
     }
@@ -106,8 +105,6 @@ def wait_for_balance_update(start_balance, timeout):
             print(
                 "Balance: " + str(start_balance) + " | New Balance:" + str(new_balance)
             )
-            logger.info("LNURL withdrawal succeeded")
-            print("LNURL withdrawal succeeded")
             success = True
             break
     return success
@@ -128,10 +125,7 @@ def process_using_lnurl(amt):
 
     # create a qr code image and print it to terminal
     qr_img = generate_lnurl_qr(lnurl["lnurl"])
-    print(type(qr_img))
-    print(qr_img.size)
     qr_img = qr_img.resize((96, 96), resample=0)
-    print(qr_img.size)
 
     # draw the qr code on the e-ink screen
     draw_lnurl_qr(qr_img)
@@ -183,30 +177,30 @@ def extract_qr_from_image(qr_count):
     ) as f:
         qr = Image.open(f)
         qr.load()
-        invoice = zbarlight.scan_codes("qrcode", qr)
+        credentials = zbarlight.scan_codes("qrcode", qr)
 
-    if not invoice:
+    if not credentials:
         logger.info("No QR code found")
         print("No QR code found")
         os.remove(config.conf["qr"]["scan_dir"] + "/lntxcred_" + str(qr_count) + ".jpg")
         return False
 
     else:
-        # extract invoice from list
-        logger.info("Invoice detected")
-        invoice = invoice[0]
-        invoice = invoice.decode()
-        # invoice = invoice.lower()
-        # print(invoice)
+        # extract credentials from list
+        logger.info("Credentials detected")
+        credentials = credentials[0]
+        credentials = credentials.decode()
+        # credentials = credentials.lower()
+        # print(credentials)
 
         # with open(config.CONFIG["qr"]["scan_dir"]+'/qr_code_scans.txt','a+') as f:
-        #    f.write(invoice + ' ' + str(datetime.now()) + '\n')
+        #    f.write(credentials + ' ' + str(datetime.now()) + '\n')
 
         # remove "lightning:" prefix
-        # if 'lightning:' in invoice:
-        #    invoice = invoice[10:]
+        # if 'lightning:' in credentials:
+        #    credentials = credentials[10:]
 
-        return invoice
+        return credentials
 
 
 def scan_creds():
@@ -218,11 +212,11 @@ def scan_creds():
         qr_count = len(os.listdir(config.conf["qr"]["scan_dir"]))
         qr_image = photograph_qr_code(qr_count)
         if qr_image:
-            invoice = extract_qr_from_image(qr_count)
-            if not invoice:
+            credentials = extract_qr_from_image(qr_count)
+            if not credentials:
                 attempts += 1
             else:
-                return invoice
+                return credentials
 
     logger.error("4 failed scanning attempts.")
     print("4 failed attempts ... try again.")
