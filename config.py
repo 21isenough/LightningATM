@@ -21,8 +21,28 @@ logging.basicConfig(
     datefmt="%Y/%m/%d %I:%M:%S %p",
     level=logging.DEBUG,
 )
-
 logger = logging.getLogger("CONFIG")
+
+yes = ["yes", "ye", "y"]
+no = ["no", "n"]
+
+
+def ask_scan_config_val(section, variable):
+    while True:
+        try:
+            res = input(
+                "Do you want to scan to input {} {}".format(section, variable)
+            ).lower()
+            if res in yes:
+                # value = scan the qr for the value
+                # update_config(section, variable, value
+                ...
+            elif res in no:
+                return
+            else:
+                print("Input invalid, please try again or KeyboardInterrupt to exit")
+        except KeyboardInterrupt:
+            return
 
 
 def check_config():
@@ -30,9 +50,10 @@ def check_config():
     """
     if conf["lnd"]["macaroon"] is (None or ""):
         logger.warning("Missing value for lnd macaroon in config")
-        # TODO: ask to scan macaroon qr code here?
+        ask_scan_config_val("lnd", "macaroon")
     if conf["lntxbot"]["cred"] is (None or ""):
         logger.warning("Missing value for lntxbot credential in config")
+        ask_scan_config_val("lntxbot", "cred")
 
 
 def update_config(section, variable, value):
@@ -40,12 +61,14 @@ def update_config(section, variable, value):
     If dangermode is on, we save them to config.ini, else we write them to the temporary
     dictionary
     """
+    if conf["atm"]["dangermode"].lower() == "on":
+        config = create_config()
+        config[section][variable] = value
 
-    config = create_config()
-    config[section][variable] = value
-
-    with open(CONFIG_FILE, "w") as configfile:
-        config.write(configfile)
+        with open(CONFIG_FILE, "w") as configfile:
+            config.write(configfile)
+    else:
+        conf[section][variable] = value
 
 
 # config file handling

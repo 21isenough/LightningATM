@@ -185,10 +185,11 @@ def button_pushed():
         # scan the credentials
         lntxcreds = lntxbot.scan_creds()
         print(lntxcreds)
-        if config.conf["atm"]["dangermode"].lower() == "on":
-            config.update_config("lntxbot", "CRED", lntxcreds)
-        else:
-            config.conf["lntxbot"]["cred"] = lntxcreds
+
+        # save them to the current config
+        config.update_config("lntxbot", "CRED", lntxcreds)
+
+        # return the current balance to the user on the screen
         balance = lntxbot.get_lnurl_balance()
         display.update_lntxbot_balance(balance)
         GPIO.cleanup()
