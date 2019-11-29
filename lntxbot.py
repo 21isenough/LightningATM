@@ -8,7 +8,7 @@ import json
 
 from PIL import ImageDraw
 
-# import qrcode
+import qrcode
 
 # TODO: Should this be `import qr`? Otherwise this is missing from requirements.txt
 import config
@@ -22,6 +22,10 @@ import zbarlight
 
 
 logger = logging.getLogger("LNTXBOT")
+
+
+def print_conf():
+    print(config.conf["lntxbot"]["cred"])
 
 
 def request_lnurl(amt):
@@ -140,11 +144,11 @@ def process_using_lnurl(amt):
 
     if success:
         display.update_thankyou_screen()
-        logger.info("Initiating restart...")
-        os.execv("/home/pi/LightningATM/app.py", [""])
+        logger.info("process_lnurl: success!")
+        return
     else:
         # TODO: I think we should handle a failure here
-        pass
+        logger.error("process_lnurl: not successful")
 
 
 def photograph_qr_code(qr_count):
@@ -219,6 +223,6 @@ def scan_creds():
             else:
                 return invoice
 
-    logger.info("4 failed scanning attempts.")
+    logger.error("4 failed scanning attempts.")
     print("4 failed attempts ... try again.")
-    return False
+    raise utils.ScanError

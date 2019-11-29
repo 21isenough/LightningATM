@@ -20,7 +20,7 @@ def scan():
             time.sleep(1)
             logging.info("Start scanning for QR code")
         except:
-            logging.info("Picture couldn't be taken..")
+            logging.error("PiCamera.start_preview() raised an exception")
 
         stream = BytesIO()
         qr_codes = None
@@ -29,22 +29,26 @@ def scan():
 
         while qr_codes is None and (time.time() < timeout):
             stream.seek(0)
-            # Start camera stream (make sure RaspberryPi camera is focused correctly - manually adjust it, if not)
+            # Start camera stream (make sure RaspberryPi camera is focused correctly
+            # manually adjust it, if not)
             camera.capture(stream, "jpeg")
             stream.seek(0)
             qr_codes = zbarlight.scan_codes("qrcode", Image.open(stream))
             time.sleep(0.05)
         camera.stop_preview()
 
-        if qr_codes:
-            invoice = qr_codes[0].decode().lower()
-
-        if not (time.time() < timeout):
+        # break immediately if we didn't get a qr code scan
+        if not qr_codes:
             logging.info("No QR within 10 seconds detected")
             return False
 
-        elif "lnbc" in invoice:
+        # decode the qr_code to get the invoice
+        invoice = qr_codes[0].decode().lower()
+
+        # check for a lightning invoice
+        if "lnbc" in invoice:
             logging.info("Lightning invoice detected")
+
             # Write Lightning invoice into a text file
             now = datetime.now()
             with open(conf["qr"]["scan_dir"] + "/qr_code_scans.txt", "a+") as f:
@@ -57,5 +61,5 @@ def scan():
             return invoice
 
         else:
-            logging.info("This QR does not contain a Lightning invoice")
+            logging.error("This QR does not contain a Lightning invoice")
             return False
