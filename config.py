@@ -26,6 +26,8 @@ logger = logging.getLogger("CONFIG")
 
 
 def check_config():
+    """Checks the config and prompt the user to provide values for missing keys
+    """
     if conf["lnd"]["macaroon"] is (None or ""):
         logger.warning("Missing value for lnd macaroon in config")
         # TODO: ask to scan macaroon qr code here?
@@ -34,7 +36,9 @@ def check_config():
 
 
 def update_config(section, variable, value):
-    """Update the config with the new value for the variable
+    """Update the config with the new value for the variable.
+    If dangermode is on, we save them to config.ini, else we write them to the temporary
+    dictionary
     """
 
     config = create_config()
