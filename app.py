@@ -285,11 +285,11 @@ def setup_coin_acceptor():
 
 
 def check_dangermode():
-    """Check for DANGERMODE and wipe any saved credentials if not enabled"
+    """Check for DANGERMODE and wipe any saved credentials if off"
     """
     # if dangermode is NOT on
     if config.conf["atm"]["dangermode"].lower() != "on":
-        logger.warning("DANGERMODE not activated")
+        logger.warning("DANGERMODE off")
 
         # wipe any saved values from the config by saving an empty value to it
         config.update_config("lntxbot", "cred", "")
@@ -314,7 +314,7 @@ def check_dangermode():
             logger.error("Error scanning lntxbot creds with dangermode off")
             return
     else:
-        logger.info("DANGERMODE activated. Loading values from config.ini...")
+        logger.info("DANGERMODE on. Loading values from config.ini...")
         config.check_config()
 
 

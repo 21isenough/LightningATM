@@ -25,18 +25,19 @@ logger = logging.getLogger("LNTXBOT")
 
 
 def print_conf():
-    print(config.conf["lntxbot"]["cred"])
+    print(config.conf["lntxbot"]["creds"])
 
 
 def request_lnurl(amt):
     """Request a new lnurl for 'amt' from the server
     """
+    print("Creds: " + config.conf["lntxbot"]["creds"])
     data = {
         "satoshis": str(round(amt)),
     }
     response = requests.post(
         "https://lntxbot.alhur.es/generatelnurlwithdraw",
-        headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["cred"]},
+        headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
         data=json.dumps(data),
     )
     return response.json()
@@ -84,7 +85,7 @@ def get_lnurl_balance():
     """
     response = requests.post(
         "https://lntxbot.alhur.es/balance",
-        headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["cred"]},
+        headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
     )
     return response.json()["BTC"]["AvailableBalance"]
 
@@ -144,11 +145,11 @@ def process_using_lnurl(amt):
 
     if success:
         display.update_thankyou_screen()
-        logger.info("process_lnurl: success!")
+        logger.info("LNURL withdrawal succeeded")
         return
     else:
         # TODO: I think we should handle a failure here
-        logger.error("process_lnurl: not successful")
+        logger.error("LNURL withdrawal failed (within 90 seconds)")
 
 
 def photograph_qr_code(qr_count):
