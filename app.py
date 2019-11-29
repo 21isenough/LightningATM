@@ -3,7 +3,6 @@ import logging
 import os
 import sys
 import time
-import importlib
 
 import RPi.GPIO as GPIO
 from PIL import Image, ImageDraw
@@ -61,7 +60,11 @@ def update_amount_screen():
     )
     draw.text(
         (11, 37),
-        "(" + "%.2f" % round(config.FIAT, 2) + " " + config.CURRENCY + ")",
+        "("
+        + "%.2f" % round(config.FIAT, 2)
+        + " "
+        + config.conf["atm"]["cur"].upper()
+        + ")",
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -81,7 +84,7 @@ def handle_invoice(draw, image):
     make the payment.
     """
     decode_req = lightning.decode_request(config.INVOICE)
-    if decode_req == str(round(config.SATS)) or str(0):
+    if decode_req in (round(config.SATS), 0):
         lightning.payout(config.SATS, config.INVOICE)
         result = lightning.last_payment(config.INVOICE)
 
@@ -111,7 +114,6 @@ def handle_invoice(draw, image):
 def update_payout_screen():
     """Update the payout screen to reflect balance of deposited coins.
     Scan the invoice??? I don't think so!
-    Handle the invoice??? I also don't think so!
     """
     image, width, height, draw = init_screen(color=config.WHITE)
 
@@ -147,6 +149,9 @@ def button_pushed():
     """Actions button pushes by number
     """
     if config.PUSHES == 1:
+        """If no coins inserted, update the screen.
+        If coins inserted, scan a qr code for the exchange amount
+        """
         if config.FIAT == 0:
             display.update_nocoin_screen()
             time.sleep(3)
@@ -162,6 +167,9 @@ def button_pushed():
             update_payout_screen()
 
     if config.PUSHES == 2:
+        """If no coins inserted, update the screen.
+        If coins are inserted, return a lnurl for the exchange amount
+        """
         if config.FIAT == 0:
             display.update_nocoin_screen()
             time.sleep(3)
@@ -170,30 +178,43 @@ def button_pushed():
             lntxbot.process_using_lnurl(config.SATS)
 
     if config.PUSHES == 3:
+        """Store new lntxbot credential via a QR code scan
+        """
         display.update_lntxbot_scan()
+
+        # scan the credentials
         lntxcreds = lntxbot.scan_creds()
-        utils.update_config("LNTXBOTCRED", lntxcreds)
-        importlib.reload(config)
+        print(lntxcreds)
+
+        # save them to the current config
+        config.update_config("lntxbot", "CRED", lntxcreds)
+
+        # return the current balance to the user on the screen
         balance = lntxbot.get_lnurl_balance()
         display.update_lntxbot_balance(balance)
         GPIO.cleanup()
-        os.execv("/home/pi/LightningATM/app.py", [""])
 
     if config.PUSHES == 4:
-        logger.info("Button pushed three times (add coin)")
-        print("Button pushed three times (add coin)")
+        """Simulates adding a coin
+        """
+        logger.info("Button pushed four times (add coin)")
+        print("Button pushed four times (add coin)")
         config.PULSES = 2
 
     if config.PUSHES == 5:
-        logger.warning("Button pushed three times (restart)")
-        print("Button pushed three times (restart)")
+        """Restarts the application
+        """
+        logger.warning("Button pushed five times (restart)")
+        print("Button pushed five times (restart)")
         GPIO.cleanup()
         os.execv("/home/pi/LightningATM/app.py", [""])
 
     if config.PUSHES == 6:
+        """Shutdown the host machine
+        """
         display.update_shutdown_screen()
         GPIO.cleanup()
-        logger.info("ATM shutdown (5 times button)")
+        logger.warning("ATM shutdown (6 times button)")
         os.system("sudo shutdown -h now")
     config.PUSHES = 0
 
@@ -248,7 +269,8 @@ def monitor_coins_and_button():
 
 
 def setup_coin_acceptor():
-    """Initialises the coin acceptor parameters
+    """Initialises the coin acceptor parameters and sets up a callback for button pushes
+    and coin inserts.
     """
     # Defining GPIO BCM Mode
     GPIO.setmode(GPIO.BCM)
@@ -263,24 +285,41 @@ def setup_coin_acceptor():
 
 
 def check_dangermode():
-    """Checks if DANGERMODE is YES or NO
+    """Check for DANGERMODE and wipe any saved credentials if not enabled"
     """
-    if config.DANGERMODE == "NO":
-        utils.update_config("LNTXBOTCRED", "")
-        utils.update_config("LNDMACAROON", "")
-        utils.update_config("ACTIVEWALLET", "")
-        importlib.reload(config)
-    elif config.DANGERMODE == "YES":
-        pass
+    # if dangermode is NOT on
+    if config.conf["atm"]["dangermode"].lower() != "on":
+        logger.warning("DANGERMODE not activated")
+
+        # wipe any saved values from the config by saving an empty value to it
+        config.update_config("lntxbot", "cred", "")
+        config.update_config("lnd", "macaroon", "")
+        config.update_config("atm", "activewallet", "")
+
+        # get the static dict from within the conf and overwrite it to config.conf
+        config.conf = config.conf._sections
+
+        # get new lntxbot creds from qr code scan
+        print("Scan lntxbot creds now\n")
+        print("            +---+")
+        print("+-----------+---+")
+        print("|      .-.      |")
+        print("|     (   )     |")
+        print("|      `-'      |")
+        print("+---------------+\n")
+        time.sleep(2)
+        try:
+            config.conf["lntxbot"]["creds"] = lntxbot.scan_creds()
+        except utils.ScanError:
+            logger.error("Error scanning lntxbot creds with dangermode off")
+            return
     else:
-        logger.info("ATM shutdown (DANGERMODE isn't set properly)")
-        GPIO.cleanup()
-        os.system("sudo shutdown -h now")
+        logger.info("DANGERMODE activated. Loading values from config.ini...")
+        config.check_config()
 
 
 def main():
     utils.check_epd_size()
-
     logger.info("Application started")
 
     check_dangermode()
@@ -306,4 +345,4 @@ if __name__ == "__main__":
         except Exception:
             logger.exception("Oh no, something bad happened! Restarting...")
             GPIO.cleanup()
-            # anything else needs to happen for a clean restart?
+            os.execv("/home/pi/LightningATM/app.py", [""])

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 # TODO: Add the "verify=False" param to all post en get requests for local api queries
-# TODO: Add opption to use LNtxbot with the ATM
+# TODO: Add option to use LNtxbot with the ATM
 
 import codecs
 import json
@@ -9,7 +9,7 @@ import logging
 import os.path
 import requests
 
-import config
+from config import conf
 
 logger = logging.getLogger("LIGHTNING")
 
@@ -32,7 +32,7 @@ def payout(amt, payment_request):
     }
 
     response = requests.post(
-        str(config.APIURL) + "/channels/transactions",
+        str(conf["btcpay"]["url"]) + "/channels/transactions",
         headers={"Grpc-Metadata-macaroon": macaroon},
         data=json.dumps(data),
     )
@@ -47,7 +47,7 @@ def payout(amt, payment_request):
 def last_payment(payment_request):
     """Returns whether the last payment attempt succeeded or failed
     """
-    url = str(config.APIURL) + "/payments"
+    url = str(conf["btcpay"]["url"]) + "/payments"
 
     data = {
         "include_incomplete": True,
@@ -77,10 +77,9 @@ def decode_request(payment_request):
     """Decodes a BOLT11 invoice
     """
     if payment_request:
-        url = str(config.APIURL) + "/payreq/" + str(payment_request)
+        url = str(conf["btcpay"]["url"]) + "/payreq/" + str(payment_request)
         response = requests.get(url, headers={"Grpc-Metadata-macaroon": macaroon})
-        # TODO: I don't think we handle failed decoding here
-        #   Perhaps something like:
+        # successful response
         if response.status_code != 200:
             raise InvoiceDecodeError(
                 "Invoice {} got bad decode response {}".format(

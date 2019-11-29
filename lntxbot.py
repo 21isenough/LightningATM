@@ -7,6 +7,7 @@ import requests
 import json
 
 from PIL import ImageDraw
+
 import qrcode
 
 # TODO: Should this be `import qr`? Otherwise this is missing from requirements.txt
@@ -15,13 +16,16 @@ import display
 import utils
 
 # Just for scanning
-import logging
 from datetime import datetime
 from PIL import Image
 import zbarlight
 
 
 logger = logging.getLogger("LNTXBOT")
+
+
+def print_conf():
+    print(config.conf["lntxbot"]["cred"])
 
 
 def request_lnurl(amt):
@@ -32,7 +36,7 @@ def request_lnurl(amt):
     }
     response = requests.post(
         "https://lntxbot.alhur.es/generatelnurlwithdraw",
-        headers={"Authorization": "Basic %s" % config.LNTXBOTCRED},
+        headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["cred"]},
         data=json.dumps(data),
     )
     return response.json()
@@ -80,7 +84,7 @@ def get_lnurl_balance():
     """
     response = requests.post(
         "https://lntxbot.alhur.es/balance",
-        headers={"Authorization": "Basic %s" % config.LNTXBOTCRED},
+        headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["cred"]},
     )
     return response.json()["BTC"]["AvailableBalance"]
 
@@ -140,11 +144,11 @@ def process_using_lnurl(amt):
 
     if success:
         display.update_thankyou_screen()
-        logger.info("Initiating restart...")
-        os.execv("/home/pi/LightningATM/app.py", [""])
+        logger.info("process_lnurl: success!")
+        return
     else:
         # TODO: I think we should handle a failure here
-        pass
+        logger.error("process_lnurl: not successful")
 
 
 def photograph_qr_code(qr_count):
@@ -156,7 +160,7 @@ def photograph_qr_code(qr_count):
         # adjust it, if not)
         os.system(
             "sudo fswebcam -d /dev/video0 -r 700x525 -q "
-            + config.QRFOLDER
+            + config.conf["qr"]["scan_dir"]
             + "/lntxcred_"
             + str(qr_count)
             + ".jpg"
@@ -173,7 +177,9 @@ def extract_qr_from_image(qr_count):
     """Attempt to read the QR code from the image
     """
     print("Scanning image..")
-    with open(config.QRFOLDER + "/lntxcred_" + str(qr_count) + ".jpg", "rb") as f:
+    with open(
+        config.conf["qr"]["scan_dir"] + "/lntxcred_" + str(qr_count) + ".jpg", "rb"
+    ) as f:
         qr = Image.open(f)
         qr.load()
         invoice = zbarlight.scan_codes("qrcode", qr)
@@ -181,7 +187,7 @@ def extract_qr_from_image(qr_count):
     if not invoice:
         logger.info("No QR code found")
         print("No QR code found")
-        os.remove(config.QRFOLDER + "/lntxcred_" + str(qr_count) + ".jpg")
+        os.remove(config.conf["qr"]["scan_dir"] + "/lntxcred_" + str(qr_count) + ".jpg")
         return False
 
     else:
@@ -192,7 +198,7 @@ def extract_qr_from_image(qr_count):
         # invoice = invoice.lower()
         # print(invoice)
 
-        # with open(config.QRFOLDER+'/qr_code_scans.txt','a+') as f:
+        # with open(config.CONFIG["qr"]["scan_dir"]+'/qr_code_scans.txt','a+') as f:
         #    f.write(invoice + ' ' + str(datetime.now()) + '\n')
 
         # remove "lightning:" prefix
@@ -208,7 +214,7 @@ def scan_creds():
     attempts = 0
 
     while attempts < 4:
-        qr_count = len(os.listdir(config.QRFOLDER))
+        qr_count = len(os.listdir(config.conf["qr"]["scan_dir"]))
         qr_image = photograph_qr_code(qr_count)
         if qr_image:
             invoice = extract_qr_from_image(qr_count)
@@ -217,6 +223,6 @@ def scan_creds():
             else:
                 return invoice
 
-    logger.info("4 failed scanning attempts.")
+    logger.error("4 failed scanning attempts.")
     print("4 failed attempts ... try again.")
-    return False
+    raise utils.ScanError
