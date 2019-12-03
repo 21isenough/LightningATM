@@ -52,9 +52,9 @@ def check_config():
     if conf["lnd"]["macaroon"] is (None or ""):
         logger.warning("Missing value for lnd macaroon in config")
         ask_scan_config_val("lnd", "macaroon")
-    if conf["lntxbot"]["cred"] is (None or ""):
+    if conf["lntxbot"]["creds"] is (None or ""):
         logger.warning("Missing value for lntxbot credential in config")
-        ask_scan_config_val("lntxbot", "cred")
+        ask_scan_config_val("lntxbot", "creds")
 
 
 def update_config(section, variable, value):
