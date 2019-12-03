@@ -8,8 +8,8 @@ import json
 import logging
 import os.path
 import requests
-
-from config import conf
+import config
+import display
 
 logger = logging.getLogger("LIGHTNING")
 
@@ -32,7 +32,7 @@ def payout(amt, payment_request):
     }
 
     response = requests.post(
-        str(conf["btcpay"]["url"]) + "/channels/transactions",
+        str(config.conf["btcpay"]["url"]) + "/channels/transactions",
         headers={"Grpc-Metadata-macaroon": macaroon},
         data=json.dumps(data),
     )
@@ -47,7 +47,7 @@ def payout(amt, payment_request):
 def last_payment(payment_request):
     """Returns whether the last payment attempt succeeded or failed
     """
-    url = str(conf["btcpay"]["url"]) + "/payments"
+    url = str(config.conf["btcpay"]["url"]) + "/payments"
 
     data = {
         "include_incomplete": True,
@@ -77,7 +77,7 @@ def decode_request(payment_request):
     """Decodes a BOLT11 invoice
     """
     if payment_request:
-        url = str(conf["btcpay"]["url"]) + "/payreq/" + str(payment_request)
+        url = str(config.conf["btcpay"]["url"]) + "/payreq/" + str(payment_request)
         response = requests.get(url, headers={"Grpc-Metadata-macaroon": macaroon})
         # successful response
         if response.status_code != 200:
@@ -94,3 +94,23 @@ def decode_request(payment_request):
             return json_data["num_satoshis"]
     else:
         pass
+
+
+def handle_invoice():
+    """Decode a BOLT11 invoice. Ensure that amount is correct or 0, then attempt to
+    make the payment.
+    """
+    decode_req = decode_request(config.INVOICE)
+    if decode_req in (round(config.SATS), 0):
+        payout(config.SATS, config.INVOICE)
+        result = last_payment(config.INVOICE)
+
+        if result is True:
+            display.update_thankyou_screen()
+        else:
+            display.update_payment_failed()
+            time.sleep(120)
+
+        logger.info("Initiating softreset...")
+    else:
+        print("Please show correct invoice")
