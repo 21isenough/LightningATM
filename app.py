@@ -39,72 +39,6 @@ def coin_event(channel):
     """
     config.LASTIMPULSE = time.time()
     config.PULSES = config.PULSES + 1
-    print(config.PULSES)
-
-
-def handle_invoice(draw, image):
-    """Decode a BOLT11 invoice. Ensure that amount is correct or 0, then attempt to
-    make the payment.
-    """
-    decode_req = lightning.decode_request(config.INVOICE)
-    if decode_req in (round(config.SATS), 0):
-        lightning.payout(config.SATS, config.INVOICE)
-        result = lightning.last_payment(config.INVOICE)
-
-        draw.text(
-            (15, 70),
-            str(result),
-            fill=config.BLACK,
-            font=utils.create_font("freemono", 15),
-        )
-
-        config.PAPIRUS.display(image)
-        config.PAPIRUS.partial_update()
-        time.sleep(1)
-
-        if result is True:
-            display.update_thankyou_screen()
-        else:
-            display.update_payment_failed()
-            time.sleep(120)
-
-        logger.info("Initiating softreset...")
-    else:
-        print("Please show correct invoice")
-
-
-def update_payout_screen():
-    """Update the payout screen to reflect balance of deposited coins.
-    Scan the invoice??? I don't think so!
-    """
-    image, width, height, draw = display.init_screen(color=config.WHITE)
-
-    draw.rectangle(
-        (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
-    )
-    draw.text(
-        (15, 30),
-        str(round(config.SATS)) + " sats",
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
-    )
-    draw.text(
-        (15, 50),
-        "on the way!",
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 15),
-    )
-
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
-
-    # scan the invoice
-    # TODO: I notice this is commented out, I presume this function should _not_ be
-    #   scanning a QR code on each update?
-    # config.INVOICE = qr.scan()
-
-    # handle the invoice
-    handle_invoice(draw, image)
 
 
 def button_pushed():
@@ -126,7 +60,8 @@ def button_pushed():
                 time.sleep(1)
                 display.update_qr_request()
                 config.INVOICE = qr.scan()
-            update_payout_screen()
+            display.update_payout_screen()
+            lightning.handle_invoice()
             softreset()
 
     if config.PUSHES == 2:
