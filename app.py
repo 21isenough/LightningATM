@@ -42,52 +42,6 @@ def coin_event(channel):
     print(config.PULSES)
 
 
-def init_screen(color):
-    """Prepare the screen for drawing and return the draw variables
-    """
-    image = Image.new("1", config.PAPIRUS.size, color)
-    # Set width and height of screen
-    width, height = image.size
-    # prepare for drawing
-    draw = ImageDraw.Draw(image)
-    return image, width, height, draw
-
-
-def update_amount_screen():
-    """Update the amount screen to reflect new coins inserted
-    """
-    image, width, height, draw = init_screen(color=config.WHITE)
-
-    draw.rectangle(
-        (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
-    )
-    draw.text(
-        (13, 10),
-        str(round(config.SATS)) + " sats",
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 28),
-    )
-    draw.text(
-        (11, 37),
-        "("
-        + "%.2f" % round(config.FIAT, 2)
-        + " "
-        + config.conf["atm"]["cur"].upper()
-        + ")",
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
-    )
-    draw.text(
-        (11, 70),
-        "(1 cent = " + str(round(config.SATPRICE)) + " sats)",
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 14),
-    )
-
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.partial_update()
-
-
 def handle_invoice(draw, image):
     """Decode a BOLT11 invoice. Ensure that amount is correct or 0, then attempt to
     make the payment.
@@ -123,7 +77,7 @@ def update_payout_screen():
     """Update the payout screen to reflect balance of deposited coins.
     Scan the invoice??? I don't think so!
     """
-    image, width, height, draw = init_screen(color=config.WHITE)
+    image, width, height, draw = display.init_screen(color=config.WHITE)
 
     draw.rectangle(
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
@@ -165,12 +119,12 @@ def button_pushed():
             time.sleep(3)
             display.update_startup_screen()
         else:
-            display.update_qr_request(config.SATS)
+            display.update_qr_request()
             config.INVOICE = qr.scan()
             while config.INVOICE is False:
                 display.update_qr_failed()
                 time.sleep(1)
-                display.update_qr_request(config.SATS)
+                display.update_qr_request()
                 config.INVOICE = qr.scan()
             update_payout_screen()
             softreset()
@@ -198,12 +152,13 @@ def button_pushed():
         print(lntxcreds)
 
         # save them to the current config
-        config.update_config("lntxbot", "CRED", lntxcreds)
+        config.update_config("lntxbot", "creds", lntxcreds)
+        config.get_config_file()
 
         # return the current balance to the user on the screen
         balance = lntxbot.get_lnurl_balance()
         display.update_lntxbot_balance(balance)
-        GPIO.cleanup()
+        softreset()
 
     if config.PUSHES == 4:
         """Simulates adding a coin
@@ -237,32 +192,32 @@ def coins_inserted():
         config.FIAT += 0.02
         config.SATS = config.FIAT * 100 * config.SATPRICE
         logger.info("2 cents added")
-        update_amount_screen()
+        display.update_amount_screen()
     if config.PULSES == 3:
         config.FIAT += 0.05
         config.SATS = config.FIAT * 100 * config.SATPRICE
         logger.info("5 cents added")
-        update_amount_screen()
+        display.update_amount_screen()
     if config.PULSES == 4:
         config.FIAT += 0.1
         config.SATS = config.FIAT * 100 * config.SATPRICE
         logger.info("10 cents added")
-        update_amount_screen()
+        display.update_amount_screen()
     if config.PULSES == 5:
         config.FIAT += 0.2
         config.SATS = config.FIAT * 100 * config.SATPRICE
         logger.info("20 cents added")
-        update_amount_screen()
+        display.update_amount_screen()
     if config.PULSES == 6:
         config.FIAT += 0.5
         config.SATS = config.FIAT * 100 * config.SATPRICE
         logger.info("50 cents added")
-        update_amount_screen()
+        display.update_amount_screen()
     if config.PULSES == 7:
         config.FIAT += 1
         config.SATS = config.FIAT * 100 * config.SATPRICE
         logger.info("100 cents added")
-        update_amount_screen()
+        display.update_amount_screen()
     config.PULSES = 0
 
 
@@ -303,7 +258,7 @@ def check_dangermode():
         logger.warning("DANGERMODE off")
 
         # wipe any saved values from the config by saving an empty value to it
-        config.update_config("lntxbot", "cred", "")
+        config.update_config("lntxbot", "creds", "")
         config.update_config("lnd", "macaroon", "")
         config.update_config("atm", "activewallet", "")
 
@@ -327,14 +282,16 @@ def check_dangermode():
             return
     else:
         logger.info("DANGERMODE on. Loading values from config.ini...")
-        config.check_config()
+        # config.check_config()
 
 
 def main():
     utils.check_epd_size()
     logger.info("Application started")
 
-    check_dangermode()
+    # Checks dangemode and start scanning for credentials
+    # Only activate once software ready for it
+    # check_dangermode()
 
     # Display startup startup_screen
     display.update_startup_screen()
