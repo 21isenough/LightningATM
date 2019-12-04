@@ -95,6 +95,7 @@ conf = create_config()
 # TODO: Add var for fee in %
 
 # Papirus
+# PaPiRus eInk size is 128 x 96 pixels
 WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0

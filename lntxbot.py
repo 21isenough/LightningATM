@@ -10,10 +10,11 @@ from PIL import ImageDraw
 
 import qrcode
 
-# TODO: Should this be `import qr`? Otherwise this is missing from requirements.txt
 import config
 import display
 import utils
+
+# REWORK SCANNING TO WORK WITH A BYTESTREAM (SEE lightning.py)
 
 # Just for scanning
 from datetime import datetime
