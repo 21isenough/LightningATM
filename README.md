@@ -49,8 +49,6 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Solve security concerns in regards to lnurl (scan over the shoulder)
 - [ ] Add coin return stopper to 3d design
 #### Prio 2
-- [ ] Move scanning function into utils
-- [ ] Move all display functions into display.py
 - [ ] Add second button and admin menu
 - [ ] Add admin function only available through qr pass
 - [ ] Run certain functions in threads
@@ -65,7 +63,9 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
 - [ ] 2 layer for coins to reject before accepted
 #### Done
-- [x] Implement lnurl with lntxbot
+- [X] Move scanning function into utils
+- [X] Move all display functions into display.py
+- [X] Implement lnurl with lntxbot
 - [X] Draw printer and boards in 3D (https://www.onshape.com/)
 - [X] Write list of all compatible wallets/qr qr_codes
 - [X] Test qr code on 2" eInk display (works)
