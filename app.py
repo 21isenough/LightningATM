@@ -13,6 +13,7 @@ import lntxbot
 import qr
 import config
 import utils
+import importlib
 
 
 logger = logging.getLogger("MAIN")
@@ -86,9 +87,9 @@ def button_pushed():
         lntxcreds = lntxbot.scan_creds()
         print(lntxcreds)
 
-        # save them to the current config
+        # save them to the current config and reload config file
         config.update_config("lntxbot", "creds", lntxcreds)
-        config.get_config_file()
+        importlib.reload(config)
 
         # return the current balance to the user on the screen
         balance = lntxbot.get_lnurl_balance()
