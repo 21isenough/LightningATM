@@ -14,7 +14,7 @@ import config
 import display
 import utils
 
-# REWORK SCANNING TO WORK WITH A BYTESTREAM (SEE lightning.py)
+# REWORK SCANNING TO WORK WITH A BYTESTREAM (SEE lndrest.py)
 
 # Just for scanning
 from datetime import datetime

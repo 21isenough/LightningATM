@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-# TODO: Add the "verify=False" param to all post en get requests for local api queries
+# TODO: Add the "verify=False" param to all post and get requests for local api queries
 # TODO: Add option to use LNtxbot with the ATM
 
 import codecs
@@ -10,6 +10,7 @@ import os.path
 import requests
 import config
 import display
+from datetime import datetime
 
 logger = logging.getLogger("LIGHTNING")
 
@@ -114,3 +115,28 @@ def handle_invoice():
         logger.info("Initiating softreset...")
     else:
         print("Please show correct invoice")
+
+
+def evaluate_scan(qrcode):
+    """Evaluates the scanned qr code for Lightning invoices.
+    """
+    if not qrcode:
+        logging.error("QR code scanning failed")
+        return False
+    # check for a lightning invoice
+    else:
+        if "lnbc" in qrcode:
+            logging.info("Lightning invoice detected")
+            invoice = qrcode
+            # Write Lightning invoice into a text file
+            now = datetime.now()
+            with open(config.conf["qr"]["scan_dir"] + "/qr_code_scans.txt", "a+") as f:
+                f.write(invoice + " " + str(now.strftime("%d/%m/%Y %H:%M:%S")) + "\n")
+            # if invoice preceded with "lightning:" then chop it off so that we can
+            # handle it correctly
+            if "lightning:" in invoice:
+                invoice = invoice[10:]
+            return invoice
+        else:
+            logging.error("This QR does not contain a Lightning invoice")
+            return False
