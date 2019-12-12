@@ -9,7 +9,7 @@ import sys
 import time
 
 import price
-import lightning
+import lndrest
 import qr
 
 import RPi.GPIO as GPIO
@@ -168,15 +168,15 @@ def update_payout_screen(papirus, size):
 
     print(INVOICE)
 
-    decodreq = lightning.decode_request(INVOICE)
+    decodreq = lndrest.decode_request(INVOICE)
 
     print(decodreq, round(SATS))
 
     if (decodreq == str(round(SATS))) or (decodreq == True):
-        lightning.payout(SATS, INVOICE)
+        lndrest.payout(SATS, INVOICE)
 
         # time.sleep(5)
-        result = lightning.last_payment(INVOICE)
+        result = lndrest.last_payment(INVOICE)
 
         draw.text((15, 70), str(result), fill=BLACK, font=font1)
 

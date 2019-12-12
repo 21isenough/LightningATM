@@ -5,7 +5,6 @@ import logging
 import time
 
 from PIL import Image
-from datetime import datetime
 from io import BytesIO
 from picamera import PiCamera
 
@@ -42,24 +41,7 @@ def scan():
             logging.info("No QR within 10 seconds detected")
             return False
 
-        # decode the qr_code to get the invoice
+        # decode the first qr_code to get the data
         invoice = qr_codes[0].decode().lower()
 
-        # check for a lightning invoice
-        if "lnbc" in invoice:
-            logging.info("Lightning invoice detected")
-
-            # Write Lightning invoice into a text file
-            now = datetime.now()
-            with open(conf["qr"]["scan_dir"] + "/qr_code_scans.txt", "a+") as f:
-                f.write(invoice + " " + str(now.strftime("%d/%m/%Y %H:%M:%S")) + "\n")
-
-            # if invoice preceded with "lightning:" then chop it off so that we can
-            # handle it correctly
-            if "lightning:" in invoice:
-                invoice = invoice[10:]
-            return invoice
-
-        else:
-            logging.error("This QR does not contain a Lightning invoice")
-            return False
+        return invoice
