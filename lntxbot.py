@@ -17,6 +17,9 @@ import utils
 
 # REWORK SCANNING TO WORK WITH A BYTESTREAM (SEE qr.py)
 
+# TODO: Add variable to set certificate check to true or false
+# TODO: Add evaluation for credentials after scanning
+
 # Just for scanning
 from datetime import datetime
 from PIL import Image
