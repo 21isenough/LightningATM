@@ -72,6 +72,13 @@ def update_config(section, variable, value):
         conf[section][variable] = value
 
 
+def check_dangermode():
+    if conf["atm"]["dangermode"].lower() == "on":
+        return True
+    else:
+        return False
+
+
 # config file handling
 def get_config_file():
     # check that the config file exists, if not copy over the example_config
