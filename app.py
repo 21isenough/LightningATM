@@ -55,13 +55,13 @@ def button_pushed():
             display.update_startup_screen()
         else:
             display.update_qr_request()
-            qrcode = qr.scan().lower()
+            qrcode = qr.scan()
             config.INVOICE = lndrest.evaluate_scan(qrcode)
             while config.INVOICE is False:
                 display.update_qr_failed()
                 time.sleep(1)
                 display.update_qr_request()
-                qrcode = qr.scan().lower()
+                qrcode = qr.scan()
                 config.INVOICE = lndrest.evaluate_scan(qrcode)
             display.update_payout_screen()
             lndrest.handle_invoice()
