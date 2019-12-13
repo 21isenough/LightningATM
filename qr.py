@@ -8,8 +8,6 @@ from PIL import Image
 from io import BytesIO
 from picamera import PiCamera
 
-from config import conf
-
 
 def scan():
 
@@ -42,6 +40,6 @@ def scan():
             return False
 
         # decode the first qr_code to get the data
-        invoice = qr_codes[0].decode().lower()
+        qr_code = qr_codes[0].decode()
 
-        return invoice
+        return qr_code
