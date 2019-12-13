@@ -19,11 +19,6 @@ class InvoiceDecodeError(BaseException):
     pass
 
 
-with open(os.path.expanduser("~/admin.macaroon"), "rb") as f:
-    macaroon_bytes = f.read()
-    macaroon = codecs.encode(macaroon_bytes, "hex")
-
-
 def payout(amt, payment_request):
     """Attempts to pay a BOLT11 invoice
     """
@@ -34,7 +29,7 @@ def payout(amt, payment_request):
 
     response = requests.post(
         str(config.conf["btcpay"]["url"]) + "/channels/transactions",
-        headers={"Grpc-Metadata-macaroon": macaroon},
+        headers={"Grpc-Metadata-macaroon": str(config.conf["lnd"]["macaroon"])},
         data=json.dumps(data),
     )
     res_json = response.json()
@@ -55,7 +50,9 @@ def last_payment(payment_request):
     }
 
     response = requests.get(
-        url, headers={"Grpc-Metadata-macaroon": macaroon}, data=json.dumps(data)
+        url,
+        headers={"Grpc-Metadata-macaroon": str(config.conf["lnd"]["macaroon"])},
+        data=json.dumps(data),
     )
 
     json_data = response.json()
@@ -79,7 +76,9 @@ def decode_request(payment_request):
     """
     if payment_request:
         url = str(config.conf["btcpay"]["url"]) + "/payreq/" + str(payment_request)
-        response = requests.get(url, headers={"Grpc-Metadata-macaroon": macaroon})
+        response = requests.get(
+            url, headers={"Grpc-Metadata-macaroon": str(config.conf["lnd"]["macaroon"])}
+        )
         # successful response
         if response.status_code != 200:
             raise InvoiceDecodeError(
@@ -92,7 +91,7 @@ def decode_request(payment_request):
             print("Zero sat invoice")
             return 0
         else:
-            return json_data["num_satoshis"]
+            return int(json_data["num_satoshis"])
     else:
         pass
 
@@ -127,7 +126,7 @@ def evaluate_scan(qrcode):
     else:
         if "lnbc" in qrcode:
             logging.info("Lightning invoice detected")
-            invoice = qrcode
+            invoice = qrcode.lower()
             # Write Lightning invoice into a text file
             now = datetime.now()
             with open(config.conf["qr"]["scan_dir"] + "/qr_code_scans.txt", "a+") as f:
