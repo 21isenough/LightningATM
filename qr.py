@@ -8,6 +8,8 @@ from PIL import Image
 from io import BytesIO
 from picamera import PiCamera
 
+logger = logging.getLogger("QR")
+
 
 def scan():
 
@@ -15,9 +17,9 @@ def scan():
         try:
             camera.start_preview()
             time.sleep(1)
-            logging.info("Start scanning for QR code")
+            logger.info("Start scanning for QR code")
         except:
-            logging.error("PiCamera.start_preview() raised an exception")
+            logger.error("PiCamera.start_preview() raised an exception")
 
         stream = BytesIO()
         qr_codes = None
@@ -36,7 +38,7 @@ def scan():
 
         # break immediately if we didn't get a qr code scan
         if not qr_codes:
-            logging.info("No QR within 10 seconds detected")
+            logger.info("No QR within 10 seconds detected")
             return False
 
         # decode the first qr_code to get the data

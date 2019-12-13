@@ -7,7 +7,7 @@ import requests
 import json
 import qr
 
-from PIL import ImageDraw
+from PIL import ImageDraw, Image
 
 import qrcode
 
@@ -15,16 +15,8 @@ import config
 import display
 import utils
 
-# REWORK SCANNING TO WORK WITH A BYTESTREAM (SEE qr.py)
-
 # TODO: Add variable to set certificate check to true or false
 # TODO: Add evaluation for credentials after scanning
-
-# Just for scanning
-from datetime import datetime
-from PIL import Image
-import zbarlight
-
 
 logger = logging.getLogger("LNTXBOT")
 
@@ -153,16 +145,13 @@ def process_using_lnurl(amt):
 
 
 def scan_creds():
-    """Scan lntxbot credentials?
+    """Scan lntxbot credentials
     """
     attempts = 0
 
     while attempts < 4:
-        # qr_count = len(os.listdir(config.conf["qr"]["scan_dir"]))
-        # qr_image = photograph_qr_code(qr_count)
         qrcode = qr.scan()
         if qrcode:
-            # credentials = extract_qr_from_image(qr_count)
             credentials = qrcode
             if not credentials:
                 attempts += 1
