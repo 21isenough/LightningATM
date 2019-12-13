@@ -55,13 +55,13 @@ def button_pushed():
             display.update_startup_screen()
         else:
             display.update_qr_request()
-            qrcode = qr.scan()
+            qrcode = qr.scan().lower()
             config.INVOICE = lndrest.evaluate_scan(qrcode)
             while config.INVOICE is False:
                 display.update_qr_failed()
                 time.sleep(1)
                 display.update_qr_request()
-                qrcode = qr.scan()
+                qrcode = qr.scan().lower()
                 config.INVOICE = lndrest.evaluate_scan(qrcode)
             display.update_payout_screen()
             lndrest.handle_invoice()
@@ -87,11 +87,11 @@ def button_pushed():
 
         # scan the credentials
         lntxcreds = lntxbot.scan_creds()
-        print(lntxcreds)
 
         # save them to the current config and reload config file
         config.update_config("lntxbot", "creds", lntxcreds)
-        importlib.reload(config)
+        if config.check_dangermode():
+            importlib.reload(config)
 
         # return the current balance to the user on the screen
         balance = lntxbot.get_lnurl_balance()
@@ -188,46 +188,46 @@ def setup_coin_acceptor():
     GPIO.add_event_detect(6, GPIO.FALLING, callback=coin_event)
 
 
-def check_dangermode():
-    """Check for DANGERMODE and wipe any saved credentials if off"
-    """
-    # if dangermode is NOT on
-    if config.conf["atm"]["dangermode"].lower() != "on":
-        logger.warning("DANGERMODE off")
-
-        # wipe any saved values from the config by saving an empty value to it
-        config.update_config("lntxbot", "creds", "")
-        config.update_config("lnd", "macaroon", "")
-        config.update_config("atm", "activewallet", "")
-
-        # get the static dict from within the conf and overwrite it to config.conf
-        config.conf = config.conf._sections
-
-        # get new lntxbot creds from qr code scan
-        print("Scan lntxbot creds now\n")
-        print("            +---+")
-        print("+-----------+---+")
-        print("|      .-.      |")
-        print("|     (   )     |")
-        print("|      `-'      |")
-        print("+---------------+\n")
-        time.sleep(2)
-        try:
-            config.conf["lntxbot"]["creds"] = lntxbot.scan_creds()
-            logger.info("Credentials saved in volatile memory (deleted after reboot)")
-        except utils.ScanError:
-            logger.error("Error scanning lntxbot creds with dangermode off")
-            return
-    else:
-        logger.info("DANGERMODE on. Loading values from config.ini...")
-        # config.check_config()
+# def check_dangermode():
+#     """Check for DANGERMODE and wipe any saved credentials if off"
+#     """
+#     # if dangermode is NOT on
+#     if config.conf["atm"]["dangermode"].lower() != "on":
+#         logger.warning("DANGERMODE off")
+#
+#         # wipe any saved values from the config by saving an empty value to it
+#         config.update_config("lntxbot", "creds", "")
+#         config.update_config("lnd", "macaroon", "")
+#         config.update_config("atm", "activewallet", "")
+#
+#         # get the static dict from within the conf and overwrite it to config.conf
+#         config.conf = config.conf._sections
+#
+#         # get new lntxbot creds from qr code scan
+#         print("Scan lntxbot creds now\n")
+#         print("            +---+")
+#         print("+-----------+---+")
+#         print("|      .-.      |")
+#         print("|     (   )     |")
+#         print("|      `-'      |")
+#         print("+---------------+\n")
+#         time.sleep(2)
+#         try:
+#             config.conf["lntxbot"]["creds"] = lntxbot.scan_creds()
+#             logger.info("Credentials saved in volatile memory (deleted after reboot)")
+#         except utils.ScanError:
+#             logger.error("Error scanning lntxbot creds with dangermode off")
+#             return
+#     else:
+#         logger.info("DANGERMODE on. Loading values from config.ini...")
+#         # config.check_config()
 
 
 def main():
     utils.check_epd_size()
     logger.info("Application started")
 
-    # Checks dangemode and start scanning for credentials
+    # Checks dangermode and start scanning for credentials
     # Only activate once software ready for it
     # check_dangermode()
 
