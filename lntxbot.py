@@ -5,6 +5,7 @@ import time
 import logging
 import requests
 import json
+import qr
 
 from PIL import ImageDraw
 
@@ -14,7 +15,7 @@ import config
 import display
 import utils
 
-# REWORK SCANNING TO WORK WITH A BYTESTREAM (SEE lndrest.py)
+# REWORK SCANNING TO WORK WITH A BYTESTREAM (SEE qr.py)
 
 # Just for scanning
 from datetime import datetime
@@ -46,14 +47,15 @@ def request_lnurl(amt):
 def generate_lnurl_qr(lnurl):
     """Generate an lnurl qr code from a lnurl
     """
-    qr = qrcode.QRCode(
+    lnurlqr = qrcode.QRCode(
         version=1,
         error_correction=qrcode.constants.ERROR_CORRECT_L,
         box_size=2,
         border=1,
     )
-    qr.add_data(lnurl.upper())
-    return qr.make_image()
+    lnurlqr.add_data(lnurl.upper())
+    logger.info("LNURL QR code generated")
+    return lnurlqr.make_image()
 
 
 def draw_lnurl_qr(qr_img):
@@ -147,77 +149,23 @@ def process_using_lnurl(amt):
         logger.error("LNURL withdrawal failed (within 90 seconds)")
 
 
-def photograph_qr_code(qr_count):
-    """Take a new image of a qr code
-    """
-    try:
-        print("Taking picture..")
-        # Take picture (make sure RaspberryPi camera is focused correctly - manually
-        # adjust it, if not)
-        os.system(
-            "sudo fswebcam -d /dev/video0 -r 700x525 -q "
-            + config.conf["qr"]["scan_dir"]
-            + "/lntxcred_"
-            + str(qr_count)
-            + ".jpg"
-        )
-        print("Picture saved..")
-        return True
-    except:
-        logger.exception("Exception in lntxbot.scan_creds")
-        print("Picture couldn't be taken..")
-        return False
-
-
-def extract_qr_from_image(qr_count):
-    """Attempt to read the QR code from the image
-    """
-    print("Scanning image..")
-    with open(
-        config.conf["qr"]["scan_dir"] + "/lntxcred_" + str(qr_count) + ".jpg", "rb"
-    ) as f:
-        qr = Image.open(f)
-        qr.load()
-        credentials = zbarlight.scan_codes("qrcode", qr)
-
-    if not credentials:
-        logger.info("No QR code found")
-        print("No QR code found")
-        os.remove(config.conf["qr"]["scan_dir"] + "/lntxcred_" + str(qr_count) + ".jpg")
-        return False
-
-    else:
-        # extract credentials from list
-        logger.info("Credentials detected")
-        credentials = credentials[0]
-        credentials = credentials.decode()
-        # credentials = credentials.lower()
-        # print(credentials)
-
-        # with open(config.CONFIG["qr"]["scan_dir"]+'/qr_code_scans.txt','a+') as f:
-        #    f.write(credentials + ' ' + str(datetime.now()) + '\n')
-
-        # remove "lightning:" prefix
-        # if 'lightning:' in credentials:
-        #    credentials = credentials[10:]
-
-        return credentials
-
-
 def scan_creds():
     """Scan lntxbot credentials?
     """
     attempts = 0
 
     while attempts < 4:
-        qr_count = len(os.listdir(config.conf["qr"]["scan_dir"]))
-        qr_image = photograph_qr_code(qr_count)
-        if qr_image:
-            credentials = extract_qr_from_image(qr_count)
+        # qr_count = len(os.listdir(config.conf["qr"]["scan_dir"]))
+        # qr_image = photograph_qr_code(qr_count)
+        qrcode = qr.scan()
+        if qrcode:
+            # credentials = extract_qr_from_image(qr_count)
+            credentials = qrcode
             if not credentials:
                 attempts += 1
             else:
                 return credentials
+        attempts += 1
 
     logger.error("4 failed scanning attempts.")
     print("4 failed attempts ... try again.")
