@@ -8,9 +8,6 @@ import utils
 from PIL import Image, ImageFont, ImageDraw
 
 
-# PaPiRus eInk size is 128 x 96 pixels
-
-
 def update_startup_screen():
     """Show startup screen on eInk Display
     """
