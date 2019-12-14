@@ -12,7 +12,7 @@ import config
 import display
 from datetime import datetime
 
-logger = logging.getLogger("LIGHTNING")
+logger = logging.getLogger("LNDREST")
 
 
 class InvoiceDecodeError(BaseException):
@@ -77,7 +77,7 @@ def decode_request(payment_request):
     if payment_request:
         url = str(config.conf["btcpay"]["url"]) + "/payreq/" + str(payment_request)
         response = requests.get(
-            url, headers={"Grpc-Metadata-macaroon": str(config.conf["lnd"]["macaroon"])}
+            url, headers={"Grpc-Metadata-macaroon": config.conf["lnd"]["macaroon"]}
         )
         # successful response
         if response.status_code != 200:
@@ -120,22 +120,18 @@ def evaluate_scan(qrcode):
     """Evaluates the scanned qr code for Lightning invoices.
     """
     if not qrcode:
-        logging.error("QR code scanning failed")
+        logger.error("QR code scanning failed")
         return False
     # check for a lightning invoice
     else:
-        if "lnbc" in qrcode:
-            logging.info("Lightning invoice detected")
+        if "lnbc" in qrcode.lower():
+            logger.info("Lightning invoice detected")
             invoice = qrcode.lower()
-            # Write Lightning invoice into a text file
-            now = datetime.now()
-            with open(config.conf["qr"]["scan_dir"] + "/qr_code_scans.txt", "a+") as f:
-                f.write(invoice + " " + str(now.strftime("%d/%m/%Y %H:%M:%S")) + "\n")
             # if invoice preceded with "lightning:" then chop it off so that we can
             # handle it correctly
             if "lightning:" in invoice:
                 invoice = invoice[10:]
             return invoice
         else:
-            logging.error("This QR does not contain a Lightning invoice")
+            logger.error("This QR does not contain a Lightning invoice")
             return False
