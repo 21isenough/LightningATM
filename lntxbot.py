@@ -6,6 +6,7 @@ import logging
 import requests
 import json
 import qr
+import math
 
 from PIL import ImageDraw, Image
 
@@ -29,7 +30,7 @@ def request_lnurl(amt):
     """Request a new lnurl for 'amt' from the server
     """
     data = {
-        "satoshis": str(round(amt)),
+        "satoshis": str(math.floor(amt)),
     }
     response = requests.post(
         "https://lntxbot.alhur.es/generatelnurlwithdraw",

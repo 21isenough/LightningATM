@@ -10,6 +10,7 @@ import os.path
 import requests
 import config
 import display
+import math
 from datetime import datetime
 
 logger = logging.getLogger("LNDREST")
@@ -24,7 +25,7 @@ def payout(amt, payment_request):
     """
     data = {
         "payment_request": payment_request,
-        "amt": round(amt),
+        "amt": math.floor(amt),
     }
 
     response = requests.post(
@@ -101,7 +102,7 @@ def handle_invoice():
     make the payment.
     """
     decode_req = decode_request(config.INVOICE)
-    if decode_req in (round(config.SATS), 0):
+    if decode_req in (math.floor(config.SATS), 0):
         payout(config.SATS, config.INVOICE)
         result = last_payment(config.INVOICE)
 
