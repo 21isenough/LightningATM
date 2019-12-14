@@ -1,6 +1,7 @@
 from configparser import ConfigParser
 import logging
 import os
+import math
 from shutil import copyfile
 
 from papirus import Papirus
@@ -108,14 +109,15 @@ BLACK = 0
 PAPIRUSROT = 0
 PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
-# Set sat, fiat
+# (Don't change these parameters) Set sat, fiat
 FIAT = 0
 SATS = 0
+SATSFEE = 0
 INVOICE = ""
 
 # Set btc and sat price
 BTCPRICE = utils.get_btc_price(conf["atm"]["cur"])
-SATPRICE = round((1 / (BTCPRICE * 100)) * 100000000, 2)
+SATPRICE = math.floor((1 / (BTCPRICE * 100)) * 100000000)
 
 # Button / Acceptor Pulses
 LASTIMPULSE = 0
