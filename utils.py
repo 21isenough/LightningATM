@@ -2,6 +2,8 @@ import logging
 import os
 import requests
 import sys
+import config
+import math
 
 from PIL import ImageFont
 from pathlib import Path
@@ -51,3 +53,11 @@ def get_btc_price(fiat_code):
     return requests.get(
         "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC" + fiat_code.upper()
     ).json()["last"]
+
+
+def get_sats():
+    return config.FIAT * 100 * config.SATPRICE
+
+
+def get_sats_with_fee():
+    return math.floor(config.SATS * (float(config.conf["atm"]["fee"]) / 100))
