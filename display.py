@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 
 import time
+import math
 
 import config
 import utils
@@ -82,7 +83,7 @@ def update_qr_request():
     )
     draw.text(
         (15, 35),
-        "for " + str(round(config.SATS)) + " sats.",
+        "for " + str(math.floor(config.SATS)) + " sats.",
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -131,7 +132,7 @@ def update_payout_screen():
     )
     draw.text(
         (15, 30),
-        str(round(config.SATS)) + " sats",
+        str(math.floor(config.SATS)) + " sats",
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -343,24 +344,36 @@ def update_amount_screen():
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (13, 10),
-        str(round(config.SATS)) + " sats",
+        (11, 10),
+        str("{:,}".format(math.floor(config.SATS))) + " sats",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 28),
+        font=utils.create_font("freemono", 27),
     )
     draw.text(
-        (11, 37),
-        "("
-        + "%.2f" % round(config.FIAT, 2)
-        + " "
-        + config.conf["atm"]["cur"].upper()
-        + ")",
+        (13, 37),
+        "%.2f" % round(config.FIAT, 2) + " " + config.conf["atm"]["cur"].upper(),
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 19),
     )
     draw.text(
-        (11, 70),
-        "(1 cent = " + str(round(config.SATPRICE)) + " sats)",
+        (11, 60), "Rate", fill=config.BLACK, font=utils.create_font("freemono", 14),
+    )
+    draw.text(
+        (60, 60),
+        "= " + str(math.floor(config.SATPRICE)) + " sats/cent",
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 14),
+    )
+    draw.text(
+        (11, 75), "Fee", fill=config.BLACK, font=utils.create_font("freemono", 14),
+    )
+    draw.text(
+        (60, 75),
+        "= "
+        + config.conf["atm"]["fee"]
+        + "% ("
+        + str(math.floor(config.SATSFEE))
+        + " sats)",
         fill=config.BLACK,
         font=utils.create_font("freemono", 14),
     )
