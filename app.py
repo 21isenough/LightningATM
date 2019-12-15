@@ -111,7 +111,6 @@ def button_pushed():
         """
         logger.warning("Button pushed five times (restart)")
         print("Button pushed five times (restart)")
-        GPIO.cleanup()
         utils.softreset()
 
     if config.PUSHES == 6:

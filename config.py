@@ -98,18 +98,20 @@ def create_config(config_file=None):
 CONFIG_FILE = get_config_file()
 conf = create_config()
 
+######################################################
+### (Do not change and of these parameters unless  ###
+### you know exactly what you are doing.           ###
+######################################################
 
 # TODO: Add variable to set certificate check to true or false
-# TODO: Add var for fee in %
 
-# Papirus
-# PaPiRus eInk size is 128 x 96 pixels
+# Papirus eInk size is 128 x 96 pixels
 WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
 PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
-# (Don't change these parameters) Set sat, fiat
+# Fiat and satoshi variables
 FIAT = 0
 SATS = 0
 SATSFEE = 0
