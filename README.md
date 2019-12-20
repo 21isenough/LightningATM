@@ -41,7 +41,6 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 
 #### Prio 1
 - [ ] Try different way of detecting inserted coins (populating a list and setting a delimiter)
-- [ ] Slightly recline front board to the back, add immersion for camera
 - [ ] Rethink the design decisions in regards to hardware (https://www.arrow.com/en/products)
 - [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
@@ -56,13 +55,14 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Find solution to work without jumper cables
 - [ ] Add encryption of admin.macaroon in idle mode
 - [ ] Add encrypted partition with sensible data
-- [ ] Design ideas for case
 - [ ] Check out BTCPay API to integrate backend
 #### Prio 3
 - [ ] Store data in database
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
 - [ ] 2 layer for coins to reject before accepted
 #### Done
+- [X] Design ideas for case
+- [X] Slightly recline front board to the back, add immersion for camera
 - [X] Move scanning function into utils
 - [X] Move all display functions into display.py
 - [X] Implement lnurl with lntxbot
