@@ -8,7 +8,7 @@ A comprehensive guide on how to setup the LightningATM will follow here - please
 
 Please check out this video, to see the [LightningATM in action:](https://twitter.com/21isenough/status/1170808396955738114?s=20)
 
-![alt text](https://github.com/21isenough/LightningATM/blob/master/resources/images/startup_screen.jpg)
+![alt text](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)
 
 ### Parts list (price estimate: 50-70 USD)
 
