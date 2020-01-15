@@ -36,6 +36,35 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 8. Power supply  
   I'm working on a solution that lets you use just one power supply. For now you need 5V for the Raspberry Pi Zero (supplied through USB) and another 12V power supply to power the coin acceptor (preferably with a balun for easier connecting).
 
+### Installation
+````
+# clone repository
+cd ~
+git clone https://github.com/21isenough/LightningATM.git
+cd LightningATM
+
+# install packages
+sudo apt install -y git python3-pip python3-rpi.gpio libopenjp2-7 libtiff5 libzbar0 libzbar-dev
+
+# install python dependencies
+pip3 install -r requirements.txt
+
+# install PaPiRus (select Python 3)
+curl -sSL https://pisupp.ly/papiruscode | sudo bash
+
+# configure the ATM
+cp example_config.ini config.ini
+nano config.ini
+
+# service - setup
+sed -i -e "s/pi/$USER/g" /home/$USER/LightningATM/LightningATM.service
+sudo systemctl enable /home/$USER/LightningATM/LightningATM.service
+sudo service LightningATM start
+
+# service - check
+sudo service LightningATM status
+
+````
 
 ### Todo
 
