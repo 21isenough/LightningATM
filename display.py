@@ -33,12 +33,10 @@ def update_startup_screen():
         font=utils.create_font("freemono", 14),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    display_image(image, True)
 
 
 def update_qr_request():
-    # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.rectangle(
@@ -67,8 +65,8 @@ def update_qr_request():
             fill=config.BLACK,
             font=utils.create_font("freemono", 50),
         )
-        config.PAPIRUS.display(image)
-        config.PAPIRUS.partial_update()
+
+        display_image(image)
         draw.rectangle((75, 50, 115, 90), fill=config.WHITE, outline=config.WHITE)
         time.sleep(1)
 
@@ -87,12 +85,11 @@ def update_qr_request():
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.partial_update()
+
+    display_image(image)
 
 
 def update_qr_failed():
-    # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.rectangle(
@@ -117,8 +114,7 @@ def update_qr_failed():
         font=utils.create_font("freemono", 20),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.partial_update()
+    display_image(image)
 
 
 def update_payout_screen():
@@ -143,8 +139,7 @@ def update_payout_screen():
         font=utils.create_font("freemono", 15),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    display_image(image, True)
 
     # scan the invoice
     # TODO: I notice this is commented out, I presume this function should _not_ be
@@ -171,8 +166,7 @@ def update_payment_failed():
         (45, 65), "operator.", fill=config.BLACK, font=utils.create_font("freemono", 17)
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    display_image(image, True)
 
 
 def update_thankyou_screen():
@@ -196,8 +190,8 @@ def update_thankyou_screen():
         fill=config.BLACK,
         font=utils.create_font("freemono", 14),
     )
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+
+    display_image(image, True)
     time.sleep(5)
 
 
@@ -223,8 +217,7 @@ def update_nocoin_screen():
         font=utils.create_font("freemono", 17),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    display_image(image, True)
 
 
 def update_lnurl_generation():
@@ -246,8 +239,7 @@ def update_lnurl_generation():
         font=utils.create_font("freemono", 20),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.partial_update()
+    display_image(image)
 
 
 def update_shutdown_screen():
@@ -269,12 +261,10 @@ def update_shutdown_screen():
         (45, 65), "operator.", fill=config.BLACK, font=utils.create_font("freemono", 17)
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    display_image(image, True)
 
 
 def update_lntxbot_scan():
-    # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.rectangle(
@@ -299,13 +289,11 @@ def update_lntxbot_scan():
         font=utils.create_font("freemono", 18),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    display_image(image, True)
     time.sleep(2)
 
 
 def update_lntxbot_balance(balance):
-    # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.rectangle(
@@ -330,8 +318,7 @@ def update_lntxbot_balance(balance):
         font=utils.create_font("freemono", 18),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    display_image(image, True)
     time.sleep(3)
 
 
@@ -378,15 +365,12 @@ def update_amount_screen():
         font=utils.create_font("freemono", 14),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.partial_update()
+    display_image(image)
 
 
 def update_blank_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
-
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    display_image(image, True)
 
 
 def menu_screen():
@@ -405,8 +389,7 @@ def menu_screen():
         (40, 40), "Menu 2", fill=config.BLACK, font=utils.create_font("freemono", 20),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.partial_update()
+    display_image(image)
 
     while config.PUSHES <= 2:
         print(config.PUSHES)
@@ -416,9 +399,28 @@ def menu_screen():
 def init_screen(color):
     """Prepare the screen for drawing and return the draw variables
     """
-    image = Image.new("1", config.PAPIRUS.size, color)
+    # image = Image.new("1", config.PAPIRUS.size, color)
+    image = Image.new("1", (config.WAVESHARE.height, config.WAVESHARE.width), color)
     # Set width and height of screen
     width, height = image.size
     # prepare for drawing
     draw = ImageDraw.Draw(image)
     return image, width, height, draw
+
+def display_image(image, full_update=False):
+    """Show an image on the display
+    """
+
+    # config.PAPIRUS.display(image)
+
+    if full_update:
+        # config.PAPIRUS.update()
+
+        config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+        config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+    else:
+        # config.PAPIRUS.partial_update()
+
+        config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
+        config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
+
