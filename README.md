@@ -45,6 +45,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
 - [ ] Try different e-ink screen
+- [ ] Write installations instructions
 - [ ] Solve security concerns in regards to lnurl (scan over the shoulder)
 - [ ] Add coin return stopper to 3d design
 #### Prio 2
@@ -53,7 +54,6 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Run certain functions in threads
 - [ ] Additional button for restart and shutdown
 - [ ] Find solution to work without jumper cables
-- [ ] Add encryption of admin.macaroon in idle mode
 - [ ] Add encrypted partition with sensible data
 - [ ] Check out BTCPay API to integrate backend
 #### Prio 3
@@ -61,6 +61,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
 - [ ] 2 layer for coins to reject before accepted
 #### Done
+- [x] Add encryption of admin.macaroon in idle mode
 - [X] Design ideas for case
 - [X] Slightly recline front board to the back, add immersion for camera
 - [X] Move scanning function into utils
