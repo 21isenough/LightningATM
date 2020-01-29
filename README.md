@@ -85,3 +85,14 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [x] Lower case ln invoices
 - [x] Find a faster solution for QR scans (zbarcam)
 - [x] Organize todos better
+
+### Mentioned
+- https://podcasts.apple.com/us/podcast/interview-with-21isenough/id1481514734?i=1000458712983
+- https://blog.sicksubroutine.com/lightning-junkies-episode-021/
+
+- https://www.atmmarketplace.com/articles/lightning-atm-lets-you-buy-itty-bitty-amounts-of-bitcoin/
+- https://www.bitcoinmedia.id/atm-bitcoin-lightning-ini-adalah-prototype-pertama/
+- https://twitter.com/CoinATMRadar/status/1202657309765357568?s=20
+- https://www.hackster.io/news/lightningatm-distributes-small-amounts-of-btc-over-the-lightning-network-5e03347acd88
+- https://criptonizando.com/2019/10/08/desenvolvedor-cria-caixa-eletronico-de-bitcoin-que-ate-amadores-podem-construir-usando-a-lightning-network/
+- https://decrypt.co/10046/ightningatm-how-to-make-your-own-bitcoin-atm?utm_content=buffer7dcee&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
