@@ -39,13 +39,13 @@ def button_event(channel):
 def coin_event(channel):
     """Registers a coin insertion event
     """
-    print(float(round(time.time() - config.LASTIMPULSE, 3)))
-    if time.time() - config.LASTIMPULSE > 0.160:
-        config.COINLIST.append("0")
+    # print(float(round(time.time() - config.LASTIMPULSE, 3)))
+    # if time.time() - config.LASTIMPULSE > 0.2:
+    #     config.COINLIST.append("0")
     config.LASTIMPULSE = time.time()
     config.PULSES = config.PULSES + 1
-    config.COINLIST.append("1")
-    print(config.COINLIST)
+    # config.COINLIST.append("1")
+    # print(config.COINLIST)
 
 
 def button_pushed():
@@ -183,11 +183,24 @@ def monitor_coins_and_button():
     """Monitors coins inserted and buttons pushed
     """
     time.sleep(0.2)
+
+    # if config.COINLIST:
+    #     time.sleep(1)
+    #     if config.COINLIST.count("0") > 1:
+    #         print(config.COINLIST[1 : config.COINLIST.index("0", 1)])
+    #         print(len(config.COINLIST[1 : config.COINLIST.index("0", 1)]))
+    #     else:
+    #         print(config.COINLIST[1:])
+    #         print(len(config.COINLIST[1:]))
+    #         if len(config.COINLIST[1:]) > 0:
+    #             config.PULSLIST.append(len(config.COINLIST[1:]))
+    #             del config.COINLIST[: len(config.COINLIST[1:])]
+    #
+    # print(config.PULSLIST)
+
     # Detect when coins are being inserted
     if (time.time() - config.LASTIMPULSE > 0.5) and (config.PULSES > 0):
         coins_inserted()
-        # if config.COINLIST[0] == "0":
-        #     print(config.COINLIST[1 : config.COINLIST.index("0", 1)])
 
     # Detect if the button has been pushed
     if (time.time() - config.LASTPUSHES > 0.5) and (config.PUSHES > 0):
