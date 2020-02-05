@@ -360,7 +360,10 @@ def update_amount_screen():
     )
     draw.text(
         (60, 60),
-        "= " + str(math.floor(config.SATPRICE)) + " sats/cent",
+        "= "
+        + str(math.floor(config.SATPRICE))
+        + " sats/"
+        + config.conf["atm"]["centname"],
         fill=config.BLACK,
         font=utils.create_font("freemono", 14),
     )
