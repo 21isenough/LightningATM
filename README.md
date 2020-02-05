@@ -15,8 +15,8 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 1. Raspberry Pi Zero WH - http://bit.ly/2maXBr6  
   If you can, get the version WH (not just W). It comes with pre soldered headers and can be used out of the box.
 
-2. 16 GB SD Card - http://bit.ly/2kterBb  
-  8 GB SD card will also work and is fine. Just pick any brand with a reasonably good rating.
+2. 16 GB Micro SD Card - http://bit.ly/39anM4f
+  8 GB SD Micro card will also work and is fine. Just pick any brand with a reasonably good rating.
 
 3. PaPiRus Zero - ePaper / eInk Screen - http://bit.ly/2kdSOVh  
   This is the 2 inch ePaper display that I'm using in my build. My Python scripts are built to talk to the manufacturers library.
