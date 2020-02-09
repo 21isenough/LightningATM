@@ -16,15 +16,20 @@ import config
 import utils
 import importlib
 
-
+led = "off"
 logger = logging.getLogger("MAIN")
 
 
 def softreset():
     """Displays startup screen and deletes fiat amount
     """
+    global led
     config.SATS = 0
     config.FIAT = 0
+    # Turn off button LED
+    GPIO.output(13, GPIO.LOW)
+    led = "off"
+
     display.update_startup_screen()
     logger.info("Softreset executed")
 
@@ -131,6 +136,8 @@ def button_pushed():
 def coins_inserted():
     """Actions coins inserted
     """
+    global led
+
     if config.FIAT == 0:
         config.BTCPRICE = utils.get_btc_price(config.conf["atm"]["cur"])
         config.SATPRICE = math.floor((1 / (config.BTCPRICE * 100)) * 100000000)
@@ -177,6 +184,12 @@ def coins_inserted():
         logger.info("100 cents added")
         display.update_amount_screen()
     config.PULSES = 0
+
+    if config.FIAT > 0 and led == "off":
+        # Turn on the LED after first coin
+        GPIO.output(13, GPIO.HIGH)
+        led = "on"
+        logger.info("Button-LED turned on (if connected)")
 
 
 def monitor_coins_and_button():
