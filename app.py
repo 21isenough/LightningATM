@@ -121,7 +121,7 @@ def button_pushed():
         """
         logger.warning("Button pushed five times (restart)")
         print("Button pushed five times (restart)")
-        utils.softreset()
+        softreset()
 
     if config.PUSHES == 6:
         """Shutdown the host machine
