@@ -89,6 +89,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 ### Mentioned
 - https://podcasts.apple.com/us/podcast/interview-with-21isenough/id1481514734?i=1000458712983
 - https://blog.sicksubroutine.com/lightning-junkies-episode-021/
+- http://bitcoin-turm.de/bturm29/
 
 - https://www.atmmarketplace.com/articles/lightning-atm-lets-you-buy-itty-bitty-amounts-of-bitcoin/
 - https://www.bitcoinmedia.id/atm-bitcoin-lightning-ini-adalah-prototype-pertama/
