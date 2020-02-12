@@ -29,13 +29,10 @@ def check_epd_size():
 def create_font(font, size):
     """Create fonts from resources
     """
-    # I think here, you will want to get the current directory, as not everybody will
-    # have saved the LightningATM folder in ~/LightningATM/
-    # something like?
-    # os.path(__file__.resources/fonts/...
-    pathfreemono = Path("resources/fonts/FreeMono.ttf")
-    pathfreemonobold = Path("resources/fonts/FreeMonoBold.ttf")
-    pathsawasdee = Path("resources/fonts/Sawasdee-Bold.ttf")
+    # Investigate why the third path to the "pathsawasdee" can not be contructed as the others. Very very weird....
+    pathfreemono = Path.cwd().joinpath("resources", "fonts", "FreeMono.ttf")
+    pathfreemonobold = Path.cwd().joinpath("resources", "fonts", "FreeMonoBold.ttf")
+    pathsawasdee = Path("/home/pi/LightningATM/resources/fonts/SawasdeeBold.ttf")
 
     if font == "freemono":
         return ImageFont.truetype(pathfreemono.as_posix(), size)
