@@ -32,7 +32,7 @@ def create_font(font, size):
     # Investigate why the third path to the "pathsawasdee" can not be contructed as the others. Very very weird....
     pathfreemono = Path.cwd().joinpath("resources", "fonts", "FreeMono.ttf")
     pathfreemonobold = Path.cwd().joinpath("resources", "fonts", "FreeMonoBold.ttf")
-    pathsawasdee = Path("/home/pi/LightningATM/resources/fonts/SawasdeeBold.ttf")
+    pathsawasdee = Path.cwd().joinpath("resources", "fonts", "Sawasdee-Bold.ttf")
 
     if font == "freemono":
         return ImageFont.truetype(pathfreemono.as_posix(), size)

@@ -227,7 +227,10 @@ def setup_coin_acceptor():
     # Defining GPIO BCM Mode
     GPIO.setmode(GPIO.BCM)
 
-    # Setup GPIO Pins for coin acceptor and button
+    # Setup GPIO Pins for coin acceptor, button and button-led
+    GPIO.setwarnings(False)
+    GPIO.setup(13, GPIO.OUT)
+    GPIO.output(13, GPIO.LOW)
     GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
