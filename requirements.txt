@@ -1,6 +1,7 @@
 # 1. Install  https://downloads.raspberrypi.org/raspbian/images/raspbian-2019-04-09/
 # 2. Install Papirus display library with "curl -sSL https://pisupp.ly/papiruscode | sudo bash"
 #    (https://github.com/PiSupply/PaPiRus)
+#    (Note: Papirus library can't be easily installed in a venv, hence this process)
 # 3. Install libraries below with "pip3 install -r requirements.txt"
 
 zbarlight==3.0
