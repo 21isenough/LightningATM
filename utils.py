@@ -8,6 +8,8 @@ import math
 from PIL import ImageFont
 from pathlib import Path
 
+from pycoingecko import CoinGeckoAPI
+
 logger = logging.getLogger("UTILS")
 
 
@@ -47,9 +49,8 @@ def create_font(font, size):
 def get_btc_price(fiat_code):
     """Get BTC -> FIAT conversion
     """
-    return requests.get(
-        "https://apiv2.bitcoinaverage.com/indices/global/ticker/BTC" + fiat_code.upper()
-    ).json()["last"]
+    price = CoinGeckoAPI().get_price(ids="bitcoin", vs_currencies=fiat_code)
+    return price["bitcoin"][fiat_code]
 
 
 def get_sats():
