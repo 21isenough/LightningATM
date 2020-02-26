@@ -33,7 +33,7 @@ def request_lnurl(amt):
         "satoshis": str(math.floor(amt)),
     }
     response = requests.post(
-        "https://lntxbot.alhur.es/generatelnurlwithdraw",
+        "https://lntxbot.bigsun.xyz/generatelnurlwithdraw",
         headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
         data=json.dumps(data),
     )
@@ -82,7 +82,7 @@ def get_lnurl_balance():
     ["BTC"]["AvailableBalance"] value
     """
     response = requests.post(
-        "https://lntxbot.alhur.es/balance",
+        "https://lntxbot.bigsun.xyz/balance",
         headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
     )
     return response.json()["BTC"]["AvailableBalance"]
