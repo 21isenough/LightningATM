@@ -126,5 +126,7 @@ LASTIMPULSE = 0
 PULSES = 0
 LASTPUSHES = 0
 PUSHES = 0
-COINLIST = []
-PULSLIST = []
+
+# Lists for different coin counting, not yet implemented
+# COINLIST = []
+# PULSLIST = []
