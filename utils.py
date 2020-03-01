@@ -31,7 +31,7 @@ def check_epd_size():
 def create_font(font, size):
     """Create fonts from resources
     """
-    # Investigate why the third path to the "pathsawasdee" can not be contructed as the others. Very very weird....
+    # Construct paths to foder with fonts
     pathfreemono = Path.cwd().joinpath("resources", "fonts", "FreeMono.ttf")
     pathfreemonobold = Path.cwd().joinpath("resources", "fonts", "FreeMonoBold.ttf")
     pathsawasdee = Path.cwd().joinpath("resources", "fonts", "Sawasdee-Bold.ttf")
@@ -49,6 +49,7 @@ def create_font(font, size):
 def get_btc_price(fiat_code):
     """Get BTC -> FIAT conversion
     """
+    # TODO Remove dependency for CoinGeckoAPI - simple get call with requests
     price = CoinGeckoAPI().get_price(ids="bitcoin", vs_currencies=fiat_code)
     return price["bitcoin"][fiat_code]
 
