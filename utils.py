@@ -8,7 +8,7 @@ import math
 from PIL import ImageFont
 from pathlib import Path
 
-from pycoingecko import CoinGeckoAPI
+COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
 
 logger = logging.getLogger("UTILS")
 
@@ -49,8 +49,9 @@ def create_font(font, size):
 def get_btc_price(fiat_code):
     """Get BTC -> FIAT conversion
     """
-    # TODO Remove dependency for CoinGeckoAPI - simple get call with requests
-    price = CoinGeckoAPI().get_price(ids="bitcoin", vs_currencies=fiat_code)
+    url = COINGECKO_URL_BASE + "simple/price"
+    price = requests.get(url, params={"ids": "bitcoin",
+                                      "vs_currencies": fiat_code}).json()
     return price["bitcoin"][fiat_code]
 
 
