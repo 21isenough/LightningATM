@@ -15,13 +15,19 @@ config_file_path = ATM_data_dir + "config.ini"
 if not os.path.exists(ATM_data_dir):
     os.makedirs(ATM_data_dir)
 
+# Set to logging.DEBUG if more "requests" debugging info needed
 logging.getLogger("requests").setLevel(logging.INFO)
+logging.getLogger("urllib3.connectionpool").setLevel(logging.INFO)
+
+# Configure basigConfig for the "logging" module
 logging.basicConfig(
     filename="{}/debug.log".format(ATM_data_dir),
     format="%(asctime)-23s %(name)-9s %(levelname)-7s | %(message)s",
     datefmt="%Y/%m/%d %I:%M:%S %p",
     level=logging.DEBUG,
 )
+
+# Create logger for this config file
 logger = logging.getLogger("CONFIG")
 
 
