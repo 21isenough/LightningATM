@@ -6,4 +6,3 @@
 
 zbarlight==3.0
 qrcode==6.1
-requests>=2.23.0
