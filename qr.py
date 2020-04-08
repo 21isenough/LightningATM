@@ -2,7 +2,9 @@
 
 import zbarlight
 import logging
+import requests
 import time
+import config
 
 from PIL import Image
 from io import BytesIO
@@ -25,17 +27,14 @@ def scan():
         qr_codes = None
         # Set timeout to 10 seconds
         timeout = time.time() + 10
-
         while qr_codes is None and (time.time() < timeout):
             stream.seek(0)
             # Start camera stream (make sure RaspberryPi camera is focused correctly
             # manually adjust it, if not)
             camera.capture(stream, "jpeg")
-            stream.seek(0)
             qr_codes = zbarlight.scan_codes("qrcode", Image.open(stream))
             time.sleep(0.05)
         camera.stop_preview()
-
         # break immediately if we didn't get a qr code scan
         if not qr_codes:
             logger.info("No QR within 10 seconds detected")
@@ -45,3 +44,36 @@ def scan():
         qr_code = qr_codes[0].decode()
 
         return qr_code
+
+
+def scan_attempts(target_attempts):
+    """Scan and evaluate users credentials
+    """
+    attempts = 0
+
+    while attempts < target_attempts:
+        qrcode = scan()
+        if qrcode:
+            logger.info("QR code successfuly detected.")
+            return qrcode
+        else:
+            attempts += 1
+            logger.error("{}. attempt!".format(attempts))
+
+    logger.error("{} failed scanning attempts.".format(target_attempts))
+
+
+def scan_credentials():
+    credentials = scan_attempts(4)
+
+    if credentials:
+        if ("lnd-config" in credentials) and ("lnd.config" in credentials):
+            logger.info("BTCPayServer LND Credentials detected.")
+            r = requests.get(credentials.lstrip("config="))
+            data = r.json()
+            data = data["configurations"][0]
+
+            config.update_config("btcpay", "url", data["uri"] + "v1")
+            config.update_config("lnd", "macaroon", data["adminMacaroon"])
+    else:
+        logger.error("No credentials to a known wallet could be detected.")
