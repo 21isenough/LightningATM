@@ -117,6 +117,9 @@ BLACK = 0
 PAPIRUSROT = 0
 PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
+# API URL for coingecko
+COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
+
 # Fiat and satoshi variables
 FIAT = 0
 SATS = 0
@@ -133,8 +136,6 @@ PULSES = 0
 LASTPUSHES = 0
 PUSHES = 0
 
-# API URL for coingecko
-COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
 # Lists for different coin counting, not yet implemented
 # COINLIST = []
 # PULSLIST = []
