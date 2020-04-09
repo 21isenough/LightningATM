@@ -11,10 +11,6 @@ from pathlib import Path
 logger = logging.getLogger("UTILS")
 
 
-class ScanError(Exception):
-    pass
-
-
 def check_epd_size():
     """Check EPD_SIZE is defined
     """
