@@ -75,5 +75,16 @@ def scan_credentials():
 
             config.update_config("btcpay", "url", data["uri"] + "v1")
             config.update_config("lnd", "macaroon", data["adminMacaroon"])
+            config.update_config("atm", "activewallet", "btcpay_lnd")
+
+        elif ("lntxbot" in credentials) and ("==@" in credentials):
+            logger.info("Lntxbot Credentials detected.")
+
+            config.update_config("lntxbot", "creds", credentials.split("@")[0])
+            config.update_config("lntxbot", "url", credentials.split("@")[1])
+            config.update_config("atm", "activewallet", "lntxbot")
+
+        else:
+            logger.error("No credentials to a known wallet could be detected.")
     else:
         logger.error("No credentials to a known wallet could be detected.")
