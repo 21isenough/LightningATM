@@ -106,7 +106,7 @@ def handle_invoice():
         payout(config.SATS, config.INVOICE)
         result = last_payment(config.INVOICE)
 
-        if result is True:
+        if result:
             display.update_thankyou_screen()
         else:
             display.update_payment_failed()

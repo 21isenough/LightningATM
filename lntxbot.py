@@ -33,7 +33,7 @@ def request_lnurl(amt):
         "satoshis": str(math.floor(amt)),
     }
     response = requests.post(
-        "https://lntxbot.bigsun.xyz/generatelnurlwithdraw",
+        str(config.conf["lntxbot"]["url"]) + "/generatelnurlwithdraw",
         headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
         data=json.dumps(data),
     )
@@ -82,7 +82,7 @@ def get_lnurl_balance():
     ["BTC"]["AvailableBalance"] value
     """
     response = requests.post(
-        "https://lntxbot.bigsun.xyz/balance",
+        str(config.conf["lntxbot"]["url"]) + "/balance",
         headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
     )
     return response.json()["BTC"]["AvailableBalance"]
@@ -163,3 +163,17 @@ def scan_creds():
     logger.error("4 failed scanning attempts.")
     print("4 failed attempts ... try again.")
     raise utils.ScanError
+
+
+def payout(payment_request):
+    """Attempts to pay a BOLT11 invoice
+    """
+    data = {
+        "invoice": payment_request,
+    }
+    response = requests.post(
+        str(config.conf["lntxbot"]["url"]) + "/payinvoice",
+        headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
+        data=json.dumps(data),
+    )
+    return response.json()
