@@ -165,15 +165,15 @@ def scan_creds():
     raise utils.ScanError
 
 
-def payout(payment_request):
+def payout(amt, payment_request):
     """Attempts to pay a BOLT11 invoice
     """
     data = {
         "invoice": payment_request,
+        "amount": math.floor(amt),
     }
     response = requests.post(
         str(config.conf["lntxbot"]["url"]) + "/payinvoice",
         headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
         data=json.dumps(data),
     )
-    return response.json()
