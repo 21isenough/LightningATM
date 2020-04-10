@@ -76,6 +76,7 @@ def button_pushed():
                 config.INVOICE = lndrest.evaluate_scan(qrcode)
             display.update_payout_screen()
             lndrest.handle_invoice()
+            # lntxbot.payout(config.SATS, config.INVOICE)
             softreset()
 
     if config.PUSHES == 2:
@@ -235,7 +236,7 @@ def setup_coin_acceptor():
     GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     # Setup coin interrupt channel (bouncetime for switch bounce)
-    GPIO.add_event_detect(5, GPIO.RISING, callback=button_event, bouncetime=200)
+    GPIO.add_event_detect(5, GPIO.RISING, callback=button_event, bouncetime=350)
     GPIO.add_event_detect(6, GPIO.FALLING, callback=coin_event)
 
 
