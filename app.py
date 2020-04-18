@@ -80,17 +80,43 @@ def button_pushed():
             softreset()
 
     if config.PUSHES == 2:
-        """If no coins inserted, update the screen.
-        If coins are inserted, return a lnurl for the exchange amount
-        """
-        if config.FIAT == 0:
-            display.update_nocoin_screen()
-            time.sleep(3)
-            display.update_startup_screen()
-        else:
-            lntxbot.process_using_lnurl(config.SATS)
-            # Softreset and startup screen
-            softreset()
+
+        import requests, json, qrcode
+
+        request_url = "https://api.lnurlproxy.me/v1/lnurl"
+
+        data = {"amount": config.SATS}
+
+        print("Getting URL")
+
+        response = requests.post(request_url, json=data)
+        print(response)
+
+        qr_img = lntxbot.generate_lnurl_qr(response.json()["lnurl"])
+        qr_img = qr_img.resize((96, 96), resample=0)
+
+        # draw the qr code on the e-ink screen
+        lntxbot.draw_lnurl_qr(qr_img)
+        print("Sleep")
+        time.sleep(20)
+
+        print(response.json()["callback"])
+        invoice = requests.get(response.json()["callback"])
+
+        print(invoice.json()["invoice"])
+
+    # if config.PUSHES == 2:
+    #     """If no coins inserted, update the screen.
+    #     If coins are inserted, return a lnurl for the exchange amount
+    #     """
+    #     if config.FIAT == 0:
+    #         display.update_nocoin_screen()
+    #         time.sleep(3)
+    #         display.update_startup_screen()
+    #     else:
+    #         lntxbot.process_using_lnurl(config.SATS)
+    #         # Softreset and startup screen
+    #         softreset()
 
     if config.PUSHES == 3:
         """Store new lntxbot credential via a QR code scan
