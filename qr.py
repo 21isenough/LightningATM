@@ -69,13 +69,16 @@ def scan_credentials():
     if credentials:
         if ("lnd-config" in credentials) and ("lnd.config" in credentials):
             logger.info("BTCPayServer LND Credentials detected.")
-            r = requests.get(credentials.lstrip("config="))
-            data = r.json()
-            data = data["configurations"][0]
+            try:
+                r = requests.get(credentials.lstrip("config="))
+                data = r.json()
+                data = data["configurations"][0]
 
-            config.update_config("btcpay", "url", data["uri"] + "v1")
-            config.update_config("lnd", "macaroon", data["adminMacaroon"])
-            config.update_config("atm", "activewallet", "btcpay_lnd")
+                config.update_config("btcpay", "url", data["uri"] + "v1")
+                config.update_config("lnd", "macaroon", data["adminMacaroon"])
+                config.update_config("atm", "activewallet", "btcpay_lnd")
+            except:
+                logger.error("QR not valid (they expire after 10 minutes)")
 
         elif ("lntxbot" in credentials) and ("==@" in credentials):
             logger.info("Lntxbot Credentials detected.")
