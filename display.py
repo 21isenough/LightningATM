@@ -208,19 +208,19 @@ def update_nocoin_screen():
         (15, 10),
         "No coins added!",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 19),
+        font=utils.create_font("freemonobold", 18),
     )
     draw.text(
-        (25, 45),
+        (30, 40),
         "Please add",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 17),
+        font=utils.create_font("freemono", 20),
     )
     draw.text(
-        (45, 65),
-        "coins first.",
+        (30, 65),
+        "coins first",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 17),
+        font=utils.create_font("freemono", 20),
     )
 
     config.PAPIRUS.display(image)
@@ -273,7 +273,7 @@ def update_shutdown_screen():
     config.PAPIRUS.update()
 
 
-def update_lntxbot_scan():
+def update_wallet_scan():
     # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)
 
@@ -288,7 +288,7 @@ def update_lntxbot_scan():
     )
     draw.text(
         (33, 40),
-        "your lntxbot",
+        "your wallet",
         fill=config.BLACK,
         font=utils.create_font("freemono", 18),
     )
@@ -328,6 +328,37 @@ def update_lntxbot_balance(balance):
         str("{:,}".format(balance)) + " sats",
         fill=config.BLACK,
         font=utils.create_font("freemono", 18),
+    )
+
+    config.PAPIRUS.display(image)
+    config.PAPIRUS.update()
+    time.sleep(3)
+
+
+def update_btcpay_lnd():
+    # initially set all white background
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.rectangle(
+        (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
+    )
+    draw.text(
+        (45, 15),
+        "Success!!",
+        fill=config.BLACK,
+        font=utils.create_font("freemonobold", 20),
+    )
+    draw.text(
+        (10, 45),
+        "Successfuly scanned",
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 15),
+    )
+    draw.text(
+        (15, 65),
+        "BTCPay LND Wallet.",
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 16),
     )
 
     config.PAPIRUS.display(image)
