@@ -16,8 +16,15 @@ import config
 import utils
 import importlib
 
+import graphicpage
+import graphicapp
+from kivy.app import App
+
+import threading
+
 led = "off"
 logger = logging.getLogger("MAIN")
+graphic_app = graphicapp.GraficApp()
 
 
 def softreset():
@@ -80,43 +87,17 @@ def button_pushed():
             softreset()
 
     if config.PUSHES == 2:
-
-        import requests, json, qrcode
-
-        request_url = "https://api.lnurlproxy.me/v1/lnurl"
-
-        data = {"amount": config.SATS}
-
-        print("Getting URL")
-
-        response = requests.post(request_url, json=data)
-        print(response)
-
-        qr_img = lntxbot.generate_lnurl_qr(response.json()["lnurl"])
-        qr_img = qr_img.resize((96, 96), resample=0)
-
-        # draw the qr code on the e-ink screen
-        lntxbot.draw_lnurl_qr(qr_img)
-        print("Sleep")
-        time.sleep(20)
-
-        print(response.json()["callback"])
-        invoice = requests.get(response.json()["callback"])
-
-        print(invoice.json()["invoice"])
-
-    # if config.PUSHES == 2:
-    #     """If no coins inserted, update the screen.
-    #     If coins are inserted, return a lnurl for the exchange amount
-    #     """
-    #     if config.FIAT == 0:
-    #         display.update_nocoin_screen()
-    #         time.sleep(3)
-    #         display.update_startup_screen()
-    #     else:
-    #         lntxbot.process_using_lnurl(config.SATS)
-    #         # Softreset and startup screen
-    #         softreset()
+        """If no coins inserted, update the screen.
+        If coins are inserted, return a lnurl for the exchange amount
+        """
+        if config.FIAT == 0:
+            display.update_nocoin_screen()
+            time.sleep(3)
+            display.update_startup_screen()
+        else:
+            lntxbot.process_using_lnurl(config.SATS)
+            # Softreset and startup screen
+            softreset()
 
     if config.PUSHES == 3:
         """Store new lntxbot credential via a QR code scan
@@ -222,6 +203,8 @@ def coins_inserted():
 def monitor_coins_and_button():
     """Monitors coins inserted and buttons pushed
     """
+    print('start monitor_coins_and_buttons')
+
     time.sleep(0.2)
 
     # if config.COINLIST:
@@ -251,6 +234,7 @@ def setup_coin_acceptor():
     """Initialises the coin acceptor parameters and sets up a callback for button pushes
     and coin inserts.
     """
+    print('begin setup_coin_acceptor')
     # Defining GPIO BCM Mode
     GPIO.setmode(GPIO.BCM)
 
@@ -265,7 +249,10 @@ def setup_coin_acceptor():
     GPIO.add_event_detect(5, GPIO.RISING, callback=button_event, bouncetime=350)
     GPIO.add_event_detect(6, GPIO.FALLING, callback=coin_event)
 
+    print('end setup_coin_acceptor')
 
+def run_graphic_app(graphic):
+    graphic.run()
 # def check_dangermode():
 #     """Check for DANGERMODE and wipe any saved credentials if off"
 #     """
@@ -302,13 +289,19 @@ def setup_coin_acceptor():
 
 
 def main():
-    utils.check_epd_size()
+    #utils.check_epd_size()
     logger.info("Application started")
 
     # Checks dangermode and start scanning for credentials
     # Only activate once software ready for it
     # check_dangermode()
 
+    t = threading.Thread(target=run_graphic_app, args=(graphic_app,))
+    t.start()
+
+    print('before startup_screen')
+
+    time.sleep(1)
     # Display startup startup_screen
     display.update_startup_screen()
 

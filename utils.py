@@ -10,7 +10,7 @@ from pathlib import Path
 
 logger = logging.getLogger("UTILS")
 
-
+'''
 def check_epd_size():
     """Check EPD_SIZE is defined
     """
@@ -20,8 +20,9 @@ def check_epd_size():
     if EPD_SIZE == 0.0:
         print("Please select your screen size by running 'papirus-config'.")
         sys.exit()
+'''
 
-
+'''
 def create_font(font, size):
     """Create fonts from resources
     """
@@ -38,7 +39,7 @@ def create_font(font, size):
         return ImageFont.truetype(pathsawasdee.as_posix(), size)
     else:
         print("Font not available")
-
+'''
 
 def get_btc_price(fiat_code):
     """Get BTC -> FIAT conversion

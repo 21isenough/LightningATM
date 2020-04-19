@@ -4,7 +4,7 @@ import os
 import math
 from shutil import copyfile
 
-from papirus import Papirus
+#from papirus import Papirus
 
 import utils
 
@@ -115,7 +115,7 @@ conf = create_config()
 WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
-PAPIRUS = Papirus(rotation=PAPIRUSROT)
+#PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"

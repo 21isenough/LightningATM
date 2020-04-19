@@ -6,12 +6,19 @@ import math
 import config
 import utils
 
+import graphicapp
+import graphicpage
+
 from PIL import Image, ImageFont, ImageDraw
+
+import app
+from kivy.app import App
 
 
 def update_startup_screen():
     """Show startup screen on eInk Display
     """
+    '''
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
@@ -35,9 +42,14 @@ def update_startup_screen():
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.update()
+    '''
+
+    print(str(App.get_running_app()))
+    App.get_running_app().page1.update_startup_screen()
 
 
 def update_qr_request():
+    '''
     # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)
 
@@ -89,9 +101,13 @@ def update_qr_request():
     )
     config.PAPIRUS.display(image)
     config.PAPIRUS.partial_update()
+    '''
+
+    App.get_running_app().page1.update_qr_request()
 
 
 def update_qr_failed():
+    '''
     # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)
 
@@ -119,12 +135,17 @@ def update_qr_failed():
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.partial_update()
+    '''
+
+    App.get_running_app().page1.update_qr_failed()
 
 
 def update_payout_screen():
     """Update the payout screen to reflect balance of deposited coins.
     Scan the invoice??? I don't think so!
     """
+
+    '''
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.rectangle(
@@ -150,9 +171,13 @@ def update_payout_screen():
     # TODO: I notice this is commented out, I presume this function should _not_ be
     #   scanning a QR code on each update?
     # config.INVOICE = qr.scan()
+    '''
+
+    App.get_running_app().page1.update_payout_screen()
 
 
 def update_payment_failed():
+    '''
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
@@ -173,9 +198,13 @@ def update_payment_failed():
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.update()
+    '''
+
+    App.get_running_app().page1.update_payout_failed()
 
 
 def update_thankyou_screen():
+    '''
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
@@ -199,9 +228,15 @@ def update_thankyou_screen():
     config.PAPIRUS.display(image)
     config.PAPIRUS.update()
     time.sleep(5)
+    '''
+
+    App.get_running_app().page1.update_thankyou_screen()
+
+    time.sleep(5)
 
 
 def update_nocoin_screen():
+    '''
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
@@ -225,9 +260,13 @@ def update_nocoin_screen():
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.update()
+    '''
+
+    App.get_running_app().page1.update_nocoin_screen()
 
 
 def update_lnurl_generation():
+    '''
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.rectangle(
@@ -248,9 +287,13 @@ def update_lnurl_generation():
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.partial_update()
+    '''
+
+    App.get_running_app().page1.update_lnurl_generation()
 
 
 def update_shutdown_screen():
+    '''
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
@@ -271,9 +314,13 @@ def update_shutdown_screen():
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.update()
+    '''
+
+    App.get_running_app().page1.update_shutdown_screen()
 
 
 def update_lntxbot_scan():
+    '''
     # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)
 
@@ -302,9 +349,15 @@ def update_lntxbot_scan():
     config.PAPIRUS.display(image)
     config.PAPIRUS.update()
     time.sleep(2)
+    '''
+
+    App.get_running_app().page1.update_lntxbot_scan()
+
+    time.sleep(2)
 
 
 def update_lntxbot_balance(balance):
+    '''
     # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)
 
@@ -333,11 +386,18 @@ def update_lntxbot_balance(balance):
     config.PAPIRUS.display(image)
     config.PAPIRUS.update()
     time.sleep(3)
+    '''
+
+    App.get_running_app().page1.update_lntxbot_balance(balance)
+
+    time.sleep(3)
 
 
 def update_amount_screen():
     """Update the amount screen to reflect new coins inserted
     """
+
+    '''
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.rectangle(
@@ -383,16 +443,24 @@ def update_amount_screen():
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.partial_update()
+    '''
+
+    App.get_running_app().page1.update_amount_screen()
 
 
 def update_blank_screen():
+    '''
     image, width, height, draw = init_screen(color=config.WHITE)
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.update()
+    '''
+
+    App.get_running_app().page1.update_blank_screen()
 
 
 def menu_screen():
+    '''
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.rectangle(
@@ -410,6 +478,9 @@ def menu_screen():
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.partial_update()
+    '''
+
+    App.get_running_app().page1.menu_screen()
 
     while config.PUSHES <= 2:
         print(config.PUSHES)
@@ -419,9 +490,13 @@ def menu_screen():
 def init_screen(color):
     """Prepare the screen for drawing and return the draw variables
     """
+
+    '''
     image = Image.new("1", config.PAPIRUS.size, color)
     # Set width and height of screen
     width, height = image.size
     # prepare for drawing
     draw = ImageDraw.Draw(image)
     return image, width, height, draw
+    '''
+    pass
