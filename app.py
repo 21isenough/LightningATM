@@ -64,7 +64,13 @@ def button_pushed():
             display.update_nocoin_screen()
             time.sleep(3)
             display.update_startup_screen()
-        else:
+
+        if not config.conf["atm"]["activewallet"]:
+            logger.error("No wallet has been configured for the ATM.")
+            # Softreset and startup screen
+            softreset()
+
+        if config.conf["atm"]["activewallet"] == "btcpay_lnd":
             display.update_qr_request()
             qrcode = qr.scan()
             config.INVOICE = lndrest.evaluate_scan(qrcode)
@@ -76,64 +82,45 @@ def button_pushed():
                 config.INVOICE = lndrest.evaluate_scan(qrcode)
             display.update_payout_screen()
             lndrest.handle_invoice()
-            # lntxbot.payout(config.SATS, config.INVOICE)
             softreset()
-
-    if config.PUSHES == 2:
-
-        import requests, json, qrcode
-
-        request_url = "https://api.lnurlproxy.me/v1/lnurl"
-
-        data = {"amount": config.SATS}
-
-        print("Getting URL")
-
-        response = requests.post(request_url, json=data)
-        print(response)
-
-        qr_img = lntxbot.generate_lnurl_qr(response.json()["lnurl"])
-        qr_img = qr_img.resize((96, 96), resample=0)
-
-        # draw the qr code on the e-ink screen
-        lntxbot.draw_lnurl_qr(qr_img)
-        print("Sleep")
-        time.sleep(20)
-
-        print(response.json()["callback"])
-        invoice = requests.get(response.json()["callback"])
-
-        print(invoice.json()["invoice"])
-
-    # if config.PUSHES == 2:
-    #     """If no coins inserted, update the screen.
-    #     If coins are inserted, return a lnurl for the exchange amount
-    #     """
-    #     if config.FIAT == 0:
-    #         display.update_nocoin_screen()
-    #         time.sleep(3)
-    #         display.update_startup_screen()
-    #     else:
-    #         lntxbot.process_using_lnurl(config.SATS)
-    #         # Softreset and startup screen
-    #         softreset()
+        elif config.conf["atm"]["activewallet"] == "lntxbot":
+            lntxbot.process_using_lnurl(config.SATS)
+            # Softreset and startup screen
+            softreset()
+            # lntxbot.payout(config.SATS, config.INVOICE)
+        else:
+            pass
 
     if config.PUSHES == 3:
-        """Store new lntxbot credential via a QR code scan
+        """Scan and store new wallet credentials
         """
-        display.update_lntxbot_scan()
+        # Delete current wallet flag and credentials
+        config.update_config("atm", "activewallet", "")
+        config.update_config("lntxbot", "creds", "")
+        config.update_config("lnd", "macaroon", "")
+
+        display.update_wallet_scan()
+        qr.scan_credentials()
+        importlib.reload(config)
+
+        if config.conf["atm"]["activewallet"] == "btcpay_lnd":
+            display.update_btcpay_lnd()
+        elif config.conf["atm"]["activewallet"] == "lntxbot":
+            balance = lntxbot.get_lnurl_balance()
+            display.update_lntxbot_balance(balance)
+        else:
+            logger.error("Scanning of wallet credentials failed.")
 
         # scan the credentials
-        lntxcreds = lntxbot.scan_creds()
+        # lntxcreds = lntxbot.scan_creds()
 
         # save them to the current config and reload config file
-        config.update_config("lntxbot", "creds", lntxcreds)
-        if config.check_dangermode():
-            importlib.reload(config)
+        # config.update_config("lntxbot", "creds", lntxcreds)
+        # if config.check_dangermode():
+        #     importlib.reload(config)
 
         # return the current balance to the user on the screen
-        balance = lntxbot.get_lnurl_balance()
-        display.update_lntxbot_balance(balance)
+
         softreset()
 
     if config.PUSHES == 4:
@@ -143,13 +130,6 @@ def button_pushed():
         print("Button pushed four times (add coin)")
         config.PULSES = 2
 
-    if config.PUSHES == 5:
-        """Restarts the application
-        """
-        logger.warning("Button pushed five times (restart)")
-        print("Button pushed five times (restart)")
-        softreset()
-
     if config.PUSHES == 6:
         """Shutdown the host machine
         """
@@ -158,6 +138,26 @@ def button_pushed():
         logger.warning("ATM shutdown (6 times button)")
         os.system("sudo shutdown -h now")
     config.PUSHES = 0
+
+    # # Future fucntion to make use of LNURLProxyServer
+    # if config.PUSHES == 6:
+    #     import requests, json, qrcode
+    #
+    #     request_url = "https://api.lnurlproxy.me/v1/lnurl"
+    #     data = {"amount": config.SATS}
+    #
+    #     response = requests.post(request_url, json=data)
+    #
+    #     qr_img = lntxbot.generate_lnurl_qr(response.json()["lnurl"])
+    #     qr_img = qr_img.resize((96, 96), resample=0)
+    #
+    #     # draw the qr code on the e-ink screen
+    #     lntxbot.draw_lnurl_qr(qr_img)
+    #     invoice = requests.get(response.json()["callback"])
+    #
+    #     config.INVOICE = invoice.json()["invoice"]
+    #     lndrest.handle_invoice()
+    #     softreset()
 
 
 def coins_inserted():
@@ -224,6 +224,7 @@ def monitor_coins_and_button():
     """
     time.sleep(0.2)
 
+    # Potentially new way of detecting coin insertions
     # if config.COINLIST:
     #     time.sleep(1)
     #     if config.COINLIST.count("0") > 1:
@@ -243,7 +244,7 @@ def monitor_coins_and_button():
         coins_inserted()
 
     # Detect if the button has been pushed
-    if (time.time() - config.LASTPUSHES > 0.5) and (config.PUSHES > 0):
+    if (time.time() - config.LASTPUSHES > 1) and (config.PUSHES > 0):
         button_pushed()
 
 
@@ -262,7 +263,7 @@ def setup_coin_acceptor():
     GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     # Setup coin interrupt channel (bouncetime for switch bounce)
-    GPIO.add_event_detect(5, GPIO.RISING, callback=button_event, bouncetime=350)
+    GPIO.add_event_detect(5, GPIO.RISING, callback=button_event, bouncetime=300)
     GPIO.add_event_detect(6, GPIO.FALLING, callback=coin_event)
 
 
