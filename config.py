@@ -96,7 +96,7 @@ def get_config_file():
 
 
 def create_config(config_file=None):
-    parser = ConfigParser(allow_no_value=True)
+    parser = ConfigParser(comment_prefixes="/", allow_no_value=True, strict=False)
     parser.read(config_file or CONFIG_FILE)
     return parser
 

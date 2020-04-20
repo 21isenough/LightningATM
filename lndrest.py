@@ -1,7 +1,6 @@
 #!/usr/bin/python3
 
 # TODO: Add the "verify=False" param to all post and get requests for local api queries
-# TODO: Add option to use LNtxbot with the ATM
 
 import codecs
 import json

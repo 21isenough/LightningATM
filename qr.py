@@ -88,6 +88,6 @@ def scan_credentials():
             config.update_config("atm", "activewallet", "lntxbot")
 
         else:
-            logger.error("No credentials to a known wallet could be detected.")
+            logger.error("No credentials to a known wallet detected.")
     else:
         logger.error("No credentials to a known wallet could be detected.")

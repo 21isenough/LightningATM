@@ -8,11 +8,11 @@ import math
 import RPi.GPIO as GPIO
 from PIL import Image, ImageDraw
 
+import config
 import display
 import lndrest
 import lntxbot
 import qr
-import config
 import utils
 import importlib
 
