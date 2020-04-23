@@ -80,7 +80,7 @@ def scan_credentials():
             except:
                 logger.error("QR not valid (they expire after 10 minutes)")
 
-        elif ("lntxbot" in credentials) and ("==@" in credentials):
+        elif ("lntxbot" in credentials) and ("@" in credentials):
             logger.info("Lntxbot Credentials detected.")
 
             config.update_config("lntxbot", "creds", credentials.split("@")[0])
