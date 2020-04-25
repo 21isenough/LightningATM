@@ -5,6 +5,7 @@ After=multi-user.target
 [Service]
 User=pi
 Type=idle
+WorkingDirectory=/home/pi/LightningATM
 ExecStart=/usr/bin/python3 /home/pi/LightningATM/app.py
 
 [Install]
