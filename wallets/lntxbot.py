@@ -17,7 +17,6 @@ import display
 import utils
 
 # TODO: Add variable to set certificate check to true or false
-# TODO: Add evaluation for credentials after scanning
 
 logger = logging.getLogger("LNTXBOT")
 

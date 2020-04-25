@@ -10,8 +10,8 @@ from PIL import Image, ImageDraw
 
 import config
 import display
-import lndrest
-import lntxbot
+import wallets.lndrest
+import wallets.lntxbot
 import qr
 import utils
 import importlib
