@@ -6,7 +6,6 @@ import time
 import math
 
 import RPi.GPIO as GPIO
-from PIL import Image, ImageDraw
 
 import config
 import display
@@ -109,7 +108,7 @@ def button_pushed():
             balance = lntxbot.get_lnurl_balance()
             display.update_lntxbot_balance(balance)
         else:
-            logger.error("Scanning of wallet credentials failed.")
+            logger.error("Saving of wallet credentials failed.")
 
         # scan the credentials
         # lntxcreds = lntxbot.scan_creds()
