@@ -12,29 +12,8 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 
 ### Parts list (price estimate: 50-70 USD)
 
-1. Raspberry Pi Zero WH - http://bit.ly/2maXBr6  
-  If you can, get the version WH (not just W). It comes with pre soldered headers and can be used out of the box.
-
-2. 16 GB Micro SD Card - http://bit.ly/39anM4f
-  8 GB SD Micro card will also work and is fine. Just pick any brand with a reasonably good rating.
-
-3. PaPiRus Zero - ePaper / eInk Screen - http://bit.ly/2kdSOVh  
-  This is the 2 inch ePaper display that I'm using in my build. My Python scripts are built to talk to the manufacturers library.
-
-4. Raspberry Pi Zero Camera (5MP) - http://bit.ly/2kuPvt1  
-  Make sure you buy a camera which also comes with the narrower ribbon cable (Pi Zero Ribbon Cable). The Raspberry Pi Zero has a different CSI camera connector than the other versions.
-
-5. Coin Acceptor 616 - http://bit.ly/2lHfoWK  
-  This coin acceptor can accept up to 6 different coins. It can learn what coins you want to use it with. The setup process happens manually on the acceptor itself, not through any software.
-
-6. Button - http://bit.ly/2lK4AqR  
-  Any button that can close a power circuit will do the trick. Don't use a switch that stays permanently in its new position - a click button that is only closed while pressing it.
-
-7. Jumper Cables - http://bit.ly/2kfGns4  
-  You will need a bunch of jumper cables to connect all the components with each other. Make sure you've got some variety (male and female) as you will need to connect different types of pins with each other.
-
-8. Power supply  
-  I'm working on a solution that lets you use just one power supply. For now you need 5V for the Raspberry Pi Zero (supplied through USB) and another 12V power supply to power the coin acceptor (preferably with a balun for easier connecting).
+Please find the detailed parts list on the LightningATM documentation website:
+https://docs.lightningatm.me/requirements/hardware-requirements
 
 
 ### Todo
