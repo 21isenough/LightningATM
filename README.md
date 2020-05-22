@@ -13,6 +13,7 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 ### Parts list (price estimate: 50-70 USD)
 
 Please find the detailed parts list on the LightningATM documentation website:
+
 https://docs.lightningatm.me/requirements/hardware-requirements
 
 
