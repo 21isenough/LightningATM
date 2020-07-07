@@ -5,6 +5,7 @@ import math
 from shutil import copyfile
 
 from papirus import Papirus
+from waveshare_epd import epd2in13_V2
 
 import utils
 
@@ -116,6 +117,9 @@ WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
 PAPIRUS = Papirus(rotation=PAPIRUSROT)
+
+# Display - Waveshare 2.13 is 250 * 122
+WAVESHARE = epd2in13_V2.EPD()
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"

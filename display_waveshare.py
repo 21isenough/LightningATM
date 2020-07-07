@@ -33,8 +33,10 @@ def update_startup_screen():
         font=utils.create_font("freemono", 14),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+    # config.PAPIRUS.display(image)
+    # config.PAPIRUS.update()
 
 
 def update_qr_request():
@@ -269,8 +271,10 @@ def update_shutdown_screen():
         (45, 65), "operator.", fill=config.BLACK, font=utils.create_font("freemono", 17)
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+    # config.PAPIRUS.display(image)
+    # config.PAPIRUS.update()
 
 
 def update_wallet_scan():
@@ -450,7 +454,7 @@ def menu_screen():
 def init_screen(color):
     """Prepare the screen for drawing and return the draw variables
     """
-    image = Image.new("1", config.PAPIRUS.size, color)
+    image = Image.new("1", (config.WAVESHARE.height, config.WAVESHARE.width), color)
     # Set width and height of screen
     width, height = image.size
     # prepare for drawing
