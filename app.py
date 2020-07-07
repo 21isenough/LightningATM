@@ -8,7 +8,7 @@ import math
 import RPi.GPIO as GPIO
 
 import config
-import display
+import display_waveshare
 import lndrest
 import lntxbot
 import qr
@@ -29,7 +29,7 @@ def softreset():
     GPIO.output(13, GPIO.LOW)
     led = "off"
 
-    display.update_startup_screen()
+    display_waveshare.update_startup_screen()
     logger.info("Softreset executed")
 
 
@@ -312,7 +312,7 @@ def main():
     # check_dangermode()
 
     # Display startup startup_screen
-    display.update_startup_screen()
+    display_waveshare.update_startup_screen()
 
     setup_coin_acceptor()
 
@@ -325,7 +325,7 @@ if __name__ == "__main__":
         try:
             main()
         except KeyboardInterrupt:
-            display.update_shutdown_screen()
+            display_waveshare.update_shutdown_screen()
             GPIO.cleanup()
             logger.info("Application finished (Keyboard Interrupt)")
             sys.exit("Manually Interrupted")
