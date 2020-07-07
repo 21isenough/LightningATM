@@ -32,7 +32,7 @@ def create_font(font, size):
 
     pathdotmatri = Path.cwd().joinpath("resources", "fonts", "DOTMatri.ttf")
     pathdotmbold = Path.cwd().joinpath("resources", "fonts", "DOTMBold.ttf")
-    pathleddot = Path.cwd().joinpath("resources", "fonts", "LEDDotMatrix")
+    pathleddot = Path.cwd().joinpath("resources", "fonts", "LEDDotMatrix.ttf")
 
     if font == "freemono":
         return ImageFont.truetype(pathfreemono.as_posix(), size)
