@@ -207,6 +207,8 @@ def coins_inserted():
     if config.PULSES == 7:
         config.FIAT += 1
         config.SATS = utils.get_sats()
+        config.SATS = utils.get_sats()
+        config.SATSFEE = utils.get_sats_with_fee()
         logger.info("100 cents added")
         display.update_amount_screen()
     config.PULSES = 0
