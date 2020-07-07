@@ -43,13 +43,15 @@ def button_event(channel):
 def coin_event(channel):
     """Registers a coin insertion event
     """
-    # print(float(round(time.time() - config.LASTIMPULSE, 3)))
-    # if time.time() - config.LASTIMPULSE > 0.2:
-    #     config.COINLIST.append("0")
     config.LASTIMPULSE = time.time()
     config.PULSES = config.PULSES + 1
-    # config.COINLIST.append("1")
-    # print(config.COINLIST)
+
+
+def bill_event(channel):
+    """Registers a bill insertion event
+    """
+    config.LASTIMPULSE = time.time()
+    config.PULSES = config.PULSES + 1
 
 
 def button_pushed():
@@ -110,16 +112,6 @@ def button_pushed():
         else:
             logger.error("Saving of wallet credentials failed.")
 
-        # scan the credentials
-        # lntxcreds = lntxbot.scan_creds()
-
-        # save them to the current config and reload config file
-        # config.update_config("lntxbot", "creds", lntxcreds)
-        # if config.check_dangermode():
-        #     importlib.reload(config)
-
-        # return the current balance to the user on the screen
-
         softreset()
 
     if config.PUSHES == 4:
@@ -159,7 +151,7 @@ def button_pushed():
     #     softreset()
 
 
-def coins_inserted():
+def fiat_inserted():
     """Actions coins inserted
     """
     global led
@@ -209,6 +201,42 @@ def coins_inserted():
         config.SATS = utils.get_sats()
         logger.info("100 cents added")
         display.update_amount_screen()
+
+    if config.PULSES == 12:
+        config.FIAT += 5
+        config.SATS = utils.get_sats()
+        logger.info("500 cents added")
+        display.update_amount_screen()
+    if config.PULSES == 13:
+        config.FIAT += 10
+        config.SATS = utils.get_sats()
+        logger.info("10'000 cents added")
+        display.update_amount_screen()
+    if config.PULSES == 14:
+        config.FIAT += 20
+        config.SATS = utils.get_sats()
+        logger.info("20'000 cents added")
+        display.update_amount_screen()
+    if config.PULSES == 15:
+        config.FIAT += 50
+        config.SATS = utils.get_sats()
+        logger.info("50'000 cents added")
+        display.update_amount_screen()
+    if config.PULSES == 16:
+        config.FIAT += 100
+        config.SATS = utils.get_sats()
+        logger.info("100'000 cents added")
+        display.update_amount_screen()
+    if config.PULSES == 17:
+        config.FIAT += 200
+        config.SATS = utils.get_sats()
+        logger.info("200'000 cents added")
+        display.update_amount_screen()
+    if config.PULSES == 18:
+        config.FIAT += 500
+        config.SATS = utils.get_sats()
+        logger.info("500'000 cents added")
+        display.update_amount_screen()
     config.PULSES = 0
 
     if config.FIAT > 0 and led == "off":
@@ -223,24 +251,9 @@ def monitor_coins_and_button():
     """
     time.sleep(0.2)
 
-    # Potentially new way of detecting coin insertions
-    # if config.COINLIST:
-    #     time.sleep(1)
-    #     if config.COINLIST.count("0") > 1:
-    #         print(config.COINLIST[1 : config.COINLIST.index("0", 1)])
-    #         print(len(config.COINLIST[1 : config.COINLIST.index("0", 1)]))
-    #     else:
-    #         print(config.COINLIST[1:])
-    #         print(len(config.COINLIST[1:]))
-    #         if len(config.COINLIST[1:]) > 0:
-    #             config.PULSLIST.append(len(config.COINLIST[1:]))
-    #             del config.COINLIST[: len(config.COINLIST[1:])]
-    #
-    # print(config.PULSLIST)
-
     # Detect when coins are being inserted
     if (time.time() - config.LASTIMPULSE > 0.5) and (config.PULSES > 0):
-        coins_inserted()
+        fiat_inserted()
 
     # Detect if the button has been pushed
     if (time.time() - config.LASTPUSHES > 1) and (config.PUSHES > 0):
@@ -260,10 +273,12 @@ def setup_coin_acceptor():
     GPIO.output(13, GPIO.LOW)
     GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
     GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+    GPIO.setup(19, GPIO.IN, pull_up_down=GPIO.PUD_UP)
 
     # Setup coin interrupt channel (bouncetime for switch bounce)
     GPIO.add_event_detect(5, GPIO.RISING, callback=button_event, bouncetime=300)
     GPIO.add_event_detect(6, GPIO.FALLING, callback=coin_event)
+    GPIO.add_event_detect(19, GPIO.FALLING, callback=bill_event)
 
 
 # def check_dangermode():
