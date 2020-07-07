@@ -199,42 +199,58 @@ def fiat_inserted():
     if config.PULSES == 7:
         config.FIAT += 1
         config.SATS = utils.get_sats()
+        config.SATSFEE = utils.get_sats_with_fee()
+        config.SATS -= config.SATSFEE
         logger.info("100 cents added")
         display.update_amount_screen()
 
     if config.PULSES == 12:
         config.FIAT += 5
         config.SATS = utils.get_sats()
+        config.SATSFEE = utils.get_sats_with_fee()
+        config.SATS -= config.SATSFEE
         logger.info("500 cents added")
         display.update_amount_screen()
     if config.PULSES == 13:
         config.FIAT += 10
         config.SATS = utils.get_sats()
+        config.SATSFEE = utils.get_sats_with_fee()
+        config.SATS -= config.SATSFEE
         logger.info("1'000 cents added")
         display.update_amount_screen()
     if config.PULSES == 14:
         config.FIAT += 20
         config.SATS = utils.get_sats()
+        config.SATSFEE = utils.get_sats_with_fee()
+        config.SATS -= config.SATSFEE
         logger.info("2'000 cents added")
         display.update_amount_screen()
     if config.PULSES == 15:
         config.FIAT += 50
         config.SATS = utils.get_sats()
+        config.SATSFEE = utils.get_sats_with_fee()
+        config.SATS -= config.SATSFEE
         logger.info("5'000 cents added")
         display.update_amount_screen()
     if config.PULSES == 16:
         config.FIAT += 100
         config.SATS = utils.get_sats()
+        config.SATSFEE = utils.get_sats_with_fee()
+        config.SATS -= config.SATSFEE
         logger.info("10'000 cents added")
         display.update_amount_screen()
     if config.PULSES == 17:
         config.FIAT += 200
         config.SATS = utils.get_sats()
+        config.SATSFEE = utils.get_sats_with_fee()
+        config.SATS -= config.SATSFEE
         logger.info("20'000 cents added")
         display.update_amount_screen()
     if config.PULSES == 18:
         config.FIAT += 500
         config.SATS = utils.get_sats()
+        config.SATSFEE = utils.get_sats_with_fee()
+        config.SATS -= config.SATSFEE
         logger.info("50'000 cents added")
         display.update_amount_screen()
     config.PULSES = 0
