@@ -40,6 +40,12 @@ def create_font(font, size):
         return ImageFont.truetype(pathfreemonobold.as_posix(), size)
     if font == "sawasdee":
         return ImageFont.truetype(pathsawasdee.as_posix(), size)
+    if font == "dotmatri":
+        return ImageFont.truetype(pathdotmatri.as_posix(), size)
+    if font == "dotmbold":
+        return ImageFont.truetype(pathdotmbold.as_posix(), size)
+    if font == "leddot":
+        return ImageFont.truetype(pathleddot.as_posix(), size)
     else:
         print("Font not available")
 
