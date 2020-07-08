@@ -8,12 +8,15 @@ import math
 import RPi.GPIO as GPIO
 
 import config
-import display
 import lndrest
 import lntxbot
 import qr
+
 import utils
 import importlib
+
+display_config = config.conf["atm"]["display"]
+display = getattr(__import__("displays", fromlist=[display_config]), display_config)
 
 led = "off"
 logger = logging.getLogger("MAIN")
@@ -25,6 +28,8 @@ def softreset():
     global led
     config.SATS = 0
     config.FIAT = 0
+    logger.info("%s Coin(s) and XX Bill(s) added", config.COINCOUNT)
+    config.COINCOUNT = 0
     # Turn off button LED
     GPIO.output(13, GPIO.LOW)
     led = "off"
@@ -171,6 +176,7 @@ def coins_inserted():
 
     if config.PULSES == 2:
         config.FIAT += 0.02
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
@@ -178,6 +184,7 @@ def coins_inserted():
         display.update_amount_screen()
     if config.PULSES == 3:
         config.FIAT += 0.05
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
@@ -185,6 +192,7 @@ def coins_inserted():
         display.update_amount_screen()
     if config.PULSES == 4:
         config.FIAT += 0.1
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
@@ -192,6 +200,7 @@ def coins_inserted():
         display.update_amount_screen()
     if config.PULSES == 5:
         config.FIAT += 0.2
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
@@ -199,6 +208,7 @@ def coins_inserted():
         display.update_amount_screen()
     if config.PULSES == 6:
         config.FIAT += 0.5
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
@@ -206,6 +216,7 @@ def coins_inserted():
         display.update_amount_screen()
     if config.PULSES == 7:
         config.FIAT += 1
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()

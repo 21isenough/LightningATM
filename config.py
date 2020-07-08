@@ -5,6 +5,7 @@ import math
 from shutil import copyfile
 
 from papirus import Papirus
+from waveshare_epd import epd2in13_V2
 
 import utils
 
@@ -14,6 +15,9 @@ config_file_path = ATM_data_dir + "config.ini"
 # check the config directory exists, create it if not
 if not os.path.exists(ATM_data_dir):
     os.makedirs(ATM_data_dir)
+
+# Set to logging.DEBUG if more info needed
+logging.disable(logging.DEBUG)
 
 # Set to logging.DEBUG if more "requests" debugging info needed
 logging.getLogger("requests").setLevel(logging.INFO)
@@ -115,7 +119,12 @@ conf = create_config()
 WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
-PAPIRUS = Papirus(rotation=PAPIRUSROT)
+if "papirus" in conf["atm"]["display"]:
+    PAPIRUS = Papirus(rotation=PAPIRUSROT)
+
+# Display - Waveshare 2.13 is 250 * 122 pixels
+if "waveshare" in conf["atm"]["display"]:
+    WAVESHARE = epd2in13_V2.EPD()
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
@@ -135,6 +144,7 @@ LASTIMPULSE = 0
 PULSES = 0
 LASTPUSHES = 0
 PUSHES = 0
+COINCOUNT = 0
 
 # Lists for different coin counting, not yet implemented
 # COINLIST = []

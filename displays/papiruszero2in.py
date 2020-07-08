@@ -6,6 +6,8 @@ import math
 import config
 import utils
 
+from displays import messages
+
 from PIL import Image, ImageFont, ImageDraw
 
 
@@ -98,12 +100,7 @@ def update_qr_failed():
     draw.rectangle(
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
-    draw.text(
-        (25, 10),
-        "Scanning...",
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
-    )
+
     draw.text(
         (25, 30),
         "Scan failed.",
@@ -366,6 +363,32 @@ def update_btcpay_lnd():
     time.sleep(3)
 
 
+def draw_lnurl_qr(qr_img):
+    """Draw a lnurl qr code on the e-ink screen
+    """
+    image, width, height, draw = init_screen(color=config.BLACK)
+
+    qr_img = qr_img.resize((96, 96), resample=0)
+
+    draw = ImageDraw.Draw(image)
+    draw.bitmap((0, 0), qr_img, fill=config.WHITE)
+    draw.text(
+        (110, 25),
+        "Scan to",
+        fill=config.WHITE,
+        font=utils.create_font("freemonobold", 16),
+    )
+    draw.text(
+        (110, 45),
+        "receive",
+        fill=config.WHITE,
+        font=utils.create_font("freemonobold", 16),
+    )
+
+    config.PAPIRUS.display(image)
+    config.PAPIRUS.update()
+
+
 def update_amount_screen():
     """Update the amount screen to reflect new coins inserted
     """
@@ -421,30 +444,6 @@ def update_blank_screen():
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.update()
-
-
-def menu_screen():
-    image, width, height, draw = init_screen(color=config.WHITE)
-
-    draw.rectangle(
-        (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
-    )
-    draw.text(
-        (20, 16), "►", fill=config.BLACK, font=utils.create_font("freemono", 20),
-    )
-    draw.text(
-        (40, 20), "Menu 1", fill=config.BLACK, font=utils.create_font("freemono", 20),
-    )
-    draw.text(
-        (40, 40), "Menu 2", fill=config.BLACK, font=utils.create_font("freemono", 20),
-    )
-
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.partial_update()
-
-    while config.PUSHES <= 2:
-        print(config.PUSHES)
-        time.sleep(2)
 
 
 def init_screen(color):

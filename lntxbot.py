@@ -10,14 +10,16 @@ import math
 
 from PIL import ImageDraw, Image
 
-import qrcode
-
 import config
-import display
+
+display_config = config.conf["atm"]["display"]
+display = getattr(__import__("displays", fromlist=[display_config]), display_config)
+
 import utils
 
 # TODO: Add variable to set certificate check to true or false
 # TODO: Add evaluation for credentials after scanning
+# TODO: Remove display calls from here to app.py
 
 logger = logging.getLogger("LNTXBOT")
 
@@ -38,43 +40,6 @@ def request_lnurl(amt):
         data=json.dumps(data),
     )
     return response.json()
-
-
-def generate_lnurl_qr(lnurl):
-    """Generate an lnurl qr code from a lnurl
-    """
-    lnurlqr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=2,
-        border=1,
-    )
-    lnurlqr.add_data(lnurl.upper())
-    logger.info("LNURL QR code generated")
-    return lnurlqr.make_image()
-
-
-def draw_lnurl_qr(qr_img):
-    """draw a lnurl qr code on the e-ink screen
-    """
-    image = Image.new("1", config.PAPIRUS.size, config.BLACK)
-    draw = ImageDraw.Draw(image)
-    draw.bitmap((0, 0), qr_img, fill=config.WHITE)
-    draw.text(
-        (110, 25),
-        "Scan to",
-        fill=config.WHITE,
-        font=utils.create_font("freemonobold", 16),
-    )
-    draw.text(
-        (110, 45),
-        "receive",
-        fill=config.WHITE,
-        font=utils.create_font("freemonobold", 16),
-    )
-
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
 
 
 def get_lnurl_balance():
@@ -123,11 +88,10 @@ def process_using_lnurl(amt):
     utils.check_epd_size()
 
     # create a qr code image and print it to terminal
-    qr_img = generate_lnurl_qr(lnurl["lnurl"])
-    qr_img = qr_img.resize((96, 96), resample=0)
+    qr_img = utils.generate_lnurl_qr(lnurl["lnurl"])
 
     # draw the qr code on the e-ink screen
-    draw_lnurl_qr(qr_img)
+    display.draw_lnurl_qr(qr_img)
 
     # get the balance? back from the bot
     start_balance = get_lnurl_balance()
