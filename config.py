@@ -116,9 +116,10 @@ conf = create_config()
 WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
-PAPIRUS = Papirus(rotation=PAPIRUSROT)
+if "papirus" in conf["atm"]["display"]:
+    PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
-# Display - Waveshare 2.13 is 250 * 122
+# Display - Waveshare 2.13 is 250 * 122 pixels
 WAVESHARE = epd2in13_V2.EPD()
 
 # API URL for coingecko
