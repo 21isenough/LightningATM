@@ -6,6 +6,8 @@ import math
 import config
 import utils
 
+from displays import messages
+
 from PIL import Image, ImageFont, ImageDraw
 
 
@@ -15,28 +17,26 @@ def update_startup_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (20, 10),
+        (18, 13),
         "Welcome to the",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 18),
+        font=utils.create_font("freemono", 25),
     )
     draw.text(
-        (10, 20),
+        (12, 30),
         "LightningATM",
         fill=config.BLACK,
-        font=utils.create_font("sawasdee", 30),
+        font=utils.create_font("sawasdee", 37),
     )
     draw.text(
-        (7, 75),
+        (9, 92),
         "- please insert coins -",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 14),
+        font=utils.create_font("freemono", 16),
     )
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.update()
 
 
 def update_qr_request():
@@ -47,52 +47,50 @@ def update_qr_request():
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (25, 10),
+        (34, 10),
         "Please scan",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 25),
     )
     draw.text(
         (10, 30),
         "your invoice in",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 25),
     )
 
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
+    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.displayPartBaseImage(config.WAVESHARE.getbuffer(image))
 
     for i in range(0, 3):
         draw.text(
-            (80, 45),
+            (90, 55),
             str(3 - i),
             fill=config.BLACK,
-            font=utils.create_font("freemono", 50),
+            font=utils.create_font("freemono", 58),
         )
-        config.PAPIRUS.display(image)
-        config.PAPIRUS.partial_update()
+        config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
+        config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
         draw.rectangle((75, 50, 115, 90), fill=config.WHITE, outline=config.WHITE)
-        time.sleep(1)
+        time.sleep(0.5)
 
     draw.rectangle(
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (25, 10),
+        (32, 15),
         "Scanning...",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 28),
     )
     draw.text(
-        (15, 35),
+        (22, 40),
         "for " + str(math.floor(config.SATS)) + " sats.",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 28),
     )
     config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
     config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.partial_update()
 
 
 def update_qr_failed():
@@ -102,29 +100,22 @@ def update_qr_failed():
     draw.rectangle(
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
-    draw.text(
-        (25, 10),
-        "Scanning...",
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
-    )
+
     draw.text(
         (25, 30),
-        "Scan failed.",
+        messages.qr_failed_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 28),
     )
     draw.text(
         (25, 50),
-        "Try again.",
+        messages.qr_failed_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 28),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
-    config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.partial_update()
+    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
 def update_payout_screen():
@@ -151,8 +142,6 @@ def update_payout_screen():
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
 
     # scan the invoice
     # TODO: I notice this is commented out, I presume this function should _not_ be
@@ -181,8 +170,6 @@ def update_payment_failed():
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.update()
 
 
 def update_thankyou_screen():
@@ -209,8 +196,6 @@ def update_thankyou_screen():
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.update()
     time.sleep(5)
 
 
@@ -238,8 +223,6 @@ def update_nocoin_screen():
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.update()
 
 
 def update_lnurl_generation():
@@ -261,10 +244,8 @@ def update_lnurl_generation():
         font=utils.create_font("freemono", 20),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
-    config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.partial_update()
+    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
 def update_shutdown_screen():
@@ -288,8 +269,6 @@ def update_shutdown_screen():
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.update()
 
 
 def update_wallet_scan():
@@ -320,8 +299,6 @@ def update_wallet_scan():
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.update()
     time.sleep(2)
 
 
@@ -353,8 +330,6 @@ def update_lntxbot_balance(balance):
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.update()
     time.sleep(3)
 
 
@@ -386,8 +361,6 @@ def update_btcpay_lnd():
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.update()
     time.sleep(3)
 
 
@@ -461,10 +434,12 @@ def update_amount_screen():
         font=utils.create_font("freemono", 14),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
-    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.partial_update()
+    if config.COINCOUNT == 1:
+        config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+        config.WAVESHARE.displayPartBaseImage(config.WAVESHARE.getbuffer(image))
+    else:
+        config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
+        config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
 
 
 def update_blank_screen():
@@ -472,32 +447,6 @@ def update_blank_screen():
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-    # config.PAPIRUS.display(image)
-    # config.PAPIRUS.update()
-
-
-def menu_screen():
-    image, width, height, draw = init_screen(color=config.WHITE)
-
-    draw.rectangle(
-        (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
-    )
-    draw.text(
-        (20, 16), "►", fill=config.BLACK, font=utils.create_font("freemono", 20),
-    )
-    draw.text(
-        (40, 20), "Menu 1", fill=config.BLACK, font=utils.create_font("freemono", 20),
-    )
-    draw.text(
-        (40, 40), "Menu 2", fill=config.BLACK, font=utils.create_font("freemono", 20),
-    )
-
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.partial_update()
-
-    while config.PUSHES <= 2:
-        print(config.PUSHES)
-        time.sleep(2)
 
 
 def init_screen(color):
