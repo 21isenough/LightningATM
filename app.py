@@ -8,12 +8,15 @@ import math
 import RPi.GPIO as GPIO
 
 import config
-import display_waveshare
 import lndrest
 import lntxbot
 import qr
+
 import utils
 import importlib
+
+display_config = config.conf["atm"]["display"]
+display = getattr(__import__("displays", fromlist=[display_config]), display_config)
 
 led = "off"
 logger = logging.getLogger("MAIN")
@@ -29,7 +32,7 @@ def softreset():
     GPIO.output(13, GPIO.LOW)
     led = "off"
 
-    display_waveshare.update_startup_screen()
+    display.update_startup_screen()
     logger.info("Softreset executed")
 
 
@@ -312,7 +315,7 @@ def main():
     # check_dangermode()
 
     # Display startup startup_screen
-    display_waveshare.update_startup_screen()
+    display.update_startup_screen()
 
     setup_coin_acceptor()
 
@@ -325,7 +328,7 @@ if __name__ == "__main__":
         try:
             main()
         except KeyboardInterrupt:
-            display_waveshare.update_shutdown_screen()
+            display.update_shutdown_screen()
             GPIO.cleanup()
             logger.info("Application finished (Keyboard Interrupt)")
             sys.exit("Manually Interrupted")
