@@ -22,6 +22,7 @@ https://docs.lightningatm.me/requirements/hardware-requirements
 ### Todo
 
 #### Prio 1
+- [ ] Add a language file to change strings easily
 - [ ] Try different e-ink screen
 - [ ] Support for more Lightning implementations and wallets
 - [ ] Try different way of detecting inserted coins (populating a list and setting a delimiter)
