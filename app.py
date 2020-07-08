@@ -28,6 +28,7 @@ def softreset():
     global led
     config.SATS = 0
     config.FIAT = 0
+    logger.info("%s Coin(s) and XX Bill(s) added", config.COINCOUNT)
     config.COINCOUNT = 0
     # Turn off button LED
     GPIO.output(13, GPIO.LOW)
@@ -222,7 +223,6 @@ def coins_inserted():
         logger.info("100 cents added")
         display.update_amount_screen()
     config.PULSES = 0
-    print(config.COINCOUNT)
 
     if config.FIAT > 0 and led == "off":
         # Turn on the LED after first coin
