@@ -46,3 +46,27 @@ shutdown_screen_3 = "operator."
 wallet_scan_1 = "Please scan"
 wallet_scan_2 = "your wallet"
 wallet_scan_3 = "credentials."
+
+# Text for update_lntxbot_balance()
+lntxbot_balance_1 = "Success!!"
+lntxbot_balance_2 = "Your current balance:"
+lntxbot_balance_3 = " sats"
+
+# Text for update_btcpay_lnd()
+btcpay_lnd_1 = "Success!!"
+btcpay_lnd_2 = "Successfuly scanned"
+btcpay_lnd_3 = "BTCPay LND Wallet."
+
+# Text for draw_lnurl_qr()
+lnurl_qr_1 = "Scan to"
+lnurl_qr_2 = "receive"
+
+# Text for update_amount_screen()
+amount_screen_1 = " sats"
+amount_screen_2 = "Rate"
+amount_screen_3 = "= "
+amount_screen_4 = " sats/"
+amount_screen_5 = "Fee"
+amount_screen_6 = "= "
+amount_screen_7 = "% ("
+amount_screen_8 = " sats)"

@@ -6,6 +6,8 @@ import math
 import config
 import utils
 
+from displays import messages
+
 from PIL import Image, ImageFont, ImageDraw
 
 
@@ -365,6 +367,8 @@ def draw_lnurl_qr(qr_img):
     """Draw a lnurl qr code on the e-ink screen
     """
     image, width, height, draw = init_screen(color=config.BLACK)
+
+    qr_img = qr_img.resize((96, 96), resample=0)
 
     draw = ImageDraw.Draw(image)
     draw.bitmap((0, 0), qr_img, fill=config.WHITE)
