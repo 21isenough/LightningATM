@@ -401,16 +401,16 @@ def update_amount_screen():
         (11, 10),
         str("{:,}".format(math.floor(config.SATS))) + " sats",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 27),
+        font=utils.create_font("dotmbold", 27),
     )
     draw.text(
         (13, 37),
         "%.2f" % round(config.FIAT, 2) + " " + config.conf["atm"]["cur"].upper(),
         fill=config.BLACK,
-        font=utils.create_font("freemono", 19),
+        font=utils.create_font("dotmbold", 19),
     )
     draw.text(
-        (11, 60), "Rate", fill=config.BLACK, font=utils.create_font("freemono", 14),
+        (11, 60), "Rate", fill=config.BLACK, font=utils.create_font("freemonobold", 14),
     )
     draw.text(
         (60, 60),
@@ -419,10 +419,10 @@ def update_amount_screen():
         + " sats/"
         + config.conf["atm"]["centname"],
         fill=config.BLACK,
-        font=utils.create_font("freemono", 14),
+        font=utils.create_font("freemonobold", 14),
     )
     draw.text(
-        (11, 75), "Fee", fill=config.BLACK, font=utils.create_font("freemono", 14),
+        (11, 75), "Fee", fill=config.BLACK, font=utils.create_font("freemonobold", 14),
     )
     draw.text(
         (60, 75),
@@ -432,7 +432,7 @@ def update_amount_screen():
         + str(math.floor(config.SATSFEE))
         + " sats)",
         fill=config.BLACK,
-        font=utils.create_font("freemono", 14),
+        font=utils.create_font("freemonobold", 14),
     )
 
     config.PAPIRUS.display(image)

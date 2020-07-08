@@ -30,6 +30,7 @@ def create_font(font, size):
     pathfreemono = Path.cwd().joinpath("resources", "fonts", "FreeMono.ttf")
     pathfreemonobold = Path.cwd().joinpath("resources", "fonts", "FreeMonoBold.ttf")
     pathsawasdee = Path.cwd().joinpath("resources", "fonts", "Sawasdee-Bold.ttf")
+    pathdotmbold = Path.cwd().joinpath("resources", "fonts", "DOTMBold.ttf")
 
     if font == "freemono":
         return ImageFont.truetype(pathfreemono.as_posix(), size)
@@ -37,6 +38,8 @@ def create_font(font, size):
         return ImageFont.truetype(pathfreemonobold.as_posix(), size)
     if font == "sawasdee":
         return ImageFont.truetype(pathsawasdee.as_posix(), size)
+    if font == "dotmbold":
+        return ImageFont.truetype(pathdotmbold.as_posix(), size)
     else:
         print("Font not available")
 
