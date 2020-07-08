@@ -10,11 +10,8 @@ import math
 
 from PIL import ImageDraw, Image
 
-import qrcode
-
 import config
 
-# import display
 display_config = config.conf["atm"]["display"]
 display = getattr(__import__("displays", fromlist=[display_config]), display_config)
 
@@ -43,20 +40,6 @@ def request_lnurl(amt):
         data=json.dumps(data),
     )
     return response.json()
-
-
-def generate_lnurl_qr(lnurl):
-    """Generate an lnurl qr code from a lnurl
-    """
-    lnurlqr = qrcode.QRCode(
-        version=1,
-        error_correction=qrcode.constants.ERROR_CORRECT_L,
-        box_size=2,
-        border=1,
-    )
-    lnurlqr.add_data(lnurl.upper())
-    logger.info("LNURL QR code generated")
-    return lnurlqr.make_image()
 
 
 def get_lnurl_balance():
@@ -105,8 +88,7 @@ def process_using_lnurl(amt):
     utils.check_epd_size()
 
     # create a qr code image and print it to terminal
-    qr_img = generate_lnurl_qr(lnurl["lnurl"])
-    qr_img = qr_img.resize((96, 96), resample=0)
+    qr_img = utils.generate_lnurl_qr(lnurl["lnurl"])
 
     # draw the qr code on the e-ink screen
     display.draw_lnurl_qr(qr_img)

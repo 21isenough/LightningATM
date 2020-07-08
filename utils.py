@@ -4,6 +4,7 @@ import requests
 import sys
 import config
 import math
+import qrcode
 
 from PIL import ImageFont
 from pathlib import Path
@@ -56,3 +57,17 @@ def get_sats():
 
 def get_sats_with_fee():
     return math.floor(config.SATS * (float(config.conf["atm"]["fee"]) / 100))
+
+
+def generate_lnurl_qr(lnurl):
+    """Generate an lnurl qr code from a lnurl
+    """
+    lnurlqr = qrcode.QRCode(
+        version=1,
+        error_correction=qrcode.constants.ERROR_CORRECT_L,
+        box_size=2,
+        border=1,
+    )
+    lnurlqr.add_data(lnurl.upper())
+    logger.info("LNURL QR code generated")
+    return lnurlqr.make_image()
