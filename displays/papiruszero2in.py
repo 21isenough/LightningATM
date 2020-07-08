@@ -98,12 +98,7 @@ def update_qr_failed():
     draw.rectangle(
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
-    draw.text(
-        (25, 10),
-        "Scanning...",
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
-    )
+
     draw.text(
         (25, 30),
         "Scan failed.",
@@ -445,30 +440,6 @@ def update_blank_screen():
 
     config.PAPIRUS.display(image)
     config.PAPIRUS.update()
-
-
-def menu_screen():
-    image, width, height, draw = init_screen(color=config.WHITE)
-
-    draw.rectangle(
-        (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
-    )
-    draw.text(
-        (20, 16), "►", fill=config.BLACK, font=utils.create_font("freemono", 20),
-    )
-    draw.text(
-        (40, 20), "Menu 1", fill=config.BLACK, font=utils.create_font("freemono", 20),
-    )
-    draw.text(
-        (40, 40), "Menu 2", fill=config.BLACK, font=utils.create_font("freemono", 20),
-    )
-
-    config.PAPIRUS.display(image)
-    config.PAPIRUS.partial_update()
-
-    while config.PUSHES <= 2:
-        print(config.PUSHES)
-        time.sleep(2)
 
 
 def init_screen(color):
