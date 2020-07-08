@@ -8,12 +8,19 @@ import logging
 import os.path
 import requests
 import config
-import display
+
+# import display
+display_config = config.conf["atm"]["display"]
+display = getattr(__import__("displays", fromlist=[display_config]), display_config)
+
 import math
 import time
 from datetime import datetime
 
 logger = logging.getLogger("LNDREST")
+
+
+# TODO: Remove display calls from here to app.py
 
 
 class InvoiceDecodeError(BaseException):
