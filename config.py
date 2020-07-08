@@ -16,6 +16,9 @@ config_file_path = ATM_data_dir + "config.ini"
 if not os.path.exists(ATM_data_dir):
     os.makedirs(ATM_data_dir)
 
+# Set to logging.DEBUG if more info needed
+logging.disable(logging.DEBUG)
+
 # Set to logging.DEBUG if more "requests" debugging info needed
 logging.getLogger("requests").setLevel(logging.INFO)
 logging.getLogger("urllib3.connectionpool").setLevel(logging.INFO)
