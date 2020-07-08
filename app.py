@@ -28,6 +28,7 @@ def softreset():
     global led
     config.SATS = 0
     config.FIAT = 0
+    config.COINCOUNT = 0
     # Turn off button LED
     GPIO.output(13, GPIO.LOW)
     led = "off"
@@ -174,6 +175,7 @@ def coins_inserted():
 
     if config.PULSES == 2:
         config.FIAT += 0.02
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
@@ -181,6 +183,7 @@ def coins_inserted():
         display.update_amount_screen()
     if config.PULSES == 3:
         config.FIAT += 0.05
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
@@ -188,6 +191,7 @@ def coins_inserted():
         display.update_amount_screen()
     if config.PULSES == 4:
         config.FIAT += 0.1
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
@@ -195,6 +199,7 @@ def coins_inserted():
         display.update_amount_screen()
     if config.PULSES == 5:
         config.FIAT += 0.2
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
@@ -202,6 +207,7 @@ def coins_inserted():
         display.update_amount_screen()
     if config.PULSES == 6:
         config.FIAT += 0.5
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
@@ -209,12 +215,14 @@ def coins_inserted():
         display.update_amount_screen()
     if config.PULSES == 7:
         config.FIAT += 1
+        config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         logger.info("100 cents added")
         display.update_amount_screen()
     config.PULSES = 0
+    print(config.COINCOUNT)
 
     if config.FIAT > 0 and led == "off":
         # Turn on the LED after first coin

@@ -120,7 +120,8 @@ if "papirus" in conf["atm"]["display"]:
     PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
 # Display - Waveshare 2.13 is 250 * 122 pixels
-WAVESHARE = epd2in13_V2.EPD()
+if "waveshare" in conf["atm"]["display"]:
+    WAVESHARE = epd2in13_V2.EPD()
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
@@ -140,6 +141,7 @@ LASTIMPULSE = 0
 PULSES = 0
 LASTPUSHES = 0
 PUSHES = 0
+COINCOUNT = 0
 
 # Lists for different coin counting, not yet implemented
 # COINLIST = []
