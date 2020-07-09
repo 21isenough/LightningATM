@@ -363,8 +363,8 @@ def main():
     # Only activate once software ready for it
     # check_dangermode()
 
-    # For testing
-    config.PULSES = 2
+    # # For testing
+    # config.PULSES = 2
 
     # Display startup startup_screen
     display.update_startup_screen()
