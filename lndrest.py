@@ -1,26 +1,23 @@
 #!/usr/bin/python3
 
-# TODO: Add the "verify=False" param to all post and get requests for local api queries
-
-import codecs
 import json
-import logging
 import os.path
+import logging
+import time
 import requests
+import math
+
 import config
 
 # import display
 display_config = config.conf["atm"]["display"]
 display = getattr(__import__("displays", fromlist=[display_config]), display_config)
 
-import math
-import time
-from datetime import datetime
-
 logger = logging.getLogger("LNDREST")
 
 
 # TODO: Remove display calls from here to app.py
+# TODO: Add the "verify=False" param to all post and get requests for local api queries
 
 
 class InvoiceDecodeError(BaseException):

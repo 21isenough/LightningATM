@@ -1,31 +1,39 @@
 #!/usr/bin/python3
 
-import os
-import time
-import logging
-import requests
 import json
-import qr
+import os
+import logging
+import time
+import requests
 import math
-
-from PIL import ImageDraw, Image
+import qr
 
 import config
+import utils
 
+# import display
 display_config = config.conf["atm"]["display"]
 display = getattr(__import__("displays", fromlist=[display_config]), display_config)
 
-import utils
+logger = logging.getLogger("LNTXBOT")
 
 # TODO: Add variable to set certificate check to true or false
 # TODO: Add evaluation for credentials after scanning
 # TODO: Remove display calls from here to app.py
 
-logger = logging.getLogger("LNTXBOT")
 
-
-def print_conf():
-    print(config.conf["lntxbot"]["creds"])
+def payout(amt, payment_request):
+    """Attempts to pay a BOLT11 invoice
+    """
+    data = {
+        "invoice": payment_request,
+        "amount": math.floor(amt),
+    }
+    response = requests.post(
+        str(config.conf["lntxbot"]["url"]) + "/payinvoice",
+        headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
+        data=json.dumps(data),
+    )
 
 
 def request_lnurl(amt):
@@ -107,37 +115,3 @@ def process_using_lnurl(amt):
     else:
         # TODO: I think we should handle a failure here
         logger.error("LNURL withdrawal failed (within 90 seconds)")
-
-
-def scan_creds():
-    """Scan lntxbot credentials
-    """
-    attempts = 0
-
-    while attempts < 4:
-        qrcode = qr.scan()
-        if qrcode:
-            credentials = qrcode
-            if not credentials:
-                attempts += 1
-            else:
-                return credentials
-        attempts += 1
-
-    logger.error("4 failed scanning attempts.")
-    print("4 failed attempts ... try again.")
-    raise utils.ScanError
-
-
-def payout(amt, payment_request):
-    """Attempts to pay a BOLT11 invoice
-    """
-    data = {
-        "invoice": payment_request,
-        "amount": math.floor(amt),
-    }
-    response = requests.post(
-        str(config.conf["lntxbot"]["url"]) + "/payinvoice",
-        headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
-        data=json.dumps(data),
-    )
