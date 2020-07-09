@@ -28,7 +28,8 @@ def softreset():
     global led
     config.SATS = 0
     config.FIAT = 0
-    logger.info("%s Coin(s) and XX Bill(s) added", config.COINCOUNT)
+    if config.COINCOUNT > 0:
+        logger.info("%s Coin(s) and XX Bill(s) added", config.COINCOUNT)
     config.COINCOUNT = 0
     # Turn off button LED
     GPIO.output(13, GPIO.LOW)
@@ -48,13 +49,8 @@ def button_event(channel):
 def coin_event(channel):
     """Registers a coin insertion event
     """
-    # print(float(round(time.time() - config.LASTIMPULSE, 3)))
-    # if time.time() - config.LASTIMPULSE > 0.2:
-    #     config.COINLIST.append("0")
     config.LASTIMPULSE = time.time()
     config.PULSES = config.PULSES + 1
-    # config.COINLIST.append("1")
-    # print(config.COINLIST)
 
 
 def button_pushed():
@@ -115,20 +111,10 @@ def button_pushed():
         else:
             logger.error("Saving of wallet credentials failed.")
 
-        # scan the credentials
-        # lntxcreds = lntxbot.scan_creds()
-
-        # save them to the current config and reload config file
-        # config.update_config("lntxbot", "creds", lntxcreds)
-        # if config.check_dangermode():
-        #     importlib.reload(config)
-
-        # return the current balance to the user on the screen
-
         softreset()
 
     if config.PUSHES == 4:
-        """Simulates adding a coin
+        """Simulates adding a coin (for testing)
         """
         logger.info("Button pushed four times (add coin)")
         print("Button pushed four times (add coin)")
@@ -143,7 +129,7 @@ def button_pushed():
         os.system("sudo shutdown -h now")
     config.PUSHES = 0
 
-    # # Future fucntion to make use of LNURLProxyServer
+    # # Future function to make use of LNURLProxyServer
     # if config.PUSHES == 6:
     #     import requests, json, qrcode
     #
@@ -156,7 +142,7 @@ def button_pushed():
     #     qr_img = qr_img.resize((96, 96), resample=0)
     #
     #     # draw the qr code on the e-ink screen
-    #     lntxbot.draw_lnurl_qr(qr_img)
+    #     display.draw_lnurl_qr(qr_img)
     #     invoice = requests.get(response.json()["callback"])
     #
     #     config.INVOICE = invoice.json()["invoice"]
