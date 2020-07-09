@@ -411,10 +411,10 @@ def update_amount_screen():
         font=utils.create_font("dotmbold", 30),
     )
     draw.text(
-        (12, 40),
+        (12, 45),
         "%.2f" % round(config.FIAT, 2) + " " + config.conf["atm"]["cur"].upper(),
         fill=config.BLACK,
-        font=utils.create_font("dotmbold", 26),
+        font=utils.create_font("dotmbold", 25),
     )
     draw.text(
         (11, 70),
