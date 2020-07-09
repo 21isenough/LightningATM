@@ -4,9 +4,6 @@ import os
 import math
 from shutil import copyfile
 
-from papirus import Papirus
-from waveshare_epd import epd2in13_V2
-
 import utils
 
 home = os.path.expanduser("~")
@@ -120,10 +117,14 @@ WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
 if "papirus" in conf["atm"]["display"]:
+    from papirus import Papirus
+
     PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
 # Display - Waveshare 2.13 is 250 * 122 pixels
 if "waveshare" in conf["atm"]["display"]:
+    from waveshare_epd import epd2in13_V2
+
     WAVESHARE = epd2in13_V2.EPD()
 
 # API URL for coingecko
