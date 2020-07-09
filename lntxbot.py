@@ -88,9 +88,7 @@ def process_using_lnurl(amt):
     # get the new lnurl
     display.update_lnurl_generation()
     logger.info("LNURL requested")
-    print("LNURL requested")
     lnurl = request_lnurl(amt)
-    print(lnurl["lnurl"])
 
     # Check EPD_SIZE is defined
     utils.check_epd_size()

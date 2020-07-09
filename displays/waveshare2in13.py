@@ -456,6 +456,32 @@ def update_amount_screen():
         config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
 
 
+def update_lnurl_cancel_notice():
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.text(
+        (16, 20),
+        messages.lnurl_cancel_notice_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 22),
+    )
+    draw.text(
+        (16, 65),
+        messages.lnurl_cancel_notice_2,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 17),
+    )
+    draw.text(
+        (15, 85),
+        messages.lnurl_cancel_notice_3,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 17),
+    )
+
+    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+
+
 def update_blank_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 
