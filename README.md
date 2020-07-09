@@ -22,27 +22,28 @@ https://docs.lightningatm.me/requirements/hardware-requirements
 ### Todo
 
 #### Prio 1
-- [ ] Add a language file to change strings easily
-- [ ] Try different e-ink screen
 - [ ] Support for more Lightning implementations and wallets
 - [ ] Try different way of detecting inserted coins (populating a list and setting a delimiter)
 - [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
 - [ ] Solve security concerns in regards to lnurl (scan over the shoulder)
-- [ ] Add coin return stopper to 3d design
 #### Prio 2
+- [ ] Dashboard for settings (via mobile)
 - [ ] Add second button and admin menu
 - [ ] Add admin function only available through qr pass
 - [ ] Run certain functions in threads
 - [ ] Additional button for restart and shutdown
 - [ ] Find solution to work without jumper cables
 - [ ] Add encrypted partition with sensible data
-- [ ] Check out BTCPay API to integrate backend
 #### Prio 3
 - [ ] Store data in database
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
 - [ ] 2 layer for coins to reject before accepted
 #### Done
+- [X] Check out BTCPay API to integrate backend
+- [X] Add coin return stopper to 3d design
+- [X] Try different e-ink screen
+- [X] Add a language file to change strings easily
 - [X] Write installations instructions (see docs.lightningatm.me)
 - [X] Rethink the design decisions in regards to hardware (https://www.arrow.com/en/products)
 - [X] Add encryption of admin.macaroon in idle mode
