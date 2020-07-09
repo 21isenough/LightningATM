@@ -408,13 +408,13 @@ def update_amount_screen():
         (11, 15),
         str("{:,}".format(math.floor(config.SATS))) + messages.amount_screen_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 30),
+        font=utils.create_font("dotmbold", 30),
     )
     draw.text(
         (12, 40),
         "%.2f" % round(config.FIAT, 2) + " " + config.conf["atm"]["cur"].upper(),
         fill=config.BLACK,
-        font=utils.create_font("freemono", 26),
+        font=utils.create_font("dotmbold", 26),
     )
     draw.text(
         (11, 70),
