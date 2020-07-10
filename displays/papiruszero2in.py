@@ -443,19 +443,19 @@ def update_lnurl_cancel_notice():
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (16, 20),
+        (8, 18),
         messages.lnurl_cancel_notice_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 18),
     )
     draw.text(
-        (16, 65),
+        (11, 53),
         messages.lnurl_cancel_notice_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 14),
     )
     draw.text(
-        (15, 85),
+        (10, 73),
         messages.lnurl_cancel_notice_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 14),

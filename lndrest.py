@@ -115,8 +115,6 @@ def handle_invoice():
         else:
             display.update_payment_failed()
             time.sleep(120)
-
-        logger.info("Initiating softreset...")
     else:
         print("Please show correct invoice")
 

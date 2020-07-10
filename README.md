@@ -22,6 +22,8 @@ https://docs.lightningatm.me/requirements/hardware-requirements
 ### Todo
 
 #### Prio 1
+- [X] Add "no wallet setup" warning at boot
+- [ ] Implement LNURLProxyAPI
 - [ ] Support for more Lightning implementations and wallets
 - [ ] Try different way of detecting inserted coins (populating a list and setting a delimiter)
 - [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)

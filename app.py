@@ -27,6 +27,11 @@ def softreset():
     """Displays startup screen and deletes fiat amount
     """
     global led
+    # Inform about coin, bill and sat amounts
+    if config.COINCOUNT > 0:
+        logger.info("Last payment:")
+        logger.info("%s Coin(s), XX Bill(s), %s Sats", config.COINCOUNT, config.SATS)
+
     config.SATS = 0
     config.FIAT = 0
     config.COINCOUNT = 0
@@ -61,16 +66,19 @@ def button_pushed():
         If coins inserted, scan a qr code for the exchange amount
         """
 
+        if not config.conf["atm"]["activewallet"]:
+            logger.error("No wallet has been configured for the ATM.")
+            logger.error("Please configure your Lightning Wallet first.")
+            # Add "no wallet setup" message
+
+            # Softreset and startup screen
+            softreset()
+            return
+
         if config.FIAT == 0:
             display.update_nocoin_screen()
             time.sleep(3)
             display.update_startup_screen()
-
-        if not config.conf["atm"]["activewallet"]:
-            logger.error("No wallet has been configured for the ATM.")
-            logger.error("Please configure your Lightning Wallet first.")
-            # Softreset and startup screen
-            softreset()
             return
 
         lnurlproxy = config.conf["lnurl"]["lnurlproxy"]
@@ -94,7 +102,9 @@ def button_pushed():
                     logger.info("QR scan process started")
                     display.update_qr_request()
                     config.INVOICE = qr.scan_attempts(4)
+                    # TODO Add "on the way" message
                     lntxbot.payout(config.SATS, config.INVOICE)
+                    # TODO Add thank you screen
                     softreset()
                     return
 
@@ -112,6 +122,7 @@ def button_pushed():
                     response = requests.post(request_url, json=data)
 
                     qr_img = utils.generate_lnurl_qr(response.json()["lnurl"])
+                    # TODO Adjust size according to screen used
                     qr_img = qr_img.resize((122, 122), resample=0)
 
                     # draw the qr code on the e-ink screen
@@ -157,13 +168,6 @@ def button_pushed():
             return
         else:
             logger.error("No valid wallet configured")
-
-        # # Option to inform about coin, bill and sat amounts
-        # if config.COINCOUNT > 0:
-        #     logger.info("Last payment:")
-        #     logger.info(
-        #         "%s Coin(s), XX Bill(s), %s Sats", config.COINCOUNT, config.SATS
-        #     )
 
     if config.PUSHES == 3:
         """Scan and store new wallet credentials
