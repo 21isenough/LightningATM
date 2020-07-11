@@ -122,10 +122,16 @@ if "papirus" in conf["atm"]["display"]:
     PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
 # Display - Waveshare 2.13 is 250 * 122 pixels
-if "waveshare" in conf["atm"]["display"]:
+if "waveshare2in13" in conf["atm"]["display"]:
     from waveshare_epd import epd2in13_V2
 
     WAVESHARE = epd2in13_V2.EPD()
+
+# Display - Waveshare 2.9 Color is 296 x 128 pixels
+if "waveshare2in9color" in conf["atm"]["display"]:
+    from waveshare_epd import epd2in9b_V2
+
+    WAVESHARE = epd2in9b_V2.EPD()
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
