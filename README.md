@@ -22,7 +22,7 @@ https://docs.lightningatm.me/requirements/hardware-requirements
 ### Todo
 
 #### Prio 1
-- [ ] Update doc with new features, screens 
+- [ ] Update doc with new features, screens
 - [ ] Implement lndconnect
 - [ ] Add "no wallet setup" warning at boot
 - [ ] Implement LNURLProxyAPI
@@ -40,6 +40,7 @@ https://docs.lightningatm.me/requirements/hardware-requirements
 - [ ] Find solution to work without jumper cables
 - [ ] Add encrypted partition with sensible data
 #### Prio 3
+- [ ] Add TOR support for LND calls
 - [ ] Store data in database
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
 - [ ] 2 layer for coins to reject before accepted
