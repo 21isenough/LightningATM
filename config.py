@@ -126,6 +126,12 @@ if "waveshare" in conf["atm"]["display"]:
     from waveshare_epd import epd2in13_V2
 
     WAVESHARE = epd2in13_V2.EPD()
+    
+# Display - Waveshare 2.7 is 264 * 176 pixels
+if "waveshare2in7" in conf["atm"]["display"]:
+    from waveshare_epd import epd2in7
+
+    WAVESHARE = epd2in7.EPD()
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
