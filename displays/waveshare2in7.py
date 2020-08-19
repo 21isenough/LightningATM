@@ -449,8 +449,8 @@ def update_amount_screen():
     )
 
     if config.COINCOUNT == 1:
-    config.WAVESHARE.init()
-    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+        config.WAVESHARE.init()
+        config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
     else:
         config.WAVESHARE.init()
         config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
