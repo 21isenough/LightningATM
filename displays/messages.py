@@ -70,8 +70,3 @@ amount_screen_5 = "Fee"
 amount_screen_6 = "= "
 amount_screen_7 = "% ("
 amount_screen_8 = " sats)"
-
-# Text for update_lnurl_cancel_notice
-lnurl_cancel_notice_1 = "Prepare for LNURL"
-lnurl_cancel_notice_2 = "(Not LNURL compatible?"
-lnurl_cancel_notice_3 = "Press button to cancel)"
