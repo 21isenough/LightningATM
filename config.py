@@ -127,6 +127,13 @@ if "waveshare" in conf["atm"]["display"]:
 
     WAVESHARE = epd2in13_V2.EPD()
 
+# Display - inky-phat
+if "inkyphat" in conf["atm"]["display"]:
+    from inky import InkyPHAT
+
+    INKY = InkyPHAT("black")
+    INKY.set_border(INKY.WHITE)
+
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
 
