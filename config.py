@@ -131,6 +131,8 @@ if "waveshare" in conf["atm"]["display"]:
 if "inkyphat" in conf["atm"]["display"]:
     from inky import InkyPHAT
 
+    WHITE = 0
+    BLACK = 1
     INKY = InkyPHAT("black")
     INKY.set_border(INKY.WHITE)
 
