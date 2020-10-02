@@ -162,6 +162,14 @@ def coins_inserted():
         logger.info("Satoshi price updated")
 
     if config.PULSES == 2:
+        config.FIAT += 0.02
+        config.COINCOUNT += 1
+        config.SATS = utils.get_sats()
+        config.SATSFEE = utils.get_sats_with_fee()
+        config.SATS -= config.SATSFEE
+        logger.info("2 cents added")
+        display.update_amount_screen()
+    if config.PULSES == 3:
         config.FIAT += 0.05
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
@@ -169,15 +177,15 @@ def coins_inserted():
         config.SATS -= config.SATSFEE
         logger.info("5 cents added")
         display.update_amount_screen()
-    if config.PULSES == 3:
-        config.FIAT += 0.10
+    if config.PULSES == 4:
+        config.FIAT += 0.1
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
         logger.info("10 cents added")
         display.update_amount_screen()
-    if config.PULSES == 4:
+    if config.PULSES == 5:
         config.FIAT += 0.2
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
@@ -185,7 +193,7 @@ def coins_inserted():
         config.SATS -= config.SATSFEE
         logger.info("20 cents added")
         display.update_amount_screen()
-    if config.PULSES == 5:
+    if config.PULSES == 6:
         config.FIAT += 0.5
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
@@ -193,21 +201,13 @@ def coins_inserted():
         config.SATS -= config.SATSFEE
         logger.info("50 cents added")
         display.update_amount_screen()
-    if config.PULSES == 6:
+    if config.PULSES == 7:
         config.FIAT += 1
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
-        config.SATSFEE = utils.get_sats_with_fee()
-        config.SATS -= config.SATSFEE
-        logger.info("1 eur added")
-        display.update_amount_screen()
-    if config.PULSES == 7:
-        config.FIAT += 2
-        config.COINCOUNT += 1
-        config.SATS = utils.get_sats()
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
-        logger.info("2 eur added")
+        logger.info("100 cents added")
         display.update_amount_screen()
     config.PULSES = 0
 
