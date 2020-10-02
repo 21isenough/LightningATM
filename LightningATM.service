@@ -4,7 +4,7 @@ After=multi-user.target
 
 [Service]
 User=pi
-Type=idle
+Type=simple
 WorkingDirectory=/home/pi/LightningATM
 ExecStart=/usr/bin/python3 /home/pi/LightningATM/app.py
 
