@@ -5,6 +5,7 @@ import os
 import sys
 import time
 import math
+import subprocess
 
 import RPi.GPIO as GPIO
 
@@ -21,6 +22,15 @@ display = getattr(__import__("displays", fromlist=[display_config]), display_con
 
 led = "off"
 logger = logging.getLogger("MAIN")
+
+
+def check_connectivity(interface="wlan0"):
+    output_lines=subprocess.check_output(["wpa_cli","-i",interface,"status"])
+    for output_line in output_lines.decode("utf8").split("\n"):
+        if output_line[0:4]=="ssid":
+            # We have an SSID
+            return output_line[5:]
+    return None
 
 
 def softreset():
@@ -186,7 +196,23 @@ def coins_inserted():
 def monitor_coins_and_button():
     """Monitors coins inserted and buttons pushed
     """
-    time.sleep(0.2)
+    time.sleep(0.5)
+
+    ssid=check_connectivity()
+    print(ssid)
+    if not ssid:
+        # We are not connected!
+        config.CONNECTIVITY=False
+        display.error_screen("No connectivity")
+        logger.error("No connectivity")
+        time.sleep(5)
+        return False
+    else:
+        if not config.CONNECTIVITY:
+            # We have an SSID now but not before
+            config.CONNECTIVITY=True
+            display.update_startup_screen()
+            return False
 
     # Detect when coins are being inserted
     if (time.time() - config.LASTIMPULSE > 0.5) and (config.PULSES > 0):
