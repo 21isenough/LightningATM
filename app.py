@@ -12,6 +12,7 @@ import config
 import lndrest
 import lntxbot
 import qr
+import telegram
 
 import utils
 import importlib
@@ -22,6 +23,12 @@ display = getattr(__import__("displays", fromlist=[display_config]), display_con
 led = "off"
 logger = logging.getLogger("MAIN")
 
+# Extend logging with Telegram if we got a bot_key
+if config.conf["telegram"]["bot_key"]:
+    telegram_handler=telegram.TelegramHandler()
+    telegram_handler.setLevel(logging.INFO)
+    logger.addHandler(telegram_handler)
+
 
 def softreset():
     """Displays startup screen and deletes fiat amount
@@ -30,7 +37,7 @@ def softreset():
     config.SATS = 0
     config.FIAT = 0
     if config.COINCOUNT > 0:
-        logger.info("%s Coin(s) and XX Bill(s) added", config.COINCOUNT)
+        logger.debug("%s Coin(s) and XX Bill(s) added", config.COINCOUNT)
     config.COINCOUNT = 0
     # Turn off button LED
     GPIO.output(13, GPIO.LOW)
@@ -159,7 +166,7 @@ def coins_inserted():
     if config.FIAT == 0:
         config.BTCPRICE = utils.get_btc_price(config.conf["atm"]["cur"])
         config.SATPRICE = math.floor((1 / (config.BTCPRICE * 100)) * 100000000)
-        logger.info("Satoshi price updated")
+        logger.debug("Satoshi price updated")
 
     if config.PULSES == 2:
         config.FIAT += 0.02
@@ -215,7 +222,7 @@ def coins_inserted():
         # Turn on the LED after first coin
         GPIO.output(13, GPIO.HIGH)
         led = "on"
-        logger.info("Button-LED turned on (if connected)")
+        logger.debug("Button-LED turned on (if connected)")
 
 
 def monitor_coins_and_button():
@@ -316,11 +323,19 @@ def main():
 
     # Display startup startup_screen
     display.update_startup_screen()
+    lastupdate=time.time()
+
 
     setup_coin_acceptor()
 
     while True:
         monitor_coins_and_button()
+
+        # Update the homescreen (and thus the time) every 60s
+        if ( time.time() - lastupdate ) > 60:
+            display.update_startup_screen()
+            lastupdate=time.time()
+
 
 
 if __name__ == "__main__":
