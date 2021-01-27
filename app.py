@@ -71,7 +71,7 @@ def button_pushed():
             # Softreset and startup screen
             softreset()
 
-        if config.conf["atm"]["activewallet"] == "btcpay_lnd":
+        if config.conf["atm"]["activewallet"] == "btcpay_lnd" and config.FIAT != 0:
             display.update_qr_request()
             qrcode = qr.scan()
             config.INVOICE = lndrest.evaluate_scan(qrcode)
@@ -84,7 +84,7 @@ def button_pushed():
             display.update_payout_screen()
             lndrest.handle_invoice()
             softreset()
-        elif config.conf["atm"]["activewallet"] == "lntxbot":
+        elif config.conf["atm"]["activewallet"] == "lntxbot" and config.FIAT != 0:
             lntxbot.process_using_lnurl(config.SATS)
             # Softreset and startup screen
             softreset()
