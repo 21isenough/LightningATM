@@ -34,6 +34,12 @@ def payout(amt, payment_request):
         headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
         data=json.dumps(data),
     )
+    response = response.json()
+
+    if response["payment_error"]:       
+        display.update_payment_failed()
+    else:
+        display.update_thankyou_screen()
 
 
 def request_lnurl(amt):
@@ -88,9 +94,7 @@ def process_using_lnurl(amt):
     # get the new lnurl
     display.update_lnurl_generation()
     logger.info("LNURL requested")
-    print("LNURL requested")
     lnurl = request_lnurl(amt)
-    print(lnurl["lnurl"])
 
     # Check EPD_SIZE is defined
     utils.check_epd_size()
