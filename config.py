@@ -1,8 +1,9 @@
 from configparser import ConfigParser
-import logging
-import os
-import math
 from shutil import copyfile
+import logging
+import math
+import sys
+import os
 
 import utils
 
@@ -117,15 +118,22 @@ WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
 if "papirus" in conf["atm"]["display"]:
-    from papirus import Papirus
+    try:
+        from papirus import Papirus
+        PAPIRUS = Papirus(rotation=PAPIRUSROT)
+    except ImportError:
+        logger.warning("Papirus display library not installed.")
+        sys.exit("Exiting...")
 
-    PAPIRUS = Papirus(rotation=PAPIRUSROT)
 
 # Display - Waveshare 2.13 is 250 * 122 pixels
 if "waveshare" in conf["atm"]["display"]:
-    from waveshare_epd import epd2in13_V2
-
-    WAVESHARE = epd2in13_V2.EPD()
+    try:
+        from waveshare_epd import epd2in13_V2
+        WAVESHARE = epd2in13_V2.EPD()
+    except ImportError:
+        logger.warning("Waveshare display library not installed.")
+        sys.exit("Exiting...")
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
