@@ -303,6 +303,11 @@ def monitor_coins_and_button():
     if (time.time() - config.LASTPUSHES > 1) and (config.PUSHES > 0):
         button_pushed()
 
+    # Automatic payout if specified in config file
+    if (int(config.conf["atm"]["payoutdelay"]) > 0) and (config.FIAT > 0):
+        if time.time() - config.LASTIMPULSE > int(config.conf["atm"]["payoutdelay"]):
+            config.PUSHES = config.PUSHES + 1
+
 
 def setup_coin_acceptor():
     """Initialises the coin acceptor parameters and sets up a callback for button pushes
