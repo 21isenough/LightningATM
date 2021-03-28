@@ -102,9 +102,8 @@ def button_pushed():
                     logger.info("QR scan process started")
                     display.update_qr_request()
                     config.INVOICE = qr.scan_attempts(4)
-                    # TODO Add "on the way" message
+                    display.update_payout_screen()
                     lntxbot.payout(config.SATS, config.INVOICE)
-                    # TODO Add thank you screen
                     softreset()
                     return
 

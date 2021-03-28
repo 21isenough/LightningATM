@@ -34,6 +34,12 @@ def payout(amt, payment_request):
         headers={"Authorization": "Basic %s" % config.conf["lntxbot"]["creds"]},
         data=json.dumps(data),
     )
+    response = response.json()
+
+    if response["payment_error"]:       
+        display.update_payment_failed()
+    else:
+        display.update_thankyou_screen()
 
 
 def request_lnurl(amt):
