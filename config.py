@@ -152,6 +152,19 @@ if "waveshare2in7" in conf["atm"]["display"]:
         logger.warning("Waveshare display library not installed.")
         sys.exit("Exiting...")
 
+# Display - Inky pHAT
+if "inkyphat" in conf["atm"]["display"]:
+    try:
+        from inky import InkyPHAT
+
+        WHITE = 0
+        BLACK = 1
+        INKY = InkyPHAT("black")
+        INKY.set_border(INKY.WHITE)
+    except ImportError:
+        logger.warning("Inky display library not installed.")
+        sys.exit("Exiting...")
+
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
 
