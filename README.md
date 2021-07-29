@@ -1,12 +1,12 @@
 # LightningATM - Fork from 21isenought
 
-## This fork implements
+## This fork
 This LightningATM fork implements some improvements which are mentioned below.
 * Incorrect lntxbot credentials do not lead to a crash and are logged.
 * Display option Waveshare2in13d 
 * Display option Waveshare2in7 from fork tomstammis
 * Display option Inky pHAT (only the BW version) from fork Emzy
-* Language preparation, messages_de by WOLF64
+* Language preparation german, messages_de by WOLF64
 * Configuring pulses and fiat values in config file from fork AbelLykens
 * Wifi connectivity monitoring from fork AbelLykens
 
