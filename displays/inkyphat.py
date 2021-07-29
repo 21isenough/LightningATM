@@ -39,6 +39,28 @@ def update_startup_screen():
     config.INKY.show()
 
 
+def error_screen(message="ERROR"):
+    """Error screen
+    """
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.text(
+        (20, 10),
+        messages.error_screen_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 18),
+    )
+    draw.text(
+        (10, 20),
+        message,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 18),
+    )
+
+    config.INKY.set_image(image)
+    config.INKY.show()
+
+
 def update_qr_request():
     # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)

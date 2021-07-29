@@ -3,6 +3,9 @@ startup_screen_1 = "Willkommen beim"
 startup_screen_2 = "Lightning ATM"
 startup_screen_3 = "- Wirf Münzen ein -"
 
+# Text for error_screen()
+error_screen_1 = "Fehler aufgetreten:"
+
 # Text for update_qr_request()
 qr_request_1 = "Bitte abscannen"
 qr_request_2 = "Deine Rechnung in"
