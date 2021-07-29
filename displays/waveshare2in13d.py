@@ -69,7 +69,7 @@ def update_qr_request():
             fill=config.BLACK,
             font=utils.create_font("freemono", 55),
         )
-        config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
+        config.WAVESHARE.init()
         config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
         draw.rectangle((75, 50, 115, 90), fill=config.WHITE, outline=config.WHITE)
         time.sleep(0.5)
@@ -114,7 +114,7 @@ def update_qr_failed():
         font=utils.create_font("freemono", 26),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
 
 
@@ -452,7 +452,7 @@ def update_amount_screen():
         config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 #        config.WAVESHARE.displayPartBaseImage()
     else:
-        config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
+        config.WAVESHARE.init()
         config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
