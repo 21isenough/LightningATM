@@ -176,7 +176,7 @@ INVOICE = ""
 
 # Set btc and sat price
 BTCPRICE = utils.get_btc_price(conf["atm"]["cur"])
-SATPRICE = math.floor((1 / (BTCPRICE * 100)) * 100000000)
+SATPRICE = math.floor((1 / (BTCPRICE * 100)) * 1e8)
 
 # Button / Acceptor Pulses
 LASTIMPULSE = 0
@@ -185,6 +185,13 @@ LASTPUSHES = 0
 PUSHES = 0
 COINCOUNT = 0
 
-# Lists for different coin counting, not yet implemented
-# COINLIST = []
-# PULSLIST = []
+# Determine different coin types
+COINTYPES={}
+try:
+    for coin_type in conf['coins']['coin_types'].split("\n"):
+        coin_type_pulses,coin_type_fiat,coin_type_name=coin_type.split(',')
+        COINTYPES[int(coin_type_pulses)]={'fiat': coin_type_fiat, 'name': coin_type_name}
+except:
+    print("Pulses not set in the new way, please update config")
+    sys.exit(2)
+
