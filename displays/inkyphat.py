@@ -18,19 +18,19 @@ def update_startup_screen():
 
     draw.text(
         (20, 10),
-        "Welcome to the",
+        messages.startup_screen_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 18),
     )
     draw.text(
         (10, 20),
-        "LightningATM",
+        messages.startup_screen_2,
         fill=config.BLACK,
         font=utils.create_font("sawasdee", 30),
     )
     draw.text(
         (7, 75),
-        "- please insert coins -",
+        messages.startup_screen_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 14),
     )
@@ -48,13 +48,13 @@ def update_qr_request():
     )
     draw.text(
         (25, 10),
-        "Please scan",
+        messages.qr_request_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
     draw.text(
         (10, 30),
-        "your invoice in",
+        messages.qr_request_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -79,7 +79,7 @@ def update_qr_request():
     )
     draw.text(
         (25, 10),
-        "Scanning...",
+        messages.qr_request_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -103,13 +103,13 @@ def update_qr_failed():
 
     draw.text(
         (25, 30),
-        "Scan failed.",
+        messages.qr_failed_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
     draw.text(
         (25, 50),
-        "Try again.",
+        messages.qr_failed_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -129,13 +129,13 @@ def update_payout_screen():
     )
     draw.text(
         (15, 30),
-        str(math.floor(config.SATS)) + " sats",
+        str(math.floor(config.SATS)) + messages.payout_screen_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
     draw.text(
         (15, 50),
-        "on the way!",
+        messages.payout_screen_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 15),
     )
@@ -154,18 +154,21 @@ def update_payment_failed():
 
     draw.text(
         (15, 10),
-        "Payment failed!",
+        messages.payment_failed_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 19),
     )
     draw.text(
         (25, 45),
-        "Please contact",
+        messages.payment_failed_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 17),
     )
     draw.text(
-        (45, 65), "operator.", fill=config.BLACK, font=utils.create_font("freemono", 17)
+        (45, 65),
+        messages.payment_failed_3,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 17)
     )
 
     config.INKY.set_image(image)
@@ -177,19 +180,19 @@ def update_thankyou_screen():
 
     draw.text(
         (15, 10),
-        "Enjoy your new",
+        messages.thankyou_screen_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 19),
     )
     draw.text(
         (40, 35),
-        "satoshis!!",
+        messages.thankyou_screen_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 19),
     )
     draw.text(
         (15, 70),
-        "#bitcoin #lightning",
+        messages.thankyou_screen_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 14),
     )
@@ -203,19 +206,19 @@ def update_nocoin_screen():
 
     draw.text(
         (15, 10),
-        "No coins added!",
+        messages.nocoin_screen_1,
         fill=config.BLACK,
         font=utils.create_font("freemonobold", 18),
     )
     draw.text(
         (30, 40),
-        "Please add",
+        messages.nocoin_screen_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
     draw.text(
         (30, 65),
-        "coins first",
+        messages.nocoin_screen_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -232,13 +235,13 @@ def update_lnurl_generation():
     )
     draw.text(
         (30, 20),
-        "Generating",
+        messages.lnurl_generation_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
     draw.text(
         (10, 40),
-        "QR code to scan",
+        messages.lnurl_generation_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
     )
@@ -252,18 +255,21 @@ def update_shutdown_screen():
 
     draw.text(
         (20, 10),
-        "ATM turned off!",
+        messages.shutdown_screen_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 18),
     )
     draw.text(
         (25, 45),
-        "Please contact",
+        messages.shutdown_screen_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 17),
     )
     draw.text(
-        (45, 65), "operator.", fill=config.BLACK, font=utils.create_font("freemono", 17)
+        (45, 65),
+       messages.shutdown_screen_3,
+       fill=config.BLACK,
+       font=utils.create_font("freemono", 17)
     )
 
     config.INKY.set_image(image)
@@ -279,19 +285,19 @@ def update_wallet_scan():
     )
     draw.text(
         (35, 20),
-        "Please scan",
+        messages.wallet_scan_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 18),
     )
     draw.text(
         (33, 40),
-        "your wallet",
+        messages.wallet_scan_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 18),
     )
     draw.text(
         (35, 60),
-        "credentials.",
+        messages.wallet_scan_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 18),
     )
@@ -310,19 +316,19 @@ def update_lntxbot_balance(balance):
     )
     draw.text(
         (45, 15),
-        "Success!!",
+        messages.lntxbot_balance_1,
         fill=config.BLACK,
         font=utils.create_font("freemonobold", 20),
     )
     draw.text(
         (10, 45),
-        "Your current balance:",
+        messages.lntxbot_balance_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 15),
     )
     draw.text(
         (45, 65),
-        str("{:,}".format(balance)) + " sats",
+        str("{:,}".format(balance)) + messages.lntxbot_balance_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 18),
     )
@@ -341,19 +347,19 @@ def update_btcpay_lnd():
     )
     draw.text(
         (45, 15),
-        "Success!!",
+        messages.btcpay_lnd_1,
         fill=config.BLACK,
         font=utils.create_font("freemonobold", 20),
     )
     draw.text(
         (10, 45),
-        "Successfuly scanned",
+        messages.btcpay_lnd_2,
         fill=config.BLACK,
         font=utils.create_font("freemono", 15),
     )
     draw.text(
         (15, 65),
-        "BTCPay LND Wallet.",
+        messages.btcpay_lnd_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 16),
     )
@@ -374,13 +380,13 @@ def draw_lnurl_qr(qr_img):
     draw.bitmap((0, 0), qr_img, fill=config.WHITE)
     draw.text(
         (110, 25),
-        "Scan to",
+        messages.lnurl_qr_1,
         fill=config.WHITE,
         font=utils.create_font("freemonobold", 16),
     )
     draw.text(
         (110, 45),
-        "receive",
+        messages.lnurl_qr_2,
         fill=config.WHITE,
         font=utils.create_font("freemonobold", 16),
     )
@@ -399,7 +405,7 @@ def update_amount_screen():
     )
     draw.text(
         (11, 10),
-        str("{:,}".format(math.floor(config.SATS))) + " sats",
+        str("{:,}".format(math.floor(config.SATS))) + messages.amount_screen_1,
         fill=config.BLACK,
         font=utils.create_font("dotmbold", 27),
     )
@@ -410,27 +416,33 @@ def update_amount_screen():
         font=utils.create_font("dotmbold", 19),
     )
     draw.text(
-        (11, 60), "Rate", fill=config.BLACK, font=utils.create_font("freemonobold", 14),
+        (11, 60),
+        messages.amount_screen_2,
+        fill=config.BLACK,
+        font=utils.create_font("freemonobold", 14),
     )
     draw.text(
         (60, 60),
-        "= "
+        messages.amount_screen_3
         + str(math.floor(config.SATPRICE))
-        + " sats/"
+        + messages.amount_screen_4
         + config.conf["atm"]["centname"],
         fill=config.BLACK,
         font=utils.create_font("freemonobold", 14),
     )
     draw.text(
-        (11, 75), "Fee", fill=config.BLACK, font=utils.create_font("freemonobold", 14),
+        (11, 75),
+        messages.amount_screen_5,
+        fill=config.BLACK, 
+        font=utils.create_font("freemonobold", 14),
     )
     draw.text(
         (60, 75),
-        "= "
+        messages.amount_screen_6
         + config.conf["atm"]["fee"]
-        + "% ("
+        + messages.amount_screen_7
         + str(math.floor(config.SATSFEE))
-        + " sats)",
+        + messages.amount_screen_8,
         fill=config.BLACK,
         font=utils.create_font("freemonobold", 14),
     )
