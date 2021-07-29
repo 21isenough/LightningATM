@@ -3,6 +3,9 @@ startup_screen_1 = "Welcome to the"
 startup_screen_2 = "LightningATM"
 startup_screen_3 = "- please insert coins -"
 
+# Text for error_screen()
+error_screen_1 = "Error ocurred:"
+
 # Text for update_qr_request()
 qr_request_1 = "Please scan"
 qr_request_2 = "your invoice in"

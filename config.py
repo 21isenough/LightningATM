@@ -185,6 +185,9 @@ LASTPUSHES = 0
 PUSHES = 0
 COINCOUNT = 0
 
+# State
+CONNECTIVITY=True
+
 # Determine different coin types
 COINTYPES={}
 try:
