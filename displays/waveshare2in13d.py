@@ -45,13 +45,13 @@ def error_screen(message="ERROR"):
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (18, 13),
+        (4, 13),
         messages.error_screen_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 25),
+        font=utils.create_font("freemono", 20),
     )
     draw.text(
-        (12, 30),
+        (4, 50),
         message,
         fill=config.BLACK,
         font=utils.create_font("freemono", 16),
@@ -201,19 +201,19 @@ def update_thankyou_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (15, 15),
+        (4, 15),
         messages.thankyou_screen_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 24),
+        font=utils.create_font("freemono", 18),
     )
     draw.text(
-        (40, 45),
+        (8, 48),
         messages.thankyou_screen_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 24),
+        font=utils.create_font("freemono", 18),
     )
     draw.text(
-        (15, 80),
+        (13, 80),
         messages.thankyou_screen_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 16),
@@ -472,7 +472,6 @@ def update_amount_screen():
     if config.COINCOUNT == 1:
         config.WAVESHARE.init()
         config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
-#        config.WAVESHARE.displayPartBaseImage()
     else:
         config.WAVESHARE.init()
         config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
@@ -482,22 +481,22 @@ def update_lnurl_cancel_notice():
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (16, 20),
+        (4, 20),
         messages.lnurl_cancel_notice_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 16),
     )
     draw.text(
-        (16, 65),
+        (4, 65),
         messages.lnurl_cancel_notice_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 15),
+        font=utils.create_font("freemono", 14),
     )
     draw.text(
-        (15, 85),
+        (4, 85),
         messages.lnurl_cancel_notice_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 15),
+        font=utils.create_font("freemono", 14),
     )
 
     config.WAVESHARE.init()
@@ -514,7 +513,6 @@ def update_blank_screen():
 def init_screen(color):
     """Prepare the screen for drawing and return the draw variables
     """
-#    image = Image.new("1", (250, width), color)
     image = Image.new("1", (config.WAVESHARE.height, config.WAVESHARE.width), color)
     # Set width and height of screen
     width, height = image.size
