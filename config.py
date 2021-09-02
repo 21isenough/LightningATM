@@ -126,7 +126,7 @@ if "papirus" in conf["atm"]["display"]:
         sys.exit("Exiting...")
 
 # Display - Waveshare 2.13 is 250 * 122 pixels
-if "waveshare" in conf["atm"]["display"]:
+elif "waveshare2in13" in conf["atm"]["display"]:
     try:
         from waveshare_epd import epd2in13_V2
         WAVESHARE = epd2in13_V2.EPD()
@@ -135,13 +135,18 @@ if "waveshare" in conf["atm"]["display"]:
         sys.exit("Exiting...")
 
 # Display - Waveshare 2.13 (D) is 212 * 104 pixels
-if "waveshare2in13d" in conf["atm"]["display"]:
+elif "waveshare2in13d" in conf["atm"]["display"]:
     try:
         from waveshare_epd import epd2in13d
         WAVESHARE = epd2in13d.EPD()
     except ImportError:
         logger.warning("Waveshare display library not installed.")
         sys.exit("Exiting...")
+
+# Display - No configuration match
+else:
+    logger.warning("No display configuration match.")
+    sys.exit("Exiting...")
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
