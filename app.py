@@ -5,6 +5,7 @@ import os
 import sys
 import time
 import math
+import signal
 
 import RPi.GPIO as GPIO
 
@@ -207,7 +208,6 @@ def button_pushed():
 
     config.PUSHES = 0
 
-
 def coins_inserted():
     """Actions coins inserted
     """
@@ -362,8 +362,21 @@ def setup_coin_acceptor():
 #         logger.info("DANGERMODE on. Loading values from config.ini...")
 #         # config.check_config()
 
+# The main loop will get a killer command
+class GracefulKiller:
+  kill_now = False
+  def __init__(self):
+    signal.signal(signal.SIGINT, self.exit_gracefully)
+    signal.signal(signal.SIGTERM, self.exit_gracefully)
 
-def main():
+  def exit_gracefully(self,signum, frame):
+    self.kill_now = True
+    # We want a nice clean screen when we are killed
+    display.update_shutdown_screen()
+    GPIO.cleanup()
+
+
+def main(killer):
     utils.check_epd_size()
     logger.info("Application started")
 
@@ -376,23 +389,26 @@ def main():
 
     # Display startup startup_screen
     display.update_startup_screen()
+    lastupdate=time.time()
 
     setup_coin_acceptor()
 
-    while True:
+    while not killer.kill_now:
         monitor_coins_and_button()
 
+        # Update the homescreen (and thus the time) every 60s
+        if ( time.time() - lastupdate ) > 60:
+            display.update_startup_screen()
+            lastupdate=time.time()
 
 if __name__ == "__main__":
-    while True:
+    killer=GracefulKiller()
+    while not killer.kill_now:
         try:
-            main()
+            main(killer)
         except KeyboardInterrupt:
-            display.update_shutdown_screen()
-            GPIO.cleanup()
             logger.info("Application finished (Keyboard Interrupt)")
-            sys.exit("Manually Interrupted")
-        except Exception:
-            logger.exception("Oh no, something bad happened! Restarting...")
-            GPIO.cleanup()
-            os.execv("/home/pi/LightningATM/app.py", [""])
+            killer.exit_gracefully()
+        except:
+            logger.info("Application finished")
+            killer.exit_gracefully()
