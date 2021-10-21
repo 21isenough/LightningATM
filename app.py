@@ -27,11 +27,15 @@ def softreset():
     """Displays startup screen and deletes fiat amount
     """
     global led
+    # Inform about coin, bill and sat amounts
+    if config.COINCOUNT > 0:
+        logger.info("Last payment:")
+        logger.info("%s Bill(s), %s Sats", config.COINCOUNT, config.SATS)
+
     config.SATS = 0
     config.FIAT = 0
-    if config.COINCOUNT > 0:
-        logger.info("%s Coin(s) and XX Bill(s) added", config.COINCOUNT)
     config.COINCOUNT = 0
+    config.PUSHES = 0
     # Turn off button LED
     GPIO.output(13, GPIO.LOW)
     led = "off"
@@ -57,21 +61,127 @@ def coin_event(channel):
 def button_pushed():
     """Actions button pushes by number
     """
+    logger.info("Button pushed %s time(s).", str(config.PUSHES))
     if config.PUSHES == 1:
         """If no coins inserted, update the screen.
         If coins inserted, scan a qr code for the exchange amount
         """
-        if config.FIAT == 0:
-            display.update_nocoin_screen()
-            time.sleep(3)
-            display.update_startup_screen()
 
         if not config.conf["atm"]["activewallet"]:
             logger.error("No wallet has been configured for the ATM.")
+            logger.error("Please configure your Lightning Wallet first.")
+            # Add "no wallet setup" message
+
             # Softreset and startup screen
             softreset()
+            return
 
-        if config.conf["atm"]["activewallet"] == "btcpay_lnd":
+        if config.FIAT == 0:
+            logger.info("No bills inserted.")
+            display.update_nocoin_screen()
+            softreset()
+            return
+
+        lnurlproxy = config.conf["lnurl"]["lnurlproxy"]
+        activewallet = config.conf["atm"]["activewallet"]
+        # Determine if LNURL Withdrawls are possible
+        if lnurlproxy == "active" or activewallet == "lntxbot":
+            # 1. Ask if wallet supports LNURL
+            # 2. Offer to cancel and switch to normal scan
+            # 3. Process payment
+            if activewallet == "lntxbot":
+                display.update_lnurl_cancel_notice()
+                if config.PUSHES == 1:
+                    # Process LNURL
+                    logger.info("LNURL process stared")
+                    lntxbot.process_using_lnurl(config.SATS)
+                    softreset()
+                    return
+                if config.PUSHES > 1:
+                    # Process QR code scan
+                    logger.info("QR scan process started")
+                    display.update_qr_request()
+                    config.INVOICE = qr.scan_attempts(config.MAXSCAN)
+                    logger.info("INVOICE after scanning: %s", config.INVOICE)
+                    if not config.INVOICE or config.INVOICE is (None or ""):
+                        if config.RESCAN == 0:
+                            # rescan the wallet QR
+                            config.RESCAN = 1
+                            print("QR rescan process started")
+                            logger.info("QR rescan process started")
+                            display.update_qr_request()
+                            config.INVOICE = qr.scan_attempts(config.MAXSCAN)
+                            if not config.INVOICE or config.INVOICE is (None or ""):
+                                # showing QR to scan after 2 failed scan
+                                lntxbot.process_lnurl_directly(config.SATS, config.TIMEOUT)
+                            else:
+                                # payout if QR detected
+                                display.update_payout_screen()
+                                if str(config.INVOICE).find("LNURL") == 0:
+                                    pr = lntxbot.convert_ln(math.floor(config.SATS) * 1000, config.INVOICE)
+                                    lntxbot.payout(config.SATS, pr)
+                                else:
+                                    lntxbot.payout(config.SATS, config.INVOICE)
+                        else:
+                            # payment failed
+                            display.update_payment_failed()
+                        # reset the flag
+                        config.RESCAN = 0
+                    else:
+                        display.update_payout_screen()
+                        if str(config.INVOICE).find("LNURL") == 0:
+                            pr = lntxbot.convert_ln(math.floor(config.SATS) * 1000, config.INVOICE)
+                            lntxbot.payout(config.SATS, pr)
+                        else:
+                    lntxbot.payout(config.SATS, config.INVOICE)
+                    softreset()
+                    return
+
+            if lnurlproxy == "active":
+                display.update_lnurl_cancel_notice()
+                if config.PUSHES == 1:
+                    # Process LNURL
+                    # Only implemented for LND BTCPay so far
+                    import requests, json, qrcode
+
+                    request_url = config.conf["lnurl"]["lnurlproxyurl"]
+                    data = {"amount": config.SATS}
+
+                    response = requests.post(request_url, json=data)
+
+                    qr_img = utils.generate_lnurl_qr(response.json()["lnurl"])
+                    # TODO Adjust size according to screen used
+                    qr_img = qr_img.resize((122, 122), resample=0)
+
+                    # draw the qr code on the e-ink screen
+                    display.draw_lnurl_qr(qr_img)
+                    invoice = requests.get(response.json()["callback"])
+
+                    config.INVOICE = invoice.json()["invoice"]
+                    lndrest.handle_invoice()
+                    softreset()
+                    return
+                if config.PUSHES > 1:
+                    # Process QR code scan
+                    # Only implemented for LND BTCPay so far
+                    display.update_qr_request()
+                    qrcode = qr.scan()
+                    config.INVOICE = lndrest.evaluate_scan(qrcode)
+                    while config.INVOICE is False:
+                        display.update_qr_failed()
+                        time.sleep(1)
+                        display.update_qr_request()
+                        qrcode = qr.scan()
+                        config.INVOICE = lndrest.evaluate_scan(qrcode)
+                    display.update_payout_screen()
+                    lndrest.handle_invoice()
+                    softreset()
+                    return
+
+        elif activewallet == "btcpay_lnd":
+            # Process QR code scan
+            # Only implemented for LND BTCPay so far
+            logger.info("No option for LNURL. Continue with scan...")
             display.update_qr_request()
             qrcode = qr.scan()
             config.INVOICE = lndrest.evaluate_scan(qrcode)
@@ -84,42 +194,33 @@ def button_pushed():
             display.update_payout_screen()
             lndrest.handle_invoice()
             softreset()
-        elif config.conf["atm"]["activewallet"] == "lntxbot":
-            lntxbot.process_using_lnurl(config.SATS)
-            # Softreset and startup screen
-            softreset()
-            # lntxbot.payout(config.SATS, config.INVOICE)
+            return
         else:
-            pass
+            logger.error("No valid wallet configured")
 
     if config.PUSHES == 3:
-        """Scan and store new wallet credentials
+        """Show the exchange rate
         """
-        # Delete current wallet flag and credentials
-        config.update_config("atm", "activewallet", "")
-        config.update_config("lntxbot", "creds", "")
-        config.update_config("lnd", "macaroon", "")
-
-        display.update_wallet_scan()
-        qr.scan_credentials()
-        importlib.reload(config)
-
-        if config.conf["atm"]["activewallet"] == "btcpay_lnd":
-            display.update_btcpay_lnd()
-        elif config.conf["atm"]["activewallet"] == "lntxbot":
-            balance = lntxbot.get_lnurl_balance()
-            display.update_lntxbot_balance(balance)
-        else:
-            logger.error("Saving of wallet credentials failed.")
-
-        softreset()
+        logger.info("Show the exchange rate.")
+        logger.info("BTC PRICE: " + str(config.BTCPRICE))
+        display.show_rate_screen()
+        display.update_startup_screen()
 
     if config.PUSHES == 4:
-        """Simulates adding a coin (for testing)
+        """Stop the app
         """
-        logger.info("Button pushed four times (add coin)")
-        print("Button pushed four times (add coin)")
-        config.PULSES = 2
+        logger.info("Application is stopping by 4 times button.")
+        display.update_shutdown_screen()
+        GPIO.cleanup()
+        sys.exit("Manually interrupted by 4 times button.")
+
+    if config.PUSHES == 5:
+        """Reboot the ATM
+        """
+        display.update_restart_screen()
+        GPIO.cleanup()
+        logger.warning("ATM reboots (5 times button)")
+        os.system("sudo reboot")
 
     if config.PUSHES == 6:
         """Shutdown the host machine
@@ -128,86 +229,70 @@ def button_pushed():
         GPIO.cleanup()
         logger.warning("ATM shutdown (6 times button)")
         os.system("sudo shutdown -h now")
+
     config.PUSHES = 0
-
-    # # Future function to make use of LNURLProxyServer
-    # if config.PUSHES == 6:
-    #     import requests, json, qrcode
-    #
-    #     request_url = "https://api.lnurlproxy.me/v1/lnurl"
-    #     data = {"amount": config.SATS}
-    #
-    #     response = requests.post(request_url, json=data)
-    #
-    #     qr_img = lntxbot.generate_lnurl_qr(response.json()["lnurl"])
-    #     qr_img = qr_img.resize((96, 96), resample=0)
-    #
-    #     # draw the qr code on the e-ink screen
-    #     display.draw_lnurl_qr(qr_img)
-    #     invoice = requests.get(response.json()["callback"])
-    #
-    #     config.INVOICE = invoice.json()["invoice"]
-    #     lndrest.handle_invoice()
-    #     softreset()
-
 
 def coins_inserted():
     """Actions coins inserted
     """
     global led
 
+    logger.info("Bills inserted. Current PULSES: %s", str(config.PULSES))
+
     if config.FIAT == 0:
-        config.BTCPRICE = utils.get_btc_price(config.conf["atm"]["cur"])
-        config.SATPRICE = math.floor((1 / (config.BTCPRICE * 100)) * 100000000)
+        config.BTCPRICE = math.floor(config.MARKUP * utils.get_btc_price(config.conf["atm"]["cur"]))
+        config.SATPRICE = 1000000 / config.BTCPRICE
         logger.info("Satoshi price updated")
 
+    logger.info("BTCPRICE: %s, SATPRICE: %s", str(config.BTCPRICE), str(config.SATPRICE))
+
     if config.PULSES == 2:
-        config.FIAT += 0.02
+        config.FIAT += 10000
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
-        logger.info("2 cents added")
+        logger.info("10,000 VND added")
         display.update_amount_screen()
     if config.PULSES == 3:
-        config.FIAT += 0.05
+        config.FIAT += 20000
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
-        logger.info("5 cents added")
+        logger.info("20,000 VND added")
         display.update_amount_screen()
     if config.PULSES == 4:
-        config.FIAT += 0.1
+        config.FIAT += 50000
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
-        logger.info("10 cents added")
+        logger.info("50,000 VND added")
         display.update_amount_screen()
     if config.PULSES == 5:
-        config.FIAT += 0.2
+        config.FIAT += 100000
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
-        logger.info("20 cents added")
+        logger.info("100,000 VND added")
         display.update_amount_screen()
     if config.PULSES == 6:
-        config.FIAT += 0.5
+        config.FIAT += 200000
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
         config.SATS -= config.SATSFEE
-        logger.info("50 cents added")
+        logger.info("200,000 VND added")
         display.update_amount_screen()
     if config.PULSES == 7:
-        config.FIAT += 1
+        config.FIAT += 500000
         config.COINCOUNT += 1
         config.SATS = utils.get_sats()
         config.SATS = utils.get_sats()
         config.SATSFEE = utils.get_sats_with_fee()
-        logger.info("100 cents added")
+        logger.info("500,000 VND added")
         display.update_amount_screen()
     config.PULSES = 0
 
@@ -256,6 +341,7 @@ def setup_coin_acceptor():
     """Initialises the coin acceptor parameters and sets up a callback for button pushes
     and coin inserts.
     """
+    logger.info("Setting up the bill acceptor.")
     # Defining GPIO BCM Mode
     GPIO.setmode(GPIO.BCM)
 

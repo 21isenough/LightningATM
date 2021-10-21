@@ -1,8 +1,9 @@
 from configparser import ConfigParser
-import logging
-import os
-import math
 from shutil import copyfile
+import logging
+import math
+import sys
+import os
 
 import utils
 
@@ -31,10 +32,8 @@ logging.basicConfig(
 # Create logger for this config file
 logger = logging.getLogger("CONFIG")
 
-
 yes = ["yes", "ye", "y"]
 no = ["no", "n"]
-
 
 def ask_scan_config_val(section, variable):
     while True:
@@ -117,15 +116,44 @@ WHITE = 1
 BLACK = 0
 PAPIRUSROT = 0
 if "papirus" in conf["atm"]["display"]:
-    from papirus import Papirus
-
-    PAPIRUS = Papirus(rotation=PAPIRUSROT)
+    try:
+        from papirus import Papirus
+        PAPIRUS = Papirus(rotation=PAPIRUSROT)
+    except ImportError:
+        logger.warning("Papirus display library not installed.")
+        sys.exit("Exiting...")
 
 # Display - Waveshare 2.13 is 250 * 122 pixels
-if "waveshare" in conf["atm"]["display"]:
-    from waveshare_epd import epd2in13_V2
+elif "waveshare2in13" in conf["atm"]["display"]:
+    try:
+        from waveshare_epd import epd2in13_V2
+        WAVESHARE = epd2in13_V2.EPD()
+    except ImportError:
+        logger.warning("Waveshare display library not installed.")
+        sys.exit("Exiting...")
 
-    WAVESHARE = epd2in13_V2.EPD()
+# Display - Waveshare 2.13 (D) is 212 * 104 pixels
+elif "waveshare2in13d" in conf["atm"]["display"]:
+    try:
+        from waveshare_epd import epd2in13d
+        WAVESHARE = epd2in13d.EPD()
+    except ImportError:
+        logger.warning("Waveshare display library not installed.")
+        sys.exit("Exiting...")
+
+# Display - Waveshare 6 HD is 1448 * 1072 pixels
+elif "waveshare6in" in conf["atm"]["display"]:
+    try:
+        from IT8951.display import AutoEPDDisplay
+        WAVESHARE = AutoEPDDisplay(vcom=-2.44, rotate=None, spi_hz=24000000)
+    except ImportError:
+        logger.warning("Waveshare display library not installed.")
+        sys.exit("Exiting...")
+
+# Display - No configuration match
+else:
+    logger.warning("No display configuration match.")
+    sys.exit("Exiting...")
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
@@ -135,10 +163,18 @@ FIAT = 0
 SATS = 0
 SATSFEE = 0
 INVOICE = ""
+# This markup will make the rate in VN nearer the market
+MARKUP = 1.08
+# Flag for rescan the payout wallet
+RESCAN = 0
+# Limit number of the scan attempts
+MAXSCAN = 4
+# Time out for the payment
+TIMEOUT = 60
 
 # Set btc and sat price
-BTCPRICE = utils.get_btc_price(conf["atm"]["cur"])
-SATPRICE = math.floor((1 / (BTCPRICE * 100)) * 100000000)
+BTCPRICE = math.floor(utils.get_btc_price(conf["atm"]["cur"]) * MARKUP)
+SATPRICE = ((1 / (BTCPRICE * 100)) * 100000000)
 
 # Button / Acceptor Pulses
 LASTIMPULSE = 0

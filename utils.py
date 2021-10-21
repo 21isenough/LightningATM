@@ -7,7 +7,6 @@ import math
 import qrcode
 
 from PIL import ImageFont
-from pathlib import Path
 
 logger = logging.getLogger("UTILS")
 
@@ -27,22 +26,22 @@ def create_font(font, size):
     """Create fonts from resources
     """
     # Construct paths to foder with fonts
-    pathfreemono = Path.cwd().joinpath("resources", "fonts", "FreeMono.ttf")
-    pathfreemonobold = Path.cwd().joinpath("resources", "fonts", "FreeMonoBold.ttf")
-    pathsawasdee = Path.cwd().joinpath("resources", "fonts", "Sawasdee-Bold.ttf")
-    pathdotmbold = Path.cwd().joinpath("resources", "fonts", "DOTMBold.ttf")
-
+    path = os.path.dirname(os.path.abspath(__file__))
+    font_path = False
     if font == "freemono":
-        return ImageFont.truetype(pathfreemono.as_posix(), size)
-    if font == "freemonobold":
-        return ImageFont.truetype(pathfreemonobold.as_posix(), size)
-    if font == "sawasdee":
-        return ImageFont.truetype(pathsawasdee.as_posix(), size)
-    if font == "dotmbold":
-        return ImageFont.truetype(pathdotmbold.as_posix(), size)
+        font_path = path + "/resources/fonts/FreeMono.ttf"
+    elif font == "freemonobold":
+        font_path = path + "/resources/fonts/FreeMonoBold.ttf"
+    elif font == "sawasdee":
+        font_path = path + "/resources/fonts/Sawasdee.ttf"
+    elif font == "sawasdeebold":
+        font_path = path + "/resources/fonts/Sawasdee-Bold.ttf"
+    elif font == "dotmbold":
+        font_path = path + "/resources/fonts/DOTMBold.ttf"
     else:
         print("Font not available")
-
+    if font_path is not False:
+        return ImageFont.truetype(font_path, size)
 
 def get_btc_price(fiat_code):
     """Get BTC -> FIAT conversion
