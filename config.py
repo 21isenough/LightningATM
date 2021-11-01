@@ -144,7 +144,7 @@ elif "waveshare2in13d" in conf["atm"]["display"]:
         sys.exit("Exiting...")
     
 # Display - Waveshare 2.7 is 264 * 176 pixels
-if "waveshare2in7" in conf["atm"]["display"]:
+elif "waveshare2in7" in conf["atm"]["display"]:
     try:
         from waveshare_epd import epd2in7
         WAVESHARE = epd2in7.EPD()
@@ -153,7 +153,7 @@ if "waveshare2in7" in conf["atm"]["display"]:
         sys.exit("Exiting...")
 
 # Display - Inky pHAT
-if "inkyphat" in conf["atm"]["display"]:
+elif "inkyphat" in conf["atm"]["display"]:
     try:
         from inky import InkyPHAT
 
