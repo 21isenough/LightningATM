@@ -17,22 +17,22 @@ def update_startup_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (18, 13),
+        (20, 4),
         messages.startup_screen_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 25),
+        font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (12, 30),
+        (4, 30),
         messages.startup_screen_2,
         fill=config.BLACK,
-        font=utils.create_font("sawasdee", 37),
+        font=utils.create_font("sawasdee", 48),
     )
     draw.text(
-        (9, 92),
+        (8, 130),
         messages.startup_screen_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 16),
+        font=utils.create_font("freemono", 20),
     )
 
     config.WAVESHARE.init(0)
@@ -47,50 +47,49 @@ def update_qr_request():
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (34, 10),
+        (46, 4),
         messages.qr_request_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 25),
+        font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (10, 30),
+        (16, 34),
         messages.qr_request_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 25),
+        font=utils.create_font("freemono", 30),
     )
 
-    config.WAVESHARE.init(0)
-    config.WAVESHARE.displayPartBaseImage(config.WAVESHARE.getbuffer(image))
+    config.WAVESHARE.init(1)
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
     for i in range(0, 3):
         draw.text(
-            (90, 55),
+            (122, 70),
             str(3 - i),
             fill=config.BLACK,
-            font=utils.create_font("freemono", 58),
+            font=utils.create_font("freemono", 84),
         )
-        config.WAVESHARE.init(1)
-        config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
-        draw.rectangle((75, 50, 115, 90), fill=config.WHITE, outline=config.WHITE)
+        config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+        draw.rectangle((125, 70, 170, 148), fill=config.WHITE, outline=config.WHITE)
         time.sleep(0.5)
 
     draw.rectangle(
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (32, 15),
+        (16, 35),
         messages.qr_request_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 28),
+        font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (22, 40),
+        (16, 65),
         messages.qr_request_4 + str(math.floor(config.SATS)) + messages.qr_request_5,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 28),
+        font=utils.create_font("freemono", 30),
     )
     config.WAVESHARE.init(1)
-    config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
 def update_qr_failed():
@@ -102,16 +101,16 @@ def update_qr_failed():
     )
 
     draw.text(
-        (25, 30),
+        (16, 40),
         messages.qr_failed_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 28),
+        font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (30, 57),
+        (16, 70),
         messages.qr_failed_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 28),
+        font=utils.create_font("freemono", 30),
     )
 
     config.WAVESHARE.init(0)
@@ -128,16 +127,16 @@ def update_payout_screen():
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (20, 30),
+        (16, 40),
         str(math.floor(config.SATS)) + messages.payout_screen_1,
         fill=config.BLACK,
         font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (20, 60),
+        (16, 70),
         messages.payout_screen_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 30),
     )
 
     config.WAVESHARE.init(0)
@@ -153,22 +152,22 @@ def update_payment_failed():
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (25, 20),
+        (10, 10),
         messages.payment_failed_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 24),
+        font=utils.create_font("freemono", 32),
     )
     draw.text(
-        (35, 60),
+        (10, 90),
         messages.payment_failed_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 21),
+        font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (60, 80),
+        (10, 120),
         messages.payment_failed_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 21),
+        font=utils.create_font("freemono", 30),
     )
 
     config.WAVESHARE.init(0)
@@ -179,22 +178,22 @@ def update_thankyou_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (15, 15),
+        (12, 15),
         messages.thankyou_screen_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 26),
+        font=utils.create_font("freemono", 32),
     )
     draw.text(
-        (40, 45),
+        (47, 47),
         messages.thankyou_screen_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 26),
+        font=utils.create_font("freemono", 32),
     )
     draw.text(
-        (15, 80),
+        (15, 125),
         messages.thankyou_screen_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 18),
+        font=utils.create_font("freemono", 24),
     )
 
     config.WAVESHARE.init(0)
@@ -206,22 +205,22 @@ def update_nocoin_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (20, 10),
+        (15, 15),
         messages.nocoin_screen_1,
         fill=config.BLACK,
-        font=utils.create_font("freemonobold", 24),
+        font=utils.create_font("freemonobold", 30),
     )
     draw.text(
-        (50, 50),
+        (50, 72),
         messages.nocoin_screen_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 22),
+        font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (50, 75),
+        (50, 102),
         messages.nocoin_screen_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 22),
+        font=utils.create_font("freemono", 30),
     )
 
     config.WAVESHARE.init(0)
@@ -235,16 +234,16 @@ def update_lnurl_generation():
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (40, 35),
+        (14, 40),
         messages.lnurl_generation_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 24),
+        font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (20, 60),
+        (14, 68),
         messages.lnurl_generation_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 24),
+        font=utils.create_font("freemono", 30),
     )
 
     config.WAVESHARE.init(0)
@@ -255,22 +254,22 @@ def update_shutdown_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (20, 10),
+        (10, 10),
         messages.shutdown_screen_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 24),
+        font=utils.create_font("freemono", 32),
     )
     draw.text(
-        (30, 50),
+        (10, 90),
         messages.shutdown_screen_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 22),
+        font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (55, 75),
+        (10, 120),
         messages.shutdown_screen_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 22),
+        font=utils.create_font("freemono", 30),
     )
 
     config.WAVESHARE.init(0)
@@ -285,22 +284,22 @@ def update_wallet_scan():
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (40, 20),
+        (42, 25),
         messages.wallet_scan_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 25),
+        font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (40, 45),
+        (42, 55),
         messages.wallet_scan_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 25),
+        font=utils.create_font("freemono", 30),
     )
     draw.text(
-        (40, 70),
+        (42, 85),
         messages.wallet_scan_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 25),
+        font=utils.create_font("freemono", 30),
     )
 
     config.WAVESHARE.init(0)
@@ -316,22 +315,22 @@ def update_lntxbot_balance(balance):
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (50, 15),
+        (60, 15),
         messages.lntxbot_balance_1,
         fill=config.BLACK,
-        font=utils.create_font("freemonobold", 26),
+        font=utils.create_font("freemonobold", 30),
     )
     draw.text(
-        (10, 55),
+        (8, 65),
         messages.lntxbot_balance_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 18),
+        font=utils.create_font("freemono", 22),
     )
     draw.text(
-        (45, 75),
+        (8, 87),
         str("{:,}".format(balance)) + messages.lntxbot_balance_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 24),
+        font=utils.create_font("freemono", 22),
     )
 
     config.WAVESHARE.init(0)
@@ -347,22 +346,22 @@ def update_btcpay_lnd():
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (50, 20),
+        (60, 15),
         messages.btcpay_lnd_1,
         fill=config.BLACK,
-        font=utils.create_font("freemonobold", 26),
+        font=utils.create_font("freemonobold", 30),
     )
     draw.text(
-        (10, 55),
+        (10, 65),
         messages.btcpay_lnd_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 22),
     )
     draw.text(
-        (15, 80),
+        (10, 87),
         messages.btcpay_lnd_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 20),
+        font=utils.create_font("freemono", 22),
     )
 
     config.WAVESHARE.init(0)
@@ -375,21 +374,21 @@ def draw_lnurl_qr(qr_img):
     """
     image, width, height, draw = init_screen(color=config.BLACK)
 
-    qr_img = qr_img.resize((122, 122), resample=0)
+    qr_img = qr_img.resize((152, 152), resample=0)
 
     draw = ImageDraw.Draw(image)
     draw.bitmap((0, 0), qr_img, fill=config.WHITE)
     draw.text(
-        (140, 35),
+        (160, 40),
         messages.lnurl_qr_1,
         fill=config.WHITE,
-        font=utils.create_font("freemonobold", 22),
+        font=utils.create_font("freemonobold", 28),
     )
     draw.text(
-        (140, 55),
+        (160, 68),
         messages.lnurl_qr_2,
         fill=config.WHITE,
-        font=utils.create_font("freemonobold", 22),
+        font=utils.create_font("freemonobold", 28),
     )
 
     config.WAVESHARE.init(0)
@@ -405,77 +404,77 @@ def update_amount_screen():
         (2, 2, width - 2, height - 2), fill=config.WHITE, outline=config.BLACK
     )
     draw.text(
-        (11, 15),
+        (12, 12),
         str("{:,}".format(math.floor(config.SATS))) + messages.amount_screen_1,
         fill=config.BLACK,
-        font=utils.create_font("dotmbold", 30),
+        font=utils.create_font("dotmbold", 36),
     )
     draw.text(
-        (12, 45),
+        (12, 48),
         "%.2f" % round(config.FIAT, 2) + " " + config.conf["atm"]["cur"].upper(),
         fill=config.BLACK,
-        font=utils.create_font("dotmbold", 25),
+        font=utils.create_font("dotmbold", 36),
     )
     draw.text(
-        (11, 70),
+        (12, 104),
         messages.amount_screen_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 18),
+        font=utils.create_font("freemono", 22),
     )
     draw.text(
-        (60, 70),
+        (80, 104),
         messages.amount_screen_3
         + str(math.floor(config.SATPRICE))
         + messages.amount_screen_4
         + config.conf["atm"]["centname"],
         fill=config.BLACK,
-        font=utils.create_font("freemono", 18),
+        font=utils.create_font("freemono", 22),
     )
     draw.text(
-        (11, 85),
+        (12, 126),
         messages.amount_screen_5,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 18),
+        font=utils.create_font("freemono", 22),
     )
     draw.text(
-        (60, 85),
+        (80, 126),
         messages.amount_screen_6
         + config.conf["atm"]["fee"]
         + messages.amount_screen_7
         + str(math.floor(config.SATSFEE))
         + messages.amount_screen_8,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 18),
+        font=utils.create_font("freemono", 22),
     )
 
     if config.COINCOUNT == 1:
         config.WAVESHARE.init(0)
-        config.WAVESHARE.displayPartBaseImage(config.WAVESHARE.getbuffer(image))
+        config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
     else:
         config.WAVESHARE.init(1)
-        config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
+        config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
 def update_lnurl_cancel_notice():
     image, width, height, draw = init_screen(color=config.WHITE)
 
     draw.text(
-        (16, 20),
+        (12, 10),
         messages.lnurl_cancel_notice_1,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 22),
+        font=utils.create_font("freemono", 27),
     )
     draw.text(
-        (16, 65),
+        (8, 105),
         messages.lnurl_cancel_notice_2,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 17),
+        font=utils.create_font("freemono", 20),
     )
     draw.text(
-        (15, 85),
+        (8, 125),
         messages.lnurl_cancel_notice_3,
         fill=config.BLACK,
-        font=utils.create_font("freemono", 17),
+        font=utils.create_font("freemono", 20),
     )
 
     config.WAVESHARE.init(0)
