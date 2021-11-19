@@ -142,7 +142,7 @@ elif "waveshare2in13d" in conf["atm"]["display"]:
     except ImportError:
         logger.warning("Waveshare display library not installed.")
         sys.exit("Exiting...")
-        
+
 # Display - Waveshare 2.66 is 296 * 152 pixels
 elif "waveshare2in66" in conf["atm"]["display"]:
     try:
@@ -150,6 +150,28 @@ elif "waveshare2in66" in conf["atm"]["display"]:
         WAVESHARE = epd2in66.EPD()
     except ImportError:
         logger.warning("Waveshare display library not installed.")
+        sys.exit("Exiting...")
+
+# Display - Waveshare 2.7 is 264 * 176 pixels
+elif "waveshare2in7" in conf["atm"]["display"]:
+    try:
+        from waveshare_epd import epd2in7
+        WAVESHARE = epd2in7.EPD()
+    except ImportError:
+        logger.warning("Waveshare display library not installed.")
+        sys.exit("Exiting...")
+
+# Display - Inky pHAT
+elif "inkyphat" in conf["atm"]["display"]:
+    try:
+        from inky import InkyPHAT
+
+        WHITE = 0
+        BLACK = 1
+        INKY = InkyPHAT("black")
+        INKY.set_border(INKY.WHITE)
+    except ImportError:
+        logger.warning("Inky display library not installed.")
         sys.exit("Exiting...")
 
 # Display - No configuration match
@@ -168,7 +190,7 @@ INVOICE = ""
 
 # Set btc and sat price
 BTCPRICE = utils.get_btc_price(conf["atm"]["cur"])
-SATPRICE = math.floor((1 / (BTCPRICE * 100)) * 100000000)
+SATPRICE = math.floor((1 / (BTCPRICE * 100)) * 1e8)
 
 # Button / Acceptor Pulses
 LASTIMPULSE = 0
@@ -177,6 +199,16 @@ LASTPUSHES = 0
 PUSHES = 0
 COINCOUNT = 0
 
-# Lists for different coin counting, not yet implemented
-# COINLIST = []
-# PULSLIST = []
+# State
+CONNECTIVITY=True
+
+# Determine different coin types
+COINTYPES={}
+try:
+    for coin_type in conf['coins']['coin_types'].split("\n"):
+        coin_type_pulses,coin_type_fiat,coin_type_name=coin_type.split(',')
+        COINTYPES[int(coin_type_pulses)]={'fiat': coin_type_fiat, 'name': coin_type_name}
+except:
+    print("Pulses not set in the new way, please update config")
+    sys.exit(2)
+

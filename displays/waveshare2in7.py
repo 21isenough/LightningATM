@@ -35,8 +35,9 @@ def update_startup_screen():
         font=utils.create_font("freemono", 16),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+
 
 def error_screen(message="ERROR"):
     """Error screen
@@ -56,7 +57,7 @@ def error_screen(message="ERROR"):
         font=utils.create_font("freemono", 16),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
@@ -80,8 +81,8 @@ def update_qr_request():
         font=utils.create_font("freemono", 25),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
-    config.WAVESHARE.displayPartBaseImage(config.WAVESHARE.getbuffer(image))
+    config.WAVESHARE.init()
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
     for i in range(0, 3):
         draw.text(
@@ -90,8 +91,8 @@ def update_qr_request():
             fill=config.BLACK,
             font=utils.create_font("freemono", 58),
         )
-        config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
-        config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
+        config.WAVESHARE.init()
+        config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
         draw.rectangle((75, 50, 115, 90), fill=config.WHITE, outline=config.WHITE)
         time.sleep(0.5)
 
@@ -110,8 +111,8 @@ def update_qr_request():
         fill=config.BLACK,
         font=utils.create_font("freemono", 28),
     )
-    config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
-    config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
+    config.WAVESHARE.init()
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
 def update_qr_failed():
@@ -135,7 +136,7 @@ def update_qr_failed():
         font=utils.create_font("freemono", 28),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
@@ -161,7 +162,7 @@ def update_payout_screen():
         font=utils.create_font("freemono", 20),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
     # scan the invoice
@@ -192,7 +193,7 @@ def update_payment_failed():
         font=utils.create_font("freemono", 21),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
@@ -218,7 +219,7 @@ def update_thankyou_screen():
         font=utils.create_font("freemono", 18),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
     time.sleep(5)
 
@@ -245,7 +246,7 @@ def update_nocoin_screen():
         font=utils.create_font("freemono", 22),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
@@ -268,7 +269,7 @@ def update_lnurl_generation():
         font=utils.create_font("freemono", 24),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
@@ -294,7 +295,7 @@ def update_shutdown_screen():
         font=utils.create_font("freemono", 22),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
@@ -324,7 +325,7 @@ def update_wallet_scan():
         font=utils.create_font("freemono", 25),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
     time.sleep(2)
 
@@ -355,7 +356,7 @@ def update_lntxbot_balance(balance):
         font=utils.create_font("freemono", 24),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
     time.sleep(3)
 
@@ -386,7 +387,7 @@ def update_btcpay_lnd():
         font=utils.create_font("freemono", 20),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
     time.sleep(3)
 
@@ -413,7 +414,7 @@ def draw_lnurl_qr(qr_img):
         font=utils.create_font("freemonobold", 22),
     )
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
@@ -470,43 +471,17 @@ def update_amount_screen():
     )
 
     if config.COINCOUNT == 1:
-        config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
-        config.WAVESHARE.displayPartBaseImage(config.WAVESHARE.getbuffer(image))
+        config.WAVESHARE.init()
+        config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
     else:
-        config.WAVESHARE.init(config.WAVESHARE.PART_UPDATE)
-        config.WAVESHARE.displayPartial(config.WAVESHARE.getbuffer(image))
-
-
-def update_lnurl_cancel_notice():
-    image, width, height, draw = init_screen(color=config.WHITE)
-
-    draw.text(
-        (16, 20),
-        messages.lnurl_cancel_notice_1,
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 22),
-    )
-    draw.text(
-        (16, 65),
-        messages.lnurl_cancel_notice_2,
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 17),
-    )
-    draw.text(
-        (15, 85),
-        messages.lnurl_cancel_notice_3,
-        fill=config.BLACK,
-        font=utils.create_font("freemono", 17),
-    )
-
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
-    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+        config.WAVESHARE.init()
+        config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
 def update_blank_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 
-    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.init()
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 

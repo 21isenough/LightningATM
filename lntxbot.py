@@ -87,6 +87,13 @@ def wait_for_balance_update(start_balance, timeout):
             break
     return success
 
+def is_json_key_not_present(json, key):
+    try:
+        buf = json[key]
+    except KeyError:
+        return True
+
+    return False
 
 def process_using_lnurl(amt):
     """Processes receiving an amount using the lnurl scheme
@@ -95,7 +102,15 @@ def process_using_lnurl(amt):
     display.update_lnurl_generation()
     logger.info("LNURL requested")
     lnurl = request_lnurl(amt)
-
+	
+    if (is_json_key_not_present(lnurl, "lnurl")) == True:
+        if (is_json_key_not_present(lnurl, "message") == False):
+            errormsg = "An error has occurred by requesting of LNURL. " + lnurl["message"]
+            logger.error(errormsg)
+            return
+    else:
+        logger.info("LNURL was created successfully")
+	
     # Check EPD_SIZE is defined
     utils.check_epd_size()
 

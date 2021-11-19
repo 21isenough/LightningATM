@@ -5,6 +5,7 @@ import os
 import sys
 import time
 import math
+import subprocess
 
 import RPi.GPIO as GPIO
 
@@ -21,6 +22,15 @@ display = getattr(__import__("displays", fromlist=[display_config]), display_con
 
 led = "off"
 logger = logging.getLogger("MAIN")
+
+
+def check_connectivity(interface="wlan0"):
+    output_lines=subprocess.check_output(["wpa_cli","-i",interface,"status"])
+    for output_line in output_lines.decode("utf8").split("\n"):
+        if output_line[0:4]=="ssid":
+            # We have an SSID
+            return output_line[5:]
+    return None
 
 
 def softreset():
@@ -213,87 +223,53 @@ def coins_inserted():
     """
     global led
 
+    # Check if we should update prices
     if config.FIAT == 0:
+        # Our counter is 0, meaning we got no fiat in:
         config.BTCPRICE = utils.get_btc_price(config.conf["atm"]["cur"])
-        config.SATPRICE = math.floor((1 / (config.BTCPRICE * 100)) * 100000000)
-        logger.info("Satoshi price updated")
+        config.SATPRICE = math.floor((1 / (config.BTCPRICE * 100)) * 1e8)
+        logger.debug("Satoshi price updated")
 
-    if config.PULSES == 2:
-        config.FIAT += 0.02
-        config.COINCOUNT += 1
-        config.SATS = utils.get_sats()
-        config.SATSFEE = utils.get_sats_with_fee()
-        config.SATS -= config.SATSFEE
-        logger.info("2 cents added")
-        display.update_amount_screen()
-    if config.PULSES == 3:
-        config.FIAT += 0.05
-        config.COINCOUNT += 1
-        config.SATS = utils.get_sats()
-        config.SATSFEE = utils.get_sats_with_fee()
-        config.SATS -= config.SATSFEE
-        logger.info("5 cents added")
-        display.update_amount_screen()
-    if config.PULSES == 4:
-        config.FIAT += 0.1
-        config.COINCOUNT += 1
-        config.SATS = utils.get_sats()
-        config.SATSFEE = utils.get_sats_with_fee()
-        config.SATS -= config.SATSFEE
-        logger.info("10 cents added")
-        display.update_amount_screen()
-    if config.PULSES == 5:
-        config.FIAT += 0.2
-        config.COINCOUNT += 1
-        config.SATS = utils.get_sats()
-        config.SATSFEE = utils.get_sats_with_fee()
-        config.SATS -= config.SATSFEE
-        logger.info("20 cents added")
-        display.update_amount_screen()
-    if config.PULSES == 6:
-        config.FIAT += 0.5
-        config.COINCOUNT += 1
-        config.SATS = utils.get_sats()
-        config.SATSFEE = utils.get_sats_with_fee()
-        config.SATS -= config.SATSFEE
-        logger.info("50 cents added")
-        display.update_amount_screen()
-    if config.PULSES == 7:
-        config.FIAT += 1
-        config.COINCOUNT += 1
-        config.SATS = utils.get_sats()
-        config.SATS = utils.get_sats()
-        config.SATSFEE = utils.get_sats_with_fee()
-        logger.info("100 cents added")
-        display.update_amount_screen()
+    # We must have gotten pulses!
+    print(config.PULSES)
+    config.FIAT +=      float(config.COINTYPES[config.PULSES]['fiat'])
+    config.COINCOUNT += 1
+    config.SATS =       utils.get_sats()
+    config.SATSFEE =    utils.get_sats_with_fee()
+    config.SATS -=      config.SATSFEE
+    logger.info("Added {}".format(config.COINTYPES[config.PULSES]['name']))
+    display.update_amount_screen()
+
+    # Reset pulse cointer
     config.PULSES = 0
 
     if config.FIAT > 0 and led == "off":
         # Turn on the LED after first coin
         GPIO.output(13, GPIO.HIGH)
         led = "on"
-        logger.info("Button-LED turned on (if connected)")
+        logger.debug("Button-LED turned on (if connected)")
 
 
 def monitor_coins_and_button():
     """Monitors coins inserted and buttons pushed
     """
-    time.sleep(0.2)
+    time.sleep(0.5)
 
-    # Potentially new way of detecting coin insertions
-    # if config.COINLIST:
-    #     time.sleep(1)
-    #     if config.COINLIST.count("0") > 1:
-    #         print(config.COINLIST[1 : config.COINLIST.index("0", 1)])
-    #         print(len(config.COINLIST[1 : config.COINLIST.index("0", 1)]))
-    #     else:
-    #         print(config.COINLIST[1:])
-    #         print(len(config.COINLIST[1:]))
-    #         if len(config.COINLIST[1:]) > 0:
-    #             config.PULSLIST.append(len(config.COINLIST[1:]))
-    #             del config.COINLIST[: len(config.COINLIST[1:])]
-    #
-    # print(config.PULSLIST)
+    ssid=check_connectivity()
+    print(ssid)
+    if not ssid:
+        # We are not connected!
+        config.CONNECTIVITY=False
+        display.error_screen("No connectivity")
+        logger.error("No connectivity")
+        time.sleep(5)
+        return False
+    else:
+        if not config.CONNECTIVITY:
+            # We have an SSID now but not before
+            config.CONNECTIVITY=True
+            display.update_startup_screen()
+            return False
 
     # Detect when coins are being inserted
     if (time.time() - config.LASTIMPULSE > 0.5) and (config.PULSES > 0):
