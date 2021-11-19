@@ -28,7 +28,7 @@ https://docs.lightningatm.me/requirements/hardware-requirements
 - [ ] Implement LNURLProxyAPI
 - [ ] Support for more Lightning implementations and wallets
 - [ ] Try different way of detecting inserted coins (populating a list and setting a delimiter)
-- [ ] PCB Board design (https://easyeda.com/, http://kicad-pcb.org/)
+- [ ] PCB Board design (https://easyeda.com/, http://kicad.org/)
 - [ ] 5V-12V step up transformer (http://www.electronics-lab.com/project/5v-to-12v-step-up-dc-dc-converter/)
 - [ ] Solve security concerns in regards to lnurl (scan over the shoulder)
 #### Prio 2
