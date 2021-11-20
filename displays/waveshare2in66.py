@@ -38,7 +38,28 @@ def update_startup_screen():
     config.WAVESHARE.init(0)
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
+def error_screen(message="ERROR"):
+    """Error screen
+    """
+    image, width, height, draw = init_screen(color=config.WHITE)
 
+    draw.text(
+        (18, 13),
+        messages.error_screen_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 25),
+    )
+    draw.text(
+        (12, 30),
+        message,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 16),
+    )
+
+    config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+    
+    
 def update_qr_request():
     # initially set all white background
     image, width, height, draw = init_screen(color=config.WHITE)
