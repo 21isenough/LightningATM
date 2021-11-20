@@ -253,23 +253,24 @@ def coins_inserted():
 def monitor_coins_and_button():
     """Monitors coins inserted and buttons pushed
     """
-    time.sleep(0.5)
+    time.sleep(0.2)
 
-    ssid=check_connectivity()
-    print(ssid)
-    if not ssid:
-        # We are not connected!
-        config.CONNECTIVITY=False
-        display.error_screen("No connectivity")
-        logger.error("No connectivity")
-        time.sleep(5)
-        return False
-    else:
-        if not config.CONNECTIVITY:
-            # We have an SSID now but not before
-            config.CONNECTIVITY=True
-            display.update_startup_screen()
-            return False
+    #Wifi monitoring causes undesirable behavior sometimes.
+    #ssid=check_connectivity()
+    #print(ssid)
+    #if not ssid:
+    #    # We are not connected!
+    #    config.CONNECTIVITY=False
+    #    display.error_screen("No connectivity")
+    #    logger.error("No connectivity")
+    #    time.sleep(5)
+    #    return False
+    #else:
+    #    if not config.CONNECTIVITY:
+    #        # We have an SSID now but not before
+    #        config.CONNECTIVITY=True
+    #        display.update_startup_screen()
+    #        return False
 
     # Detect when coins are being inserted
     if (time.time() - config.LASTIMPULSE > 0.5) and (config.PULSES > 0):
