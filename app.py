@@ -253,7 +253,7 @@ def coins_inserted():
 def monitor_coins_and_button():
     """Monitors coins inserted and buttons pushed
     """
-    time.sleep(0.2)
+    time.sleep(0.5)
 
     #Wifi monitoring causes undesirable behavior sometimes.
     #ssid=check_connectivity()
