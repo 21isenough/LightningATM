@@ -15,10 +15,13 @@ display = getattr(__import__("displays", fromlist=[display_config]), display_con
 
 logger = logging.getLogger("LNDREST")
 
+verify = True
+if(config.conf["lnd"]["verify"].lower() == "off"):
+    verify = False
+if(config.conf["lnd"]["verify"].lower() != "off"):
+    verify = config.conf["lnd"]["verify"]
 
 # TODO: Remove display calls from here to app.py
-# TODO: Add the "verify=False" param to all post and get requests for local api queries
-
 
 class InvoiceDecodeError(BaseException):
     pass
@@ -36,6 +39,7 @@ def payout(amt, payment_request):
         str(config.conf["btcpay"]["url"]) + "/channels/transactions",
         headers={"Grpc-Metadata-macaroon": str(config.conf["lnd"]["macaroon"])},
         data=json.dumps(data),
+        verify=verify,
     )
     res_json = response.json()
 
@@ -58,6 +62,7 @@ def last_payment(payment_request):
         url,
         headers={"Grpc-Metadata-macaroon": str(config.conf["lnd"]["macaroon"])},
         data=json.dumps(data),
+        verify=verify,
     )
 
     json_data = response.json()
@@ -82,7 +87,9 @@ def decode_request(payment_request):
     if payment_request:
         url = str(config.conf["btcpay"]["url"]) + "/payreq/" + str(payment_request)
         response = requests.get(
-            url, headers={"Grpc-Metadata-macaroon": config.conf["lnd"]["macaroon"]}
+            url,
+            headers={"Grpc-Metadata-macaroon": config.conf["lnd"]["macaroon"]}
+            verify=verify,
         )
         # successful response
         if response.status_code != 200:
