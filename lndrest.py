@@ -88,7 +88,7 @@ def decode_request(payment_request):
         url = str(config.conf["btcpay"]["url"]) + "/payreq/" + str(payment_request)
         response = requests.get(
             url,
-            headers={"Grpc-Metadata-macaroon": config.conf["lnd"]["macaroon"]}
+            headers={"Grpc-Metadata-macaroon": config.conf["lnd"]["macaroon"]},
             verify=verify,
         )
         # successful response
