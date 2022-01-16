@@ -179,8 +179,9 @@ else:
     logger.warning("No display configuration match.")
     sys.exit("Exiting...")
 
-# API URL for coingecko
-COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
+# API URL for binance websocket
+BINANCE_SOCKET = "wss://stream.binance.com:9443/ws/btcusdt@kline_1m" # every 2 seconds
+global ws
 
 # Fiat and satoshi variables
 FIAT = 0
@@ -188,9 +189,9 @@ SATS = 0
 SATSFEE = 0
 INVOICE = ""
 
-# Set btc and sat price
-BTCPRICE = utils.get_btc_price(conf["atm"]["cur"])
-SATPRICE = math.floor((1 / (BTCPRICE * 100)) * 1e8)
+# Regularly update btc and sat price
+global BTCPRICE
+global SATPRICE 
 
 # Button / Acceptor Pulses
 LASTIMPULSE = 0

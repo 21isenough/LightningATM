@@ -223,12 +223,13 @@ def coins_inserted():
     """
     global led
 
-    # Check if we should update prices
-    if config.FIAT == 0:
-        # Our counter is 0, meaning we got no fiat in:
-        config.BTCPRICE = utils.get_btc_price(config.conf["atm"]["cur"])
-        config.SATPRICE = math.floor((1 / (config.BTCPRICE * 100)) * 1e8)
-        logger.debug("Satoshi price updated")
+    # NO NEED PRICE IS AUTOMATICALLY UPDATED REGULARLY
+    # # Check if we should update prices
+    # if config.FIAT == 0:
+    #     # Our counter is 0, meaning we got no fiat in:
+    #     config.BTCPRICE = config.btc_price
+    #     config.SATPRICE = math.floor((1 / (config.BTCPRICE * 100)) * 1e8)
+    #     logger.debug("Satoshi price updated")
 
     # We must have gotten pulses!
     print(config.PULSES)
@@ -354,6 +355,9 @@ def main():
     # Display startup startup_screen
     display.update_startup_screen()
 
+    # open a thread where btc price will be regularly updated
+    utils.get_btc_price()
+
     setup_coin_acceptor()
 
     while True:
@@ -365,11 +369,13 @@ if __name__ == "__main__":
         try:
             main()
         except KeyboardInterrupt:
+            config.ws.close()
             display.update_shutdown_screen()
             GPIO.cleanup()
             logger.info("Application finished (Keyboard Interrupt)")
             sys.exit("Manually Interrupted")
         except Exception:
             logger.exception("Oh no, something bad happened! Restarting...")
+            config.ws.close()
             GPIO.cleanup()
             os.execv("/home/pi/LightningATM/app.py", [""])
