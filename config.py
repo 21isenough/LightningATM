@@ -126,7 +126,7 @@ if "papirus" in conf["atm"]["display"]:
         sys.exit("Exiting...")
 
 # Display - Waveshare 2.13 is 250 * 122 pixels
-elif "waveshare2in13" in conf["atm"]["display"]:
+elif "waveshare2in13v2" in conf["atm"]["display"]:
     try:
         from waveshare_epd import epd2in13_V2
         WAVESHARE = epd2in13_V2.EPD()
