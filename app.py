@@ -353,11 +353,18 @@ def main():
 
     # Display startup startup_screen
     display.update_startup_screen()
+    lastupdate=time.time()
 
     setup_coin_acceptor()
 
     while True:
         monitor_coins_and_button()
+
+        # Update the homescreen (and thus the time) every 60s
+        if ( time.time() - lastupdate ) > 60:
+            display.update_startup_screen()
+            lastupdate=time.time()
+
 
 
 if __name__ == "__main__":

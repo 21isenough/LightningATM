@@ -7,6 +7,7 @@ import config
 import utils
 
 from displays import messages
+import datetime
 
 from PIL import Image, ImageFont, ImageDraw
 
@@ -33,6 +34,14 @@ def update_startup_screen():
         messages.startup_screen_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 16),
+    )
+
+    # Time
+    draw.text(
+        (210, 0),
+        str(datetime.datetime.now().strftime("%H:%M")),
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 14),
     )
 
     config.WAVESHARE.init(config.WAVESHARE.FULL_UPDATE)
