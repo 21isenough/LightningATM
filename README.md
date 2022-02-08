@@ -26,10 +26,19 @@ https://docs.lightningatm.me/requirements/hardware-requirements
 https://shop.fulmo.org/product/the-lightning-atm-bitcoin-construction-set/
 
 
-### Instructions to setup
+### Installation Guideline
 
 - [voltage converter](/docs/guide/voltage_converter.md)
 - [coin validator](/docs/guide/coin_validator.md)
+- [wiring](/docs/guide/wiring.md)
+- [sd card and wifi](/docs/guide/sdcard_and_wifi.md)
+- [display](/docs/guide/display.md)
+- [edit config.ini](/docs/guide/edit_config.md)
+- [edit app.py](/docs/guide/edit_app.md)
+- [tmux monitoring](/docs/guide/tmux_monitoring.md)
+- [autostart](/docs/guide/autostart.md)
+- [aditional information and tips](/docs/guide/information_and_tips.md)
+
 
 
 ### Todo
