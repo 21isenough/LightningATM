@@ -12,6 +12,11 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 
 ![alt text](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)
 
+Full Version             |  Pocket Version
+:-------------------------:|:-------------------------:
+![](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)  |  ![](https://i.imgur.com/vW8BfMG.png)``
+
+
 ### Parts list (price estimate: 50-70 USD)
 
 Please find the detailed parts list on the LightningATM documentation website:
@@ -19,7 +24,7 @@ Please find the detailed parts list on the LightningATM documentation website:
 https://docs.lightningatm.me/requirements/hardware-requirements
 
 
-### Instructions
+### Instructions to setup
 
 - [voltage converter](/docs/guide/voltage_converter.md)
 - [coin validator](/docs/guide/coin_validator.md)
