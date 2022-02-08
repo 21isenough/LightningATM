@@ -31,3 +31,9 @@
 - Repeat for the remaining coin types
 - All LEDs flash briefly again to confirm and the display shows 0 (zero) again
 - The coin validator is now ready.
+
+coin validator
+
+<img src="https://i.imgur.com/T7pYLlI.jpg" width="600">
+
+<a href="https://i.imgur.com/T7pYLlI.jpg"><img src="https://i.imgur.com/T7pYLlI.jpg" title="coin validator" /></a>
