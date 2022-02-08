@@ -12,8 +12,12 @@
 - Join a second wire from GND of the voltage converter (output) to the terminal 25 of the Raspberry Pi
 - Check you wiring with pictures and [wiring diagrams](wiring.md)
 
-![voltage converter poti](https://i.imgur.com/yI1NpMJ.jpg)
 voltage converter poti
 
-![calibrating voltage converter](https://i.imgur.com/Xc1TAGF.jpg)
+<img src="https://i.imgur.com/yI1NpMJ.jpg" width="500">
+
 calibrating voltage converter
+![calibrating voltage converter](https://i.imgur.com/Xc1TAGF.jpg)
+
+
+
