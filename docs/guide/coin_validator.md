@@ -36,4 +36,3 @@ coin validator
 
 <img src="https://i.imgur.com/T7pYLlI.jpg" width="600">
 
-<a href="https://i.imgur.com/T7pYLlI.jpg"><img src="https://i.imgur.com/T7pYLlI.jpg" width="600" title="coin validator" /></a>
