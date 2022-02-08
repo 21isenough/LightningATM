@@ -10,7 +10,7 @@
 - Prepare cables for the output side:
 - Connect plus (12V) and GND (0V) from the voltage converter to the coin validator
 - Join a second wire from GND of the voltage converter (output) to the terminal 25 of the Raspberry Pi
-- Check you wiring with pictures and [wiring](wiring.md diagrams)
+- Check you wiring with pictures and [wiring diagrams](wiring.md)
 
 ![voltage converter poti](https://i.imgur.com/yI1NpMJ.jpg)
 voltage converter poti
