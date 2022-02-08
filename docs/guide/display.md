@@ -21,5 +21,6 @@ $ sudo python3 ./epd_2in13_V2_test.py
 
 If everything has been correctly connected and installed, the display will now show a demonstration and finally the screen will cleare.
 
-![display](https://i.imgur.com/sXVmbE8.jpg)
 display
+![display](https://i.imgur.com/sXVmbE8.jpg)
+
