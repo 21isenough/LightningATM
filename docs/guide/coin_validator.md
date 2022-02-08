@@ -34,5 +34,5 @@
 
 coin validator
 
-<img src="https://imgur.com/bnyfBGZ" width="600">
+<img src="https://i.imgur.com/bnyfBGZ.jpg" width="600">
 
