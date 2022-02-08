@@ -9,10 +9,10 @@ $ cd ~/LightningATM/
 $ nano app.py
 ```
 
-##### Optional setting: Skip the "Prepare for LNURL" page:
+##### Optional setting for the pocket version: Skip the "Prepare for LNURL" page:
 
 - Search for `display.update_lnurl_cancel_notice()` with `CTRL+W`. (It exists twice)
-- There is a place where it says `if activewallet == "lntxbot"`, please edit the two lines
+- There is a place where it says `if activewallet == "lntxbot"`, please edit the two lines (see picture)
 
 ###### Comment out the following two lines with `#`
 
