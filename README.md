@@ -19,6 +19,12 @@ Please find the detailed parts list on the LightningATM documentation website:
 https://docs.lightningatm.me/requirements/hardware-requirements
 
 
+### Instructions
+
+- [voltage converter](/docs/guide/voltage_converter.md)
+- [coin validator](/docs/guide/coin_validator.md)
+
+
 ### Todo
 
 #### Prio 1
