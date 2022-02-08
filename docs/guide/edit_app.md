@@ -1,5 +1,7 @@
 ### Special settings in the app.py file
 
+The `app.py` file is the program from the ATM. Here you can adjusted slightly the code. Be careful when making changes here.
+
 ##### Open the app.py
 
 ```
