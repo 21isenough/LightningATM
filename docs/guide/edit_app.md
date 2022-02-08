@@ -56,7 +56,8 @@ The settings are now set in the same way as the coin validator is parameterized:
 - Repead the change up to 2 euros = 2.00 (200 cents)
 - Note: As I said, you only have to do this if the setting in config.ini doesn't work
 
-![edit app](https://i.imgur.com/MTiekSX.png)
 app.py - Skip the "Prepare for LNURL" (just an example)
+![edit app](https://i.imgur.com/MTiekSX.png)
+
 
 
