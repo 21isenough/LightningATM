@@ -10,18 +10,20 @@ A comprehensive guide on how to setup the LightningATM can be found here https:/
 
 Please check out this video, to see the [LightningATM in action:](https://twitter.com/21isenough/status/1170808396955738114?s=20)
 
-![alt text](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)
-
 Full Version             |  Pocket Version
 :-------------------------:|:-------------------------:
-![](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)  |  ![](https://i.imgur.com/vW8BfMG.png)``
+![](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)  |  ![](https://i.imgur.com/vW8BfMG.png)
 
 
-### Parts list (price estimate: 50-70 USD)
+### Parts list for full version
 
 Please find the detailed parts list on the LightningATM documentation website:
 
 https://docs.lightningatm.me/requirements/hardware-requirements
+
+### Parts list for pocket version
+
+https://shop.fulmo.org/product/the-lightning-atm-bitcoin-construction-set/
 
 
 ### Instructions to setup
