@@ -36,3 +36,6 @@ coin validator
 
 <img src="https://i.imgur.com/bnyfBGZ.jpg" width="600">
 
+coin calibration
+[coin calibration](https://imgur.com/Xc1TAGF)
+
