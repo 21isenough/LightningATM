@@ -36,9 +36,12 @@ coin validator
 
 <img src="https://i.imgur.com/bnyfBGZ.jpg" width="600">
 
+Wiring - Full Version
+![Full Version](https://i.imgur.com/cWiSHBq.png)
+
 coin calibration
 
-![coin calibration](https://imgur.com/Xc1TAGF)
+![coin calibration](https://imgur.com/Xc1TAGF.png)
 
 <blockquote class="imgur-embed-pub" lang="en" data-id="Xc1TAGF"><a href="https://imgur.com/Xc1TAGF">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
 
