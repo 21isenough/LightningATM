@@ -40,3 +40,5 @@ coin calibration
 
 ![coin calibration](https://imgur.com/Xc1TAGF)
 
+<blockquote class="imgur-embed-pub" lang="en" data-id="Xc1TAGF"><a href="https://imgur.com/Xc1TAGF">View post on imgur.com</a></blockquote><script async src="//s.imgur.com/min/embed.js" charset="utf-8"></script>
+
