@@ -1,5 +1,6 @@
 import logging
 import os
+import requests
 import sys
 import config
 import math
@@ -46,8 +47,18 @@ def create_font(font, size):
     else:
         print("Font not available")
 
+        
+def get_btc_price(fiat_code):
+    """Get BTC -> FIAT conversion
+    """
+    url = config.COINGECKO_URL_BASE + "simple/price"
+    price = requests.get(
+        url, params={"ids": "bitcoin", "vs_currencies": fiat_code}
+    ).json()
+    return price["bitcoin"][fiat_code]
 
-def get_btc_price():
+
+def get_btc_price_socket():
     """Get BTC Price in usd(t)
     """
     def on_open(ws):
