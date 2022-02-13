@@ -32,6 +32,7 @@ network={
 }
 ```
 
+- Change country code to your [area code](https://www.arubanetworks.com/techdocs/InstantWenger_Mobile/Advanced/Content/Instant%20User%20Guide%20-%20volumes/Country_Codes_List.htm)
 - The file contains two WiFi networks. "Home" for home use and the "Mobil" for mobility
 - "Mobil" can be you hotspot on your cell phone 
 - Adjust the values ​​for SSID and PSK as you like
