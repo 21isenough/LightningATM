@@ -47,12 +47,12 @@ To see the Lightning ATM in action, check out this video [LightningATM in action
 - https://criptonizando.com/2019/10/08/desenvolvedor-cria-caixa-eletronico-de-bitcoin-que-ate-amadores-podem-construir-usando-a-lightning-network/
 - https://decrypt.co/10046/ightningatm-how-to-make-your-own-bitcoin-atm?utm_content=buffer7dcee&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
 
-### Dokumentation in other languages
+### Documentations in other languages
 
 - German Video: [Tutorial - Bitcoin Lightning ATM - montieren und konfigurieren](https://www.youtube.com/watch?v=pTyTc2qPQj0)
-- German Guidline for Pocket Edition: [Tutorial LightningATM - ereignishorizont.xyz](https://ereignishorizont.xyz/lightning-atm/)
+- German tutorial for the pocket edition: [Tutorial LightningATM - ereignishorizont.xyz](https://ereignishorizont.xyz/lightning-atm/)
 
-### Todo
+### Todo list
 
 #### Prio 1
 - [ ] Implement lndconnect
