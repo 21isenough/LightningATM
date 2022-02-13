@@ -33,20 +33,22 @@ $ nano ~/.lightningATM/config.ini
 ```
 `Note:` Please compare the display type. Yours may require different settings.
 
-###### Delay time (set from 0 to 12 seconds. 0 is only for ATM with button)
+###### *Only for Pocket Version:* Delay time (set from 0 to 12 seconds)
 
 ```
 	payoutdelay = 12 
 ```
 
-###### Activate wallet types
+- Note: If you have a button version, you must keep the 0.
+
+###### Set activate wallet type / example LNTXBOT
+
+- If you would like to set a BTCPayServer wallet, get further information here: [BTCPayServer](https://docs.lightningatm.me/lightningatm-setup/wallet-setup/lnd_btcpay)
+- Note: A good guide to getting started with the LNTXBOT can be found here: [coincharge.io](https://coincharge.io/en/lntxbot-telegram-lightning-wallet/)
 
 ```
 	activewallet = lntxbot
 ```
-
--   Note: A good guide to getting started with the LNTXBOT can be found here: [coincharge.io](https://coincharge.io/en/lntxbot-telegram-lightning-wallet/)
-- If you would like to set a BTCPayServer wallet, get further information here: [BTCPayServer](https://docs.lightningatm.me/lightningatm-setup/wallet-setup/lnd_btcpay)
 
 ###### Under `[lntxbot]` enter the data for the API to the lntxbot
 
