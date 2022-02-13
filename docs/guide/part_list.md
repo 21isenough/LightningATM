@@ -8,7 +8,7 @@
 
     - PaPiRus Zero 2.0 "- ePaper / eInk pHAT
     - Waveshare 2.13inch e-Paper HAT
-    - Waveshare 2.13inch e-Paper HAT (D) [recommendation](https://www.waveshare.com/2.13inch-e-paper-hat-d.htm)
+    - Waveshare 2.13inch e-Paper HAT (D) [link](https://www.waveshare.com/2.13inch-e-paper-hat-d.htm)
     - Waveshare 2.66inch E-Paper E-Ink Display Module
     - Waveshare 2.7inch E-Ink display HAT
 
