@@ -6,24 +6,18 @@ A physical coin exchanged into bitcoin and send to your lightning wallet in seco
 
 **Please be aware that this is a hobbyist project and it is not secure and reliable enough to withstand attacks. I discourage the use of this setup in a professional environment - but it's rather a good educational tool**
 
-A comprehensive guide on how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact me on Twitter (https://twitter.com/21isenough).
 
-Please check out this video, to see the [LightningATM in action:](https://twitter.com/21isenough/status/1170808396955738114?s=20)
+
+
 
 Full Version             |  Pocket Version
 :-------------------------:|:-------------------------:
 ![](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)  |  ![](https://i.imgur.com/vW8BfMG.png)
 
 
-### Parts list for full version
+### Parts list
 
-Please find the detailed parts list on the LightningATM documentation website:
-
-https://docs.lightningatm.me/requirements/hardware-requirements
-
-### Parts list for pocket version
-
-https://shop.fulmo.org/product/the-lightning-atm-bitcoin-construction-set/
+- [parts list](/docs/guide/parts_list.md)
 
 
 ### Installation Guideline
@@ -39,12 +33,13 @@ https://shop.fulmo.org/product/the-lightning-atm-bitcoin-construction-set/
 - [autostart](/docs/guide/autostart.md)
 - [aditional information and tips](/docs/guide/information_and_tips.md)
 
+A comprehensive guide on how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact me on Twitter (https://twitter.com/21isenough).
 
+Please check out this video, to see the [LightningATM in action:](https://twitter.com/21isenough/status/1170808396955738114?s=20)
 
 ### Todo
 
 #### Prio 1
-- [ ] Update doc with new features, screens
 - [ ] Implement lndconnect
 - [ ] Add "no wallet setup" warning at boot
 - [ ] Implement LNURLProxyAPI
@@ -67,6 +62,7 @@ https://shop.fulmo.org/product/the-lightning-atm-bitcoin-construction-set/
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
 - [ ] 2 layer for coins to reject before accepted
 #### Done
+- [X] Update doc with new features, screens
 - [X] Check out BTCPay API to integrate backend
 - [X] Add coin return stopper to 3d design
 - [X] Try different e-ink screen
