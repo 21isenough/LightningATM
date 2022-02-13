@@ -6,8 +6,7 @@ A physical coin exchanged into bitcoin and send to your lightning wallet in seco
 
 **Please be aware that this is a hobbyist project and it is not secure and reliable enough to withstand attacks. I discourage the use of this setup in a professional environment - but it's rather a good educational tool**
 
-
-
+There are currently two versions of the Lightning ATM. The large full version with a camera for scanning invoices and a button for acknowledgment and other functions. And there is the somewhat slimmed-down version for mobile use, the pocket version.
 
 
 Full Version             |  Pocket Version
@@ -33,9 +32,25 @@ Full Version             |  Pocket Version
 - [autostart](/docs/guide/autostart.md)
 - [aditional information and tips](/docs/guide/information_and_tips.md)
 
-A comprehensive guide on how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact me on Twitter (https://twitter.com/21isenough).
+A comprehensive guide on how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact 21isenough on Twitter (https://twitter.com/21isenough).
 
-Please check out this video, to see the [LightningATM in action:](https://twitter.com/21isenough/status/1170808396955738114?s=20)
+To see the Lightning ATM in action, check out this video [LightningATM in action](https://twitter.com/21isenough/status/1170808396955738114?s=20)
+
+### Mentioned
+- https://podcasts.apple.com/us/podcast/interview-with-21isenough/id1481514734?i=1000458712983
+- https://blog.sicksubroutine.com/lightning-junkies-episode-021/
+- http://bitcoin-turm.de/bturm29/
+- https://www.atmmarketplace.com/articles/lightning-atm-lets-you-buy-itty-bitty-amounts-of-bitcoin/
+- https://www.bitcoinmedia.id/atm-bitcoin-lightning-ini-adalah-prototype-pertama/
+- https://twitter.com/CoinATMRadar/status/1202657309765357568?s=20
+- https://www.hackster.io/news/lightningatm-distributes-small-amounts-of-btc-over-the-lightning-network-5e03347acd88
+- https://criptonizando.com/2019/10/08/desenvolvedor-cria-caixa-eletronico-de-bitcoin-que-ate-amadores-podem-construir-usando-a-lightning-network/
+- https://decrypt.co/10046/ightningatm-how-to-make-your-own-bitcoin-atm?utm_content=buffer7dcee&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+
+### Dokumentation in other languages
+
+- German Video: [Tutorial - Bitcoin Lightning ATM - montieren und konfigurieren](https://www.youtube.com/watch?v=pTyTc2qPQj0)
+- German Guidline for Pocket Edition: [Tutorial LightningATM - ereignishorizont.xyz](https://ereignishorizont.xyz/lightning-atm/)
 
 ### Todo
 
@@ -94,14 +109,4 @@ Please check out this video, to see the [LightningATM in action:](https://twitte
 - [x] Find a faster solution for QR scans (zbarcam)
 - [x] Organize todos better
 
-### Mentioned
-- https://podcasts.apple.com/us/podcast/interview-with-21isenough/id1481514734?i=1000458712983
-- https://blog.sicksubroutine.com/lightning-junkies-episode-021/
-- http://bitcoin-turm.de/bturm29/
 
-- https://www.atmmarketplace.com/articles/lightning-atm-lets-you-buy-itty-bitty-amounts-of-bitcoin/
-- https://www.bitcoinmedia.id/atm-bitcoin-lightning-ini-adalah-prototype-pertama/
-- https://twitter.com/CoinATMRadar/status/1202657309765357568?s=20
-- https://www.hackster.io/news/lightningatm-distributes-small-amounts-of-btc-over-the-lightning-network-5e03347acd88
-- https://criptonizando.com/2019/10/08/desenvolvedor-cria-caixa-eletronico-de-bitcoin-que-ate-amadores-podem-construir-usando-a-lightning-network/
-- https://decrypt.co/10046/ightningatm-how-to-make-your-own-bitcoin-atm?utm_content=buffer7dcee&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
