@@ -1,4 +1,4 @@
-## Part List
+## Parts list
 
 - Raspberry Pi Zero WH (with populated header)
 - Micro SD Card (e.g. 16 GB)
