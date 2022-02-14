@@ -58,7 +58,7 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
  
  - Am PC ein zweites Terminal Fenster eröffnen 
  - In einen Ordner seiner Wahl wechseln (Hier Beispielhaft `C:\temp>`)
- - Den Befehl zum kopieren für ein Windows Sytem lautet
+ - Den Befehl zum kopieren für ein Windows System lautet
 
        $ scp pi@192.168.168.24:/home/pi/test.jpg .
       
@@ -76,7 +76,7 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
 - Möchte man mehrer Bilder aufnehmen, müssen die Bilder durchnummeriert werden. Z.B. test1.jpg, test2.jpg etc.
 - Dann kann man alle Bilder auf einmal Übertragen 
 
-      $ scp pi@192.168.168.24:/home/pi/*.jpg .
+      $ scp pi@192.168.168.24:/home/pi/*.jpg .   bzw.    scp 'pi@192.168.168.24:/home/pi/*.jpg' ./
       
 - Weiter Funktionen für ein Aufnahme findet man in der Hilfe
 
