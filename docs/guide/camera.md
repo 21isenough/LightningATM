@@ -1,6 +1,6 @@
 ##  Installation und Test der Kamera
 
-Die Raspberry Pi 5MP Camera OV5647 gibt es von verschiedenen Herstellern und mit leicht unterschiedlichen Bauarten.
+Die 5MP Camera OV5647 für den Raspberry Pi gibt es von verschiedenen Herstellern und mit leicht unterschiedlichen Bauarten.
 Einige haben ein verstellbares Objektiv und wieder andere ein festes Objektiv.
 Um die Funktion und das Bild er Kamera zu testen, kann man ein Bild aufnehmen, dass man dann auf den PC betrachten kann.
 
@@ -14,7 +14,7 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
 
 ### Kamera aktivieren 
 
-- Einloggen auf Raspberry Pi
+- Einloggen auf den Raspberry Pi
 
       $ ssh admin@192.168.x.x
       
@@ -66,11 +66,21 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
 
  - Wenn alles geklappt hat, wurde das Bild auf dem PC/Notebook übertragen und kann jetzt betrachtet werden
       
- - Note: Beim einem Mac oder Linux System ist der Befehl leicht anders
+ - Note: Beim einem Mac oder Linux System ist der Befehl leicht abgewandelt
 
       $ scp 'pi@192.168.168.24:/home/pi/test.jpg' ./
       
+### Hinweise
 
+- Die Kamera nimmt ein paar Sekunden verzögert auf
+- Möchte man mehrer Bilder aufnehmen, müssen die Bilder durchnummeriert werden. Z.B. test1.jpg, test2.jpg etc.
+- Dann kann man alle Bilder auf einmal Übertragen 
+
+      $ scp pi@192.168.168.24:/home/pi/*.jpg .
+      
+- Weiter Funktionen für ein Aufnahme findet man in der Hilfe
+
+      $ raspistill --help
 
 
 
