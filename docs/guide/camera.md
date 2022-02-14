@@ -34,7 +34,7 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
       
 - Nach ein paar Minuten kann ein neue Login erfolgen
       
-### Zum Test ein Bild aufnehmen 
+### Ein Bild aufnehmen 
 
 - Nach dem einloggen auf den Raspberry Pi ein Bild aufnehmen 
 
