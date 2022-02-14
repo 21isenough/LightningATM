@@ -60,7 +60,7 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
  - In einen Ordner seiner Wahl wechseln (Hier Beispielhaft `C:\temp>`)
  - Den Befehl zum kopieren für ein Windows Sytem lautet
 
-            $ scp pi@192.168.168.24:/home/pi/test.jpg .
+       $ scp pi@192.168.168.24:/home/pi/test.jpg .
       
  - Zur bestätigung muss noch das Passwort vom Raspberry Pi eingegeben werden
 
@@ -68,7 +68,7 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
       
  - Note: Beim einem Mac oder Linux System ist der Befehl leicht abgewandelt
 
-            $ scp 'pi@192.168.168.24:/home/pi/test.jpg' ./
+       $ scp 'pi@192.168.168.24:/home/pi/test.jpg' ./
       
 ### Hinweise
 
