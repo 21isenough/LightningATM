@@ -1,4 +1,4 @@
-##  Installation und Test der Kamera
+##  Installation and testing of the camera
 
 The 5MP Camera OV5647 for the Raspberry Pi is available from different manufacturers and with slightly different designs.
 To test the function of the camera you can take a picture and download it to you computer.
