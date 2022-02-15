@@ -36,10 +36,10 @@ connection
 
       $ sudo reboot
       
-  raspi-config
+raspi-config
   
-  ![](https://i.imgur.com/h5geHZk.png)
-  ![](https://i.imgur.com/M0DIO6i.png)
+![](https://i.imgur.com/h5geHZk.png)
+![](https://i.imgur.com/M0DIO6i.png)
   
   Your config menu can look slightly different, depends of you hard- and software
       
@@ -69,9 +69,9 @@ The recording lasts 5 seconds (time delay 5000 (ms)). You can shorten the record
    
   The directory should read: `/home/pi/`
   
-  raspistill command
+ raspistill command
 
-   <img src="https://i.imgur.com/VdU17HW.png" width="500">
+ <img src="https://i.imgur.com/VdU17HW.png" width="500">
   
  ### Transfer the image to the computer
  
@@ -89,11 +89,11 @@ The recording lasts 5 seconds (time delay 5000 (ms)). You can shorten the record
 
        $ scp 'pi@192.168.x.x:/home/pi/test.jpg' ./
        
-   copy image
+ copy image
 
-   <img src="https://i.imgur.com/J19kInz.png" width="700">
+ <img src="https://i.imgur.com/J19kInz.png" width="700">
  
- - Example of a recording
+Example of a recording
 
 The structure            |  The picture
 :-------------------------:|:-------------------------:
