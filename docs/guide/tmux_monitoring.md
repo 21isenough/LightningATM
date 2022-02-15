@@ -34,7 +34,7 @@ $ tmux
 ```
 
 - Switch to the right window: `CTRL+b -> right arrow`
-- Note: If the ATM is allready startet
+- Note: If the ATM is already started (check with `$ sudo systemctl status LightningATM.service`), you should stop it (with `$ sudo systemctl stop LightningATM.service`) before starting it in manually (with `.app.py`) in the tmux terminal window. Otherwise strange phenomena may occur. 
 
 ######  Start `debug.log`
 
@@ -48,3 +48,5 @@ $ tmux
 Example tmux window
 
 ![tmux window](https://i.imgur.com/sJ68zFW.png)
+
+Left side you see the pulses. Right side you see the coins to it.
