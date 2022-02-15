@@ -43,53 +43,53 @@ connection
   
   Your config menu can look slightly different, depends of you hard- and software
       
-### Ein Bild aufnehmen 
+### Take a picture
 
-- Nach dem einloggen auf den Raspberry Pi ein Bild aufnehmen 
+- Take a picture after logging in to the Raspberry Pi
 
       $ raspistill -v -o test.jpg
 
-  Hinweis: Das -v ist nur optional und zeigt weiter Daten an. Das -o ist notwendig um die Datei zu schreiben.
-  
-  Die Aufnahme dauert 5 Sekunden (time delay 5000 (ms)). Man kann die Aufnahmezeit verkürzen, sollte die Zeit aber nicht zu kurz machen, da sonst das Bild in der Qualität leidet. Ein Sekunde (= 1000 ms) geht aber auf jeden Fall. So sieht der Befehl dann wie folgt aus
+  Note: The -v is only optional and will show more display data. The -o is necessary to write the file.
+    
+The recording lasts 5 seconds (time delay 5000 (ms)). You can shorten the recording time, but you should not make the time too short, otherwise the picture quality will suffer. One second (= 1000 ms) is definitely possible. The command then looks like:
     
    $ raspistill -v -o test.jpg -t 1000
    
-  Weiter Funktionen für ein Aufnahme findet man in der Hilfe `$ raspistill --help`
+  Further functions for a recording can be found in the help `$ raspistill --help`
   
-- Kontrollieren ob das Bild abelegt wurde
+- Check if the image has been saved
 
       $ ls -l
       
-  Da müsst jetzt in der Liste die Datei `test.jpg` erscheinen.
+  The file `test.jpg` should now appear in the list.
   
-- Überprüfen der Verzeichnisstruktur
+- Check the directory structure
 
       $ pwd
    
-  Das Verzeichnis sollte lauten: `/home/pi/`
+  The directory should read: `/home/pi/`
   
   raspistill command
 
    <img src="https://i.imgur.com/VdU17HW.png" width="500">
   
- ### Bild auf dem PC/Notebook übertragen
+ ### Transfer the image to the computer
  
- - Am Computer ein **zweites Terminal Fenster** öffnen 
- - In einen Ordner seiner Wahl wechseln (Hier Beispielhaft `C:\temp>`)
- - Den Befehl zum kopieren für ein Windows System lautet
+ - Open a **second terminal window** on the computer
+ - Switch to a folder of your choice (here only as an example `C:\temp`)
+ - The command to copy for a Windows system is
 
        $ scp pi@192.168.x.x:/home/pi/test.jpg .
       
- - Zur bestätigung muss noch das Passwort vom Raspberry Pi eingegeben werden
+ - For confirmation, the password from the Raspberry Pi must be entered
 
- - Wenn alles geklappt hat, wurde das Bild auf dem PC/Notebook übertragen und kann jetzt betrachtet werden
+ - If everything went well, the image was transferred to the computer and can now be vieweden
       
- - Note: Beim einem Mac oder Linux System ist der Befehl leicht abgewandelt
+ - Note: The command is slightly different on a Mac or Linux system
 
        $ scp 'pi@192.168.x.x:/home/pi/test.jpg' ./
        
-   copy image to storage
+   copy image
 
    <img src="https://i.imgur.com/J19kInz.png" width="700">
       
@@ -99,11 +99,11 @@ connection
 - Möchte man mehrer Bilder aufnehmen, müssen die Bilder durchnummeriert werden. Z.B. test1.jpg, test2.jpg etc.
 - Dann kann man alle Bilder auf einmal Übertragen 
 
-      $ scp pi@192.168.x.x:/home/pi/*.jpg .   bzw.    scp 'pi@192.168.x.x:/home/pi/*.jpg' ./
-      
-- Weiter Funktionen für ein Aufnahme findet man in der Hilfe
+- The camera takes a few seconds to recording
+- If you want to take several pictures, the pictures must be numbered consecutively. E.g. test1.jpg, test2.jpg etc.
+- Then you can transfer all images at once
 
-      $ raspistill --help
+      $ scp pi@192.168.x.x:/home/pi/*.jpg .   or    scp 'pi@192.168.x.x:/home/pi/*.jpg' ./
 
 
 
