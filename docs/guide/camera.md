@@ -12,7 +12,7 @@ Bevor man die Kabel in den Slot schiebt, muss die schwarze Arretierung durch lei
 Dann läßt sich das Kabel leicht einschieben. Die silbernen Kontakt müssen von der Arretierung weg schauen.
 Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrücken fixieren. 
 
-[Imgur](https://i.imgur.com/exqHrU4.jpg)
+![connection](https://i.imgur.com/exqHrU4.jpg)
 
 ### Kamera aktivieren 
 
