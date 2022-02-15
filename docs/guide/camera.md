@@ -12,7 +12,9 @@ Bevor man die Kabel in den Slot schiebt, muss die schwarze Arretierung durch lei
 Dann läßt sich das Kabel leicht einschieben. Die silbernen Kontakt müssen von der Arretierung weg schauen.
 Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrücken fixieren. 
 
-![connection](https://i.imgur.com/exqHrU4.jpg)
+connection
+
+<img src="https://i.imgur.com/exqHrU4.jpg" width="300">
 
 ### Kamera aktivieren 
 
@@ -62,6 +64,10 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
    
   Das Verzeichnis sollte lauten: `/home/pi/`
   
+  raspistill command
+
+<img src="https://i.imgur.com/VdU17HW.png" width="500">
+  
  ### Bild auf dem PC/Notebook übertragen
  
  - Am Computer ein **zweites Terminal Fenster** öffnen 
@@ -77,6 +83,10 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
  - Note: Beim einem Mac oder Linux System ist der Befehl leicht abgewandelt
 
        $ scp 'pi@192.168.x.x:/home/pi/test.jpg' ./
+       
+  copy image to storage
+
+<img src="https://i.imgur.com/J19kInz.png" width="800">
       
 ### Hinweise
 
