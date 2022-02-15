@@ -92,18 +92,25 @@ The recording lasts 5 seconds (time delay 5000 (ms)). You can shorten the record
    copy image
 
    <img src="https://i.imgur.com/J19kInz.png" width="700">
-      
-### Hinweise
+ 
+ - Beispiel einer Aufnahme
 
-- Die Kamera nimmt ein paar Sekunden verzögert auf
-- Möchte man mehrer Bilder aufnehmen, müssen die Bilder durchnummeriert werden. Z.B. test1.jpg, test2.jpg etc.
-- Dann kann man alle Bilder auf einmal Übertragen 
+The structure            |  The picture
+:-------------------------:|:-------------------------:
+![](https://i.imgur.com/D8geRmx.jpg)  |  ![](https://i.imgur.com/4JCDVIs.jpg)
+
+Note: This camera was pretty cheap and has a variable lens that was pretty loose and difficult to adjust. You might want to use a better one for your project.
+      
+### Hints
 
 - The camera takes a few seconds to recording
 - If you want to take several pictures, the pictures must be numbered consecutively. E.g. test1.jpg, test2.jpg etc.
 - Then you can transfer all images at once
 
       $ scp pi@192.168.x.x:/home/pi/*.jpg .   or    scp 'pi@192.168.x.x:/home/pi/*.jpg' ./
+      
+- You can do also videos. The command is `raspivid`
+
 
 
 
