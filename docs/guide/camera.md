@@ -1,30 +1,28 @@
 ##  Installation und Test der Kamera
 
-Die 5MP Camera OV5647 für den Raspberry Pi gibt es von verschiedenen Herstellern und mit leicht unterschiedlichen Bauarten.
-Einige haben ein verstellbares Objektiv und wieder andere ein festes Objektiv.
-Um die Funktion und das Bild er Kamera zu testen, kann man ein Bild aufnehmen, dass man dann auf den PC betrachten kann.
+The 5MP Camera OV5647 for the Raspberry Pi is available from different manufacturers and with slightly different designs.
+To test the function of the camera you can take a picture and download it to you computer.
 
-### Montage
+### Installation
 
-Das Flachbandkabel zur Verbindung der Camera und des Raspberry Pi Zero ist ein spezielles,
-da von etwas größeren Schnittstelle der Kamera erst einmal auf ein etwas kleinern Anschluss verjüngt wird.
-Bevor man die Kabel in den Slot schiebt, muss die schwarze Arretierung durch leichts ziehen nach oben gelöst werden.
-Dann läßt sich das Kabel leicht einschieben. Die silbernen Kontakt müssen von der Arretierung weg schauen.
-Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrücken fixieren. 
+The ribbon cable is a bit special as the connectors on the camera and the Raspberry Pi are slightly different sizes. So the cable tapers.
+Before sliding the cable into the slot, the black latch must be released by gently pulling upwards.
+The cable can then simply be pushed in. The silver contacts must point away from the detent. See image!
+When the cable is centered, you can lock the latches in place by sliding them back slightly.  
 
 connection
 
 <img src="https://i.imgur.com/exqHrU4.jpg" width="300">
 
-### Kamera aktivieren 
+### Activate camera
 
-- Einloggen auf den Raspberry Pi
+- Login to the Raspberry Pi
 
       $ ssh admin@192.168.x.x
       
-- Angezeigtes Verzeichnis: `pi@raspberrypi:~ $`
+- Directory displayed: `pi@raspberrypi:~ $`
     
-- Die Raspi-Config aufrufen und die Kamera aktivieren
+- Call up the Raspi-Config and activate the camera
 
       $ sudo raspi-config
     
@@ -37,6 +35,13 @@ connection
 - Wenn nicht schon aus dem Menü heraus neu gestartet wurden, dann einmal manuell neu starten 
 
       $ sudo reboot
+      
+  raspi-config
+  
+  ![](https://i.imgur.com/h5geHZk.png)
+  ![](https://i.imgur.com/M0DIO6i.png)
+  
+  Your config menu can look slightly different, depends of you hard- and software
       
 ### Ein Bild aufnehmen 
 
@@ -66,7 +71,7 @@ connection
   
   raspistill command
 
-<img src="https://i.imgur.com/VdU17HW.png" width="500">
+   <img src="https://i.imgur.com/VdU17HW.png" width="500">
   
  ### Bild auf dem PC/Notebook übertragen
  
@@ -84,9 +89,9 @@ connection
 
        $ scp 'pi@192.168.x.x:/home/pi/test.jpg' ./
        
-  copy image to storage
+   copy image to storage
 
-<img src="https://i.imgur.com/J19kInz.png" width="800">
+   <img src="https://i.imgur.com/J19kInz.png" width="700">
       
 ### Hinweise
 
