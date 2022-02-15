@@ -19,7 +19,7 @@ Full Version             |  Pocket Version
 - [parts list](/docs/guide/parts_list.md)
 
 
-### Installation Guideline
+### Installation guideline
 
 - [voltage converter](/docs/guide/voltage_converter.md)
 - [coin validator](/docs/guide/coin_validator.md)
