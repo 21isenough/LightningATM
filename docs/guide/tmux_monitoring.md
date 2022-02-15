@@ -49,4 +49,4 @@ Example tmux window
 
 ![tmux window](https://i.imgur.com/sJ68zFW.png)
 
-Left side you see the pulses. Right side you see the coins to it.
+Left side you see the pulses. Right side you see the coins to it. 5, 2, 7, 2 => 50 Cent, 5 Cent, 2 Euro, 5 Cent
