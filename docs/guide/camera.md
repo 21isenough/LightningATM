@@ -76,12 +76,12 @@ The recording lasts 5 seconds (time delay 5000 (ms)). You can shorten the record
  ### Transfer the image to the computer
  
  - Open a **second terminal window** on the computer
- - Switch to a folder of your choice (here only as an example `C:\temp`)
+ - Switch to a folder of your choice (example `C:\temp`)
  - The command to copy for a Windows system is
 
        $ scp pi@192.168.x.x:/home/pi/test.jpg .
       
- - For confirmation, the password from the Raspberry Pi must be entered
+   -> For confirmation, the password from the Raspberry Pi must be entered
 
  - If everything went well, the image was transferred to the computer and can now be vieweden
       
@@ -93,7 +93,7 @@ The recording lasts 5 seconds (time delay 5000 (ms)). You can shorten the record
 
    <img src="https://i.imgur.com/J19kInz.png" width="700">
  
- - Beispiel einer Aufnahme
+ - Example of a recording
 
 The structure            |  The picture
 :-------------------------:|:-------------------------:
@@ -103,7 +103,6 @@ Note: This camera was pretty cheap and has a variable lens that was pretty loose
       
 ### Hints
 
-- The camera takes a few seconds to recording
 - If you want to take several pictures, the pictures must be numbered consecutively. E.g. test1.jpg, test2.jpg etc.
 - Then you can transfer all images at once
 
