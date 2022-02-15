@@ -34,6 +34,7 @@ $ tmux
 ```
 
 - Switch to the right window: `CTRL+b -> right arrow`
+- Note: If the ATM is allready startet
 
 ######  Start `debug.log`
 
@@ -43,3 +44,7 @@ $ tmux
 
 - If necessary, move the dividing line: `CTRL+b -> CTRL + arrow right or left`
 - Back to single window: `CTRL+b -> d`
+
+Example tmux window
+
+![tmux window](https://i.imgur.com/sJ68zFW.png)
