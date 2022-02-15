@@ -81,7 +81,7 @@ The recording lasts 5 seconds (time delay 5000 (ms)). You can shorten the record
 
        $ scp pi@192.168.x.x:/home/pi/test.jpg .
       
-   -> For confirmation, the password from the Raspberry Pi must be entered
+   -> The password from the Raspberry Pi must be entered for comfirmation
 
  - If everything went well, the image was transferred to the computer and can now be vieweden
       
@@ -101,7 +101,7 @@ The structure            |  The picture
 
 Note: This camera was pretty cheap and has a variable lens that was pretty loose and difficult to adjust. You might want to use a better one for your project.
       
-### Hints
+### Aditional hints
 
 - If you want to take several pictures, the pictures must be numbered consecutively. E.g. test1.jpg, test2.jpg etc.
 - Then you can transfer all images at once
