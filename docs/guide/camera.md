@@ -32,7 +32,7 @@ connection
 - Confirm: `The camera interface is enabled` -> `\<OK>`
 - Go To: `\<Finish>`
 - When ask for: `Would you like to reboot now?` -> `\<YES>`
-- Wenn nicht schon aus dem Menü heraus neu gestartet wurden, dann einmal manuell neu starten 
+- If you have not already restarted from the menu, then restart manually to activate the changes
 
       $ sudo reboot
       
