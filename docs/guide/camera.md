@@ -12,6 +12,8 @@ Bevor man die Kabel in den Slot schiebt, muss die schwarze Arretierung durch lei
 Dann läßt sich das Kabel leicht einschieben. Die silbernen Kontakt müssen von der Arretierung weg schauen.
 Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrücken fixieren. 
 
+[Imgur](https://i.imgur.com/exqHrU4.jpg)
+
 ### Kamera aktivieren 
 
 - Einloggen auf den Raspberry Pi
@@ -24,15 +26,15 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
 
       $ sudo raspi-config
     
-- Choose: `3 Interface Options    Configure connections to peripherals` 
-- Choose: `I1 Legacy Camera Enable/disable legacy camera support` 
-- When ask for: `Would you like to enable legacy camera support?` choose `\<YES>` and then `\<OK>`
-- Choose: `\<Finish>`
-- Raspberry Pi einmal neu starten 
+- Choose: `Interfacing Options  Configure connections to peripherals` 
+- Choose: `Camera      Enable/Disable connection to the Raspberry Pi Camera`
+- Confirm: `Would you like the camera interface to be enabled?` -> `\<YES>` 
+- Confirm: `The camera interface is enabled` -> `\<OK>`
+- Go To: `\<Finish>`
+- When ask for: `Would you like to reboot now?` -> `\<YES>`
+- Wenn nicht schon aus dem Menü heraus neu gestartet wurden, dann einmal manuell neu starten 
 
       $ sudo reboot
-      
-- Nach ein paar Minuten kann ein neue Login erfolgen
       
 ### Ein Bild aufnehmen 
 
@@ -40,7 +42,13 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
 
       $ raspistill -v -o test.jpg
 
-  Note: Das -v ist nur optional und zeigt weiter Daten an. Das -o ist notwendig um die Datei zu schreiben.
+  Hinweis: Das -v ist nur optional und zeigt weiter Daten an. Das -o ist notwendig um die Datei zu schreiben.
+  
+  Die Aufnahme dauert 5 Sekunden (time delay 5000 (ms)). Man kann die Aufnahmezeit verkürzen, sollte die Zeit aber nicht zu kurz machen, da sonst das Bild in der Qualität leidet. Ein Sekunde (= 1000 ms) geht aber auf jeden Fall. So sieht der Befehl dann wie folgt aus
+    
+   $ raspistill -v -o test.jpg -t 1000
+   
+  Weiter Funktionen für ein Aufnahme findet man in der Hilfe `$ raspistill --help`
   
 - Kontrollieren ob das Bild abelegt wurde
 
@@ -48,19 +56,19 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
       
   Da müsst jetzt in der Liste die Datei `test.jpg` erscheinen.
   
-- Verzeichnisstruktur überbrüfen
+- Überprüfen der Verzeichnisstruktur
 
       $ pwd
    
-  Das Bild sollte hier liegen: `/home/pi/`
+  Das Verzeichnis sollte lauten: `/home/pi/`
   
  ### Bild auf dem PC/Notebook übertragen
  
- - Am PC ein zweites Terminal Fenster eröffnen 
+ - Am Computer ein **zweites Terminal Fenster** öffnen 
  - In einen Ordner seiner Wahl wechseln (Hier Beispielhaft `C:\temp>`)
  - Den Befehl zum kopieren für ein Windows System lautet
 
-       $ scp pi@192.168.168.24:/home/pi/test.jpg .
+       $ scp pi@192.168.x.x:/home/pi/test.jpg .
       
  - Zur bestätigung muss noch das Passwort vom Raspberry Pi eingegeben werden
 
@@ -68,7 +76,7 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
       
  - Note: Beim einem Mac oder Linux System ist der Befehl leicht abgewandelt
 
-       $ scp 'pi@192.168.168.24:/home/pi/test.jpg' ./
+       $ scp 'pi@192.168.x.x:/home/pi/test.jpg' ./
       
 ### Hinweise
 
@@ -76,7 +84,7 @@ Sitzt das Kabel zentriert kann man die Arretierungen durch leichtes zurückdrüc
 - Möchte man mehrer Bilder aufnehmen, müssen die Bilder durchnummeriert werden. Z.B. test1.jpg, test2.jpg etc.
 - Dann kann man alle Bilder auf einmal Übertragen 
 
-      $ scp pi@192.168.168.24:/home/pi/*.jpg .   bzw.    scp 'pi@192.168.168.24:/home/pi/*.jpg' ./
+      $ scp pi@192.168.x.x:/home/pi/*.jpg .   bzw.    scp 'pi@192.168.x.x:/home/pi/*.jpg' ./
       
 - Weiter Funktionen für ein Aufnahme findet man in der Hilfe
 
