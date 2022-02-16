@@ -8,4 +8,4 @@
 
 - If you get the error `bash: $: command not found` then you copied the dollar sign `$` in front of the command. Don't do that!
 - When logging in via SSH, make sure to use the correct user `pi`. If you accidentally use `admin` or make a typo, you will not see an error, but the password will not be accepted.
-- You can change WiFi parameters later with the command: `$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`
+- You can change WiFi parameters with the command: `$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`
