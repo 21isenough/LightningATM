@@ -1,6 +1,8 @@
-## Monitoring system (tmux) to control the processes
+## Monitoring system "tmux" to control the processes
 
-###### Terminal multiplexer (tmux) command overview:
+This allows the terminal window to be split vertically into two parts to observe two processes at the same time.
+
+###### Command overview for the terminal multiplexer (tmux) 
 
 ```
 CTRL + b -> % = split window
@@ -9,9 +11,7 @@ CTRL + b -> CTRL + right or left arrow = move dividing line
 CTRL + b -> d = back to single window
 ```
 
-This allows the CLI window to be split vertically into two parts to observe two processes at the same time.
-
-###### install tmx
+###### Install tmux
 
 ```
 $ cd ~
@@ -25,18 +25,20 @@ $ tmux
 ```
 
 - Split tmux windows: `CTRL+b -> %`
+- Switch between left and right window: `CTRL + b -> right or left arrow`
 
-###### Start the `app.py` process (ATM).
+###### Start the `app.py` process (ATM) in the left window
 
 ```
 	$ cd ~/LightningATM
 	$ ./app.py
 ```
 
-- Switch to the right window: `CTRL+b -> right arrow`
 - Note: If the ATM is already started (check with `$ sudo systemctl status LightningATM.service`), you should stop it (with `$ sudo systemctl stop LightningATM.service`) before starting it in manually (with `.app.py`) in the tmux terminal window. Otherwise strange phenomena may occur. 
 
 ######  Start `debug.log`
+
+- Switch to the right window and paste or type
 
 ```
 	$ tail -f ~/.lightningATM/debug.log
