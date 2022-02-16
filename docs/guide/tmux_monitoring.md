@@ -26,6 +26,7 @@ $ tmux
 
 - Split tmux windows: `CTRL+b -> %`
 - Switch between left and right window: `CTRL + b -> right or left arrow`
+- If necessary, move the dividing line: `CTRL+b -> CTRL + arrow right or left`
 
 ###### Start the `app.py` process (ATM) in the left window
 
@@ -44,7 +45,6 @@ $ tmux
 	$ tail -f ~/.lightningATM/debug.log
 ```
 
-- If necessary, move the dividing line: `CTRL+b -> CTRL + arrow right or left`
 - Back to single window: `CTRL+b -> d`
 
 Example tmux window
