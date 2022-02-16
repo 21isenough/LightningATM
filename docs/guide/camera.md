@@ -1,4 +1,4 @@
-##  Installation and testing of the camera
+##  Installation and testing the camera
 
 The 5MP Camera OV5647 for the Raspberry Pi is available from different manufacturers and with slightly different designs.
 To test the function of the camera you can take a picture and download it to you computer.
@@ -75,7 +75,7 @@ The recording lasts 5 seconds (time delay 5000 (ms)). You can shorten the record
   
  ### Transfer the image to the computer
  
- - Open a **second terminal window** on the computer
+ - Open a *second terminal window* on the computer
  - Switch to a folder of your choice (example `C:\temp`)
  - The command to copy for a Windows system is
 
