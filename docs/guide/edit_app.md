@@ -1,6 +1,6 @@
 ### Special settings in the app.py file
 
-The `app.py` file is the program from the ATM. Here you can adjusted slightly the code. Be careful when making changes here.
+The `app.py` file is the main program of the ATM. Here you can easily customize the code. But be careful when making changes here.
 
 ##### Open the app.py
 
@@ -9,7 +9,7 @@ $ cd ~/LightningATM/
 $ nano app.py
 ```
 
-##### Optional setting for the pocket version: Skip the "Prepare for LNURL" page:
+##### Optional setting *only for the pocket version:* Skip the "Prepare for LNURL" page:
 
 - Search for `display.update_lnurl_cancel_notice()` with `CTRL+W`. (It exists twice)
 - There is a place where it says `if activewallet == "lntxbot"`, please edit the two lines (see picture)
