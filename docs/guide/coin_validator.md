@@ -1,12 +1,12 @@
-### Configure validator checker (6 coins, 5 cents to 2 euros)
+### Configure the coin validator (set 6 coins / e.g. 5 cents to 2 euros)
 
-- Set the switches on the coin validator to "NO" and "Medium".
-- Apply the 12V to the coin validator (without Raspberry Pi) => The coin validator will flash and show 0
+- Set the switches on the coin validator to "NO" (contact normal open) and "Medium" (medium pulse speed).
+- Apply the 12V to the coin validator (without Raspberry Pi) => The coin validator will flash and show 0 (zero)
 - Press and hold simultaneously the ADD and MINUS buttons until A appears in the display
 - When B appears, switch back to A by ADD or MINUS
-- Press and hold the SET button briefly, until E will appears on the display
+- Press SET (slowly), then E will appear on the display
 - This indicates: You are in them menu to set the amount of differnet coin types 
-- Set to 6 (6 coins = 5 cents to 2 euros) with ADD (or MINUS) and press SET
+- Set it to 6 (6 coins = 5 cents to 2 euros) with ADD (or MINUS) and press SET
 - Now the display shows H1 (for the first coin). The first of 6 LEDs has come on
 - Now specify how often the coin should be inserted for calibration
 - Set to 20 with ADD (or MINUS) and then press SET
@@ -23,14 +23,14 @@
 
 ### Calibrating the coin validator
 
-- Press the SET button twice
+- Press the SET button (slowly) twice
 - The first LED light and A1 will show in the display
 - Now insert the first coin (5 cents) 20 times
 - Use as many different coins as posible
 - Finally all LEDs flash to confirm and the display shows A2
 - Repeat for the remaining coin types
 - All LEDs flash briefly again to confirm and the display shows 0 (zero) again
-- The coin validator is now ready.
+- The coin validator is now ready
 
 coin validator
 
