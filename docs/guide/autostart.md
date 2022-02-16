@@ -9,8 +9,6 @@ $ sudo systemctl enable LightningATM.service
 $ sudo reboot
 ```
 
-- Note: From now on the ATM will start automatically. If you want to observe the app.py in tmux, you should stop the "LightningATM" service manually, bevor you start the app.py in the tmux. 
-
 ######  Other commands to control the service:
 
 ```
@@ -18,3 +16,5 @@ $ sudo systemctl status LightningATM.service
 $ sudo systemctl stop LightningATM.service
 $ sudo systemctl start LightningATM.service
 ```
+
+- Note: From now on the ATM will start automatically. If you want to observe the app.py in tmux, you should stop the "LightningATM.service" manually, bevor you start the app.py in the tmux.
