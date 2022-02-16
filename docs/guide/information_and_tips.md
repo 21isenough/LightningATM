@@ -6,6 +6,6 @@
  
   > Copy the command to the clipboard with `STRG+C` and then point to the blinking cursor in the CLI window and press the right mouse button to paste the clipboard into the terminal window
   
-- If you get the error `bash: $: command not found` then you copied the dollar sign `$` in front of the command. Don't do that!
+- If you get the error "bash: $: command not found", you may have copied the dollar sign "$" in front of the command. Don't do that!
 - When logging in via SSH, make sure to use the correct user `pi`. If you accidentally use `admin` or make a typo, you will not see an error, but the password will not be accepted.
 - You can change WiFi parameters with the command: `$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`
