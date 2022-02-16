@@ -1,8 +1,8 @@
-##  Setting the config.ini and app.py file
+##  Setting the config.ini
 
-Basic settings are made in `config.ini` and the program is adjusted slightly in `app.py`.
+Basic settings are made in `config.ini` 
 
-- New login on Raspberry Pi again via CLI: `ssh pi@192.168.x.x`
+- Login on Raspberry Pi via CLI: `ssh pi@192.168.x.x`
 
 ### Start ATM once to create the config.ini
 
@@ -12,9 +12,9 @@ $ ./app.py
 ```
 
 - The app.py (the ATM) was started and the config.ini file was created
-- The display should now show `LightningATM`
+- The display should now show `LightningATM` (You must have tested the display first!)
 - The process or the ATM can be interrupted/stopped with `CTRL+C`
-- After a short time, `Manually Interrupted` is displayed and you can see on the display that the `ATM is turned off`.
+- After a short time, `Manually Interrupted` is shown in the terminal windos and you should see `ATM is turned off` on the display
 
 ### Open the config.ini file
 
@@ -39,6 +39,7 @@ $ nano ~/.lightningATM/config.ini
 	payoutdelay = 12 
 ```
 
+- Its needed for the the pocket version, because it has no push button for confimrmation. The invoice will be generated automatically after 12 seconds
 - Note: If you have a button version, you must keep the 0.
 
 ###### Set activate wallet type / example LNTXBOT
@@ -76,7 +77,7 @@ coin_types = 2,0.05,5  eur cent
 ```
 
 - To save and exit the editor: `CTRL+x -> y -> ENTER`
-- Note: In version 3.0.0 you still had to make the setting in app.py. I don't know which version you get, but if the settings with the config.ini don't work, you can set them directly in the app.py. I wrote something about that in the next paragraph. But if you are lucky, it might be enough to set it here in the config.ini. You have to test it out. With the monitoring system (tmux), explanation see below, you can see that well.
+- Note: In version 3.0.0 you still had to make the setting in app.py. I don't know which version you get, but if the settings with the config.ini don't work, you can set them directly in the app.py. I wrote something about that in the next chapter "edit app.py". But if you are lucky, it might be enough to set it here in the config.ini. You have to test it out. With the monitoring system (tmux), explanation see chapter "tmux monitoring", you can see that well.
 
 config.ini part 1 (just an example)
 ![config.ini part 1](https://i.imgur.com/ljIeZj4.png)
