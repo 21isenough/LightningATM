@@ -14,7 +14,7 @@ Full Version             |  Pocket Version
 ![](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)  |  ![](https://i.imgur.com/vW8BfMG.png)
 
 
-### Parts list
+### Required components
 
 - [parts list](/docs/guide/parts_list.md)
 
