@@ -12,7 +12,7 @@ When the cable is centered, you can lock the latches in place by sliding them ba
 
 connection
 
-<img src="https://i.imgur.com/exqHrU4.jpg" width="300">
+<img src="../pictures/camera_installation.jpg" width="300">
 
 ### Activate camera
 
@@ -38,8 +38,8 @@ connection
       
 raspi-config
   
-![](https://i.imgur.com/h5geHZk.png)
-![](https://i.imgur.com/M0DIO6i.png)
+![](../pictures/camera_raspi-config_1.png)
+![](../pictures/camera_raspi-config_2.png)
   
   Your config menu can look slightly different, depends of you hard- and software
       
@@ -71,7 +71,7 @@ The recording lasts 5 seconds (time delay 5000 (ms)). You can shorten the record
   
  raspistill command
 
- <img src="https://i.imgur.com/VdU17HW.png" width="500">
+ <img src="../pictures/camera_terminal_raspistill.png" width="500">
   
  ### Transfer the image to the computer
  
@@ -89,15 +89,15 @@ The recording lasts 5 seconds (time delay 5000 (ms)). You can shorten the record
 
        $ scp 'pi@192.168.x.x:/home/pi/test.jpg' ./
        
- copy image
+scp command
 
- <img src="https://i.imgur.com/J19kInz.png" width="700">
+ <img src="../pictures/camera_terminal_scp.png" width="700">
  
 Example of a recording
 
 The structure            |  The picture
 :-------------------------:|:-------------------------:
-![](https://i.imgur.com/D8geRmx.jpg)  |  ![](https://i.imgur.com/4JCDVIs.jpg)
+![](../pictures/camera_example_structure.jpg)  |  ![](../pictures/camera_example_image.jpg)
 
 Note: This camera was pretty cheap and has a variable lens that was pretty loose and difficult to adjust. You might want to use a better one for your project.
       
