@@ -29,7 +29,7 @@ $ nano app.py
 
 - Search for `if config.PULSES == 2` in app.py with `CTRL+W`
 - There you will find the setting options for the coins. 
-- Note: If you can't find `if config.PULSES == 2` in the app.py file, then you might have a higher version then V3.0.0 and the coin settings are in the config.ini. You can skip this point.
+- Note: If you can't find `if config.PULSES == 2` in the app.py file, then you might have a higher version then V0.3.0 and the coin settings are in the config.ini. You can skip this point.
 
 ######  For example:
 
