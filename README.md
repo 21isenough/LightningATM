@@ -11,7 +11,7 @@ There are currently two versions of the Lightning ATM. The large full version wi
 
 Full Version             |  Pocket Version
 :-------------------------:|:-------------------------:
-![](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)  |  ![](../pictures/readme_atm_pv.png)
+![](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)  |  ![](docs/pictures/readme_atm_pv.png)
 
 
 ### Required components
