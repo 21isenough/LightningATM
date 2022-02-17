@@ -6,10 +6,10 @@
 - The clamp has a small lock and must be released beforehand. See pictures!
 
 Wiring - Full Version
-![Full Version](../pictures/wiring_fw_220215.png)
+![Full Version](../pictures/wiring_fw.png)
 
 Wiring - Pocket Version
-![Pocket Version](../pictures/wiring_pv_220215.png)
+![Pocket Version](../pictures/wiring_pv.png)
 
 Clamp for ribbon cable
 
