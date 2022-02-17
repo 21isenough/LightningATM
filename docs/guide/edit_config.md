@@ -80,10 +80,10 @@ coin_types = 2,0.05,5  eur cent
 - Note: In version 3.0.0 you still had to make the setting in app.py. I don't know which version you get, but if the settings with the config.ini don't work, you can set them directly in the app.py. I wrote something about that in the next chapter "[edit app.py](/docs/guide/edit_app.md)". But if you are lucky, it might be enough to set it here in the config.ini. You have to test it out. With the monitoring system (tmux), explanation see chapter "[tmux monitoring](/docs/guide/tmux_monitoring.md)", you can see that well.
 
 config.ini part 1 (just an example)
-![config.ini part 1](https://i.imgur.com/ljIeZj4.png)
+![config.ini part 1](../pictures/edit_config_terminal_1.png)
 
 config.ini part 2 (just an example)
-![config.ini part 2](https://i.imgur.com/YtXtSZC.png)
+![config.ini part 2](../pictures/edit_config_terminal_2.png)
 
 
 
