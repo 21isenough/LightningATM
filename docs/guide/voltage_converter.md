@@ -15,10 +15,10 @@
 
 voltage converter poti
 
-<img src="https://i.imgur.com/yI1NpMJ.jpg" width="500">
+<img src="../pictures/voltage_converter_poti.jpg" width="500">
 
 calibrating voltage converter
-![calibrating voltage converter](https://i.imgur.com/Xc1TAGF.jpg)
+![calibrating voltage converter](../pictures/voltage_converter_coin.jpg)
 
 
 
