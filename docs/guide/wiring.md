@@ -6,28 +6,28 @@
 - The clamp has a small lock and must be released beforehand. See pictures!
 
 Wiring - Full Version
-![Full Version](https://i.imgur.com/FPeDAPy.png)
+![Full Version](../pictures/wiring_fw_220215.png)
 
 Wiring - Pocket Version
-![Pocket Version](https://i.imgur.com/htiV8gi.png)
+![Pocket Version](../pictures/wiring_pv_220215.png)
 
 Clamp for ribbon cable
 
-<img src="https://i.imgur.com/T7pYLlI.jpg" width="600">
+<img src="../pictures/wiring_clamp.jpg" width="600">
 
 Pocket version adapter cable
-![Pocket version adapter cable](https://i.imgur.com/pcurPzJ.jpg)
+![Pocket version adapter cable](../pictures/wiring_pv_adapter_cable.jpg)
 
 Pocket version direct wiring
-![Pocket version direct wiring](https://i.imgur.com/65IkXVB.jpg)
+![Pocket version direct wiring](../pictures/wiring_pv_direct_wiring.jpg)
 
 Pocket version wiring build-in
-![Pocket version wiring bild in](https://i.imgur.com/axiJ2f3.jpg)
+![Pocket version wiring bild in](../pictures/wiring_pv_build-in.jpg)
 
 
 Pocket version wiring build-in with coin validator             |  Direct wiring, without adapter cable
 :-------------------------:|:-------------------------:
-![](https://i.imgur.com/p42CeY4.jpg)  |  ![](https://i.imgur.com/Fu59kOW.jpg)
+![](../pictures/wiring_pv_build-in_complet.jpg)  |  ![](../pictures/wiring_direct_wiring.jpg)
 
 
 
