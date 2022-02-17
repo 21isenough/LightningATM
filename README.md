@@ -6,23 +6,56 @@ A physical coin exchanged into bitcoin and send to your lightning wallet in seco
 
 **Please be aware that this is a hobbyist project and it is not secure and reliable enough to withstand attacks. I discourage the use of this setup in a professional environment - but it's rather a good educational tool**
 
-A comprehensive guide on how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact me on Twitter (https://twitter.com/21isenough).
-
-Please check out this video, to see the [LightningATM in action:](https://twitter.com/21isenough/status/1170808396955738114?s=20)
-
-![alt text](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)
-
-### Parts list (price estimate: 50-70 USD)
-
-Please find the detailed parts list on the LightningATM documentation website:
-
-https://docs.lightningatm.me/requirements/hardware-requirements
+There are currently two versions of the Lightning ATM. The large full version with a camera for scanning invoices and a button for acknowledgment and other functions. And there is the somewhat slimmed-down version for mobile use, the pocket version.
 
 
-### Todo
+Full Version             |  Pocket Version
+:-------------------------:|:-------------------------:
+![](https://github.com/21isenough/LightningATM/blob/master/resources/images/LightningATM_rev3.jpg)  |  ![](docs/pictures/readme_atm_pv.png)
+
+
+### Required components
+
+- [parts list](/docs/guide/parts_list.md)
+
+
+### Installation guideline
+
+- [voltage converter](/docs/guide/voltage_converter.md)
+- [coin validator](/docs/guide/coin_validator.md)
+- [wiring](/docs/guide/wiring.md)
+- [sd card and wifi](/docs/guide/sdcard_and_wifi.md)
+- [display](/docs/guide/display.md)
+- [edit config.ini](/docs/guide/edit_config.md)
+- [edit app.py](/docs/guide/edit_app.md)
+- [tmux monitoring](/docs/guide/tmux_monitoring.md)
+- [autostart](/docs/guide/autostart.md)
+- [camera](/docs/guide/camera.md)
+- [aditional information and tips](/docs/guide/information_and_tips.md)
+
+A comprehensive guide on how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact 21isenough on Twitter (https://twitter.com/21isenough).
+
+To see the Lightning ATM in action, check out this video [LightningATM in action](https://twitter.com/21isenough/status/1170808396955738114?s=20)
+
+### Mentioned
+- https://podcasts.apple.com/us/podcast/interview-with-21isenough/id1481514734?i=1000458712983
+- https://blog.sicksubroutine.com/lightning-junkies-episode-021/
+- http://bitcoin-turm.de/bturm29/
+- https://www.atmmarketplace.com/articles/lightning-atm-lets-you-buy-itty-bitty-amounts-of-bitcoin/
+- https://www.bitcoinmedia.id/atm-bitcoin-lightning-ini-adalah-prototype-pertama/
+- https://twitter.com/CoinATMRadar/status/1202657309765357568?s=20
+- https://www.hackster.io/news/lightningatm-distributes-small-amounts-of-btc-over-the-lightning-network-5e03347acd88
+- https://criptonizando.com/2019/10/08/desenvolvedor-cria-caixa-eletronico-de-bitcoin-que-ate-amadores-podem-construir-usando-a-lightning-network/
+- https://decrypt.co/10046/ightningatm-how-to-make-your-own-bitcoin-atm?utm_content=buffer7dcee&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
+
+### Documentations in other languages
+
+- German Video: [Tutorial - Bitcoin Lightning ATM - montieren und konfigurieren](https://www.youtube.com/watch?v=pTyTc2qPQj0)
+- German tutorial for the pocket edition: [Tutorial LightningATM - ereignishorizont.xyz](https://ereignishorizont.xyz/lightning-atm/)
+
+### Todo list
 
 #### Prio 1
-- [ ] Update doc with new features, screens
 - [ ] Implement lndconnect
 - [ ] Add "no wallet setup" warning at boot
 - [ ] Implement LNURLProxyAPI
@@ -45,6 +78,7 @@ https://docs.lightningatm.me/requirements/hardware-requirements
 - [ ] Add AP option for users to login into their wifis (https://github.com/21isenough/RaspiWiFi)
 - [ ] 2 layer for coins to reject before accepted
 #### Done
+- [X] Update doc with new features, screens
 - [X] Check out BTCPay API to integrate backend
 - [X] Add coin return stopper to 3d design
 - [X] Try different e-ink screen
@@ -76,14 +110,4 @@ https://docs.lightningatm.me/requirements/hardware-requirements
 - [x] Find a faster solution for QR scans (zbarcam)
 - [x] Organize todos better
 
-### Mentioned
-- https://podcasts.apple.com/us/podcast/interview-with-21isenough/id1481514734?i=1000458712983
-- https://blog.sicksubroutine.com/lightning-junkies-episode-021/
-- http://bitcoin-turm.de/bturm29/
 
-- https://www.atmmarketplace.com/articles/lightning-atm-lets-you-buy-itty-bitty-amounts-of-bitcoin/
-- https://www.bitcoinmedia.id/atm-bitcoin-lightning-ini-adalah-prototype-pertama/
-- https://twitter.com/CoinATMRadar/status/1202657309765357568?s=20
-- https://www.hackster.io/news/lightningatm-distributes-small-amounts-of-btc-over-the-lightning-network-5e03347acd88
-- https://criptonizando.com/2019/10/08/desenvolvedor-cria-caixa-eletronico-de-bitcoin-que-ate-amadores-podem-construir-usando-a-lightning-network/
-- https://decrypt.co/10046/ightningatm-how-to-make-your-own-bitcoin-atm?utm_content=buffer7dcee&utm_medium=social&utm_source=twitter.com&utm_campaign=buffer
