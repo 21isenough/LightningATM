@@ -57,7 +57,7 @@ The settings are now set in the same way as the coin validator is parameterized:
 - Note: As I said, you only have to do this if the setting in config.ini doesn't work
 
 app.py - Skip the "Prepare for LNURL" (just an example)
-![edit app](https://i.imgur.com/MTiekSX.png)
+![edit app](../pictures/edit_app_terminal_1.png)
 
 
 
