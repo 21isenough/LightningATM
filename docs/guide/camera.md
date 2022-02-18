@@ -110,7 +110,9 @@ Note: This camera was pretty cheap and has a variable lens that was pretty loose
       
 - You can do also videos. The command is `raspivid`
 
+---
 
+#### [autostart](/docs/guide/autostart.md)  ᐊ  previous | next  ᐅ  [information and tips](/docs/guide/information_and_tips.md)
 
 
 
