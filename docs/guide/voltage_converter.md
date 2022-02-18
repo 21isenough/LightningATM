@@ -23,4 +23,4 @@ calibrating voltage converter
 
 ---
 
-#### [readme.md](/README.md)  ᐊ  previous | next  ᐅ  [coin_validator.md](/docs/guide/coin_validator.md)
+#### [README.md](/README.md)  ᐊ  previous | next  ᐅ  [coin_validator.md](/docs/guide/coin_validator.md)
