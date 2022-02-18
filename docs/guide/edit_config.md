@@ -98,8 +98,17 @@ $ ./app.py
 - To stop the ATM just press `CTRL+C`
 - After a short time, `Manually Interrupted` is displayed and you can see on the display that the `ATM is turned off`
 
-display with start screen
-![display](../pictures/display_2.13inch.jpg)
+display LightningATM
+
+<img src="../pictures/edit_config_display_ATM_on.jpg" width="500">
+
+display ATM turned off!
+
+<img src="../pictures/edit_config_display_ATM_off.jpg" width="500">
+
+---
+
+#### [display](/docs/guide/display.md)  ᐊ  previous | next  ᐅ  [edit app.py](/docs/guide/edit_app.py.md)
 
 
 
