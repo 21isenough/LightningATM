@@ -108,7 +108,7 @@ display ATM turned off!
 
 ---
 
-#### [display](/docs/guide/display.md)  ᐊ  previous | next  ᐅ  [edit app.py](/docs/guide/edit_app.md)
+#### [display.md](/docs/guide/display.md)  ᐊ  previous | next  ᐅ  [edit_app.md](/docs/guide/edit_app.md)
 
 
 
