@@ -17,10 +17,6 @@ voltage converter poti
 
 <img src="../pictures/voltage_converter_poti.jpg" width="500">
 
-calibrating voltage converter
-![calibrating voltage converter](../pictures/voltage_converter_coin.jpg)
-
-
 ---
 
 #### [README.md](/README.md)  ᐊ  previous | next  ᐅ  [coin_validator.md](/docs/guide/coin_validator.md)
