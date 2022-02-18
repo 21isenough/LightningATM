@@ -35,7 +35,7 @@ $ tmux
 	$ ./app.py
 ```
 
-- Note: If the ATM is already started (check with `$ sudo systemctl status LightningATM.service`), you should stop it (with `$ sudo systemctl stop LightningATM.service`) before starting it in manually (with `.app.py`) in the tmux terminal window. Otherwise strange phenomena may occur. 
+- Note:  If you have already activated the autostart function, problems can arise if you start the app.py in the tmux window at the same time. Therefore, it is better to end the service for the temx and activate it again later. See next chapter [autostart](/docs/guide/autostart.md).
 
 ######  Start `debug.log`
 
@@ -51,4 +51,9 @@ Example tmux window
 
 ![tmux window](../pictures/tmux_monitoring_terminal.png)
 
-Left side you see the pulses. Right side you see the coins to it. 5, 2, 7, 2 => 50 Cent, 5 Cent, 2 Euro, 5 Cent
+Two withdrawals were made here. Once 5 cents and once 1.60 euros (10 cents + 50 cents + 1 euro). Left side you see the pulses. Right side you see the coins to it. 2 = 5 Cent, 3 = 10 Cent, 5 = 50 Cent, 6 = 1 Euro. The final balance is 152048 satoshis.
+
+---
+
+#### [edit app.py](/docs/guide/edit_app.md)  ᐊ  previous | next  ᐅ  [autostart](/docs/guide/autostart.md)
+
