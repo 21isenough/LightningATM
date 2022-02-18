@@ -77,3 +77,7 @@ network={
 
 - Note: When updating, you sometimes have to confirm with `y` or `q`
 - If everything was installed, disconnect the power supply and log in again via SSH and the the new password
+
+---
+
+#### [wiring.md](/docs/guide/wiring.md)  ᐊ  previous | next  ᐅ  [display.md](/docs/guide/display.md)
