@@ -28,7 +28,7 @@ app.py - Skip the "Prepare for LNURL" (just an example)
 
 ---
 
-#### [edit config](/docs/guide/edit_config.md)  ᐊ  previous | next  ᐅ  [tmux monitoring](/docs/guide/tmux_monitoring.md)
+#### [edit_config.md](/docs/guide/edit_config.md)  ᐊ  previous | next  ᐅ  [tmux_monitoring.md](/docs/guide/tmux_monitoring.md)
 
 
 
