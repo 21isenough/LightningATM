@@ -25,6 +25,6 @@ display demo
 
 <img src="../pictures/display_demo.jpg" width="500">
 
-display with start screen
-![display](../pictures/display_2.13inch.jpg)
+---
 
+#### [sdcard and wifi.md](/docs/guide/sdcard_and_wifi.md)  ᐊ  previous | next  ᐅ  [edit config](/docs/guide/edit_config.md)
