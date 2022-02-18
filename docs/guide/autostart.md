@@ -21,4 +21,4 @@ $ sudo systemctl start LightningATM.service
 
 ---
 
-#### [tmux monitoring](/docs/guide/tmux_monitoring.md)  ᐊ  previous | next  ᐅ  [camera](/docs/guide/camera.md)
+#### [tmux_monitoring.md](/docs/guide/tmux_monitoring.md)  ᐊ  previous | next  ᐅ  [camera.md](/docs/guide/camera.md)
