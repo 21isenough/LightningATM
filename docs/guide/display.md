@@ -27,4 +27,4 @@ display demo
 
 ---
 
-#### [sdcard_and_wifi.md](/docs/guide/sdcard_and_wifi.md)  ᐊ  previous | next  ᐅ  [edit_config.md](/docs/guide/edit_config.md)
+#### [sdcard_and_wifi](/docs/guide/sdcard_and_wifi.md)  ᐊ  previous | next  ᐅ  [edit_config](/docs/guide/edit_config.md)
