@@ -29,5 +29,9 @@ Pocket version wiring build-in with coin validator             |  Direct wiring,
 :-------------------------:|:-------------------------:
 ![](../pictures/wiring_pv_build-in_complet.jpg)  |  ![](../pictures/wiring_direct_wiring.jpg)
 
+---
+
+#### [coin_validator](/docs/guide/coin_validator.md)  ᐊ  previous | next  ᐅ  [sdcard_and_wifi](/docs/guide/sdcard_and_wifi.md)
+
 
 

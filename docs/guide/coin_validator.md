@@ -39,3 +39,7 @@ coin validator
 coin calibration
 ![coin calibration](../pictures/coin_validator_calibration.jpg)
 
+---
+
+#### [voltage_converter](/docs/guide/voltage_converter.md)  ᐊ  previous | next  ᐅ  [wiring](/docs/guide/wiring.md)
+

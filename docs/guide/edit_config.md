@@ -11,10 +11,10 @@ $ cd ~/LightningATM/
 $ ./app.py
 ```
 
-- The app.py (the ATM) was started and the config.ini file was created
-- The display should now show `LightningATM` (You must have tested the display first!)
-- The process or the ATM can be interrupted/stopped with `CTRL+C`
-- After a short time, `Manually Interrupted` is shown in the terminal windos and you should see `ATM is turned off` on the display
+- When you first start you will probably get an error message because the default display type is wrong. But you can ignore the message. The config.ini has now been created in the background.
+- The "app.py" process can now be stopped with `CTRL+C`
+- After a short time, `Manually Interrupted` is shown in the terminal window
+- Now edit the config.ini as described below
 
 ### Open the config.ini file
 
@@ -26,14 +26,14 @@ $ nano ~/.lightningATM/config.ini
 
 ### Set the config.ini file
 
-###### Enter display type under `[atm]`
+#### Enter display type under `[atm]`
 
 ```
 	display = waveshare2in13v2
 ```
 `Note:` Please compare the display type. Yours may require different settings.
 
-###### *Only for Pocket Version:* Delay time (set from 0 to 12 seconds)
+#### *Only for Pocket Version:* Delay time (set from 0 to 12 seconds)
 
 ```
 	payoutdelay = 12 
@@ -42,7 +42,7 @@ $ nano ~/.lightningATM/config.ini
 - Its needed for the the pocket version, because it has no push button for confimrmation. The invoice will be generated automatically after 12 seconds
 - Note: If you have a button version, you must keep the 0.
 
-###### Set activate wallet type / example LNTXBOT
+#### Set activate wallet type / example LNTXBOT
 
 - If you would like to set a BTCPayServer wallet, get further information here: [BTCPayServer](https://docs.lightningatm.me/lightningatm-setup/wallet-setup/lnd_btcpay)
 - Note: A good guide to getting started with the LNTXBOT can be found here: [coincharge.io](https://coincharge.io/en/lntxbot-telegram-lightning-wallet/)
@@ -51,7 +51,7 @@ $ nano ~/.lightningATM/config.ini
 	activewallet = lntxbot
 ```
 
-###### Under `[lntxbot]` enter the data for the API to the lntxbot
+#### Under `[lntxbot]` enter the data for the API to the lntxbot
 
 ```
 [lntxbot]
@@ -63,7 +63,9 @@ creds = abc..xyz==
 - Note: The LNTXBOT delivers `url` and `creds` with the command `/lightningATM` from you Telegram bot
 - The structure from the bot answer is build up like: `<creds>@<url>`
 
-###### Set the coins to the pulses
+#### Set the coins to the pulses
+
+- Each coin generates a specific number of pulses. Here 2 to 7 pulses.
 
 ```
 [coins]
@@ -76,16 +78,43 @@ coin_types = 2,0.05,5  eur cent
              7,2.00,2 eur
 ```
 
-- To save and exit the editor: `CTRL+x -> y -> ENTER`
-- Note: In version 0.3.0 you still had to make the setting in app.py. I don't know which version you get, but if the settings with the config.ini don't work, you can set them directly in the app.py. I wrote something about that in the next chapter "[edit app.py](/docs/guide/edit_app.md)". But if you are lucky, it might be enough to set it here in the config.ini. You have to test it out. With the monitoring system (tmux), explanation see chapter "[tmux monitoring](/docs/guide/tmux_monitoring.md)", you can see that well.
+- When you finshed with changings in the config.ini, save and exit the editor: `CTRL+x -> y -> ENTER`
+- Note: In the config.ini you can also change the currency and fees
 
-config.ini part 1 (just an example)
+config.ini part 1 (example)
 ![config.ini part 1](../pictures/edit_config_terminal_1.png)
 
-config.ini part 2 (just an example)
+config.ini part 2 (example)
 ![config.ini part 2](../pictures/edit_config_terminal_2.png)
 
+#### Test the settings (or the entire ATM) once
 
+- Start the ATM again
+
+```
+$ cd ~/LightningATM/
+$ ./app.py
+```
+
+- The display should now show `LightningATM`
+- If everything is entered correctly, the ATM should now be ready for use
+- Just test it with few coins
+- If it doesn't work, the chapter with [`tmux`](/docs/guide/tmux_monitoring.md) will come later. You can make a diagnosis there
+- To stop the ATM just press `CTRL+C`
+- After a short time, `Manually Interrupted` is displayed and you can see on the display that the `ATM is turned off`
+- Note: How to give the ATM an autostart function, you will learn later in chapter [`autostart`](/docs/guide/autostart.md)
+
+display LightningATM
+
+<img src="../pictures/edit_config_display_ATM_on.jpg" width="500">
+
+display ATM turned off!
+
+<img src="../pictures/edit_config_display_ATM_off.jpg" width="500">
+
+---
+
+#### [display](/docs/guide/display.md)  ᐊ  previous | next  ᐅ  [edit_app](/docs/guide/edit_app.md)
 
 
 

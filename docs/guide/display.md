@@ -21,6 +21,10 @@ $ sudo python3 ./epd_2in13_V2_test.py
 
 If everything has been correctly connected and installed, the display will now show a demonstration and finally the screen will cleare.
 
-display
-![display](../pictures/display_2.13inch.jpg)
+display demo
 
+<img src="../pictures/display_demo.jpg" width="500">
+
+---
+
+#### [sdcard_and_wifi](/docs/guide/sdcard_and_wifi.md)  ᐊ  previous | next  ᐅ  [edit_config](/docs/guide/edit_config.md)
