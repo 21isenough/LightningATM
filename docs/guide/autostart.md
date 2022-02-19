@@ -17,8 +17,8 @@ $ sudo systemctl stop LightningATM.service
 $ sudo systemctl start LightningATM.service
 ```
 
-- Note: From now on the ATM will start automatically. If you want to observe the app.py in tmux, you should stop the "LightningATM.service" manually, bevor you start the app.py in the tmux.
+- Note: From now on the ATM will start automatically after booting. If you want to observe the app.py in tmux, you should `stop` the "LightningATM.service" manually, bevor you start the app.py in the tmux. Don't forget to `start` the service again afterwards.
 
 ---
 
-#### [tmux_monitoring.md](/docs/guide/tmux_monitoring.md)  ᐊ  previous | next  ᐅ  [camera.md](/docs/guide/camera.md)
+#### [tmux_monitoring](/docs/guide/tmux_monitoring.md)  ᐊ  previous | next  ᐅ  [camera](/docs/guide/camera.md)
