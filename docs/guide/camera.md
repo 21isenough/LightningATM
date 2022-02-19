@@ -1,6 +1,6 @@
 ##  Installation and testing the camera
 
-The 5MP Camera OV5647 for the Raspberry Pi is available from different manufacturers and with slightly different designs.
+The camera is an optional feature and allows you to scan LNURL addresses. The 5MP Camera OV5647 is available from different manufacturers and with slightly different designs.
 To test the function of the camera you can take a picture and download it to you computer.
 
 ### Installation
@@ -112,7 +112,7 @@ Note: This camera was pretty cheap and has a variable lens that was pretty loose
 
 ---
 
-#### [autostart.md](/docs/guide/autostart.md)  ᐊ  previous | next  ᐅ  [information_and_tips.md](/docs/guide/information_and_tips.md)
+#### [autostart](/docs/guide/autostart.md)  ᐊ  previous | next  ᐅ  [information_and_tips](/docs/guide/information_and_tips.md)
 
 
 
