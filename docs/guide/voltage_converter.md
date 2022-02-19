@@ -19,4 +19,4 @@ voltage converter poti
 
 ---
 
-#### [README](/README.md)  ᐊ  previous | next  ᐅ  [coin_validator.md](/docs/guide/coin_validator)
+#### [README](/README.md)  ᐊ  previous | next  ᐅ  [coin_validator](/docs/guide/coin_validator.md)
