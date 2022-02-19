@@ -80,4 +80,4 @@ network={
 
 ---
 
-#### [wiring.md](/docs/guide/wiring.md)  ᐊ  previous | next  ᐅ  [display.md](/docs/guide/display.md)
+#### [wiring](/docs/guide/wiring.md)  ᐊ  previous | next  ᐅ  [display](/docs/guide/display.md)
