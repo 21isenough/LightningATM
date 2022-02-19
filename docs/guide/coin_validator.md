@@ -41,5 +41,5 @@ coin calibration
 
 ---
 
-#### [voltage_converter.md](/docs/guide/voltage_converter.md)  ᐊ  previous | next  ᐅ  [wiring.md](/docs/guide/wiring.md)
+#### [voltage_converter](/docs/guide/voltage_converter.md)  ᐊ  previous | next  ᐅ  [wiring](/docs/guide/wiring.md)
 
