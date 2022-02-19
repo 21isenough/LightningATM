@@ -31,7 +31,7 @@ Pocket version wiring build-in with coin validator             |  Direct wiring,
 
 ---
 
-#### [coin_validator.md](/docs/guide/coin_validator.md)  ᐊ  previous | next  ᐅ  [sdcard_and_wifi.md](/docs/guide/sdcard_and_wifi.md)
+#### [coin_validator](/docs/guide/coin_validator.md)  ᐊ  previous | next  ᐅ  [sdcard_and_wifi](/docs/guide/sdcard_and_wifi.md)
 
 
 
