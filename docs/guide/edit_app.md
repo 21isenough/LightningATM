@@ -11,8 +11,8 @@ $ nano app.py
 
 ##### Optional setting *only for the pocket version:* Skip the "Prepare for LNURL" page:
 
-- Search for `display.update_lnurl_cancel_notice()` with `CTRL+W`. (It exists twice)
-- There is a place where it says `if activewallet == "lntxbot"`, please edit the two lines (see picture)
+- Search for `display.update_lnurl_cancel_notice()` with `CTRL+W` or just scroll down a few lines. 
+- There is a place where it says `if activewallet == "lntxbot"`, please edit the two lines below (see picture)
 
 ###### Comment out the following two lines with `#`
 
@@ -21,14 +21,14 @@ $ nano app.py
 	# time.sleep(5)
 ```
 
--> This will skip the LNURL "query page" as it is not relevant to the pocket version (without push button).
+-> This will skip the LNURL "query page" as it is not relevant to the pocket version 
 
-app.py - Skip the "Prepare for LNURL" (just an example)
+app.py - Skip the "Prepare for LNURL" (example only für ATM without push button)
 ![edit app](../pictures/edit_app_terminal_1.png)
 
 ---
 
-#### [edit_config.md](/docs/guide/edit_config.md)  ᐊ  previous | next  ᐅ  [tmux_monitoring.md](/docs/guide/tmux_monitoring.md)
+#### [edit_config](/docs/guide/edit_config.md)  ᐊ  previous | next  ᐅ  [tmux_monitoring](/docs/guide/tmux_monitoring.md)
 
 
 
