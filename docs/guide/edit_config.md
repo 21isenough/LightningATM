@@ -65,6 +65,8 @@ creds = abc..xyz==
 
 #### Set the coins to the pulses
 
+- Each coin generates a specific number of pulses. Here 2 to 7 pulses.
+
 ```
 [coins]
 # Pulsecount, fiat value, name
@@ -76,15 +78,18 @@ coin_types = 2,0.05,5  eur cent
              7,2.00,2 eur
 ```
 
-- To save and exit the editor: `CTRL+x -> y -> ENTER`
+- When you finshed with changings in the config.ini, save and exit the editor: `CTRL+x -> y -> ENTER`
+- Note: In the config.ini you can also change the currency and fees
 
-config.ini part 1 (just an example)
+config.ini part 1 (example)
 ![config.ini part 1](../pictures/edit_config_terminal_1.png)
 
-config.ini part 2 (just an example)
+config.ini part 2 (example)
 ![config.ini part 2](../pictures/edit_config_terminal_2.png)
 
 #### Test the settings (or the entire ATM) once
+
+- Start the ATM again
 
 ```
 $ cd ~/LightningATM/
@@ -93,10 +98,11 @@ $ ./app.py
 
 - The display should now show `LightningATM`
 - If everything is entered correctly, the ATM should now be ready for use
-- It's best to just test it with a few cents
-- If it doesn't work, the chapter with `tmux` will come later. You can make a diagnosis there
+- Just test it with few coins
+- If it doesn't work, the chapter with [`tmux`](/docs/guide/tmux_monitoring.md) will come later. You can make a diagnosis there
 - To stop the ATM just press `CTRL+C`
 - After a short time, `Manually Interrupted` is displayed and you can see on the display that the `ATM is turned off`
+- Note: How to give the ATM an autostart function, you will learn later in chapter [`autostart`](/docs/guide/autostart.md)
 
 display LightningATM
 
@@ -108,7 +114,7 @@ display ATM turned off!
 
 ---
 
-#### [display.md](/docs/guide/display.md)  ᐊ  previous | next  ᐅ  [edit_app.md](/docs/guide/edit_app.md)
+#### [display](/docs/guide/display.md)  ᐊ  previous | next  ᐅ  [edit_app](/docs/guide/edit_app.md)
 
 
 
