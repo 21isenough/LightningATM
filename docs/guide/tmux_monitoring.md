@@ -2,20 +2,20 @@
 
 This allows the terminal window to be split vertically into two parts to observe two processes at the same time.
 
-###### Command overview for the terminal multiplexer (tmux) 
+###### Install tmux
+
+```
+$ cd ~
+$ sudo apt install tmux    
+```
+
+###### Necessary commands for the terminal multiplexer (tmux) 
 
 ```
 CTRL + b -> % = split window
 CTRL + b -> right or left arrow = change the window
 CTRL + b -> CTRL + right or left arrow = move dividing line
 CTRL + b -> d = back to single window
-```
-
-###### Install tmux
-
-```
-$ cd ~
-$ sudo apt install tmux    
 ```
 
 ###### Start and use tmux
@@ -35,7 +35,7 @@ $ tmux
 	$ ./app.py
 ```
 
-- Note:  If you have already activated the autostart function, problems can arise if you start the app.py in the tmux window at the same time. Therefore, it is better to end the service for the temx and activate it again later. See next chapter [autostart](/docs/guide/autostart.md).
+- Note:  If you have already activated the autostart function, problems can arise if you start the app.py in the tmux window at the same time. Therefore, it is better to end the service for the tmux and activate it again later. See next chapter [`autostart`](/docs/guide/autostart.md).
 
 ######  Start `debug.log`
 
@@ -55,5 +55,5 @@ Two withdrawals were made here. Once 5 cents and once 1.60 euros (10 cents + 50 
 
 ---
 
-#### [edit_app.md](/docs/guide/edit_app.md)  ᐊ  previous | next  ᐅ  [autostart.md](/docs/guide/autostart.md)
+#### [edit_app](/docs/guide/edit_app.md)  ᐊ  previous | next  ᐅ  [autostart](/docs/guide/autostart.md)
 
