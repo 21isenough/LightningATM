@@ -39,7 +39,7 @@ After starting the Zero 2 and waiting a few minutes. Then you can log in as desc
 
 		$ passwd
 		
--   Activate the SPI interface for the display
+-   Activate the SPI interface for the display.
 
 		$ sudo raspi-config
 
@@ -48,11 +48,11 @@ After starting the Zero 2 and waiting a few minutes. Then you can log in as desc
 <img src="../pictures/add_on_zero2_SPI_3.png" width="500">
 <img src="../pictures/add_on_zero2_SPI_4.png" width="500">
 
-- Exit with "Finish"
+- Exit with "Finish".
 
 ### 4. Carry out updates and installations
 
-Run the following commands one by one
+Run the following commands one by one.
 ```
 	$ sudo apt update && sudo apt upgrade
 	$ git clone https://github.com/21isenough/LightningATM.git
@@ -60,11 +60,11 @@ Run the following commands one by one
 	$ sudo apt-get install libzbar0 libzbar-dev
 	$ pip3 install -r requirements.txt
 ```
-Note: When updating, you sometimes have to confirm with `y`
+Note: When updating, you sometimes have to confirm with `y`.
 
 ### 5. Install and test the display
 
-As described in the [display](/docs/guide/display.md) chapter
+As described in the [display](/docs/guide/display.md) chapter.
 
 ### 6. Edit utilis.py and qr.py files
 
@@ -76,11 +76,11 @@ The driver for the PaPiRus display is not pre-installed in the 64-bit version an
 	$ cd ~/LightningATM/
 	$ nano utils.py
 ```
-Preassign the variable EPD_SIZE with 2.0 so that the non-existent directory for the PaPiRus display is not called
+Preassign the variable EPD_SIZE with 2.0, because the called directory for the PaPiRus display initial values are not existing.
 
 <img src="../pictures/add_on_zero2_edit_utils.png" width="600">
 
-Save and exit the editor: `CTRL+x -> y -> ENTER`
+Save and exit the editor: `CTRL+x -> y -> ENTER`.
 
 #### Edit qr.py
 
@@ -89,11 +89,11 @@ Save and exit the editor: `CTRL+x -> y -> ENTER`
 	$ nano qr.py
 ```
 
-Make the following settings to disable the camera
+Make the following settings to disable the camera.
 
 <img src="../pictures/add_on_zero2_edit_qr.png" width="600">
 
-Save and exit the editor: `CTRL+x -> y -> ENTER`
+Save and exit the editor: `CTRL+x -> y -> ENTER`.
 
 ### 7. Create and edit the config.ini
 
