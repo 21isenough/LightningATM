@@ -1,6 +1,6 @@
 ## Raspberry Pi Zero 2 image from the scratch
 
-Warning: It is not recommended to use the RPi Zero 2 for the Lightning ATM. However, if you already have one, you can use this guide to get it working. 
+#### `Warning:` It is not recommended to use the RPi Zero 2 for the Lightning ATM. However, if you already have one, you can use this guide to get it working. 
 
 The Raspberry Pi Zero 2 requires a 64-bit operating system. The tried and tested "2019-04-08-raspbian-stretch-lightningatm.gz" image does not run on the Zero 2. Accordingly, a new image must be created that supports the 64-bit architecture. The current [Bullseye](https://en.wikipedia.org/wiki/Raspberry_Pi_OS) version does this. This image can be used for this, but still needs to be modified so that it can be used for the Lightning ATM.
 
