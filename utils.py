@@ -59,7 +59,7 @@ def get_btc_price(fiat_code):
 
 
 def get_sats():
-    return config.FIAT * 100 * config.SATPRICE
+    return math.floor(config.FIAT * 100 * config.SATPRICE)
 
 
 def get_sats_with_fee():

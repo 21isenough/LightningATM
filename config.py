@@ -197,7 +197,7 @@ INVOICE = ""
 
 # Set btc and sat price
 BTCPRICE = utils.get_btc_price(conf["atm"]["cur"])
-SATPRICE = math.floor((1 / (BTCPRICE * 100)) * 1e8)
+SATPRICE = (1 / (BTCPRICE * 100)) * 1e8
 
 # Button / Acceptor Pulses
 LASTIMPULSE = 0
