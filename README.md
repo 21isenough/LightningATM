@@ -32,7 +32,7 @@ Full Version             |  Pocket Version
 - [autostart](/docs/guide/autostart.md)
 - [camera](/docs/guide/camera.md)
 - [aditional information and tips](/docs/guide/information_and_tips.md)
-- [add-on RPi Zero 2](/docs/guide/add_on_zero2.md)
+- [expansion RPi Zero 2](/docs/guide/add_on_zero2.md)
 
 A comprehensive guide on how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact 21isenough on Twitter (https://twitter.com/21isenough).
 
