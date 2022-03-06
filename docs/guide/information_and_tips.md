@@ -11,4 +11,4 @@
 
 ---
 
-#### [camera](/docs/guide/camera.md)  ᐊ  previous | next  ᐅ  [add-on RPi Zero 2](/docs/guide/add_on_zero2.md)
+#### [camera](/docs/guide/camera.md)  ᐊ  previous | next  ᐅ  [expansion RPi Zero 2](/docs/guide/add_on_zero2.md)
