@@ -75,11 +75,16 @@ def button_pushed():
     logger.info("Call function button_pushed with pushes: ")
     logger.info(config.PUSHES)
     
-    if config.PUSHES == 1:
+    if config.PUSHES == 1 or config.FIAT > 0:
         """If no coins inserted, update the screen.
         If coins inserted, scan a qr code for the exchange amount
         """
+        
+        # Clarify if exception FIAT > 0 was TRUE => set pulses 1
+        if config.PUSHES > 1:
+            config.PUSHES = 1
 
+        # If no wallet is configured
         if not config.conf["atm"]["activewallet"]:
             logger.error("No wallet has been configured for the ATM.")
             logger.error("Please configure your Lightning Wallet first.")
@@ -89,6 +94,7 @@ def button_pushed():
             softreset()
             return
 
+        # If no FIAT has been deposited yet
         if config.FIAT == 0:
             display.update_nocoin_screen()
             time.sleep(3)
