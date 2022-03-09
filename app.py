@@ -71,6 +71,10 @@ def coin_event(channel):
 def button_pushed():
     """Actions button pushes by number
     """
+    print("Push button: ", config.PUSHES, " times")
+    logger.info("Call function button_pushed with pushes: ")
+    logger.info(config.PUSHES)
+    
     if config.PUSHES == 1:
         """If no coins inserted, update the screen.
         If coins inserted, scan a qr code for the exchange amount
@@ -234,7 +238,7 @@ def coins_inserted():
         logger.debug("Satoshi price updated")
 
     # We must have gotten pulses!
-    print(config.PULSES)
+    print("Coin pulses: ", config.PULSES, " pulses")
     config.FIAT +=      float(config.COINTYPES[config.PULSES]['fiat'])
     config.COINCOUNT += 1
     config.SATS =       utils.get_sats()
