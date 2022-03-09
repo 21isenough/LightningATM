@@ -89,6 +89,7 @@ def button_pushed():
             display.update_nocoin_screen()
             time.sleep(3)
             display.update_startup_screen()
+            config.PUSHES = 0
             return
 
         lnurlproxy = config.conf["lnurl"]["lnurlproxy"]
