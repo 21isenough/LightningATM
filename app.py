@@ -83,6 +83,7 @@ def button_pushed():
         # Clarify if exception FIAT > 0 was TRUE => set pulses 1
         if config.PUSHES > 1:
             config.PUSHES = 1
+            logger.info("Restriction for the button => Set pulses = 1")
 
         # If no wallet is configured
         if not config.conf["atm"]["activewallet"]:
