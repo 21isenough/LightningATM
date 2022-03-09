@@ -179,9 +179,11 @@ def button_pushed():
         else:
             logger.error("No valid wallet configured")
 
-    if config.PUSHES == 3:
+    if config.PUSHES == 7:
         """Scan and store new wallet credentials
         """
+        logger.info("Wallet reset and new scan (7 times button)")
+        
         # Delete current wallet flag and credentials
         config.update_config("atm", "activewallet", "")
         config.update_config("lntxbot", "creds", "")
@@ -201,19 +203,19 @@ def button_pushed():
 
         softreset()
 
-    if config.PUSHES == 4:
+    if config.PUSHES == 3:
         """Simulates adding a coin (for testing)
         """
-        logger.info("Button pushed four times (add coin)")
-        print("Button pushed four times (add coin)")
+        logger.info("Simulate coin for test with pulses (3 times button)")
+        print("Simulate coin for test with pulses (3 times button)")
         config.PULSES = 2
 
-    if config.PUSHES == 6:
+    if config.PUSHES == 5:
         """Shutdown the host machine
         """
         display.update_shutdown_screen()
         GPIO.cleanup()
-        logger.warning("ATM shutdown (6 times button)")
+        logger.warning("ATM shutdown (5 times button)")
         os.system("sudo shutdown -h now")
 
     config.PUSHES = 0
