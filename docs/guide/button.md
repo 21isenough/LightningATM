@@ -1,10 +1,10 @@
-##  Installation and testing the button
+##  Installation and test of the LED button
 
 The most sensible option for the LightningATM is probably the button. An LED button is a nice feature but not essential, a simple button will do. 
 With a button you can trigger the confirmation for the withdrawal process manually and is not dependent on a time control after inserting a coin. 
 That makes it a little more relaxed. You can also use the button to access additional options.
 
-<img src="../pictures/button_ATM.jpg" width="300">
+<img src="../pictures/button_ATM.jpg" width="350">
 
 When the start screen is displayed, the button has four functions depending on the number of button presses:
 
@@ -15,7 +15,9 @@ When the start screen is displayed, the button has four functions depending on t
 
 If coins have been inserted, the LED goes on and the button only has the function of starting the withdrawal process and generating the QR code or activating the camera for scanning.
 
-`Attention:` Seven pulses reset the wallet. If you don't have a camera to scan a new one, then the ATM just shows the "Welcome" screen. You have manually to set a new wallet!
+`Attention:` Seven pulses reset the wallet. If you don't have a camera to scan a new one, you'll have to set up a new wallet manually!
+
+---
 
 ### Installation
   
