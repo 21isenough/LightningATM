@@ -387,5 +387,7 @@ if __name__ == "__main__":
             sys.exit("Manually Interrupted")
         except Exception:
             logger.exception("Oh no, something bad happened! Restarting...")
+            GPIO.remove_event_detect(5)
+            GPIO.remove_event_detect(6)
             GPIO.cleanup()
             os.execv("/home/pi/LightningATM/app.py", [""])
