@@ -112,7 +112,7 @@ Note: This camera was pretty cheap and has a variable lens that was pretty loose
 
 ---
 
-#### [autostart](/docs/guide/autostart.md)  ᐊ  previous | next  ᐅ  [information_and_tips](/docs/guide/information_and_tips.md)
+#### [button](/docs/guide/button.md)  ᐊ  previous | next  ᐅ  [information_and_tips](/docs/guide/information_and_tips.md)
 
 
 
