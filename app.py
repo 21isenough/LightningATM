@@ -367,6 +367,8 @@ if __name__ == "__main__":
             main()
         except KeyboardInterrupt:
             display.update_shutdown_screen()
+            GPIO.remove_event_detect(5)
+            GPIO.remove_event_detect(6)
             GPIO.cleanup()
             logger.info("Application finished (Keyboard Interrupt)")
             sys.exit("Manually Interrupted")
