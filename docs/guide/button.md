@@ -28,7 +28,7 @@ Here is an [example](https://www.amazon.de/dp/B00UFNI47I/) for a small LED butto
 
 <img src="../pictures/button_front.jpg" width="300">
 
-Here is the back. Protects cable routing for less movement at solder joints and mark your cable color. 
+Here is the back. Protects cable routing for less movement at solder joints and mark the cable color. 
 
 <img src="../pictures/button_back.jpg" width="300">
 
@@ -48,7 +48,7 @@ Change to the following directory
     
 Here you can see the two button pushes as "event".
 
-<img src="../pictures/button_button_test.png" width="300">
+<img src="../pictures/button_button_test.png" width="500">
 
 ####   Start the LED test program
 
@@ -56,7 +56,7 @@ Here you can see the two button pushes as "event".
     
 The LED program shows only that it is working and the LED should now flash.
 
-<img src="../pictures/button_LED_test.png" width="300">
+<img src="../pictures/button_LED_test.png" width="600">
 
 #### Do not forget
 
