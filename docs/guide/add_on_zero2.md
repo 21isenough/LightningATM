@@ -1,4 +1,4 @@
-##  Raspberry Pi image from the scratch. (For example for the RPi Zero 2) 
+##  Raspberry Pi image from scratch. (For example for the RPi Zero 2) 
 
 #### `Warning:` It is not recommended to use the RPi Zero 2 for the Lightning ATM. However, if you already have one, you can use this guide to get it working. 
 
