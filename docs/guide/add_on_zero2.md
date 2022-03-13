@@ -1,10 +1,10 @@
-## Raspberry Pi Zero 2 W (32-bit) image from the scratch
+##  Raspberry Pi image from the scratch. (For example for the RPi Zero 2) 
 
 #### `Warning:` It is not recommended to use the RPi Zero 2 for the Lightning ATM. However, if you already have one, you can use this guide to get it working. 
 
-The Raspberry Pi Zero 2 is not supportet in the Raspberry "Stretch" version. The tried and tested "2019-04-08-raspbian-stretch-lightningatm.gz" image does not run on the Zero 2. Accordingly, a new image must be created that supports the Zero 2. The current [Bullseye](https://en.wikipedia.org/wiki/Raspberry_Pi_OS) version does this. This image can be used for this, but still needs to be modified so that it can be used for the Lightning ATM.
+The Raspberry Pi Zero 2 is not supportet in the Raspberry "Stretch" version. The tried and tested "2019-04-08-raspbian-stretch-lightningatm.gz" image does not run on the Zero 2. Accordingly, a new image must be created that supports the Zero 2. The current [Bullseye](https://en.wikipedia.org/wiki/Raspberry_Pi_OS) version (32-bit) does this. This image can be used for this, but still needs to be modified so that it can be used for the Lightning ATM.
 
-Unfortunately, not all components are directly compatible with the new version. In the first step, only the Waveshare displays are compatible with the new version.
+Unfortunately, the new version does not support all components directly. The Waveshare displays are direct compatible and for the PaPiRus displays you have to install the library. 
   
 This guide to creating a compatible version is only a guide. Deviations are possible and maybe even necessary. For the best result, however, it is recommended to stick to the procedure. Otherwise, troubleshooting support will be difficult. Since this is an experimental setting, any guarantee or warranty is excluded.
   
@@ -13,11 +13,12 @@ This guide to creating a compatible version is only a guide. Deviations are poss
 1. Creation of the raw image
 2. Write the raw image with SSH and Wifi data
 3. First start and first settings
-4. Carry out updates and installations
-5. Install and test the display
-6. Edit utilis.py
-7. Create and edit the config.ini
-8. Postprocessing
+4. Option: Install PaPiRus display library 
+5. Carry out updates and installations
+6. Install and test the display
+7. Edit utilis.py
+8. Create and edit the config.ini
+9. Postprocessing
 
 ---
 
@@ -34,7 +35,6 @@ Find the appropriate Raspberry Pi OS (32-bit) image from the raspberrypi.org [Ar
 
 ### 3. First start and first settings
 
- 
 After starting the Zero 2 and waiting a few minutes. Then you can log in as described in the [sd card and wifi](/docs/guide/sdcard_and_wifi.md) chapter.
 
 - Change the password and remember it!
@@ -52,9 +52,25 @@ After starting the Zero 2 and waiting a few minutes. Then you can log in as desc
 
 - Exit with "Finish".
 
-### 4. Carry out updates and installations
+### 4. Option: Install PaPiRus display library 
 
-Run the following commands one by one.
+If you use a PaPiRus Display, you have to install the PaPiRus display library. If you have a Waveshare or other, you can cancel this step.
+
+	$ curl -sSL https://pisupp.ly/papiruscode | sudo bash
+
+Set it to Python 3
+
+<img src="../pictures/add_on_zero2_PaPiRus_1.png" width="500">
+
+Choose your display size
+
+<img src="../pictures/add_on_zero2_PaPiRus_2.png" width="500">
+
+
+### 5. Carry out updates and installations
+
+It's the same like described in chapter [sdcard_and_wifi](/docs/guide/sdcard_and_wifi.md). Run the following commands one by one.
+
 ```
 	$ sudo apt update && sudo apt upgrade
 	$ git clone https://github.com/21isenough/LightningATM.git
@@ -63,13 +79,13 @@ Run the following commands one by one.
 ```
 Note: When updating, you sometimes have to confirm with `y`.
 
-### 5. Install and test the display
+### 6. Install and test the display
 
 As described in the [display](/docs/guide/display.md) chapter.
 
-### 6. Edit utilis.py
+### 7. Edit utilis.py (If you don't have the PaPiRus library installed)
 
-The driver for the PaPiRus display is not pre-installed in the 64-bit version and the driver currently used for the camera does not work with the 64-bit version. To ensure that they do not report a fault, the functions are deactivated here.
+The driver for the PaPiRus display is not pre-installed. So that they do not report an error, the functions are deactivated here or you can alternatively install the PaPiRus library.
 
 #### Edit utils.py
 
@@ -83,7 +99,7 @@ Preassign the variable EPD_SIZE with 2.0, because the called directory for the P
 
 Save and exit the editor: `CTRL+x -> y -> ENTER`.
 
-### 7. Create and edit the config.ini
+### 8. Create and edit the config.ini
 
 Start the app.py once.
 
@@ -91,7 +107,7 @@ Start the app.py once.
 
 The program is immediately aborted with "Exiting..." because the wrong display is still stored in the basic setting. But the config.ini was created in the background and you can open and edit it as described in chapter [edit config.ini](/docs/guide/edit_config.md).
 
-### 8. Postprocessing
+### 9. Postprocessing
 
 Everything else is as usual and listed in the [README](/README.md).
 
