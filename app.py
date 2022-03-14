@@ -71,11 +71,21 @@ def coin_event(channel):
 def button_pushed():
     """Actions button pushes by number
     """
-    if config.PUSHES == 1:
+    print("Push button: ", config.PUSHES, " times")
+    logger.info("Call function button_pushed with pushes: ")
+    logger.info(config.PUSHES)
+    
+    if config.PUSHES == 1 or config.FIAT > 0:
         """If no coins inserted, update the screen.
         If coins inserted, scan a qr code for the exchange amount
         """
+        
+        # Clarify if exception FIAT > 0 was TRUE => set pulses 1
+        if config.PUSHES > 1:
+            config.PUSHES = 1
+            logger.info("Restriction for the button => Set pulses = 1")
 
+        # If no wallet is configured
         if not config.conf["atm"]["activewallet"]:
             logger.error("No wallet has been configured for the ATM.")
             logger.error("Please configure your Lightning Wallet first.")
@@ -85,10 +95,12 @@ def button_pushed():
             softreset()
             return
 
+        # If no FIAT has been deposited yet
         if config.FIAT == 0:
             display.update_nocoin_screen()
             time.sleep(3)
             display.update_startup_screen()
+            config.PUSHES = 0
             return
 
         lnurlproxy = config.conf["lnurl"]["lnurlproxy"]
@@ -178,9 +190,11 @@ def button_pushed():
         else:
             logger.error("No valid wallet configured")
 
-    if config.PUSHES == 3:
+    if config.PUSHES == 7:
         """Scan and store new wallet credentials
         """
+        logger.info("Wallet reset and new scan (7 times button)")
+        
         # Delete current wallet flag and credentials
         config.update_config("atm", "activewallet", "")
         config.update_config("lntxbot", "creds", "")
@@ -200,19 +214,19 @@ def button_pushed():
 
         softreset()
 
-    if config.PUSHES == 4:
+    if config.PUSHES == 3:
         """Simulates adding a coin (for testing)
         """
-        logger.info("Button pushed four times (add coin)")
-        print("Button pushed four times (add coin)")
+        logger.info("Simulate coin for test with pulses (3 times button)")
+        print("Simulate coin for test with pulses (3 times button)")
         config.PULSES = 2
 
-    if config.PUSHES == 6:
+    if config.PUSHES == 5:
         """Shutdown the host machine
         """
         display.update_shutdown_screen()
         GPIO.cleanup()
-        logger.warning("ATM shutdown (6 times button)")
+        logger.warning("ATM shutdown (5 times button)")
         os.system("sudo shutdown -h now")
 
     config.PUSHES = 0
@@ -231,7 +245,7 @@ def coins_inserted():
         logger.debug("Satoshi price updated")
 
     # We must have gotten pulses!
-    print(config.PULSES)
+    print("Coin pulses: ", config.PULSES, " pulses")
     config.FIAT +=      float(config.COINTYPES[config.PULSES]['fiat'])
     config.COINCOUNT += 1
     config.SATS =       utils.get_sats()
@@ -366,10 +380,14 @@ if __name__ == "__main__":
             main()
         except KeyboardInterrupt:
             display.update_shutdown_screen()
+            GPIO.remove_event_detect(5)
+            GPIO.remove_event_detect(6)
             GPIO.cleanup()
             logger.info("Application finished (Keyboard Interrupt)")
             sys.exit("Manually Interrupted")
         except Exception:
             logger.exception("Oh no, something bad happened! Restarting...")
+            GPIO.remove_event_detect(5)
+            GPIO.remove_event_detect(6)
             GPIO.cleanup()
             os.execv("/home/pi/LightningATM/app.py", [""])

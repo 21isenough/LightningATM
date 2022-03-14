@@ -30,6 +30,7 @@ Full Version             |  Pocket Version
 - [edit app.py](/docs/guide/edit_app.md)
 - [tmux monitoring](/docs/guide/tmux_monitoring.md)
 - [autostart](/docs/guide/autostart.md)
+- [button](/docs/guide/button.md)
 - [camera](/docs/guide/camera.md)
 - [aditional information and tips](/docs/guide/information_and_tips.md)
 - [RPi image from scratch](/docs/guide/add_on_zero2.md)
