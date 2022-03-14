@@ -11,4 +11,4 @@
 
 ---
 
-#### [camera](/docs/guide/camera.md)  ᐊ  previous | next  ᐅ  [README](/README.md)
+#### [camera](/docs/guide/camera.md)  ᐊ  previous | next  ᐅ  [RPi image from scratch](/docs/guide/add_on_zero2.md)
