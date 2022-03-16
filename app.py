@@ -228,7 +228,7 @@ def coins_inserted():
         # Check if we should update prices
         if config.FIAT == 0:
             # Our counter is 0, meaning we got no fiat in:
-            config.BTCPRICE = config.btc_price
+            config.BTCPRICE = utils.get_btc_price(config.conf["atm"]["cur"])
             config.SATPRICE = math.floor((1 / (config.BTCPRICE * 100)) * 1e8)
             logger.debug("Satoshi price updated")
     # OTHERWISE NO NEED PRICE IS AUTOMATICALLY UPDATED REGULARLY
