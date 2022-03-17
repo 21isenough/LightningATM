@@ -78,3 +78,13 @@ amount_screen_8 = " sats)"
 lnurl_cancel_notice_1 = "Preparation au LNURL"
 lnurl_cancel_notice_2 = "(Non compatible LNURL?"
 lnurl_cancel_notice_3 = "Appuyer sur le bouton pour annuler)"
+
+# Text for update_button_fault()
+button_fault_1 = "Oh Sorry.."
+button_fault_2 = "Button fault.."
+button_screen_3 = "Try again!"
+
+# Text for update_wallet_fault()
+wallet_fault_1 = "Wallet fault.."
+wallet_fault_2 = "No wallet data."
+wallet_fault_3 = "Set it first!"
