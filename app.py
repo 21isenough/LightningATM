@@ -89,7 +89,9 @@ def button_pushed():
         if not config.conf["atm"]["activewallet"]:
             logger.error("No wallet has been configured for the ATM.")
             logger.error("Please configure your Lightning Wallet first.")
-            # Add "no wallet setup" message
+            # "no wallet setup" message
+            display.update_wallet_fault()
+            time.sleep(5)
 
             # Softreset and startup screen
             softreset()
@@ -229,6 +231,14 @@ def button_pushed():
         logger.warning("ATM shutdown (5 times button)")
         os.system("sudo shutdown -h now")
 
+    else:
+        # If pushes not defined
+        logger.info("Show pushes not defined  (x times button)")
+        display.update_button_fault()
+        time.sleep(3)
+        display.update_startup_screen()
+
+    # Reset pulses
     config.PUSHES = 0
 
 
