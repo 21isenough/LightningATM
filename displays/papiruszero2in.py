@@ -486,6 +486,58 @@ def update_lnurl_cancel_notice():
     config.PAPIRUS.update()
 
 
+def update_button_fault():
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.text(
+        (15, 10),
+        messages.button_fault_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemonobold", 18),
+    )
+    draw.text(
+        (15, 40),
+        messages.button_fault_2,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 20),
+    )
+    draw.text(
+        (15, 65),
+        messages.button_fault_3,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 20),
+    )
+
+    config.PAPIRUS.display(image)
+    config.PAPIRUS.update()
+
+
+def update_wallet_fault():
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.text(
+        (15, 10),
+        messages.wallet_fault_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemonobold", 18),
+    )
+    draw.text(
+        (15, 40),
+        messages.wallet_fault_2,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 20),
+    )
+    draw.text(
+        (15, 65),
+        messages.wallet_fault_3,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 20),
+    )
+
+    config.PAPIRUS.display(image)
+    config.PAPIRUS.update()
+
+
 def update_blank_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 
