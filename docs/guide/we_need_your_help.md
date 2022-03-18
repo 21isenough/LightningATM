@@ -1,7 +1,5 @@
 ## We need your help!!! 🙏
 
-<br> 
-
  We have added some display messages and button functions and now need beta testers that have one of the following display versions.
 
 - Waveshare 2in13d
@@ -16,11 +14,7 @@ For help testing you need the button. _`Note:`If you don't have it yet, you can 
 
 To participate, you must update your AMT software once with our trial version. Don't worry, I've written step-by-step instructions for this that really anyone can use and all your configuration data such as wallet and settings will be retained. You can easily undo the whole thing afterwards.
 
-<br>
-
 --- 
-
-<br> 
 
 ### 1. Update to the new trial version
 
@@ -31,8 +25,6 @@ Log into the RPi and then stop the ATM service once, make a backup from director
     $ git clone --branch update_display_functions https://github.com/AxelHamburch/LightningATM.git temp
     $ rsync -a temp/ LightningATM/
     $ sudo rm -r temp
-
-<br> 
 
 ### 2. Start and test the trial version
 
@@ -47,8 +39,6 @@ Log into the RPi and then stop the ATM service once, make a backup from director
 - You can ignore the first message. The message looks a bit strange. 😜 There is still work to do!
 - Stopp the ATM with `CTRL+C`
 
-<br> 
-
 ### 3. If you don't like this version and want to get rid of it 
 
 Make the backup the major version again and then delete the backup.
@@ -60,8 +50,6 @@ Make the backup the major version again and then delete the backup.
 - Everthing should now be as befor. Even the wallat data
 - Checkout if you set a temporäry button and set it back with `payoutdelay = 12` in the `config.ini`
 
-<br> 
-
 ### 4. Final step
 
 Restart the LightningATM service
@@ -70,9 +58,6 @@ Restart the LightningATM service
 
 - Your ATM should now restart as usual
 - If you find some issues or have some suggestions call @AxelHamburch in the telegram group or on Github
-
-
-<br> 
 
 ## Thank you much for you help! ❤️
 
