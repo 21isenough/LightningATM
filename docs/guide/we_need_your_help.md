@@ -47,8 +47,8 @@ Make the backup the major version again and then delete the backup.
     $ rsync -a LightningATM_Backup/ LightningATM/
     $ sudo rm -r LightningATM_Backup
 
-- Everthing should now be as befor. Even the wallat data
-- Checkout if you set a temporäry button and set it back with `payoutdelay = 12` in the `config.ini`
+- Everthing should now be as befor. Even the wallat data.
+- Check if you have set a temporary button and reset it with `payoutdelay = 12` in the `config.ini`
 
 ### 4. Final step
 
