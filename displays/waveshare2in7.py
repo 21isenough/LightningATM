@@ -478,6 +478,58 @@ def update_amount_screen():
         config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
+def update_button_fault():
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.text(
+        (20, 10),
+        messages.button_fault_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemonobold", 24),
+    )
+    draw.text(
+        (20, 50),
+        messages.button_fault_2,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 22),
+    )
+    draw.text(
+        (20, 75),
+        messages.button_fault_3,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 22),
+    )
+
+    config.WAVESHARE.init()
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+
+
+def update_wallet_fault():
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.text(
+        (20, 10),
+        messages.wallet_fault_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemonobold", 24),
+    )
+    draw.text(
+        (20, 50),
+        messages.wallet_fault_2,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 22),
+    )
+    draw.text(
+        (20, 75),
+        messages.wallet_fault_3,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 22),
+    )
+
+    config.WAVESHARE.init()
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+
+
 def update_blank_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 
