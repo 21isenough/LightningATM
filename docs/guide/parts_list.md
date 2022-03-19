@@ -20,6 +20,7 @@
 
 - Micro USB cable [link](https://www.google.com/search?q=usb+2+micro+b) 
 - Jumper cable [link](https://www.google.com/search?q=jumper+cable)
+- A good USB power supply. A strong 5 volt power adapter or power pack with at least 2 amps.
     
 
 ### Opitional parts

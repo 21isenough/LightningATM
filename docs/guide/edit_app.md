@@ -28,7 +28,7 @@ app.py - Skip the "Prepare for LNURL" (example only für ATM without push button
 
 ---
 
-#### [edit_config](/docs/guide/edit_config.md)  ᐊ  previous | next  ᐅ  [tmux_monitoring](/docs/guide/tmux_monitoring.md)
+#### [edit_config](/docs/guide/edit_config.md)  ᐊ  previous | next  ᐅ  [debugging and tmux](/docs/guide/tmux_monitoring.md)
 
 
 

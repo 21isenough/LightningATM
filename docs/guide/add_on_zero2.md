@@ -102,4 +102,4 @@ Look at:
 
 ---
 
-#### [information_and_tips](/docs/guide/information_and_tips.md)  ᐊ  previous | next  ᐅ  [README](/README.md)
+#### [option: camera](/docs/guide/camera.md)  ᐊ  previous | next  ᐅ  [README](/README.md)
