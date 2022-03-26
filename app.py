@@ -222,6 +222,8 @@ def button_pushed():
         logger.info("Simulate coin for test with pulses (3 times button)")
         print("Simulate coin for test with pulses (3 times button)")
         config.PULSES = 2
+        config.PUSHES = 0
+        return
 
     if config.PUSHES == 5:
         """Shutdown the host machine
