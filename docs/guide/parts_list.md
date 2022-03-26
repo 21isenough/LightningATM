@@ -27,6 +27,6 @@
 
 - Push Button (Recommended option!). Optionally with 3V LED. [(example)](https://www.amazon.de/dp/B00UFNI47I/) For the LED you will also need a resistor. See chapter [button](/docs/guide/button.md).
 - Raspberry Pi Camera 5MP OV5647 
-- ATM Case (self printing [DXF and STL files](https://github.com/21isenough/LightningATM/tree/master/resources/3dmodels) or buy [Pocket Edition](https://shop.fulmo.org/product/the-lightning-atm-case-bitcoin-pocket-edition/))
+- ATM Case (self printing [DXF files](https://github.com/21isenough/LightningATM/tree/master/resources/3dmodels) or [STL files for Pocket Edition](https://github.com/21isenough/LightningATM/tree/master/resources/3dmodels/LightningATM%20-%20Pocket%20Edition/STLs)  or buy from [Fulmo](https://shop.fulmo.org/shop/))
 
 ### Alternative a total construction set for the Pocket Edition from [Fulmo](https://shop.fulmo.org/product/the-lightning-atm-bitcoin-construction-set/)
