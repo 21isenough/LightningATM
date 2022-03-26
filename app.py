@@ -21,6 +21,7 @@ import importlib
 button_signal = Button(5, False)
 coin_signal = Button(6)
 button_led = LED(13)
+lockout_relay = LED(12)
 
 display_config = config.conf["atm"]["display"]
 display = getattr(__import__("displays", fromlist=[display_config]), display_config)
@@ -358,6 +359,9 @@ def coins_inserted():
     logger.info("Added {}".format(config.COINTYPES[config.PULSES]['name']))
     display.update_amount_screen()
 
+    # Coin was processed -> Release coin acceptor relay switch
+    lockout_relay.on()
+
     # Reset pulse cointer
     config.PULSES = 0
 
@@ -391,11 +395,18 @@ def monitor_coins_and_button():
 
     # Detect when coins are being inserted
     if (time.time() - config.LASTIMPULSE > 0.5) and (config.PULSES > 0):
+        # New Coin to process -> Relay switch to inhibit
+        lockout_relay.off()
         coins_inserted()
 
     # Detect if the button has been pushed
     if (time.time() - config.LASTPUSHES > 1) and (config.PUSHES > 0):
+        # Pulses from push button -> Relay switch to inhibit
+        lockout_relay.off()
         button_pushed()
+
+    # Processing pulses finish -> Release coin acceptor relay switch
+    lockout_relay.on()
 
     # Automatic payout if specified in config file
     if (int(config.conf["atm"]["payoutdelay"]) > 0) and (config.FIAT > 0):
