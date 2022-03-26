@@ -25,7 +25,6 @@ button_led = LED(13)
 display_config = config.conf["atm"]["display"]
 display = getattr(__import__("displays", fromlist=[display_config]), display_config)
 
-led = "off"
 logger = logging.getLogger("MAIN")
 
 
@@ -41,7 +40,6 @@ def check_connectivity(interface="wlan0"):
 def softreset():
     """Displays startup screen and deletes fiat amount
     """
-    global led
     # Inform about coin, bill and sat amounts
     if config.COINCOUNT > 0:
         logger.info("Last payment:")
@@ -53,8 +51,7 @@ def softreset():
     config.PUSHES = 0
     # Turn off button LED
     button_led.off()
-    led = "off"
-
+    
     display.update_startup_screen()
     logger.info("Softreset executed")
 
@@ -335,8 +332,7 @@ def button_pushed():
 def coins_inserted():
     """Actions coins inserted
     """
-    global led
-
+    
     print("Coin pulses: ", config.PULSES, " pulses")
 
     # Intercept and display a loose contact
@@ -365,10 +361,9 @@ def coins_inserted():
     # Reset pulse cointer
     config.PULSES = 0
 
-    if config.FIAT > 0 and led == "off":
+    if config.FIAT > 0 and not button_led.value == 1:
         # Turn on the LED after first coin
         button_led.on()
-        led = "on"
         logger.debug("Button-LED turned on (if connected)")
 
 
