@@ -7,7 +7,7 @@
     - Raspberry Pi Zero 2 W (possible, but you have to do an image from [scratch](/docs/guide/add_on_zero2.md)) [link](https://www.google.com/search?q=Raspberry+Pi+Zero+2+W) 
 
 - Micro SD Card (16 - 64 GB tested) [link](https://www.google.com/search?q=Micro+SD+Card) 
-- DC-DC Adjustable Step Up Power Module (5V->12V) [example](https://www.az-delivery.de/products/hw-140-buck-boost-converter-mit-anzeige)
+- DC-DC Adjustable Step Up Power Module (5V->12V) e.g.: [LM2587S](https://www.ebay.de/itm/DC-DC-Adjustable-Step-up-Boost-Power-Supply-LM2587S-3V-5V-12V-to-19V-24V-30V-36V-/402196830271), [HW-637](https://www.amazon.de/Converter-verstellbar-Spannungsregler-Effizienz-Board-Green-1-gr%C3%BCn/dp/B07S5YH2MB)
 - Multi Coin Acceptor (programmable, e.g. [Coin Acceptor 616](https://de.aliexpress.com/item/1005002636710497.html) or [this](https://de.aliexpress.com/item/1005002636710497.html))
 - Display with HAT / supported alternatives:
 
@@ -20,7 +20,7 @@
 
 - Micro USB cable [link](https://www.google.com/search?q=usb+2+micro+b) 
 - Jumper cable [link](https://www.google.com/search?q=jumper+cable)
-- A good USB power supply. A strong 5 volt power adapter or power pack with at least 2 amps.
+- A good USB power supply. Power adapter or power pack with 2 amps.
     
 
 ### Opitional parts
