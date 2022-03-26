@@ -337,6 +337,15 @@ def coins_inserted():
     """
     global led
 
+    print("Coin pulses: ", config.PULSES, " pulses")
+
+    # Intercept and display a loose contact
+    if config.PULSES == 1:
+        print("Ups.. Just one coin pulses is not allowed!")
+        logger.error("Ups.. Just one coin pulses is not allowed!")
+        config.PULSES = 0
+        return
+
     # Check if we should update prices
     if config.FIAT == 0:
         # Our counter is 0, meaning we got no fiat in:
@@ -345,7 +354,6 @@ def coins_inserted():
         logger.debug("Satoshi price updated")
 
     # We must have gotten pulses!
-    print("Coin pulses: ", config.PULSES, " pulses")
     config.FIAT +=      float(config.COINTYPES[config.PULSES]['fiat'])
     config.COINCOUNT += 1
     config.SATS =       utils.get_sats()
@@ -438,6 +446,7 @@ def monitor_coins_and_button():
 def main():
     utils.check_epd_size()
     logger.info("Application started")
+    print("Application started")
 
     # Checks dangermode and start scanning for credentials
     # Only activate once software ready for it
