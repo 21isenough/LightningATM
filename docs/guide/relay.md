@@ -23,6 +23,8 @@ Relay           |  build in
 :-------------------------:|:-------------------------:
 ![](../pictures/relay_relay.jpg)  |  ![](../pictures/relay_build_in.jpg)
 
+For a special typ, see [parts_list](/docs/guide/parts_list.md).
+
 ## Wiring
 
 You can find the contacts / wiring for the relay here <img src="../pictures/relay_contacts.png" width="280"> and in total [here](/docs/guide/wiring.md).
