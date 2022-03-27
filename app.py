@@ -278,41 +278,43 @@ def button_pushed():
         display.update_wallet_scan()
         time.sleep(2)
 
-        # Display don't work for showing..
-        # print("xx.display.update_lntxbot_balance(balance)")
-        # display.update_lntxbot_balance(balance)
-        # time.sleep(2)
+        print("11.display.update_lntxbot_balance(balance)")
+        display.update_lntxbot_balance(21)
+        time.sleep(2)
 
-        print("11. display.update_btcpay_lnd()")
+        print("12. display.update_btcpay_lnd()")
         display.update_btcpay_lnd()
         time.sleep(2)
 
-        # Display don't work for showing..
-        # print("xx. display.draw_lnurl_qr(qr_img)")
-        # display.draw_lnurl_qr(qr_img)
-        # time.sleep(2)
+        print("13. display.draw_lnurl_qr(qr_img)")
+        qr_img = Image.new('1', (122, 122), 255)
+        display.draw_lnurl_qr(qr_img)
+        time.sleep(2)
 
-        print("12. display.update_amount_screen()")
+        print("14. display.update_amount_screen()")
         display.update_amount_screen()
         time.sleep(2)
 
-        print("13. display.update_lnurl_cancel_notice()")
+        print("15. display.update_lnurl_cancel_notice()")
         display.update_lnurl_cancel_notice()
         time.sleep(2)
 
-        print("14. display.update_button_fault()")
+        print("16. display.update_button_fault()")
         display.update_button_fault()
         time.sleep(2)
 
-        print("15. display.update_wallet_fault()")
+        print("17. display.update_wallet_fault()")
         display.update_wallet_fault()
         time.sleep(2)
 
-        print("16. display.update_startup_screen()")
+        print("18. init_screent()")
+        display.init_screen(0)
+
+        print("17. display.update_startup_screen()")
         display.update_startup_screen()
         time.sleep(2)
 
-        print("That's it! Two others are missing as they require data and cannot be displayed.")
+        print("That's it, have fun!")
 
         config.PUSHES = 0
         return
