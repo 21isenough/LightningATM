@@ -310,7 +310,7 @@ def button_pushed():
         print("18. init_screent()")
         display.init_screen(0)
 
-        print("17. display.update_startup_screen()")
+        print("19. display.update_startup_screen()")
         display.update_startup_screen()
         time.sleep(2)
 
