@@ -374,7 +374,7 @@ def coins_inserted():
 def monitor_coins_and_button():
     """Monitors coins inserted and buttons pushed
     """
-    time.sleep(0.5)
+    # time.sleep(0.5)
 
     #Wifi monitoring causes undesirable behavior sometimes.
     #ssid=check_connectivity()
@@ -394,7 +394,7 @@ def monitor_coins_and_button():
     #        return False
 
     # Detect when coins are being inserted
-    if (time.time() - config.LASTIMPULSE > 0.5) and (config.PULSES > 0):
+    if (time.time() - config.LASTIMPULSE > 0.3) and (config.PULSES > 0):
         # New Coin to process -> Relay switch to inhibit
         lockout_relay.off()
         coins_inserted()
@@ -402,7 +402,8 @@ def monitor_coins_and_button():
     # Detect if the button has been pushed
     if (time.time() - config.LASTPUSHES > 1) and (config.PUSHES > 0):
         # Pulses from push button -> Relay switch to inhibit
-        lockout_relay.off()
+        if not config.PUSHES == 3:
+            lockout_relay.off()
         button_pushed()
 
     # Processing pulses finish -> Release coin acceptor relay switch
