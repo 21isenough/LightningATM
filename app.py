@@ -460,8 +460,8 @@ def main():
     # check_dangermode()
 
     # Display startup info
-    button_led.on()
     display.update_shutdown_screen()
+    button_led.on()
     time.sleep(1)
 
     # Display startup startup_screen
