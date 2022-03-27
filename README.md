@@ -35,6 +35,7 @@ _Carry out the points step by step as described here. This is the quickest way t
 - [aditional information and tips](/docs/guide/information_and_tips.md)
 - [option: button](/docs/guide/button.md)
 - [option: camera](/docs/guide/camera.md)
+- [option: lockout relay](/docs/guide/relay.md)
 - [option: RPi image from scratch](/docs/guide/add_on_zero2.md)
 
 A comprehensive guide on how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact 21isenough on Twitter (https://twitter.com/21isenough).
