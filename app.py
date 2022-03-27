@@ -16,6 +16,7 @@ import qr
 
 import utils
 import importlib
+from PIL import Image
 
 display_config = config.conf["atm"]["display"]
 display = getattr(__import__("displays", fromlist=[display_config]), display_config)
@@ -278,7 +279,7 @@ def button_pushed():
         display.update_wallet_scan()
         time.sleep(2)
 
-        print("11.display.update_lntxbot_balance(balance)")
+        print("11. display.update_lntxbot_balance(balance)")
         display.update_lntxbot_balance(21)
         time.sleep(2)
 
@@ -287,8 +288,8 @@ def button_pushed():
         time.sleep(2)
 
         print("13. display.draw_lnurl_qr(qr_img)")
-        qr_img = Image.new('1', (122, 122), 255)
-        display.draw_lnurl_qr(qr_img)
+        qrImage = Image.new('1', (122, 122), 255)
+        display.draw_lnurl_qr(qrImage)
         time.sleep(2)
 
         print("14. display.update_amount_screen()")
@@ -309,12 +310,13 @@ def button_pushed():
 
         print("18. init_screent()")
         display.init_screen(0)
+        time.sleep(2)
 
         print("19. display.update_startup_screen()")
         display.update_startup_screen()
         time.sleep(2)
 
-        print("That's it, have fun!")
+        print("That's it!")
 
         config.PUSHES = 0
         return
