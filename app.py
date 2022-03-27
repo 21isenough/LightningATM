@@ -459,12 +459,14 @@ def main():
     # Only activate once software ready for it
     # check_dangermode()
 
-    # Display startup shutdown_screen for start-up
+    # Display startup info
+    button_led.on()
     display.update_shutdown_screen()
-    time.sleep(2)
+    time.sleep(1)
 
     # Display startup startup_screen
     display.update_startup_screen()
+    button_led.off()
 
     # Function call by rising/falling new signal
     button_signal.when_pressed = button_event
