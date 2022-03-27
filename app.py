@@ -280,7 +280,7 @@ def button_pushed():
         time.sleep(2)
 
         print("11. display.update_lntxbot_balance(balance)")
-        display.update_lntxbot_balance(21)
+        display.update_lntxbot_balance(123)
         time.sleep(2)
 
         print("12. display.update_btcpay_lnd()")
