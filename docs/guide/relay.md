@@ -35,7 +35,7 @@ If you want to test the relay, we have a small test program here. It toggles the
 
 ```
 	$ sudo systemctl stop LightningATM.service
-	$ cd ~/LightningATM/docs/others
+	$ cd ~/LightningATM/tests
 	$ sudo python3 relay_test.py
 	$ sudo systemctl start LightningATM.service
 ```

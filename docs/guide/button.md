@@ -43,7 +43,7 @@ It is best to test the button and the LED once after the installation. We have p
 
 Change to the following directory
 
-	$ cd ~/LightningATM/docs/others
+	$ cd ~/LightningATM/tests
 
 #### Start the button test program
 
