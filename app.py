@@ -243,11 +243,11 @@ def button_pushed():
         display.error_screen(message="ERROR")
         time.sleep(2)
 
-        print("2. display.update_qr_request()")
+        print("1. display.update_qr_request()")
         display.update_qr_request()
         time.sleep(2)
 
-        print("3. display.update_qr_failed()")
+        print("2. display.update_qr_failed()")
         display.update_qr_failed()
         time.sleep(2)
 
