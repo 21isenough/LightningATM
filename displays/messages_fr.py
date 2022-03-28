@@ -82,7 +82,7 @@ lnurl_cancel_notice_3 = "Appuyer sur le bouton pour annuler)"
 # Text for update_button_fault()
 button_fault_1 = "Oh Sorry.."
 button_fault_2 = "Button fault.."
-button_screen_3 = "Try again!"
+button_fault_3 = "Try again!"
 
 # Text for update_wallet_fault()
 wallet_fault_1 = "Wallet fault.."
