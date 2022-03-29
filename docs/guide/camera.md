@@ -113,7 +113,3 @@ Note: This camera was pretty cheap and has a variable lens that was pretty loose
 ---
 
 #### [option: button](/docs/guide/button.md)  ᐊ  previous | next  ᐅ  [option: lockout relay](/docs/guide/relay.md)
-
-
-
-
