@@ -16,9 +16,8 @@ This guide to creating a compatible version is only a guide. Deviations are poss
 4. Option: Install PaPiRus display library 
 5. Carry out updates and installations
 6. Install and test the display
-7. Edit utilis.py
-8. Create and edit the config.ini
-9. Postprocessing
+7. Create and edit the config.ini
+8. Postprocessing
 
 ---
 
@@ -83,23 +82,7 @@ Note: When updating, you sometimes have to confirm with `y`.
 
 As described in the [display](/docs/guide/display.md) chapter.
 
-### 7. Edit utilis.py (If you don't have the PaPiRus library installed)
-
-The driver for the PaPiRus display is not pre-installed. So that they do not report an error, the functions are deactivated here or you can alternatively install the PaPiRus library.
-
-#### Edit utils.py
-
-```
-	$ cd ~/LightningATM/
-	$ nano utils.py
-```
-Preassign the variable EPD_SIZE with 2.0, because the called directory for the PaPiRus display initial values are not existing.
-
-<img src="../pictures/add_on_zero2_edit_utils.png" width="600">
-
-Save and exit the editor: `CTRL+x -> y -> ENTER`.
-
-### 8. Create and edit the config.ini
+### 7. Create and edit the config.ini
 
 Start the app.py once.
 
@@ -107,7 +90,7 @@ Start the app.py once.
 
 The program is immediately aborted with "Exiting..." because the wrong display is still stored in the basic setting. But the config.ini was created in the background and you can open and edit it as described in chapter [edit config.ini](/docs/guide/edit_config.md).
 
-### 9. Postprocessing
+### 8. Postprocessing
 
 Everything else is as usual and listed in the [README](/README.md).
 
@@ -119,4 +102,4 @@ Look at:
 
 ---
 
-#### [information_and_tips](/docs/guide/information_and_tips.md)  ᐊ  previous | next  ᐅ  [README](/README.md)
+#### [option: camera](/docs/guide/camera.md)  ᐊ  previous | next  ᐅ  [README](/README.md)

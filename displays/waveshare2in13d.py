@@ -499,6 +499,57 @@ def update_lnurl_cancel_notice():
     config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
 
 
+def update_button_fault():
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.text(
+        (10, 10),
+        messages.button_fault_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemonobold", 22),
+    )
+    draw.text(
+        (10, 50),
+        messages.button_fault_2,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 20),
+    )
+    draw.text(
+        (10, 75),
+        messages.button_fault_3,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 20),
+    )
+
+    config.WAVESHARE.init()
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+
+
+def update_wallet_fault():
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.text(
+        (10, 10),
+        messages.wallet_fault_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemonobold", 22),
+    )
+    draw.text(
+        (10, 50),
+        messages.wallet_fault_2,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 20),
+    )
+    draw.text(
+        (10, 75),
+        messages.wallet_fault_3,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 20),
+    )
+
+    config.WAVESHARE.init()
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+
 def update_blank_screen():
     image, width, height, draw = init_screen(color=config.WHITE)
 

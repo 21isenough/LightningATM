@@ -12,6 +12,7 @@ When the start screen is displayed, the button has four functions depending on t
 3 : Simulates adding a coin (2 coin pulses, only for testing)  
 5 : Shutdown the host machine  
 7 : Reset Wallet (!!!) an scan new wallet credentials with camera  
+9 : Displays all possible display messages once 
 
 If coins have been inserted, the LED goes on and the button only has the function of starting the withdrawal process and generating the QR code or activating the camera for scanning.
 
@@ -68,4 +69,4 @@ The LED program shows only that it is working and the LED should now flash.
 
 ---
 
-#### [autostart](/docs/guide/autostart.md)  ᐊ  previous | next  ᐅ  [camera](/docs/guide/camera.md)
+#### [information_and_tips](/docs/guide/information_and_tips.md)  ᐊ  previous | next  ᐅ  [option: camera](/docs/guide/camera.md)

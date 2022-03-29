@@ -16,6 +16,7 @@ import qr
 
 import utils
 import importlib
+from PIL import Image
 
 display_config = config.conf["atm"]["display"]
 display = getattr(__import__("displays", fromlist=[display_config]), display_config)
@@ -89,7 +90,9 @@ def button_pushed():
         if not config.conf["atm"]["activewallet"]:
             logger.error("No wallet has been configured for the ATM.")
             logger.error("Please configure your Lightning Wallet first.")
-            # Add "no wallet setup" message
+            # "no wallet setup" message
+            display.update_wallet_fault()
+            time.sleep(5)
 
             # Softreset and startup screen
             softreset()
@@ -220,6 +223,8 @@ def button_pushed():
         logger.info("Simulate coin for test with pulses (3 times button)")
         print("Simulate coin for test with pulses (3 times button)")
         config.PULSES = 2
+        config.PUSHES = 0
+        return
 
     if config.PUSHES == 5:
         """Shutdown the host machine
@@ -229,6 +234,101 @@ def button_pushed():
         logger.warning("ATM shutdown (5 times button)")
         os.system("sudo shutdown -h now")
 
+    if config.PUSHES == 9:
+        """Show all displays once
+        """
+        logger.info("Show all displays once (9 times button)")
+
+        print("1. display.error_screen(message=ERROR)")
+        display.error_screen(message="ERROR")
+        time.sleep(2)
+
+        print("2. display.update_qr_request()")
+        display.update_qr_request()
+        time.sleep(2)
+
+        print("3. display.update_qr_failed()")
+        display.update_qr_failed()
+        time.sleep(2)
+
+        print("4. display.update_payout_screen()")
+        display.update_payout_screen()
+        time.sleep(2)
+
+        print("5. display.update_payment_failed()")
+        display.update_payment_failed()
+        time.sleep(2)
+
+        print("6. display.update_thankyou_screen()")
+        display.update_thankyou_screen()
+        time.sleep(2)
+
+        print("7. display.update_nocoin_screen()")
+        display.update_nocoin_screen()
+        time.sleep(2)
+
+        print("8. display.update_lnurl_generation()")
+        display.update_lnurl_generation()
+        time.sleep(2)
+
+        print("9. display.update_shutdown_screen()")
+        display.update_shutdown_screen()
+        time.sleep(2)
+
+        print("10. display.update_wallet_scan()")
+        display.update_wallet_scan()
+        time.sleep(2)
+
+        print("11. display.update_lntxbot_balance(balance)")
+        display.update_lntxbot_balance(123)
+        time.sleep(2)
+
+        print("12. display.update_btcpay_lnd()")
+        display.update_btcpay_lnd()
+        time.sleep(2)
+
+        print("13. display.draw_lnurl_qr(qr_img)")
+        qrImage = Image.new('1', (122, 122), 255)
+        display.draw_lnurl_qr(qrImage)
+        time.sleep(2)
+
+        print("14. display.update_amount_screen()")
+        display.update_amount_screen()
+        time.sleep(2)
+
+        print("15. display.update_lnurl_cancel_notice()")
+        display.update_lnurl_cancel_notice()
+        time.sleep(2)
+
+        print("16. display.update_button_fault()")
+        display.update_button_fault()
+        time.sleep(2)
+
+        print("17. display.update_wallet_fault()")
+        display.update_wallet_fault()
+        time.sleep(2)
+
+        print("18. init_screent()")
+        display.init_screen(0)
+        time.sleep(2)
+
+        print("19. display.update_startup_screen()")
+        display.update_startup_screen()
+        time.sleep(2)
+
+        print("That's it!")
+
+        config.PUSHES = 0
+        return
+
+    else:
+        # If pushes not defined
+        logger.info("Show pushes not defined  (x times button)")
+        display.update_button_fault()
+        time.sleep(3)
+        display.update_startup_screen()
+
+    # Reset pulses
     config.PUSHES = 0
 
 

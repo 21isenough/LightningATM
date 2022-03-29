@@ -21,6 +21,8 @@ Full Version             |  Pocket Version
 
 ### Installation guideline
 
+_Carry out the points step by step as described here. This is the quickest way to succeed._
+
 - [voltage converter](/docs/guide/voltage_converter.md)
 - [coin validator](/docs/guide/coin_validator.md)
 - [wiring](/docs/guide/wiring.md)
@@ -28,12 +30,12 @@ Full Version             |  Pocket Version
 - [display](/docs/guide/display.md)
 - [edit config.ini](/docs/guide/edit_config.md)
 - [edit app.py](/docs/guide/edit_app.md)
-- [tmux monitoring](/docs/guide/tmux_monitoring.md)
+- [debugging and tmux](/docs/guide/tmux_monitoring.md)
 - [autostart](/docs/guide/autostart.md)
-- [button](/docs/guide/button.md)
-- [camera](/docs/guide/camera.md)
 - [aditional information and tips](/docs/guide/information_and_tips.md)
-- [RPi image from scratch](/docs/guide/add_on_zero2.md)
+- [option: button](/docs/guide/button.md)
+- [option: camera](/docs/guide/camera.md)
+- [option: RPi image from scratch](/docs/guide/add_on_zero2.md)
 
 A comprehensive guide on how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact 21isenough on Twitter (https://twitter.com/21isenough).
 

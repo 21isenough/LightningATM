@@ -75,6 +75,16 @@ amount_screen_7 = "% ("
 amount_screen_8 = " sats)"
 
 # Text for update_lnurl_cancel_notice
-lnurl_cancel_notice_1 = "Prepare for LNURL"
-lnurl_cancel_notice_2 = "(Not LNURL compatible?"
-lnurl_cancel_notice_3 = "Press button to cancel)"
+lnurl_cancel_notice_1 = "Vorbereitung LNURL"
+lnurl_cancel_notice_2 = "Nicht LNURL kompatibel?"
+lnurl_cancel_notice_3 = "Abbrechen Taste drücken!"
+
+# Text for update_button_fault()
+button_fault_1 = "Oh Nein.."
+button_fault_2 = "Taster Fehler.."
+button_fault_3 = "Versuchs nochmal!"
+
+# Text for update_wallet_fault()
+wallet_fault_1 = "Wallet Fehler.."
+wallet_fault_2 = "Keine Daten."
+wallet_fault_3 = "Bitte setzten!"

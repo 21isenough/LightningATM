@@ -1,11 +1,11 @@
 ## Monitoring system "tmux" to control the processes
 
-This allows the terminal window to be split vertically into two parts to observe two processes at the same time.
+The easiest way to monitor multiple processes at the same time is to open multiple windows. So you can open one for the "app.py" and one for the debug logger `tail -f ~/.lightningATM/debug.log` and then display them side by side. But to watch both processes at the same time in one window, you can use "tmux" (terminal multiplexer). This allows the terminal window to be split vertically into two parts.
 
 ###### Install tmux
 
 ```
-$ cd ~
+$ cd
 $ sudo apt install tmux    
 ```
 
@@ -35,7 +35,7 @@ $ tmux
 	$ ./app.py
 ```
 
-- Note:  If you have already activated the autostart function, problems can arise if you start the app.py in the tmux window at the same time. Therefore, it is better to end the service for the tmux and activate it again later. See next chapter [`autostart`](/docs/guide/autostart.md).
+- `Note:`  If you have already activated the autostart function, problems can arise if you start the app.py in the tmux window at the same time. Therefore, it is better to end the service `sudo systemctl stop LightningATM.service` for the tmux and activate it again later `sudo systemctl start LightningATM.service`. See next chapter [`autostart`](/docs/guide/autostart.md).
 
 ######  Start `debug.log`
 
