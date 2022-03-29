@@ -102,4 +102,4 @@ Look at:
 
 ---
 
-#### [option: camera](/docs/guide/camera.md)  ᐊ  previous | next  ᐅ  [README](/README.md)
+#### [option: lockout relay](/docs/guide/relay.md)  ᐊ  previous | next  ᐅ  [README](/README.md)

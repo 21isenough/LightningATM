@@ -7,7 +7,7 @@ import time
 import math
 import subprocess
 
-import RPi.GPIO as GPIO
+from gpiozero import Button, LED
 
 import config
 import lndrest
@@ -18,10 +18,15 @@ import utils
 import importlib
 from PIL import Image
 
+# Initialize inputs and outputs
+button_signal = Button(5, False)
+coin_signal = Button(6)
+button_led = LED(13)
+lockout_relay = LED(12)
+
 display_config = config.conf["atm"]["display"]
 display = getattr(__import__("displays", fromlist=[display_config]), display_config)
 
-led = "off"
 logger = logging.getLogger("MAIN")
 
 
@@ -37,7 +42,6 @@ def check_connectivity(interface="wlan0"):
 def softreset():
     """Displays startup screen and deletes fiat amount
     """
-    global led
     # Inform about coin, bill and sat amounts
     if config.COINCOUNT > 0:
         logger.info("Last payment:")
@@ -48,21 +52,20 @@ def softreset():
     config.COINCOUNT = 0
     config.PUSHES = 0
     # Turn off button LED
-    GPIO.output(13, GPIO.LOW)
-    led = "off"
-
+    button_led.off()
+    
     display.update_startup_screen()
     logger.info("Softreset executed")
 
 
-def button_event(channel):
+def button_event():
     """Registers a button push event
     """
     config.LASTPUSHES = time.time()
     config.PUSHES = config.PUSHES + 1
 
 
-def coin_event(channel):
+def coin_event():
     """Registers a coin insertion event
     """
     config.LASTIMPULSE = time.time()
@@ -230,7 +233,6 @@ def button_pushed():
         """Shutdown the host machine
         """
         display.update_shutdown_screen()
-        GPIO.cleanup()
         logger.warning("ATM shutdown (5 times button)")
         os.system("sudo shutdown -h now")
 
@@ -335,7 +337,15 @@ def button_pushed():
 def coins_inserted():
     """Actions coins inserted
     """
-    global led
+    
+    print("Coin pulses: ", config.PULSES, " pulses")
+
+    # Intercept and display a loose contact
+    if config.PULSES == 1:
+        print("Ups.. Just one coin pulses is not allowed!")
+        logger.error("Ups.. Just one coin pulses is not allowed!")
+        config.PULSES = 0
+        return
 
     # Check if we should update prices
     if config.FIAT == 0:
@@ -345,7 +355,6 @@ def coins_inserted():
         logger.debug("Satoshi price updated")
 
     # We must have gotten pulses!
-    print("Coin pulses: ", config.PULSES, " pulses")
     config.FIAT +=      float(config.COINTYPES[config.PULSES]['fiat'])
     config.COINCOUNT += 1
     config.SATS =       utils.get_sats()
@@ -354,20 +363,22 @@ def coins_inserted():
     logger.info("Added {}".format(config.COINTYPES[config.PULSES]['name']))
     display.update_amount_screen()
 
+    # Coin was processed -> Release coin acceptor relay switch
+    lockout_relay.on()
+
     # Reset pulse cointer
     config.PULSES = 0
 
-    if config.FIAT > 0 and led == "off":
+    if config.FIAT > 0 and not button_led.value == 1:
         # Turn on the LED after first coin
-        GPIO.output(13, GPIO.HIGH)
-        led = "on"
+        button_led.on()
         logger.debug("Button-LED turned on (if connected)")
 
 
 def monitor_coins_and_button():
     """Monitors coins inserted and buttons pushed
     """
-    time.sleep(0.5)
+    # time.sleep(0.5)
 
     #Wifi monitoring causes undesirable behavior sometimes.
     #ssid=check_connectivity()
@@ -387,36 +398,25 @@ def monitor_coins_and_button():
     #        return False
 
     # Detect when coins are being inserted
-    if (time.time() - config.LASTIMPULSE > 0.5) and (config.PULSES > 0):
+    if (time.time() - config.LASTIMPULSE > 0.3) and (config.PULSES > 0):
+        # New Coin to process -> Relay switch to inhibit
+        lockout_relay.off()
         coins_inserted()
 
     # Detect if the button has been pushed
     if (time.time() - config.LASTPUSHES > 1) and (config.PUSHES > 0):
+        # Pulses from push button -> Relay switch to inhibit
+        if not config.PUSHES == 3:
+            lockout_relay.off()
         button_pushed()
+
+    # Processing pulses finish -> Release coin acceptor relay switch
+    lockout_relay.on()
 
     # Automatic payout if specified in config file
     if (int(config.conf["atm"]["payoutdelay"]) > 0) and (config.FIAT > 0):
         if time.time() - config.LASTIMPULSE > int(config.conf["atm"]["payoutdelay"]):
             config.PUSHES = config.PUSHES + 1
-
-
-def setup_coin_acceptor():
-    """Initialises the coin acceptor parameters and sets up a callback for button pushes
-    and coin inserts.
-    """
-    # Defining GPIO BCM Mode
-    GPIO.setmode(GPIO.BCM)
-
-    # Setup GPIO Pins for coin acceptor, button and button-led
-    GPIO.setwarnings(False)
-    GPIO.setup(13, GPIO.OUT)
-    GPIO.output(13, GPIO.LOW)
-    GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-    # Setup coin interrupt channel (bouncetime for switch bounce)
-    GPIO.add_event_detect(5, GPIO.RISING, callback=button_event, bouncetime=300)
-    GPIO.add_event_detect(6, GPIO.FALLING, callback=coin_event)
 
 
 # def check_dangermode():
@@ -457,18 +457,24 @@ def setup_coin_acceptor():
 def main():
     utils.check_epd_size()
     logger.info("Application started")
+    print("Application started")
 
     # Checks dangermode and start scanning for credentials
     # Only activate once software ready for it
     # check_dangermode()
 
-    # # For testing
-    # config.PULSES = 2
+    # Display startup info
+    display.update_shutdown_screen()
+    button_led.on()
+    time.sleep(1)
 
     # Display startup startup_screen
     display.update_startup_screen()
+    button_led.off()
 
-    setup_coin_acceptor()
+    # Function call by rising/falling new signal
+    button_signal.when_pressed = button_event
+    coin_signal.when_released = coin_event
 
     while True:
         monitor_coins_and_button()
@@ -480,14 +486,8 @@ if __name__ == "__main__":
             main()
         except KeyboardInterrupt:
             display.update_shutdown_screen()
-            GPIO.remove_event_detect(5)
-            GPIO.remove_event_detect(6)
-            GPIO.cleanup()
             logger.info("Application finished (Keyboard Interrupt)")
             sys.exit("Manually Interrupted")
         except Exception:
             logger.exception("Oh no, something bad happened! Restarting...")
-            GPIO.remove_event_detect(5)
-            GPIO.remove_event_detect(6)
-            GPIO.cleanup()
             os.execv("/home/pi/LightningATM/app.py", [""])

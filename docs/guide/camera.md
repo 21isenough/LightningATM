@@ -112,8 +112,4 @@ Note: This camera was pretty cheap and has a variable lens that was pretty loose
 
 ---
 
-#### [option: button](/docs/guide/button.md)  ᐊ  previous | next  ᐅ  [option: RPi image from scratch](/docs/guide/add_on_zero2.md)
-
-
-
-
+#### [option: button](/docs/guide/button.md)  ᐊ  previous | next  ᐅ  [option: lockout relay](/docs/guide/relay.md)
