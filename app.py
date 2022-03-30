@@ -310,15 +310,11 @@ def button_pushed():
         display.update_wallet_fault()
         time.sleep(2)
 
-        print("18. init_screent()")
-        display.init_screen(0)
-        time.sleep(2)
-
-        print("19. display.update_startup_screen()")
+        print("18. display.update_startup_screen()")
         display.update_startup_screen()
         time.sleep(2)
 
-        print("That's it!")
+        print("That's it, have fun!")
 
         config.PUSHES = 0
         return
