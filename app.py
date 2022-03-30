@@ -111,12 +111,13 @@ def button_pushed():
 
         lnurlproxy = config.conf["lnurl"]["lnurlproxy"]
         activewallet = config.conf["atm"]["activewallet"]
+        camera = config.conf["atm"]["camera"]
         # Determine if LNURL Withdrawls are possible
         if lnurlproxy == "active" or activewallet == "lntxbot":
-            # 1. Ask if wallet supports LNURL
+            # 1. Ask if wallet supports LNURL, if camera available
             # 2. Offer to cancel and switch to normal scan
             # 3. Process payment
-            if activewallet == "lntxbot":
+            if activewallet == "lntxbot" and camera == True:
                 display.update_lnurl_cancel_notice()
                 time.sleep(5)
                 if config.PUSHES == 1:
@@ -135,6 +136,14 @@ def button_pushed():
                     softreset()
                     return
 
+            # If no camera is available, process LNURL directly
+            if activewallet == "lntxbot":
+                # Process LNURL
+                logger.info("LNURL process stared")
+                lntxbot.process_using_lnurl(config.SATS)
+                softreset()
+                return
+            
             if lnurlproxy == "active":
                 display.update_lnurl_cancel_notice()
                 time.sleep(5)
@@ -483,7 +492,7 @@ if __name__ == "__main__":
         except KeyboardInterrupt:
             display.update_shutdown_screen()
             logger.info("Application finished (Keyboard Interrupt)")
-            sys.exit("Manually Interrupted")
+            sys.exit(" Manually Interrupted")
         except Exception:
             logger.exception("Oh no, something bad happened! Restarting...")
             os.execv("/home/pi/LightningATM/app.py", [""])

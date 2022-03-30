@@ -55,5 +55,5 @@ Two withdrawals were made here. Once 5 cents and once 1.60 euros (10 cents + 50 
 
 ---
 
-#### [edit_app](/docs/guide/edit_app.md)  ᐊ  previous | next  ᐅ  [autostart](/docs/guide/autostart.md)
+#### [edit_config](/docs/guide/edit_config.md)  ᐊ  previous | next  ᐅ  [autostart](/docs/guide/autostart.md)
 

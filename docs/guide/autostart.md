@@ -1,6 +1,6 @@
-## Autostart
+## Autostart and start/stop the ATM
 
-######  Activate the Service:
+######  Install and activate the autostart service:
 
 ```
 $ cd ~/LightningATM
@@ -9,7 +9,9 @@ $ sudo systemctl enable LightningATM.service
 $ sudo reboot
 ```
 
-######  Other commands to control the service:
+- From now on the ATM will start automatically after booting.
+
+######  Commands to control the ATM:
 
 ```
 $ sudo systemctl status LightningATM.service
@@ -17,7 +19,8 @@ $ sudo systemctl stop LightningATM.service
 $ sudo systemctl start LightningATM.service
 ```
 
-- Note: From now on the ATM will start automatically after booting. If you want to observe the app.py in tmux, you should `stop` the "LightningATM.service" manually, bevor you start the app.py in the tmux. Don't forget to `start` the service again afterwards.
+- `Note:` When the autostart service is once installed and activated, you only need to "start" the ATM if you previously stopped the ATM.
+- `Note:` If you want to observe the app.py in tmux, you musst `stop` the "LightningATM.service" manually, bevor you start the app.py in the tmux. Then restart the ATM with the "start" command or simply restart the entire ATM afterwards by unplugging the power and plugging it back in.
 
 ---
 
