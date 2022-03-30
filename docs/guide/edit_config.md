@@ -120,7 +120,7 @@ display ATM turned off!
 
 ---
 
-#### [display](/docs/guide/display.md)  ᐊ  previous | next  ᐅ  [edit_app](/docs/guide/edit_app.md)
+#### [display](/docs/guide/display.md)  ᐊ  previous | next  ᐅ  [debugging and tmux](/docs/guide/tmux_monitoring.md)
 
 
 
