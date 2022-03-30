@@ -29,7 +29,6 @@ _Carry out the points step by step as described here. This is the quickest way t
 - [sd card and wifi](/docs/guide/sdcard_and_wifi.md)
 - [display](/docs/guide/display.md)
 - [edit config.ini](/docs/guide/edit_config.md)
-- [edit app.py](/docs/guide/edit_app.md)
 - [debugging and tmux](/docs/guide/tmux_monitoring.md)
 - [autostart](/docs/guide/autostart.md)
 - [aditional information and tips](/docs/guide/information_and_tips.md)
