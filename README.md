@@ -21,7 +21,7 @@ Full Version             |  Pocket Version
 
 ### Installation guideline
 
-_Carry out the points step by step as described here. This is the quickest way to succeed._
+_Carry out the points step by step as described here. This is the quickest way to succeed._ 😊
 
 - [voltage converter](/docs/guide/voltage_converter.md)
 - [coin validator](/docs/guide/coin_validator.md)
@@ -37,7 +37,9 @@ _Carry out the points step by step as described here. This is the quickest way t
 - [option: lockout relay](/docs/guide/relay.md)
 - [option: RPi image from scratch](/docs/guide/add_on_zero2.md)
 
-A comprehensive guide on how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact 21isenough on Twitter (https://twitter.com/21isenough).
+If you want to update your ATM version, see this guide: [Update](/docs/guide/we_need_your_help.md)
+
+More information of how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact 21isenough on Twitter (https://twitter.com/21isenough).
 
 To see the Lightning ATM in action, check out this video [LightningATM in action](https://twitter.com/21isenough/status/1170808396955738114?s=20)
 
