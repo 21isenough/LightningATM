@@ -117,7 +117,7 @@ def button_pushed():
             # 1. Ask if wallet supports LNURL, if camera available
             # 2. Offer to cancel and switch to normal scan
             # 3. Process payment
-            if activewallet == "lntxbot" and camera == "yes":
+            if activewallet == "lntxbot" and camera == True:
                 display.update_lnurl_cancel_notice()
                 time.sleep(5)
                 if config.PUSHES == 1:
