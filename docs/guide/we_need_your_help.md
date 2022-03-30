@@ -33,7 +33,7 @@ Then we add the following text between `centname = cent` and `# Set the Fee in %
 
 ### 2. Update to the new version
 
-Log into the RPi and then stop the ATM service once, make a backup from directory LightningATM, clone the new Github to "temp", sync once from "temp" to "LightningAMT" and then delete the "temp" directory that is no longer needed.
+Make a backup from directory LightningATM, clone the new Github to "temp", sync once from "temp" to "LightningAMT" and then delete the "temp" directory that is no longer needed.
 
     $ mv LightningATM LightningATM_Backup
     $ git clone --branch master https://github.com/21isenough/LightningATM.git temp
