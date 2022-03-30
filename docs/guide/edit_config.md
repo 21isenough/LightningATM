@@ -11,14 +11,14 @@ $ cd ~/LightningATM/
 $ ./app.py
 ```
 
-- When you first start you will probably get an "Exiting.." message because the default display type is wrong. 
+- When you first start you will get an "No display configuration matched. Exiting...".
 
-<img src="../pictures/edit_config_first_call_exiting.png" width="600">
+<img src="../pictures/edit_config_first_call_exiting.png" width="500">
 
-- You can ignore the message. The config.ini has now been created in the background.
-- Now edit the config.ini as described in the next step.
+- The config.ini has now been created in the background.
+- Now edit the config.ini as described next step to set the display and other configurations.
 
-`Note:` If the display is correct, the process will not "Exiting..". You have to stop it with `CTRL+C`. After a short time, `Manually Interrupted` is shown in the terminal window.
+`Note:` If the display is already set correctly, the process will not "Exiting..". You have to stop it with `CTRL+C`. 
 
 ### Open the config.ini file
 
