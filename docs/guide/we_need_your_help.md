@@ -1,10 +1,12 @@
-## Would you like to help test the new version? 📖🧐
+## Would you like to help test the new version? 📜🧐
 
 With this update comes a change of the GPIO inputs and outputs. This makes the inputs less sensitive to EMI interference that could lead to unwanted pulses. So if you had sporadic problems with your ATM, you should definitely try this update.
 
 In addition, the function of a lockout relay for the coin acceptor was also implemented with the update. A useful function that one or the other has certainly wished for after the coin impulses were lost or the coin value was incorrectly recognized. A detailed documentation can be found in the new chapter [option: lockout relay](/docs/guide/relay.md).
 
 Also coming with this update is the option to enable or disable a camera. This has the advantage that you don't have to edit the app.py file to get rid of the LNURL query display, if you don't have a camera or a button. The option to set different languages will be added later. The implementation will take place in the next update.
+
+And finally, as a bit of service, the ATM briefly shows the Out of Service display once when it starts up.
 
 To participate, you must update your AMT software once with this new version. Don't worry, we have written a step-by-step instructions for this that really anyone can use and all your configuration data such as wallet and settings will be retained. You can easily undo the whole thing afterwards
 
