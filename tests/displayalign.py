@@ -15,6 +15,7 @@ sys.path.insert(0, parentdir)
 import config
 import utils
 
+
 pwd = os.popen('pwd').read()
 pwd = pwd.strip('\n')
 
@@ -106,7 +107,7 @@ def main():
     print("19. display.update_blank_screen()")
     display.update_blank_screen()
     sleep(2)
-    print("12. init_screen(0)")
+    print("20. init_screen(0)")
     display.init_screen(0)
     sleep(2)
     
