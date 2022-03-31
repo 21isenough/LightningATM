@@ -25,13 +25,13 @@ Then we add the following text between `centname = cent` and `# Set the Fee in %
     # Code 2 from https://www.science.co.il/language/Codes.php
     language = en
 
-    # Do you have a camera? "no" or "yes"
-    camera = no
+    # Do you have a camera? "False" or "True"
+    camera = False
     
 <img src="../pictures/we_need_your_help_config.ini.png" width="600">
 
 - When you finshed with changings in the config.ini, save and exit the editor: `CTRL+x -> y -> ENTER`
-- `Help:` If you want to copy and paste the text, take the text to the clipboard and then place the cursor where you want to paste the text and right-click to paste. But important is just `language = en` and `camera = no`.
+- `Help:` If you want to copy and paste the text, take the text to the clipboard and then place the cursor where you want to paste the text and right-click to paste. But important is just `language = en` and `camera = False`.
 
 ### 2. Update to the new version
 
@@ -60,7 +60,6 @@ Make the backup the major version again and then delete the backup.
     $ sudo rm -r LightningATM_Backup
 
 - Everthing should now be as befor. Even the wallat data.
-- Check if you have set a temporary button and reset it with `payoutdelay = 12` in the `config.ini`
 
 ### 5. Final step
 
