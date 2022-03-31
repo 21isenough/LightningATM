@@ -11,12 +11,12 @@ When the start screen is displayed, the button has four functions depending on t
 1 : Shows screen: "No coins added! Please add coins first"  
 3 : Simulates adding a coin (2 coin pulses, only for testing)  
 5 : Shutdown the host machine  
-7 : Reset Wallet (!!!) an scan new wallet credentials with camera  
-9 : Displays all possible display messages once 
+7 : Displays all possible display messages once 
+9 : Reset Wallet (!!!) an scan new wallet credentials with camera  
 
 If coins have been inserted, the LED goes on and the button only has the function of starting the withdrawal process and generating the QR code or activating the camera for scanning.
 
-`Attention:` Seven pulses reset the wallet. If you don't have a camera to scan a new one, you'll have to set up a new wallet manually!
+`Attention:` Nine pulses reset the wallet. If you don't have a camera to scan a new one, you'll have to set up a new wallet manually!
 
 ---
 
@@ -24,8 +24,8 @@ If coins have been inserted, the LED goes on and the button only has the functio
   
 The button is relatively easy to wire. See [wiring](/docs/guide/wiring.md). A soldering iron may be required. The individual poles must be measured unless this is clearly stated in the documentation for the button. The button closes the contact and is therefore NO (normal open) switching.
 
-The LED is preferably designed for 3.3 V. Slightly different voltages (e.g. 5V) can still work. Classic doorbell buttons often meet this requirement.
-It is important that you **not** connect the LED directly between LED+ and GND! The output current would overwhelm the Raspberry Pi and possibly destroy it. Therefore, a resistor must always be connected in series to limit the current. It's a bit dependent on the LED used, but 220 ohms is a guide. Of course without warranty and guarantee! DYOR
+The LED is preferably designed for 3V. Slightly different voltages (e.g. 5V) can still work. Classic doorbell buttons often meet this requirement.
+It is important that you **not** connect the LED directly between LED+ and GND! The output current would overwhelm the Raspberry Pi and possibly destroy it. Therefore, a resistor must always be connected in series to limit the current. It's a bit dependent on the LED used, but 220 or 330 ohms is a guide. Of course without warranty and guarantee! DYOR
 
 Here is an [example](https://www.amazon.de/dp/B00UFNI47I/) for a small LED button that also fits well in the pocket version.
 
