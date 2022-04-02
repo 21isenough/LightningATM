@@ -8,7 +8,7 @@
 
 - Micro SD Card (16 - 64 GB tested) [link](https://www.google.com/search?q=Micro+SD+Card) 
 - DC-DC Adjustable Step Up Power Module (5V->12V) e.g. [LM2587S](https://www.ebay.de/itm/DC-DC-Adjustable-Step-up-Boost-Power-Supply-LM2587S-3V-5V-12V-to-19V-24V-30V-36V-/402196830271) or [HW-637](https://www.amazon.de/Converter-verstellbar-Spannungsregler-Effizienz-Board-Green-1-gr%C3%BCn/dp/B07S5YH2MB)
-- Multi Coin Acceptor (programmable, e.g. [Coin Acceptor 616](https://de.aliexpress.com/item/1005002636710497.html) or [this](https://de.aliexpress.com/item/1005002636710497.html))
+- Multi Coin Acceptor (programmable, e.g. [Coin Acceptor 616](https://www.google.com/search?q=Coin+Acceptor+616) or [this](https://de.aliexpress.com/item/1005002636710497.html))
 - Display with HAT / supported alternatives:
 
     - PaPiRus Zero 2.0 "- ePaper pHAT 
