@@ -6,7 +6,7 @@ Many updates have been made in the last two months. 💪😅 Updates for more re
 ## Steps to update
 ### 1. Expand the config.ini
 
-Because we are also expanding the config.ini with this update, we unfortunately have to expand config.ini manually, otherwise we get an error message when starting the ATM. Expanding is not difficult and does not have to be undone later. First we log in again via SSH and stop the LightningATM service and call up the config.ini.
+Because we are also expanding the config.ini with this update, we unfortunately have to expand config.ini manually, otherwise we get an error message when starting the ATM. Expanding is not difficult and does not have to be undone later. First we logon again via SSH and stop the LightningATM service and call up the config.ini.
 
     $ sudo systemctl stop LightningATM.service
     $ nano ~/.lightningATM/config.ini
@@ -27,9 +27,10 @@ Then we add the following text between `centname = cent` and `# Set the Fee in %
 
 ### 2. Update to the new version
 
-Make a backup from directory LightningATM, clone the new Github to "temp", sync once from "temp" to "LightningAMT" and then delete the "temp" directory that is no longer needed.
+Logon via SSH and stop the LightningATM service, make a backup from directory LightningATM, clone the new Github to "temp", sync once from "temp" to "LightningAMT" and then delete the "temp" directory that is no longer needed.
 
-    $ mv LightningATM LightningATM_Backup
+    $ sudo systemctl stop LightningATM.service
+    $ cp -r -v LightningATM LightningATM_Backup
     $ git clone --branch master https://github.com/21isenough/LightningATM.git temp
     $ rsync -a temp/ LightningATM/
     $ sudo rm -r temp
@@ -42,7 +43,7 @@ Make a backup from directory LightningATM, clone the new Github to "temp", sync 
 - It takes a few seconds for the display to update, but then..
 - The ATM has started and you can use it normally or test the functions.
 - Stop the ATM with `CTRL+C`
-- If something went wrong, launch a second terminal window, login with ssh and invoke the debugger: `$ tail -f ~/.lightningATM/debug.log`
+- If something went wrong or you just want to watch the ATM, launch a second terminal window, login via ssh and call the debugger: `$ tail -f ~/.lightningATM/debug.log`
 - If you like this version, just keep it!
 
 ### 4. If you don't like this version and want to get rid of it 

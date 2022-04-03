@@ -69,4 +69,4 @@ The LED program shows only that it is working and the LED should now flash.
 
 ---
 
-#### [information_and_tips](/docs/guide/information_and_tips.md)  ᐊ  previous | next  ᐅ  [option: camera](/docs/guide/camera.md)
+#### [option: language](/docs/guide/languages.md)  ᐊ  previous | next  ᐅ  [option: camera](/docs/guide/camera.md)

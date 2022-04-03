@@ -32,6 +32,7 @@ _Carry out the points step by step as described here. This is the quickest way t
 - [debugging and tmux](/docs/guide/tmux_monitoring.md)
 - [autostart](/docs/guide/autostart.md)
 - [aditional information and tips](/docs/guide/information_and_tips.md)
+- [option: language](/docs/guide/languages.md) 
 - [option: button](/docs/guide/button.md)
 - [option: camera](/docs/guide/camera.md)
 - [option: lockout relay](/docs/guide/relay.md)

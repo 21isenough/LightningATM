@@ -37,7 +37,7 @@ nocoin_screen_2 = "Wirf erstmal"
 nocoin_screen_3 = "Münzen ein"
 
 # Text for update_lnurl_generation()
-lnurl_generation_1 = "Ich erstelle den QR"
+lnurl_generation_1 = "Erstelle den QR"
 lnurl_generation_2 = "Code zum scannen"
 
 # Text for update_shutdown_screen()
