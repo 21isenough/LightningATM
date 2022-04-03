@@ -169,11 +169,11 @@ elif "waveshare2in7" in conf["atm"]["display"]:
 # Display - Inky pHAT
 elif "inkyphat" in conf["atm"]["display"]:
     try:
-        from inky import InkyPHAT
+        from inky.auto import auto
 
         WHITE = 0
         BLACK = 1
-        INKY = InkyPHAT("black")
+        INKY = auto(ask_user=True, verbose=True)
         INKY.set_border(INKY.WHITE)
     except ImportError:
         logger.warning("Inky display library not installed.")
