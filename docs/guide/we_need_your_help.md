@@ -4,7 +4,7 @@ Many updates have been made in the last two months. 💪😅 Updates for more re
 
 --- 
 ## Steps to update
-### 1. Expand the config.ini
+### 1. Expand the config.ini with "language" and "camera" (If not allready done)
 
 Because we are also expanding the config.ini with this update, we unfortunately have to expand config.ini manually, otherwise we get an error message when starting the ATM. Expanding is not difficult and does not have to be undone later. First we logon again via SSH and stop the LightningATM service and call up the config.ini.
 
