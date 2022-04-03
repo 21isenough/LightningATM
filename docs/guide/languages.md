@@ -2,17 +2,19 @@
 
 The ATM offers the option of setting a different language via `config.ini`. That's relatively easy. But in order to make the whole thing look nice, we still have to manually adjust a few texts for our display.
 
+---
+
 ### 1. Set language in config.ini
 
 To do this, you have to log in to the ATM via SSH `$ ssh pi@your-ip` and your password and then open the config.ini.
 
       $ nano ~/.lightningATM/config.ini
 
-config.ini
+The config.ini:
 
 <img src="../pictures/we_need_your_help_config.ini.png" width="600">
 
-Here you can select one of the languages. E.g. "language = de" for German. When you are finished, the whole thing is saved and the editor is exited with `CTRL+x -> y -> ENTER`.
+Here you can select one of the languages. E.g. "language = de" for German. When you're done, save and exit the editor with `CTRL+x -> y -> ENTER`.
 
 Now restart the ATM with the new language setting
 
@@ -24,14 +26,16 @@ You will probably not be entirely happy with the way the display looks. This is 
 
 #### 2.1 View all pages one by one
 
-If you have a button on your ATM, it's easy now. Simply press the button 7 times and all possible displays will be shown briefly once.
+If you have a button on your ATM, it's easy now. Simply press the button 5 times and all possible displays will be shown briefly once.
 
 If you don't have one, you have to start a small program. To do this, log in again and enter the following commands one after the other.
 
     $ cd ~/LightningATM/
     $ python3 ./tests/displayalign.py
 
-Now that you've seen all the display pages, you've probably noticed one or the other page where you might want to change the text position or the text size or maybe even the text itself. It's best to go through the whole thing again and take pictures of the pictures you might want to change. You will then use these to identify the texts and make settings. The ATM will then restart itself.
+-> The ATM will now show all possible displays and finally restart itself, if the autostart is still acitve.
+
+Now that you've seen all the display pages, you've probably noticed one or the other page where you might want to change the text position or the text size or maybe even the text itself. It's best to go through the whole thing again and take pictures of the displays you might want to change. You will then use these to identify the texts and make settings. 
 
 #### 2.2 Change the text
 
@@ -39,25 +43,24 @@ That's the easiest. Just go to the text message file an edit it.
 
     $ nano ~/LightningATM/displays/messages_de.py
 
-- If you want to change another language, just change the "messages_de.py" into "messages_es.py" for Spanish for example. Info: The english version is called "messages.py"
-- After you are satisfied, save the changes and close the editor with `CTRL+x -> y -> ENTER`. Then test the whole thing again as described in point 2.1 or restart the ATM with `$ sudo systemctl restart LightningATM` to update and then press the button 5 times to see the messages again.
-- `One request:` If you think your translation works well and you want to help us, please copy and paste the entire text into a plain text file like "messages_xx.txt" and DM it to AxelHamburch from the Telegram Group.
+- If you want to change another language, just change the "messages_de.py" into "messages_es.py" for Spanish for example.
+- Info: The english version is called "messages.py".
+- After you are satisfied, save the changes and close the editor with `CTRL+x -> y -> ENTER`. Then test the whole thing again as described in point 2.1 or restart the ATM with `$ sudo systemctl restart LightningATM` to update and then press the button to see the messages again.
+- `One request:` If you think your translation works well and you want to help us, please copy and paste the entire text into a plain text file like "messages_xx.txt" and DM it to AxelHamburch from the Telegram Group. 🙏
 
-Example messages_de.py
+Example: messages_de.py
 
 <img src="../pictures/languages_config.ini.png" width="600">
 
-`One request:` If you think your translation works well and you want to help us, please copy and paste the entire text into a plain text file like "messages_xx.txt" and DM it to AxelHamburch from the Telegram Group.
-
 #### 2.3 Alligne the text
 
-Now comes a slightly difficult part. You can adjust the font size and text position for each display. To do this, you first need to know which display type you have and secondly what the text block (function) is called that you want to edit. You can get the display type from "config.ini" and it is in between "display = ". E.g. "waveshare2in13v2". The best way to get the name for the text block is from the text display, see point 2.2. This can be e.g. `# Text for update_startup_screen()`. The text block is therefore called `update_startup_screen()`.
+Now comes a slightly difficult part. You can adjust the font size and text position for each display. To do this, you first need to know which display type you have and secondly what the text block (function) is called that you want to edit. You can get the display type from "config.ini" and it is in between "display = ". For example: "waveshare2in13v2". The best way to get the name for the text block is from the text display messages. See point 2.2. This can be e.g. `# Text for update_startup_screen()`. The text block is therefore called `update_startup_screen()`.
 
-Now you call the Python file for the display and look for the text block (function).
+Now you going to edit the Python file for the display and look for the text block (function).
 
      $ nano ~/LightningATM/displays/waveshare2in13v2.py
 
-- `Note:`Swap the "waveshare2in13v2.py" to you display type you use, e.g. "waveshare2in13d.py" for the D version.
+- `Note:` Swap the "waveshare2in13v2.py" to your display type you use. E.g. "waveshare2in13d.py" for the D version.
 
 Here is an example for the "update_shut_down" text block (function):
 
