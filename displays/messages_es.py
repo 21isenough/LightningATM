@@ -1,7 +1,7 @@
 # Text for update_startup_screen()
 startup_screen_1 = "Welcome to the"
 startup_screen_2 = "LightningATM"
-startup_screen_3 = "- spanisch -"
+startup_screen_3 = "- help translate to ES -"
 
 # Text for error_screen()
 error_screen_1 = "Error ocurred:"

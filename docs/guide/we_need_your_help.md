@@ -1,17 +1,9 @@
-## Would you like to help test the new version? 📜🧐
+## Stagnation is regression. Update your ATM! 📜🧐
 
-With this update comes a change of the GPIO inputs and outputs. This makes the inputs less sensitive to EMI interference that could lead to unwanted pulses. So if you had sporadic problems with your ATM, you should definitely try this update.
-
-In addition, the function of a lockout relay for the coin acceptor was also implemented with the update. A useful function that one or the other has certainly wished for after the coin impulses were lost or the coin value was incorrectly recognized. A detailed documentation can be found in the new chapter [option: lockout relay](/docs/guide/relay.md).
-
-Also coming with this update is the option to enable or disable a camera. This has the advantage that you don't have to edit the app.py file to get rid of the LNURL query display, if you don't have a camera or a button. The option to set different languages will be added later. The implementation will take place in the next update.
-
-And finally, as a bit of service, the ATM briefly shows the Out of Service display once when it starts up.
-
-To participate, you must update your AMT software once with this new version. Don't worry, we have written a step-by-step instructions for this that really anyone can use and all your configuration data such as wallet and settings will be retained. You can easily undo the whole thing afterwards
+Many updates have been made in the last two months. 💪😅 Updates for more reliability and some nice features. See the [guidelines](https://github.com/21isenough/LightningATM#installation-guideline) for more information and try it out.
 
 --- 
-
+## Steps to update
 ### 1. Expand the config.ini
 
 Because we are also expanding the config.ini with this update, we unfortunately have to expand config.ini manually, otherwise we get an error message when starting the ATM. Expanding is not difficult and does not have to be undone later. First we log in again via SSH and stop the LightningATM service and call up the config.ini.
@@ -50,6 +42,8 @@ Make a backup from directory LightningATM, clone the new Github to "temp", sync 
 - It takes a few seconds for the display to update, but then..
 - The ATM has started and you can use it normally or test the functions.
 - Stop the ATM with `CTRL+C`
+- If something went wrong, launch a second terminal window, login with ssh and invoke the debugger: `$ tail -f ~/.lightningATM/debug.log`
+- If you like this version, just keep it!
 
 ### 4. If you don't like this version and want to get rid of it 
 
@@ -60,6 +54,7 @@ Make the backup the major version again and then delete the backup.
     $ sudo rm -r LightningATM_Backup
 
 - Everthing should now be as befor. Even the wallat data.
+- You can clean up the coinfig.ini, but you don't have to.
 
 ### 5. Final step
 
