@@ -44,7 +44,7 @@ Logon via SSH and stop the LightningATM service, make a backup from directory Li
 - The ATM has started and you can use it normally or test the functions.
 - Stop the ATM with `CTRL+C`
 - If something went wrong or you just want to watch the ATM, launch a second terminal window, login via ssh and call the debugger: `$ tail -f ~/.lightningATM/debug.log`
-- If you like this version, just keep it!
+- If you like this version? Just keep it and delete the Backup: `$ cd` and then `$ sudo rm -r LightningATM_Backup`
 
 ### 4. If you don't like this version and want to get rid of it 
 
