@@ -1,6 +1,6 @@
 # Text for update_startup_screen()
 startup_screen_1 = "Willkommen beim"
-startup_screen_2 = "Lightning ATM"
+startup_screen_2 = "LightningATM"
 startup_screen_3 = "- Wirf eine Münze ein -"
 
 # Text for error_screen()

@@ -10,7 +10,7 @@ When the start screen is displayed, the button has four functions depending on t
 
 1 : Shows screen: "No coins added! Please add coins first"  
 3 : Simulates adding a coin (2 coin pulses, only for testing)  
-5 : Displays all possible display messages once 
+5 : Show all possible display messages once 
 7 : Shutdown the host machine  
 9 : Reset Wallet (!!!) an scan new wallet credentials with camera  
 
