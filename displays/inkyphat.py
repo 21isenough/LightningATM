@@ -20,15 +20,15 @@ from displays import messages_tr
 # Select language from config.ini. If no match => English
 if config.conf["atm"]["language"] == "de":
     messages = messages_de
-if config.conf["atm"]["language"] == "es":
+elif config.conf["atm"]["language"] == "es":
     messages = messages_es
-if config.conf["atm"]["language"] == "fr":
+elif config.conf["atm"]["language"] == "fr":
     messages = messages_fr
-if config.conf["atm"]["language"] == "it":
+elif config.conf["atm"]["language"] == "it":
     messages = messages_it
-if config.conf["atm"]["language"] == "pt":
+elif config.conf["atm"]["language"] == "pt":
     messages = messages_pt
-if config.conf["atm"]["language"] == "tr":
+elif config.conf["atm"]["language"] == "tr":
     messages = messages_tr
 else:
     messages = messages
