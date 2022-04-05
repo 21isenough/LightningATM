@@ -21,4 +21,4 @@
   ```
 ---
 
-#### [autostart](/docs/guide/autostart.md)  ᐊ  previous | next  ᐅ  [option: button](/docs/guide/button.md) 
+#### [autostart](/docs/guide/autostart.md)  ᐊ  previous | next  ᐅ  [option: language](/docs/guide/languages.md) 

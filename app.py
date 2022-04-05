@@ -205,10 +205,10 @@ def button_pushed():
         else:
             logger.error("No valid wallet configured")
 
-    if config.PUSHES == 7:
-        """Scan and store new wallet credentials
+    if config.PUSHES == 9:
+        """Reset Wallet and Scan new wallet credentials
         """
-        logger.info("Wallet reset and new scan (7 times button)")
+        logger.info("Wallet reset and new scan (9 times button)")
         
         # Delete current wallet flag and credentials
         config.update_config("atm", "activewallet", "")
@@ -238,17 +238,17 @@ def button_pushed():
         config.PUSHES = 0
         return
 
-    if config.PUSHES == 5:
+    if config.PUSHES == 7:
         """Shutdown the host machine
         """
         display.update_shutdown_screen()
-        logger.warning("ATM shutdown (5 times button)")
+        logger.warning("ATM shutdown (7 times button)")
         os.system("sudo shutdown -h now")
 
-    if config.PUSHES == 9:
+    if config.PUSHES == 5:
         """Show all displays once
         """
-        logger.info("Show all displays once (9 times button)")
+        logger.info("Show all displays once (5 times button)")
 
         print("1. display.error_screen(message=ERROR)")
         display.error_screen(message="ERROR")

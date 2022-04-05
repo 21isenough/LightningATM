@@ -6,9 +6,32 @@ import math
 import config
 import utils
 
-from displays import messages
-
 from PIL import Image, ImageFont, ImageDraw
+
+from displays import messages
+from displays import messages_de
+from displays import messages_es
+from displays import messages_fr
+from displays import messages_it
+from displays import messages_pt
+from displays import messages_tr
+
+
+# Select language from config.ini. If no match => English
+if config.conf["atm"]["language"] == "de":
+    messages = messages_de
+elif config.conf["atm"]["language"] == "es":
+    messages = messages_es
+elif config.conf["atm"]["language"] == "fr":
+    messages = messages_fr
+elif config.conf["atm"]["language"] == "it":
+    messages = messages_it
+elif config.conf["atm"]["language"] == "pt":
+    messages = messages_pt
+elif config.conf["atm"]["language"] == "tr":
+    messages = messages_tr
+else:
+    messages = messages
 
 
 def update_startup_screen():

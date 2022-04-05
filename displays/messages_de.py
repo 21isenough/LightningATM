@@ -1,7 +1,7 @@
 # Text for update_startup_screen()
 startup_screen_1 = "Willkommen beim"
-startup_screen_2 = "Lightning ATM"
-startup_screen_3 = "- Wirf Münzen ein -"
+startup_screen_2 = "LightningATM"
+startup_screen_3 = "- Wirf eine Münze ein -"
 
 # Text for error_screen()
 error_screen_1 = "Fehler aufgetreten:"
@@ -37,7 +37,7 @@ nocoin_screen_2 = "Wirf erstmal"
 nocoin_screen_3 = "Münzen ein"
 
 # Text for update_lnurl_generation()
-lnurl_generation_1 = "Ich erstelle den QR"
+lnurl_generation_1 = "Erstelle den QR"
 lnurl_generation_2 = "Code zum scannen"
 
 # Text for update_shutdown_screen()
