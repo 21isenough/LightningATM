@@ -12,7 +12,7 @@ To do this, you have to log in to the ATM via SSH `$ ssh pi@your-ip` and your pa
 
 The config.ini:
 
-<img src="../pictures/we_need_your_help_config.ini.png" width="600">
+<img src="../pictures/languages_config.ini.png" width="600">
 
 Here you can select one of the languages. E.g. "language = de" for German. When you're done, save and exit the editor with `CTRL+x -> y -> ENTER`.
 
@@ -50,7 +50,7 @@ That's the easiest. Just go to the text message file an edit it.
 
 Example: messages_de.py
 
-<img src="../pictures/languages_config.ini.png" width="600">
+<img src="../pictures/languages_example.png" width="600">
 
 #### 2.3 Alligne the text
 
