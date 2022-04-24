@@ -20,7 +20,8 @@ $ sudo python3 ./epd_2in13_V2_test.py
 
 If everything has been correctly connected and installed, the display will now show a demonstration and finally the screen will cleare.
 
-`Help:`If it dosn't work, try the D-Version (flexible): `$ sudo python3 ./epd_2in13d_test.py` or one of [this](https://github.com/waveshare/e-Paper/tree/master/RaspberryPi_JetsonNano/python/examples).
+`Help:`If it dosn't work, try the D-Version (flexible): `$ sudo python3 ./epd_2in13d_test.py`. Another option is the display "Waveshare 2in13 V3",  it is a new display. `$ sudo python3 ./epd_2in13_V3_test.py`. (Work is in progress to fully support the V3).
+If you have a display from waveshare not listed here, try to find the right display type in the [waveshare repository](https://github.com/waveshare/e-Paper/tree/master/RaspberryPi_JetsonNano/python/examples).
 
 display demo
 
