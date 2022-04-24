@@ -47,7 +47,7 @@ network={
 - Insert the SD card into Raspberry Pi
 - Note: After starting the Raspberry Pi for the first time, the ".conf" file disappears from the directory
 - It can then be edited later via CLI by the command:
-- `$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf`
+- `$ sudo nano /etc/wpa_supplicant/wpa_supplicant.conf` (the ssh connection is required, see next topic)
 
 ## Carry out basic software settings and updates
 
