@@ -468,7 +468,7 @@ def update_amount_screen():
     draw.text(
         (80, 104),
         messages.amount_screen_3
-        + str(round(config.SATPRICE, 2))
+        + "%.1f" % round(config.SATPRICE, 1)
         + messages.amount_screen_4
         + config.conf["atm"]["centname"],
         fill=config.BLACK,
