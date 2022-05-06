@@ -356,7 +356,7 @@ def coins_inserted():
     if config.FIAT == 0:
         # Our counter is 0, meaning we got no fiat in:
         config.BTCPRICE = utils.get_btc_price(config.conf["atm"]["cur"])
-        config.SATPRICE = math.floor((1 / (config.BTCPRICE * 100)) * 1e8)
+        config.SATPRICE = (1 / (config.BTCPRICE * 100)) * 1e8
         logger.debug("Satoshi price updated")
 
     # We must have gotten pulses!
