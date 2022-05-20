@@ -4,7 +4,7 @@
 
 Below files can be used to print a case, which lowers your overall costs. The models can be printed  without any supports.
 
-This is the first version and is designed to be used with inserts to mount the Coin-Acceptor as well as the Rasbperry-Pi Zero. For the Coin Acceptor use **M3** inserts [(Amazon)](https://amzn.to/35eNkgj), for the Rasbperry-Pi **M2.5** [(Amazon)](https://amzn.to/2HjF0Uo) inserts are needed.
+This is the first version and is designed to be used with inserts to mount the Coin-Acceptor as well as the Rasbperry-Pi Zero. For the Coin Acceptor use **M3** inserts [(Amazon)](https://amzn.to/35eNkgj), for the Raspberry-Pi **M2.5** [(Amazon)](https://amzn.to/2HjF0Uo) inserts are needed.
 The Lids holds by friction fit.
 
 

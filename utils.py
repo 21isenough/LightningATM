@@ -19,6 +19,10 @@ logger = logging.getLogger("UTILS")
 def check_epd_size():
     """Check EPD_SIZE is defined
     """
+    # A pre-set default to avoid error messages at first start and if you run a new OS version without PaPiRus
+    # Later we should leave the config.ini "display=papiruszero2in" inital empty to be able to bypass this "def"
+    EPD_SIZE=2.0
+
     if os.path.exists("/etc/default/epd-fuse"):
         exec(open("/etc/default/epd-fuse").read(), globals())
 
@@ -87,7 +91,7 @@ def get_btc_price_socket():
 
 
 def get_sats():
-    return config.FIAT * 100 * config.SATPRICE
+    return math.floor(config.FIAT * 100 * config.SATPRICE)
 
 
 def get_sats_with_fee():

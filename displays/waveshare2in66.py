@@ -6,9 +6,32 @@ import math
 import config
 import utils
 
-from displays import messages
-
 from PIL import Image, ImageFont, ImageDraw
+
+from displays import messages
+from displays import messages_de
+from displays import messages_es
+from displays import messages_fr
+from displays import messages_it
+from displays import messages_pt
+from displays import messages_tr
+
+
+# Select language from config.ini. If no match => English
+if config.conf["atm"]["language"] == "de":
+    messages = messages_de
+elif config.conf["atm"]["language"] == "es":
+    messages = messages_es
+elif config.conf["atm"]["language"] == "fr":
+    messages = messages_fr
+elif config.conf["atm"]["language"] == "it":
+    messages = messages_it
+elif config.conf["atm"]["language"] == "pt":
+    messages = messages_pt
+elif config.conf["atm"]["language"] == "tr":
+    messages = messages_tr
+else:
+    messages = messages
 
 
 def update_startup_screen():
@@ -445,7 +468,7 @@ def update_amount_screen():
     draw.text(
         (80, 104),
         messages.amount_screen_3
-        + str(math.floor(config.SATPRICE))
+        + "%.1f" % round(config.SATPRICE, 1)
         + messages.amount_screen_4
         + config.conf["atm"]["centname"],
         fill=config.BLACK,
@@ -496,6 +519,58 @@ def update_lnurl_cancel_notice():
         messages.lnurl_cancel_notice_3,
         fill=config.BLACK,
         font=utils.create_font("freemono", 20),
+    )
+
+    config.WAVESHARE.init(0)
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+
+
+def update_button_fault():
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.text(
+        (15, 15),
+        messages.button_fault_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemonobold", 30),
+    )
+    draw.text(
+        (15, 72),
+        messages.button_fault_2,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 30),
+    )
+    draw.text(
+        (15, 102),
+        messages.button_fault_3,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 30),
+    )
+
+    config.WAVESHARE.init(0)
+    config.WAVESHARE.display(config.WAVESHARE.getbuffer(image))
+
+
+def update_wallet_fault():
+    image, width, height, draw = init_screen(color=config.WHITE)
+
+    draw.text(
+        (15, 15),
+        messages.wallet_fault_1,
+        fill=config.BLACK,
+        font=utils.create_font("freemonobold", 30),
+    )
+    draw.text(
+        (15, 72),
+        messages.wallet_fault_2,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 30),
+    )
+    draw.text(
+        (15, 102),
+        messages.wallet_fault_3,
+        fill=config.BLACK,
+        font=utils.create_font("freemono", 30),
     )
 
     config.WAVESHARE.init(0)

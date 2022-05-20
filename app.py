@@ -7,7 +7,7 @@ import time
 import math
 import subprocess
 
-import RPi.GPIO as GPIO
+from gpiozero import Button, LED
 
 import config
 import lndrest
@@ -16,11 +16,17 @@ import qr
 
 import utils
 import importlib
+from PIL import Image
+
+# Initialize inputs and outputs
+button_signal = Button(5, False)
+coin_signal = Button(6)
+button_led = LED(13)
+lockout_relay = LED(12)
 
 display_config = config.conf["atm"]["display"]
 display = getattr(__import__("displays", fromlist=[display_config]), display_config)
 
-led = "off"
 logger = logging.getLogger("MAIN")
 
 
@@ -36,7 +42,6 @@ def check_connectivity(interface="wlan0"):
 def softreset():
     """Displays startup screen and deletes fiat amount
     """
-    global led
     # Inform about coin, bill and sat amounts
     if config.COINCOUNT > 0:
         logger.info("Last payment:")
@@ -47,21 +52,20 @@ def softreset():
     config.COINCOUNT = 0
     config.PUSHES = 0
     # Turn off button LED
-    GPIO.output(13, GPIO.LOW)
-    led = "off"
-
+    button_led.off()
+    
     display.update_startup_screen()
     logger.info("Softreset executed")
 
 
-def button_event(channel):
+def button_event():
     """Registers a button push event
     """
     config.LASTPUSHES = time.time()
     config.PUSHES = config.PUSHES + 1
 
 
-def coin_event(channel):
+def coin_event():
     """Registers a coin insertion event
     """
     config.LASTIMPULSE = time.time()
@@ -71,34 +75,49 @@ def coin_event(channel):
 def button_pushed():
     """Actions button pushes by number
     """
-    if config.PUSHES == 1:
+    print("Push button: ", config.PUSHES, " times")
+    logger.info("Call function button_pushed with pushes: ")
+    logger.info(config.PUSHES)
+    
+    if config.PUSHES == 1 or config.FIAT > 0:
         """If no coins inserted, update the screen.
         If coins inserted, scan a qr code for the exchange amount
         """
+        
+        # Clarify if exception FIAT > 0 was TRUE => set pulses 1
+        if config.PUSHES > 1:
+            config.PUSHES = 1
+            logger.info("Restriction for the button => Set pulses = 1")
 
+        # If no wallet is configured
         if not config.conf["atm"]["activewallet"]:
             logger.error("No wallet has been configured for the ATM.")
             logger.error("Please configure your Lightning Wallet first.")
-            # Add "no wallet setup" message
+            # "no wallet setup" message
+            display.update_wallet_fault()
+            time.sleep(5)
 
             # Softreset and startup screen
             softreset()
             return
 
+        # If no FIAT has been deposited yet
         if config.FIAT == 0:
             display.update_nocoin_screen()
             time.sleep(3)
             display.update_startup_screen()
+            config.PUSHES = 0
             return
 
         lnurlproxy = config.conf["lnurl"]["lnurlproxy"]
         activewallet = config.conf["atm"]["activewallet"]
+        camera = config.conf["atm"]["camera"]
         # Determine if LNURL Withdrawls are possible
         if lnurlproxy == "active" or activewallet == "lntxbot":
-            # 1. Ask if wallet supports LNURL
+            # 1. Ask if wallet supports LNURL, if camera available
             # 2. Offer to cancel and switch to normal scan
             # 3. Process payment
-            if activewallet == "lntxbot":
+            if activewallet == "lntxbot" and camera == True:
                 display.update_lnurl_cancel_notice()
                 time.sleep(5)
                 if config.PUSHES == 1:
@@ -117,6 +136,14 @@ def button_pushed():
                     softreset()
                     return
 
+            # If no camera is available, process LNURL directly
+            if activewallet == "lntxbot":
+                # Process LNURL
+                logger.info("LNURL process stared")
+                lntxbot.process_using_lnurl(config.SATS)
+                softreset()
+                return
+            
             if lnurlproxy == "active":
                 display.update_lnurl_cancel_notice()
                 time.sleep(5)
@@ -178,9 +205,11 @@ def button_pushed():
         else:
             logger.error("No valid wallet configured")
 
-    if config.PUSHES == 3:
-        """Scan and store new wallet credentials
+    if config.PUSHES == 9:
+        """Reset Wallet and Scan new wallet credentials
         """
+        logger.info("Wallet reset and new scan (9 times button)")
+        
         # Delete current wallet flag and credentials
         config.update_config("atm", "activewallet", "")
         config.update_config("lntxbot", "creds", "")
@@ -200,21 +229,113 @@ def button_pushed():
 
         softreset()
 
-    if config.PUSHES == 4:
+    if config.PUSHES == 3:
         """Simulates adding a coin (for testing)
         """
-        logger.info("Button pushed four times (add coin)")
-        print("Button pushed four times (add coin)")
+        logger.info("Simulate coin for test with pulses (3 times button)")
+        print("Simulate coin for test with pulses (3 times button)")
         config.PULSES = 2
+        config.PUSHES = 0
+        return
 
-    if config.PUSHES == 6:
+    if config.PUSHES == 7:
         """Shutdown the host machine
         """
         display.update_shutdown_screen()
-        GPIO.cleanup()
-        logger.warning("ATM shutdown (6 times button)")
+        logger.warning("ATM shutdown (7 times button)")
         os.system("sudo shutdown -h now")
 
+    if config.PUSHES == 5:
+        """Show all displays once
+        """
+        logger.info("Show all displays once (5 times button)")
+
+        print("1. display.error_screen(message=ERROR)")
+        display.error_screen(message="ERROR")
+        time.sleep(2)
+
+        print("2. display.update_qr_request()")
+        display.update_qr_request()
+        time.sleep(2)
+
+        print("3. display.update_qr_failed()")
+        display.update_qr_failed()
+        time.sleep(2)
+
+        print("4. display.update_payout_screen()")
+        display.update_payout_screen()
+        time.sleep(2)
+
+        print("5. display.update_payment_failed()")
+        display.update_payment_failed()
+        time.sleep(2)
+
+        print("6. display.update_thankyou_screen()")
+        display.update_thankyou_screen()
+        time.sleep(2)
+
+        print("7. display.update_nocoin_screen()")
+        display.update_nocoin_screen()
+        time.sleep(2)
+
+        print("8. display.update_lnurl_generation()")
+        display.update_lnurl_generation()
+        time.sleep(2)
+
+        print("9. display.update_shutdown_screen()")
+        display.update_shutdown_screen()
+        time.sleep(2)
+
+        print("10. display.update_wallet_scan()")
+        display.update_wallet_scan()
+        time.sleep(2)
+
+        print("11. display.update_lntxbot_balance(balance)")
+        display.update_lntxbot_balance(123)
+        time.sleep(2)
+
+        print("12. display.update_btcpay_lnd()")
+        display.update_btcpay_lnd()
+        time.sleep(2)
+
+        print("13. display.draw_lnurl_qr(qr_img)")
+        qrImage = Image.new('1', (122, 122), 255)
+        display.draw_lnurl_qr(qrImage)
+        time.sleep(2)
+
+        print("14. display.update_amount_screen()")
+        display.update_amount_screen()
+        time.sleep(2)
+
+        print("15. display.update_lnurl_cancel_notice()")
+        display.update_lnurl_cancel_notice()
+        time.sleep(2)
+
+        print("16. display.update_button_fault()")
+        display.update_button_fault()
+        time.sleep(2)
+
+        print("17. display.update_wallet_fault()")
+        display.update_wallet_fault()
+        time.sleep(2)
+
+        print("18. display.update_startup_screen()")
+        display.update_startup_screen()
+        time.sleep(2)
+
+        print("That's it, have fun!")
+
+        config.PUSHES = 0
+        return
+
+    else:
+        # If pushes not defined
+        logger.info("Show pushes not defined  (x times button)")
+        display.update_button_fault()
+        time.sleep(3)
+        display.update_startup_screen()
+
+    # Reset pulses
     config.PUSHES = 0
 
 
@@ -229,12 +350,20 @@ def coins_inserted():
         if config.FIAT == 0:
             # Our counter is 0, meaning we got no fiat in:
             config.BTCPRICE = utils.get_btc_price(config.conf["atm"]["cur"])
-            config.SATPRICE = math.floor((1 / (config.BTCPRICE * 100)) * 1e8)
+            config.SATPRICE = (1 / (config.BTCPRICE * 100)) * 1e8
             logger.debug("Satoshi price updated")
     # OTHERWISE NO NEED PRICE IS AUTOMATICALLY UPDATED REGULARLY
+    
+    print("Coin pulses: ", config.PULSES, " pulses")
+
+    # Intercept and display a loose contact
+    if config.PULSES == 1:
+        print("Ups.. Just one coin pulses is not allowed!")
+        logger.error("Ups.. Just one coin pulses is not allowed!")
+        config.PULSES = 0
+        return
 
     # We must have gotten pulses!
-    print(config.PULSES)
     config.FIAT +=      float(config.COINTYPES[config.PULSES]['fiat'])
     config.COINCOUNT += 1
     config.SATS =       utils.get_sats()
@@ -243,20 +372,22 @@ def coins_inserted():
     logger.info("Added {}".format(config.COINTYPES[config.PULSES]['name']))
     display.update_amount_screen()
 
+    # Coin was processed -> Release coin acceptor relay switch
+    lockout_relay.on()
+
     # Reset pulse cointer
     config.PULSES = 0
 
-    if config.FIAT > 0 and led == "off":
+    if config.FIAT > 0 and not button_led.value == 1:
         # Turn on the LED after first coin
-        GPIO.output(13, GPIO.HIGH)
-        led = "on"
+        button_led.on()
         logger.debug("Button-LED turned on (if connected)")
 
 
 def monitor_coins_and_button():
     """Monitors coins inserted and buttons pushed
     """
-    time.sleep(0.5)
+    # time.sleep(0.5)
 
     #Wifi monitoring causes undesirable behavior sometimes.
     #ssid=check_connectivity()
@@ -276,36 +407,25 @@ def monitor_coins_and_button():
     #        return False
 
     # Detect when coins are being inserted
-    if (time.time() - config.LASTIMPULSE > 0.5) and (config.PULSES > 0):
+    if (time.time() - config.LASTIMPULSE > 0.3) and (config.PULSES > 0):
+        # New Coin to process -> Relay switch to inhibit
+        lockout_relay.off()
         coins_inserted()
 
     # Detect if the button has been pushed
     if (time.time() - config.LASTPUSHES > 1) and (config.PUSHES > 0):
+        # Pulses from push button -> Relay switch to inhibit
+        if not config.PUSHES == 3:
+            lockout_relay.off()
         button_pushed()
+
+    # Processing pulses finish -> Release coin acceptor relay switch
+    lockout_relay.on()
 
     # Automatic payout if specified in config file
     if (int(config.conf["atm"]["payoutdelay"]) > 0) and (config.FIAT > 0):
         if time.time() - config.LASTIMPULSE > int(config.conf["atm"]["payoutdelay"]):
             config.PUSHES = config.PUSHES + 1
-
-
-def setup_coin_acceptor():
-    """Initialises the coin acceptor parameters and sets up a callback for button pushes
-    and coin inserts.
-    """
-    # Defining GPIO BCM Mode
-    GPIO.setmode(GPIO.BCM)
-
-    # Setup GPIO Pins for coin acceptor, button and button-led
-    GPIO.setwarnings(False)
-    GPIO.setup(13, GPIO.OUT)
-    GPIO.output(13, GPIO.LOW)
-    GPIO.setup(5, GPIO.IN, pull_up_down=GPIO.PUD_DOWN)
-    GPIO.setup(6, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-
-    # Setup coin interrupt channel (bouncetime for switch bounce)
-    GPIO.add_event_detect(5, GPIO.RISING, callback=button_event, bouncetime=300)
-    GPIO.add_event_detect(6, GPIO.FALLING, callback=coin_event)
 
 
 # def check_dangermode():
@@ -346,22 +466,28 @@ def setup_coin_acceptor():
 def main():
     utils.check_epd_size()
     logger.info("Application started")
+    print("Application started")
 
     # Checks dangermode and start scanning for credentials
     # Only activate once software ready for it
     # check_dangermode()
 
-    # # For testing
-    # config.PULSES = 2
+    # Display startup info
+    display.update_shutdown_screen()
+    button_led.on()
+    time.sleep(1)
 
     # Display startup startup_screen
     display.update_startup_screen()
+    button_led.off()
     
     if config.USESOCKET:
         # open a thread where btc price will be regularly updated
         utils.get_btc_price_socket()
 
-    setup_coin_acceptor()
+    # Function call by rising/falling new signal
+    button_signal.when_pressed = button_event
+    coin_signal.when_released = coin_event
 
     while True:
         monitor_coins_and_button()
@@ -375,12 +501,10 @@ if __name__ == "__main__":
             if config.USESOCKET:
                 config.ws.close()
             display.update_shutdown_screen()
-            GPIO.cleanup()
             logger.info("Application finished (Keyboard Interrupt)")
-            sys.exit("Manually Interrupted")
+            sys.exit(" Manually Interrupted")
         except Exception:
             logger.exception("Oh no, something bad happened! Restarting...")
             if config.USESOCKET:
                 config.ws.close()
-            GPIO.cleanup()
             os.execv("/home/pi/LightningATM/app.py", [""])

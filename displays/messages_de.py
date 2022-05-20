@@ -1,7 +1,7 @@
 # Text for update_startup_screen()
 startup_screen_1 = "Willkommen beim"
-startup_screen_2 = "Lightning ATM"
-startup_screen_3 = "- Wirf Münzen ein -"
+startup_screen_2 = "LightningATM"
+startup_screen_3 = "- Wirf eine Münze ein -"
 
 # Text for error_screen()
 error_screen_1 = "Fehler aufgetreten:"
@@ -37,7 +37,7 @@ nocoin_screen_2 = "Wirf erstmal"
 nocoin_screen_3 = "Münzen ein"
 
 # Text for update_lnurl_generation()
-lnurl_generation_1 = "Ich erstelle den QR"
+lnurl_generation_1 = "Erstelle den QR"
 lnurl_generation_2 = "Code zum scannen"
 
 # Text for update_shutdown_screen()
@@ -75,6 +75,16 @@ amount_screen_7 = "% ("
 amount_screen_8 = " sats)"
 
 # Text for update_lnurl_cancel_notice
-lnurl_cancel_notice_1 = "Prepare for LNURL"
-lnurl_cancel_notice_2 = "(Not LNURL compatible?"
-lnurl_cancel_notice_3 = "Press button to cancel)"
+lnurl_cancel_notice_1 = "Vorbereitung LNURL"
+lnurl_cancel_notice_2 = "Nicht LNURL kompatibel?"
+lnurl_cancel_notice_3 = "Abbrechen Taste drücken!"
+
+# Text for update_button_fault()
+button_fault_1 = "Oh Nein.."
+button_fault_2 = "Taster Fehler.."
+button_fault_3 = "Versuchs nochmal!"
+
+# Text for update_wallet_fault()
+wallet_fault_1 = "Wallet Fehler.."
+wallet_fault_2 = "Keine Daten."
+wallet_fault_3 = "Bitte setzten!"

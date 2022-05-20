@@ -123,15 +123,17 @@ if "papirus" in conf["atm"]["display"]:
         PAPIRUS = Papirus(rotation=PAPIRUSROT)
     except ImportError:
         logger.warning("Papirus display library not installed.")
+        print("Papirus library not installed.")
         sys.exit("Exiting...")
 
 # Display - Waveshare 2.13 is 250 * 122 pixels
-elif "waveshare2in13" in conf["atm"]["display"]:
+elif "waveshare2in13v2" in conf["atm"]["display"]:
     try:
         from waveshare_epd import epd2in13_V2
         WAVESHARE = epd2in13_V2.EPD()
     except ImportError:
         logger.warning("Waveshare display library not installed.")
+        print("Waveshare2in13v2 library not installed.")
         sys.exit("Exiting...")
 
 # Display - Waveshare 2.13 (D) is 212 * 104 pixels
@@ -141,6 +143,7 @@ elif "waveshare2in13d" in conf["atm"]["display"]:
         WAVESHARE = epd2in13d.EPD()
     except ImportError:
         logger.warning("Waveshare display library not installed.")
+        print("Waveshare2in13d library not installed.")
         sys.exit("Exiting...")
 
 # Display - Waveshare 2.66 is 296 * 152 pixels
@@ -150,6 +153,7 @@ elif "waveshare2in66" in conf["atm"]["display"]:
         WAVESHARE = epd2in66.EPD()
     except ImportError:
         logger.warning("Waveshare display library not installed.")
+        print("Waveshare2in66 library not installed.")
         sys.exit("Exiting...")
 
 # Display - Waveshare 2.7 is 264 * 176 pixels
@@ -159,24 +163,27 @@ elif "waveshare2in7" in conf["atm"]["display"]:
         WAVESHARE = epd2in7.EPD()
     except ImportError:
         logger.warning("Waveshare display library not installed.")
+        print("Waveshare2in7 library not installed.")
         sys.exit("Exiting...")
 
 # Display - Inky pHAT
 elif "inkyphat" in conf["atm"]["display"]:
     try:
-        from inky import InkyPHAT
+        from inky.auto import auto
 
         WHITE = 0
         BLACK = 1
-        INKY = InkyPHAT("black")
+        INKY = auto(ask_user=True, verbose=True)
         INKY.set_border(INKY.WHITE)
     except ImportError:
         logger.warning("Inky display library not installed.")
+        print("Inkyphat library not installed.")
         sys.exit("Exiting...")
 
 # Display - No configuration match
 else:
     logger.warning("No display configuration match.")
+    print("No display configuration matched.")
     sys.exit("Exiting...")
     
 USESOCKET = False
@@ -198,10 +205,11 @@ INVOICE = ""
 # Regularly update btc and sat price
 global BTCPRICE
 global SATPRICE
+
 # Set btc and sat price
 if not USESOCKET:
     BTCPRICE = utils.get_btc_price(conf["atm"]["cur"])
-    SATPRICE = math.floor((1 / (BTCPRICE * 100)) * 1e8)
+    SATPRICE = (1 / (BTCPRICE * 100)) * 1e8
 
 # Button / Acceptor Pulses
 LASTIMPULSE = 0
@@ -220,6 +228,6 @@ try:
         coin_type_pulses,coin_type_fiat,coin_type_name=coin_type.split(',')
         COINTYPES[int(coin_type_pulses)]={'fiat': coin_type_fiat, 'name': coin_type_name}
 except:
-    print("Pulses not set in the new way, please update config")
+    print("Pulses not set in the new way, please update config.")
     sys.exit(2)
 
