@@ -126,7 +126,7 @@ if "papirus" in conf["atm"]["display"]:
         print("Papirus library not installed.")
         sys.exit("Exiting...")
 
-# Display - Waveshare 2.13 is 250 * 122 pixels
+# Display - Waveshare 2.13 V2 is 250 * 122 pixels
 elif "waveshare2in13v2" in conf["atm"]["display"]:
     try:
         from waveshare_epd import epd2in13_V2
@@ -134,6 +134,16 @@ elif "waveshare2in13v2" in conf["atm"]["display"]:
     except ImportError:
         logger.warning("Waveshare display library not installed.")
         print("Waveshare2in13v2 library not installed.")
+        sys.exit("Exiting...")
+
+# Display - Waveshare 2.13 V3 is 250 * 122 pixels
+elif "waveshare2in13v3" in conf["atm"]["display"]:
+    try:
+        from waveshare_epd import epd2in13_V3
+        WAVESHARE = epd2in13_V3.EPD()
+    except ImportError:
+        logger.warning("Waveshare display library not installed.")
+        print("Waveshare2in13v3 library not installed.")
         sys.exit("Exiting...")
 
 # Display - Waveshare 2.13 (D) is 212 * 104 pixels
