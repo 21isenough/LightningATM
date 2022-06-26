@@ -385,7 +385,7 @@ def monitor_coins_and_button():
     """
     
     # 200 ms sleep for CPU idle and other processes
-    time.sleep(0.2)
+    time.sleep(0.1)
     # Too long a delay will have a negative effect on the coin detection and the lockout relay
 
     #Wifi monitoring causes undesirable behavior sometimes.
