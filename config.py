@@ -176,6 +176,16 @@ elif "waveshare2in7" in conf["atm"]["display"]:
         print("Waveshare2in7 library not installed.")
         sys.exit("Exiting...")
 
+# Display - Waveshare 2.9 (D) is 296 * 128 pixels
+elif "waveshare2in9d" in conf["atm"]["display"]:
+    try:
+        from waveshare_epd import epd2in9d
+        WAVESHARE = epd2in9d.EPD()
+    except ImportError:
+        logger.warning("Waveshare display library not installed.")
+        print("Waveshare2in9d library not installed.")
+        sys.exit("Exiting...")
+
 # Display - Inky pHAT
 elif "inkyphat" in conf["atm"]["display"]:
     try:
