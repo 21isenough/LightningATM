@@ -4,10 +4,11 @@
 
 ```
 $ cd
-$ git clone https://github.com/waveshare/e-Paper
+$ git clone https://github.com/AxelHamburch/e-Paper/
 $ cd ~/e-Paper/RaspberryPi*/python
 $ sudo python3 setup.py install
 ```
+`Info:` Normally cloning is done from the current Waveshare repository [https://github.com/waveshare/e-Paper](https://github.com/waveshare/e-Paper), but the new version currently still has problems with the recommended ATM configuration. Therefore, an older backup of "AxelHamburch" is recommended here for the time being.
 
 ###  Testing the display
 
