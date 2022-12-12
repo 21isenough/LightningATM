@@ -205,9 +205,16 @@ else:
     logger.warning("No display configuration match.")
     print("No display configuration matched.")
     sys.exit("Exiting...")
+    
+USESOCKET = False
+if conf["atm"]["websocket"] == "yes":
+    USESOCKET = True
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
+# API URL for binance websocket
+BINANCE_SOCKET = "wss://stream.binance.com:9443/ws/btcusdt@kline_1m" # every 2 seconds
+global ws
 
 # Fiat and satoshi variables
 FIAT = 0
@@ -215,9 +222,14 @@ SATS = 0
 SATSFEE = 0
 INVOICE = ""
 
+# Regularly update btc and sat price
+global BTCPRICE
+global SATPRICE
+
 # Set btc and sat price
-BTCPRICE = utils.get_btc_price(conf["atm"]["cur"])
-SATPRICE = (1 / (BTCPRICE * 100)) * 1e8
+if not USESOCKET:
+    BTCPRICE = utils.get_btc_price(conf["atm"]["cur"])
+    SATPRICE = (1 / (BTCPRICE * 100)) * 1e8
 
 # Button / Acceptor Pulses
 LASTIMPULSE = 0

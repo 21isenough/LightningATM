@@ -5,6 +5,10 @@ import sys
 import config
 import math
 import qrcode
+import websocket
+import threading
+import time
+import json
 
 from PIL import ImageFont
 from pathlib import Path
@@ -47,7 +51,7 @@ def create_font(font, size):
     else:
         print("Font not available")
 
-
+        
 def get_btc_price(fiat_code):
     """Get BTC -> FIAT conversion
     """
@@ -56,6 +60,34 @@ def get_btc_price(fiat_code):
         url, params={"ids": "bitcoin", "vs_currencies": fiat_code}
     ).json()
     return price["bitcoin"][fiat_code]
+
+
+def get_btc_price_socket():
+    """Get BTC Price in usd(t)
+    """
+    def on_open(ws):
+        print("==> Get BTC price Websocket OPENED")
+        
+    def on_message(ws, message):
+        json_msg = json.loads(message)
+        candle = json_msg['k']
+        price = float(candle['c'])
+        # print(f'BTC price : {price} $')
+        config.BTCPRICE = price
+        config.SATPRICE = math.floor((1 / (price * 100)) * 1e8)
+
+    def on_close(ws):
+        print("==> Get BTC price Websocket CLOSED")
+
+
+    config.ws = websocket.WebSocketApp(config.BINANCE_SOCKET,
+                                on_open=on_open,
+                                on_message=on_message,
+                                on_close=on_close)
+                                
+    wst = threading.Thread(target=config.ws.run_forever)
+    wst.start()
+    time.sleep(2)
 
 
 def get_sats():

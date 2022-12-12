@@ -342,6 +342,17 @@ def button_pushed():
 def coins_inserted():
     """Actions coins inserted
     """
+    global led
+    
+    # IF WEBSOCKET IS NOT USED
+    if not config.USESOCKET:
+        # Check if we should update prices
+        if config.FIAT == 0:
+            # Our counter is 0, meaning we got no fiat in:
+            config.BTCPRICE = utils.get_btc_price(config.conf["atm"]["cur"])
+            config.SATPRICE = (1 / (config.BTCPRICE * 100)) * 1e8
+            logger.debug("Satoshi price updated")
+    # OTHERWISE NO NEED PRICE IS AUTOMATICALLY UPDATED REGULARLY
     
     print("Coin pulses: ", config.PULSES, " pulses")
 
@@ -351,13 +362,6 @@ def coins_inserted():
         logger.error("Ups.. Just one coin pulses is not allowed!")
         config.PULSES = 0
         return
-
-    # Check if we should update prices
-    if config.FIAT == 0:
-        # Our counter is 0, meaning we got no fiat in:
-        config.BTCPRICE = utils.get_btc_price(config.conf["atm"]["cur"])
-        config.SATPRICE = (1 / (config.BTCPRICE * 100)) * 1e8
-        logger.debug("Satoshi price updated")
 
     # We must have gotten pulses!
     config.FIAT +=      float(config.COINTYPES[config.PULSES]['fiat'])
@@ -479,6 +483,10 @@ def main():
     # Display startup startup_screen
     display.update_startup_screen()
     button_led.off()
+    
+    if config.USESOCKET:
+        # open a thread where btc price will be regularly updated
+        utils.get_btc_price_socket()
 
     # Function call by rising/falling new signal
     button_signal.when_pressed = button_event
@@ -493,9 +501,13 @@ if __name__ == "__main__":
         try:
             main()
         except KeyboardInterrupt:
+            if config.USESOCKET:
+                config.ws.close()
             display.update_shutdown_screen()
             logger.info("Application finished (Keyboard Interrupt)")
             sys.exit(" Manually Interrupted")
         except Exception:
             logger.exception("Oh no, something bad happened! Restarting...")
+            if config.USESOCKET:
+                config.ws.close()
             os.execv("/home/pi/LightningATM/app.py", [""])
