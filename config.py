@@ -107,7 +107,7 @@ CONFIG_FILE = get_config_file()
 conf = create_config()
 
 ######################################################
-### (Do not change and of these parameters unless  ###
+### (Do not change any of these parameters unless  ###
 ### you know exactly what you are doing.           ###
 ######################################################
 
