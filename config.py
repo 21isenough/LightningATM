@@ -122,26 +122,31 @@ if "papirus" in conf["atm"]["display"]:
         from papirus import Papirus
         PAPIRUS = Papirus(rotation=PAPIRUSROT)
     except ImportError:
-        logger.warning("Papirus display library not installed.")
+        logger.warning("Papirus display library not installed" )
         sys.exit("Exiting...")
 
+
+# Display - Waveshare 2.13 (D) is 212 * 104 pixels
+elif "waveshare2in13d" in conf["atm"]["display"]:
+    print("yes")
+    try:
+        from waveshare_epd import epd2in13d
+        WAVESHARE = epd2in13d.EPD()
+    except ioe as ImportError:
+        logger.warning("Waveshare display library not installed for "+conf["atm"]["display"])
+        sys.exit("Exiting...")
+
+
 # Display - Waveshare 2.13 is 250 * 122 pixels
-if "waveshare" in conf["atm"]["display"]:
+elif "waveshare2in13" in conf["atm"]["display"]:
     try:
         from waveshare_epd import epd2in13_V2
         WAVESHARE = epd2in13_V2.EPD()
     except ImportError:
-        logger.warning("Waveshare display library not installed.")
+        logger.warning("Waveshare display library not installed."+conf["atm"]["display"])
         sys.exit("Exiting...")
 
-# Display - Waveshare 2.13 (D) is 212 * 104 pixels
-if "waveshare2in13d" in conf["atm"]["display"]:
-    try:
-        from waveshare_epd import epd2in13d
-        WAVESHARE = epd2in13d.EPD()
-    except ImportError:
-        logger.warning("Waveshare display library not installed.")
-        sys.exit("Exiting...")
+
 
 # API URL for coingecko
 COINGECKO_URL_BASE = "https://api.coingecko.com/api/v3/"
