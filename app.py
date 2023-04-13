@@ -112,12 +112,54 @@ def button_pushed():
         lnurlproxy = config.conf["lnurl"]["lnurlproxy"]
         activewallet = config.conf["atm"]["activewallet"]
         camera = config.conf["atm"]["camera"]
+
+        if config.conf["atm"]["activewallet"] == "lnbits":
+            # Process QR code scan
+            # Only implemented for LND BTCPay so far
+            logger.info("No option for LNURL. Continue with scan...")
+            display.update_qr_request()
+            if config.PUSHES == 1:
+                qrcode = qr.scan()
+                config.INVOICE = lnbits.evaluate_scan(qrcode)
+                while config.INVOICE is False:
+                    display.update_qr_failed()
+                    time.sleep(1)
+                    display.update_qr_request()
+                    qrcode = qr.scan()
+                    config.INVOICE = lnbits.evaluate_scan(qrcode)
+                display.update_payout_screen()
+                lnbits.handle_invoice()
+                softreset()
+                return
+            if config.PUSHES > 1:
+                # Process LNURL
+                # Only implemented for LND BTCPay so far
+                import requests, json, qrcode
+
+                request_url = config.conf["lnurl"]["lnurlproxyurl"]
+                data = {"amount": config.SATS}
+
+                response = requests.post(request_url, json=data)
+
+                qr_img = utils.generate_lnurl_qr(response.json()["lnurl"])
+                # TODO Adjust size according to screen used
+                qr_img = qr_img.resize((122, 122), resample=0)
+
+                # draw the qr code on the e-ink screen
+                display.draw_lnurl_qr(qr_img)
+                invoice = requests.get(response.json()["callback"])
+
+                config.INVOICE = invoice.json()["invoice"]
+                lnbits.handle_invoice()
+                softreset()
+                return
+
         # Determine if LNURL Withdrawls are possible
-        if lnurlproxy == "active" or activewallet == "lntxbot":
-            # 1. Ask if wallet supports LNURL, if camera available
+        elif lnurlproxy == "active" or activewallet == "lntxbot":
+            # 1. Ask if wallet supports LNURL
             # 2. Offer to cancel and switch to normal scan
             # 3. Process payment
-            if activewallet == "lntxbot" and camera == True:
+            if activewallet == "lntxbot":
                 display.update_lnurl_cancel_notice()
                 time.sleep(5)
                 if config.PUSHES == 1:
@@ -136,14 +178,6 @@ def button_pushed():
                     softreset()
                     return
 
-            # If no camera is available, process LNURL directly
-            if activewallet == "lntxbot":
-                # Process LNURL
-                logger.info("LNURL process stared")
-                lntxbot.process_using_lnurl(config.SATS)
-                softreset()
-                return
-            
             if lnurlproxy == "active":
                 display.update_lnurl_cancel_notice()
                 time.sleep(5)
@@ -174,34 +208,17 @@ def button_pushed():
                     # Only implemented for LND BTCPay so far
                     display.update_qr_request()
                     qrcode = qr.scan()
-                    config.INVOICE = lndrest.evaluate_scan(qrcode)
+                    config.INVOICE = lnbits.evaluate_scan(qrcode)
                     while config.INVOICE is False:
                         display.update_qr_failed()
                         time.sleep(1)
                         display.update_qr_request()
                         qrcode = qr.scan()
-                        config.INVOICE = lndrest.evaluate_scan(qrcode)
+                        config.INVOICE = lnbits.evaluate_scan(qrcode)
                     display.update_payout_screen()
-                    lndrest.handle_invoice()
+                    lnbits.handle_invoice()
                     softreset()
                     return
-        elif config.conf["atm"]["activewallet"] == "btcpay_lnd":
-            # Process QR code scan
-            # Only implemented for LND BTCPay so far
-            logger.info("No option for LNURL. Continue with scan...")
-            display.update_qr_request()
-            qrcode = qr.scan()
-            config.INVOICE = lndrest.evaluate_scan(qrcode)
-            while config.INVOICE is False:
-                display.update_qr_failed()
-                time.sleep(1)
-                display.update_qr_request()
-                qrcode = qr.scan()
-                config.INVOICE = lndrest.evaluate_scan(qrcode)
-            display.update_payout_screen()
-            lndrest.handle_invoice()
-            softreset()
-            return
         else:
             logger.error("No valid wallet configured")
 
