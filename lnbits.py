@@ -259,7 +259,7 @@ def wait_for_lnurlw_redemption(id, timeout=1000 * 90):
     # loop while the user is redeeming the lnurlw
     while True and (time.time() < start_time + timeout):
         response = requests.get(
-            url = base_url + f"/withdraw/api/v1/links/{id}",
+            url = base_url + "/withdraw/api/v1/links/" + id,
             headers={"X-Api-Key": str(config.conf["lnbits"]["apikey"])}
         )
         res_json = response.json()
