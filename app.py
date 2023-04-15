@@ -18,6 +18,8 @@ import utils
 import importlib
 from PIL import Image
 
+import lnbits
+
 # Initialize inputs and outputs
 button_signal = Button(5, False)
 coin_signal = Button(6)
@@ -119,40 +121,40 @@ def button_pushed():
             logger.info("No option for LNURL. Continue with scan...")
             display.update_qr_request()
             if config.PUSHES == 1:
-                qrcode = qr.scan()
-                config.INVOICE = lnbits.evaluate_scan(qrcode)
-                while config.INVOICE is False:
-                    display.update_qr_failed()
-                    time.sleep(1)
-                    display.update_qr_request()
+                if config.conf["lnbits"]["method"] == "invoice":
                     qrcode = qr.scan()
                     config.INVOICE = lnbits.evaluate_scan(qrcode)
-                display.update_payout_screen()
-                lnbits.handle_invoice()
-                softreset()
-                return
-            if config.PUSHES > 1:
-                # Process LNURL
-                # Only implemented for LND BTCPay so far
-                import requests, json, qrcode
+                    while config.INVOICE is False:
+                        display.update_qr_failed()
+                        time.sleep(1)
+                        display.update_qr_request()
+                        qrcode = qr.scan()
+                        config.INVOICE = lnbits.evaluate_scan(qrcode)
+                    display.update_payout_screen()
+                    lnbits.handle_invoice()
+                    softreset()
+                    return
+                elif config.conf["lnbits"]["method"] == "lnurlw":
+                    # Process LNURL
+                    import requests
+                    resp = lnbits.create_lnurlw()
+                    qr_img = utils.generate_lnurl_qr(resp["lnurl"])
+                    # TODO Adjust size according to screen used
+                    qr_img = qr_img.resize((122, 122), resample=0)
 
-                request_url = config.conf["lnurl"]["lnurlproxyurl"]
-                data = {"amount": config.SATS}
-
-                response = requests.post(request_url, json=data)
-
-                qr_img = utils.generate_lnurl_qr(response.json()["lnurl"])
-                # TODO Adjust size according to screen used
-                qr_img = qr_img.resize((122, 122), resample=0)
-
-                # draw the qr code on the e-ink screen
-                display.draw_lnurl_qr(qr_img)
-                invoice = requests.get(response.json()["callback"])
-
-                config.INVOICE = invoice.json()["invoice"]
-                lnbits.handle_invoice()
-                softreset()
-                return
+                    # draw the qr code on the e-ink screen
+                    display.draw_lnurl_qr(qr_img)
+                    success = lnbits.wait_for_lnurlw_redemption(resp["id"], timeout=config.conf["lnbits"]["timeout"])
+                    if success:
+                        pass
+                    else:
+                        pass # some feedback for the user would be cool!
+                    softreset()
+                    return
+                else:
+                    logger.error(f"Invalid method defined for LNbits:{config.conf['lnbits']['method']}")
+                    softreset()
+                    return
 
         # Determine if LNURL Withdrawls are possible
         elif lnurlproxy == "active" or activewallet == "lntxbot":

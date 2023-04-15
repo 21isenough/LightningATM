@@ -195,7 +195,7 @@ def evaluate_scan(qrcode):
 
 def create_lnurlw():
     """Creates a LNURL withdraw link which can only be used once
-        it returns the lnurlw link
+        it returns the json-response
         This call does NOT handle displaying the QR code
     """
     data = {
@@ -213,8 +213,6 @@ def create_lnurlw():
     # compatibility with the way it's used for invoice-creation
     base_url = config.conf["lnbits"]["url"].replace("/api/v1", "")
     url = base_url + "/withdraw/api/v1/links"
-    # a bit more error-tolerance
-    url = url.replace("//", "/")
     logger.info("LNURL withdraw link creation request: %s" % url)
     response = requests.post(
         url,
@@ -246,4 +244,47 @@ def create_lnurlw():
         logger.error("LNURL withdraw failed (%s)" % errormessage)
         print("Error: " + errormessage)
     else:
-        return res_json["lnurl"]
+        return res_json
+
+def wait_for_lnurlw_redemption(id, timeout=1000 * 90):
+    """ Waits until the lnurlw with the id (created by create_lnurlw) is used.
+        timeouts after 90 seconds (default)
+        returns True/False depending on success
+    """
+    # compatibility with the way it's used for invoice-creation
+    base_url = config.conf["lnbits"]["url"].replace("/api/v1", "")
+
+    logger.info(f"Waiting to get lnurlw {id} to be used ...")
+    start_time = time.time()
+    # loop while the user is redeeming the lnurlw
+    while True and (time.time() < start_time + timeout):
+        response = requests.get(
+            url = base_url + f"/withdraw/api/v1/links/{id}",
+            headers={"X-Api-Key": str(config.conf["lnbits"]["apikey"])}
+        )
+        res_json = response.json()
+        # You get something like this:
+        # {
+        #   "id":"4oDpCv",
+        #   "wallet":"someWalletId",
+        #   "title":"LightningATM withdraw",
+        #   "min_withdrawable":5,
+        #   "max_withdrawable":5,
+        #   "uses":1, 
+        #   ...
+        #   "used":0, <-- this is the important one
+        #   ...  
+        #   "lnurl":"LNURL1DP68GURN8GHJ7MRWVF5HGUEWV4EX26T8DE5HX6R0WF5H5MMWWSH8S7T69AMKJARGV3EXZAE0V9CXJTMKXYHKCMN4WFKZ7DENFF8RS4ENX4CKYUTRXFTXX5JKD4VXK6Z99AG8JWTEFEXRVJJTGDH5ZDPHG9ZK7VMHW3CH580AJCY"}
+        if res_json.get("detail"):
+            errormessage = res_json.get("detail")
+            logger.error("LNURL withdraw failed (%s)" % errormessage)
+            print("Error: " + errormessage)
+            return False
+        else:
+            if res_json["used"] == 1:
+                logger.info("LNURL withdraw was used")
+                return True
+        time.sleep(3)
+    logger.error(f"LNURL withdraw failed (within {timeout} milliseconds) for lnurl {res_json['lnurl']}")
+    return False
+

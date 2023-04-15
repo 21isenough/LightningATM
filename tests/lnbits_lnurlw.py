@@ -25,6 +25,8 @@ print("config['lnbits']['url']: "+str(config.conf["lnbits"]["url"]))
 print("config['lnbits']['apikey']: "+str(config.conf["lnbits"]["apikey"]))
 
 config.SATS = 5
-lnurlw = lnbits.create_lnurlw()
-
-print("lnurlw: "+str(lnurlw))
+resp_json = lnbits.create_lnurlw()
+print("lnurlw: "+str(resp_json["lnurl"]))
+print("Redeem within timeout!")
+success = lnbits.wait_for_lnurlw_redemption(resp_json["id"])
+print("success: "+str(success))
