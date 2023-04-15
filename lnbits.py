@@ -254,7 +254,7 @@ def wait_for_lnurlw_redemption(id, timeout=1000 * 90):
     # compatibility with the way it's used for invoice-creation
     base_url = config.conf["lnbits"]["url"].replace("/api/v1", "")
 
-    logger.info(f"Waiting to get lnurlw {id} to be used ...")
+    logger.info("Waiting to get lnurlw to be used: "+id)
     start_time = time.time()
     # loop while the user is redeeming the lnurlw
     while True and (time.time() < start_time + timeout):
@@ -285,6 +285,6 @@ def wait_for_lnurlw_redemption(id, timeout=1000 * 90):
                 logger.info("LNURL withdraw was used")
                 return True
         time.sleep(3)
-    logger.error(f"LNURL withdraw failed (within {timeout} milliseconds) for lnurl {res_json['lnurl']}")
+    logger.error("LNURL withdraw failed (within timeout ) for lnurl " + res_json['lnurl'])
     return False
 

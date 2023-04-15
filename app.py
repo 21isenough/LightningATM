@@ -152,7 +152,7 @@ def button_pushed():
                     softreset()
                     return
                 else:
-                    logger.error(f"Invalid method defined for LNbits:{config.conf['lnbits']['method']}")
+                    logger.error("Invalid method defined for LNbits: " + config.conf['lnbits'].get('method'))
                     softreset()
                     return
 
