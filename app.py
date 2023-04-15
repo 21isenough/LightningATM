@@ -144,7 +144,7 @@ def button_pushed():
 
                     # draw the qr code on the e-ink screen
                     display.draw_lnurl_qr(qr_img)
-                    success = lnbits.wait_for_lnurlw_redemption(resp["id"], timeout=config.conf["lnbits"]["timeout"])
+                    success = lnbits.wait_for_lnurlw_redemption(resp["id"], timeout=config.conf["lnbits"].get("timeout", 1000*90))
                     if success:
                         pass
                     else:
