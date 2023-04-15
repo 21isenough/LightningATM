@@ -209,7 +209,8 @@ elif "inkyphat" in conf["atm"]["display"]:
         logger.warning("Inky display library not installed.")
         print("Inkyphat library not installed.")
         sys.exit("Exiting...")
-
+elif "testing" in conf["atm"]["display"]:
+    logger.warning("Running with testconfig. This won't work in production but might be useful for testing on a PC.")
 # Display - No configuration match
 else:
     logger.warning("No display configuration match.")

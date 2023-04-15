@@ -11,7 +11,15 @@ import config
 
 # import display
 display_config = config.conf["atm"]["display"]
-display = getattr(__import__("displays", fromlist=[display_config]), display_config)
+try:
+    display = getattr(__import__("displays", fromlist=[display_config]), display_config)
+except AttributeError:
+    if config.conf["atm"]["display"] == "testing":
+        pass
+    else:
+        raise Exception('''
+            Display type not found. Please check your config.ini file.
+        ''')
 
 logger = logging.getLogger("LNBITS")
 
@@ -184,3 +192,58 @@ def evaluate_scan(qrcode):
         else:
             logger.error("This QR does not contain a Lightning invoice")
             return False
+
+def create_lnurlw():
+    """Creates a LNURL withdraw link which can only be used once
+        it returns the lnurlw link
+        This call does NOT handle displaying the QR code
+    """
+    data = {
+        "title": "LightningATM withdraw",
+        "min_withdrawable": config.SATS,
+        "max_withdrawable": config.SATS,
+        "uses": 1,
+        "wait_time": 1,
+        "is_unique": True,
+        # "webhook_url": "string",
+        # "webhook_headers": "string",
+        # "webhook_body": "string",
+        # "custom_url": "string"
+    }
+    # compatibility with the way it's used for invoice-creation
+    base_url = config.conf["lnbits"]["url"].replace("/api/v1", "")
+    url = base_url + "/withdraw/api/v1/links"
+    # a bit more error-tolerance
+    url = url.replace("//", "/")
+    logger.info("LNURL withdraw link creation request: %s" % url)
+    response = requests.post(
+        url,
+        headers={"X-Api-Key": str(config.conf["lnbits"]["apikey"])},
+        data=json.dumps(data),
+    )
+    res_json = response.json()
+    # You get something like this:
+    # {
+    #   "id":"gCnZ9y",
+    #   "wallet":"some wallet id",
+    #   "title":"a title",
+    #   "min_withdrawable":5,
+    #   "max_withdrawable":5,
+    #   "uses":1,"wait_time":20,
+    #   "is_unique":true,
+    #   "unique_hash":"4N7P4vGK76XHW5cypGjLej",
+    #   "k1":"CcGJdDivSUiryXgvtGqPEB",
+    #   "open_time":1681561687,
+    #   "used":0,
+    #   "usescsv":"0",
+    #   "number":0,
+    #   "webhook_url":null,"webhook_headers":null,"webhook_body":null,"custom_url":null,
+    #   "lnurl":"LNURL1DP68GURN8GHJ7MRWVF..."
+    # }
+
+    if res_json.get("detail"):
+        errormessage = res_json.get("detail")
+        logger.error("LNURL withdraw failed (%s)" % errormessage)
+        print("Error: " + errormessage)
+    else:
+        return res_json["lnurl"]
