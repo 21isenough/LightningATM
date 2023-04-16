@@ -199,7 +199,7 @@ def create_lnurlw():
         This call does NOT handle displaying the QR code
     """
     data = {
-        "title": "LightningATM withdraw",
+        "title": "ATM withdraw "+ str(config.SATS) + " sats for " + str(config.FIAT),
         "min_withdrawable": config.SATS,
         "max_withdrawable": config.SATS,
         "uses": 1,
