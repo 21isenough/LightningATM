@@ -19,7 +19,7 @@ import utils
 import importlib
 from PIL import Image
 
-import lnbits
+
 # Initialize inputs and outputs
 button_signal = Button(5, False)
 coin_signal = Button(6)
