@@ -200,6 +200,10 @@ elif "inkyphat" in conf["atm"]["display"]:
         print("Inkyphat library not installed.")
         sys.exit("Exiting...")
 
+# This could help for testing purposes (e.g. tests/lnbits_lnurlw.py)
+elif "testing" in conf["atm"]["display"]:
+    logger.warning("Display is in testing mode. This won't work in production.")
+
 # Display - No configuration match
 else:
     logger.warning("No display configuration match.")
