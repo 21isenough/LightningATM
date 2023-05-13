@@ -49,7 +49,7 @@ $ nano ~/.lightningATM/config.ini
 #### Set activate wallet type / example LNbits 
 
 - If you would like to set a BTCPayServer wallet, get further information here: [BTCPayServer](https://docs.lightningatm.me/lightningatm-setup/wallet-setup/lnd_btcpay)
-- Note: A quick guide how to set up an LNbits wallet find [here:](/docs/guide/set_up_an_lnbits_wallet.md)
+- Note: A quick guide how to set up an LNbits wallet find [here](/docs/guide/set_up_an_lnbits_wallet.md)
 
 ```
 	activewallet = lnbits
