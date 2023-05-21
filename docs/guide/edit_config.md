@@ -46,26 +46,27 @@ $ nano ~/.lightningATM/config.ini
 - Its needed for the the pocket version, because it has no push button for confimrmation. The invoice will be generated automatically after 12 seconds.
 - Note: If you have a button version, you must keep the 0.
 
-#### Set activate wallet type / example LNTXBOT
+#### Set activate wallet type / example LNbits 
 
 - If you would like to set a BTCPayServer wallet, get further information here: [BTCPayServer](https://docs.lightningatm.me/lightningatm-setup/wallet-setup/lnd_btcpay)
-- Note: A good guide to getting started with the LNTXBOT can be found here: [coincharge.io](https://coincharge.io/en/lntxbot-telegram-lightning-wallet/)
+- Note: A quick guide how to set up an LNbits wallet find [here](/docs/guide/set_up_an_lnbits_wallet.md)
 
 ```
-	activewallet = lntxbot
+	activewallet = lnbits
 ```
+#### Under `[lnbits]` customize the data for the LNbits wallet
 
-#### Under `[lntxbot]` enter the data for the API to the lntxbot
-
 ```
-[lntxbot]
-# base64 encoded lntxbot api credentials
-url = https://lntxbot.com
-creds = abc..xyz==
+[lnbits]
+# api credentials
+url = https://legend.lnbits.com/api/v1
+apikey = 
+# One of "invoice" or "lnurlw"
+method = lnurlw
+# only for lnurlw - millisseconds to redeem the lnurlw
+timeout = 90000
 ```
-  
-- Note: The LNTXBOT delivers `url` and `creds` with the command `/lightningATM` from you Telegram bot
-- The structure from the bot answer is build up like: `<creds>@<url>`
+Note: Here you only need to specify the `apikey`. You get this from the [LNbits wallet](/docs/guide/set_up_an_lnbits_wallet.md), e.g. `apikey = 8682516eaf0c457...`
 
 #### Set the coins to the pulses
 

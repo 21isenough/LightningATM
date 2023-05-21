@@ -28,6 +28,28 @@ display demo
 
 <img src="../pictures/display_demo.jpg" width="500">
 
+display test example
+
+<img src="../pictures/display_test.png" width="700">
+
+Possible source of error 
+
+`AttributeError: 'SpiDev' object has no attribute 'writebytes2'`
+
+<img src="../pictures/display_fault.png" width="600">
+
+Solution:
+
+```
+$ cd
+$ sudo rm -r e-Paper
+$ git clone https://github.com/AxelHamburch/e-Paper/
+$ cd ~/e-Paper/RaspberryPi*/python
+$ sudo python3 setup.py install
+$ cd ~/e-Paper/RaspberryPi_JetsonNano/python/examples
+$ sudo python3 ./epd_2in13d_test.py   # Change it to your version
+```
+
 `Note:` If it dose not work, check the wiring and your display version again.
 
 ---
