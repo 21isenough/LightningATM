@@ -246,7 +246,7 @@ def create_lnurlw():
     else:
         return res_json
 
-def wait_for_lnurlw_redemption(id, timeout=1000 * 90):
+def wait_for_lnurlw_redemption(id, timeout=90):
     """ Waits until the lnurlw with the id (created by create_lnurlw) is used.
         timeouts after 90 seconds (default)
         returns True/False depending on success
