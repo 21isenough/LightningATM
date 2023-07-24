@@ -38,7 +38,7 @@ _Carry out the points step by step as described here. This is the quickest way t
 - [option: button](/docs/guide/button.md)
 - [option: camera](/docs/guide/camera.md)
 - [option: lockout relay](/docs/guide/relay.md)
-- [option: RPi image from scratch](/docs/guide/add_on_zero2.md)
+- [option: RPi image from scratch](/docs/guide/rpi_image_from_scratch.md)
 
 If you want to update your ATM with LNbits, see this guide: [Update](/docs/guide/perform_update.md)
 

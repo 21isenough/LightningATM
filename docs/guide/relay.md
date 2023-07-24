@@ -62,4 +62,4 @@ If the ATM is ready but does not accept the coins, then check whether the relay 
 
 ---
 
-#### [option: camera](/docs/guide/camera.md)  ᐊ  previous | next  ᐅ  [option: RPi image from scratch](/docs/guide/add_on_zero2.md)
+#### [option: camera](/docs/guide/camera.md)  ᐊ  previous | next  ᐅ  [option: RPi image from scratch](/docs/guide/rpi_image_from_scratch.md)
