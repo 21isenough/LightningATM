@@ -7,6 +7,9 @@ User=pi
 Type=idle
 WorkingDirectory=/home/pi/LightningATM
 ExecStart=/usr/bin/python3 /home/pi/LightningATM/app.py
+Restart=always
+TimeoutSec=60
+RestartSec=30
 
 [Install]
 WantedBy=multi-user.target
