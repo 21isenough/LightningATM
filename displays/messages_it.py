@@ -1,68 +1,68 @@
 # Text for update_startup_screen()
-startup_screen_1 = "Welcome to the"
+startup_screen_1 = "Benvenuto al"
 startup_screen_2 = "LightningATM"
-startup_screen_3 = "- help translate to IT -"
+startup_screen_3 = "- Inserisci una moneta -"
 
 # Text for error_screen()
-error_screen_1 = "Error ocurred:"
+error_screen_1 = "Errore:"
 
 # Text for update_qr_request()
-qr_request_1 = "Please scan"
-qr_request_2 = "your invoice in"
-qr_request_3 = "Scanning..."
-qr_request_4 = "for "
+qr_request_1 = "Scansiona"
+qr_request_2 = "la tua invoice"
+qr_request_3 = "Scansionando..."
+qr_request_4 = "per "
 qr_request_5 = " sats."
 
 # Text for update_qr_failed()
-qr_failed_1 = "Scan failed."
-qr_failed_2 = "Try again."
+qr_failed_1 = "Scansione fallita."
+qr_failed_2 = "Riprova."
 
 # Text for update_payout_screen()
 payout_screen_1 = " sats"
-payout_screen_2 = "on the way!"
+payout_screen_2 = "in arrivo!"
 
 # text for update_payment_failed()
-payment_failed_1 = "Payment failed!"
-payment_failed_2 = "Please contact"
-payment_failed_3 = "operator."
+payment_failed_1 = "Pagamento fallito!"
+payment_failed_2 = "Contatta"
+payment_failed_3 = "un operatore."
 
 # Text for update_thankyou_screen()
-thankyou_screen_1 = "Enjoy your new"
-thankyou_screen_2 = "satoshis!!"
+thankyou_screen_1 = "Gotiditi i nuovi"
+thankyou_screen_2 = "satoshi!!"
 thankyou_screen_3 = "#bitcoin #lightning"
 
 # Text for update_nocoin_screen()
-nocoin_screen_1 = "No coins added!"
-nocoin_screen_2 = "Please add"
-nocoin_screen_3 = "coins first"
+nocoin_screen_1 = "Nessuna moneta!"
+nocoin_screen_2 = "Aggiungi delle"
+nocoin_screen_3 = "monete prima"
 
 # Text for update_lnurl_generation()
-lnurl_generation_1 = "Generating"
-lnurl_generation_2 = "QR code to scan"
+lnurl_generation_1 = "Generando il"
+lnurl_generation_2 = "QRcode da scansionare"
 
 # Text for update_shutdown_screen()
-shutdown_screen_1 = "ATM turned off!"
-shutdown_screen_2 = "Please contact"
-shutdown_screen_3 = "operator."
+shutdown_screen_1 = "ATM spento!"
+shutdown_screen_2 = "Contatta"
+shutdown_screen_3 = "un operatore."
 
 # Text for update_wallet_scan()
-wallet_scan_1 = "Please scan"
-wallet_scan_2 = "your wallet"
-wallet_scan_3 = "credentials."
+wallet_scan_1 = "Scansiona"
+wallet_scan_2 = "le credenziali"
+wallet_scan_3 = "del tuo wallet."
 
 # Text for update_lntxbot_balance()
-lntxbot_balance_1 = "Success!!"
-lntxbot_balance_2 = "Your current balance:"
+lntxbot_balance_1 = "Complimenti!!"
+lntxbot_balance_2 = "Saldo attuale:"
 lntxbot_balance_3 = " sats"
 
 # Text for update_btcpay_lnd()
-btcpay_lnd_1 = "Success!!"
-btcpay_lnd_2 = "Successfuly scanned"
-btcpay_lnd_3 = "BTCPay LND Wallet."
+btcpay_lnd_1 = "Complimenti!!"
+btcpay_lnd_2 = "BTCPay LND Wallet"
+btcpay_lnd_3 = "scansionato con successo."
 
 # Text for draw_lnurl_qr()
-lnurl_qr_1 = "Scan to"
-lnurl_qr_2 = "receive"
+lnurl_qr_1 = "Scansiona per"
+lnurl_qr_2 = "ricevere"
 
 # Text for update_amount_screen()
 amount_screen_1 = " sats"
@@ -75,16 +75,16 @@ amount_screen_7 = "% ("
 amount_screen_8 = " sats)"
 
 # Text for update_lnurl_cancel_notice
-lnurl_cancel_notice_1 = "Prepare for LNURL"
-lnurl_cancel_notice_2 = "(Not LNURL compatible?"
-lnurl_cancel_notice_3 = "Press button to cancel)"
+lnurl_cancel_notice_1 = "Preparati per LNURL"
+lnurl_cancel_notice_2 = "(Non compatibile con LNURL?"
+lnurl_cancel_notice_3 = "Premi il bottone per annullare)"
 
 # Text for update_button_fault()
-button_fault_1 = "Oh Sorry.."
-button_fault_2 = "Button fault.."
-button_fault_3 = "Try again!"
+button_fault_1 = "Oh Scusa.."
+button_fault_2 = "Anomalia del bottone.."
+button_fault_3 = "Riprova!"
 
 # Text for update_wallet_fault()
-wallet_fault_1 = "Wallet fault.."
-wallet_fault_2 = "No wallet data."
-wallet_fault_3 = "Set it first!"
+wallet_fault_1 = "Anomalia wallet.."
+wallet_fault_2 = "Nessun dato del wallet."
+wallet_fault_3 = "Configuralo prima!"
