@@ -1,5 +1,7 @@
 # LightningATM
 
+### 🆕🆕🆕 If you want to update your ATM with LNbits, see this guide: [Update](/docs/guide/perform_update.md) 🆕🆕🆕
+
 This LightningATM was built to distribute small amounts of BTC - obviously - it only accepts coins. It shall demonstrate the power of Bitcoins Lightning Network. A two cent coin is enough to buy some satoshis at the LightningATM.
 
 A physical coin exchanged into bitcoin and send to your lightning wallet in seconds. Use this project to educate your family and friends or guests at your bitcoin meetup - a convenient and easy on-boarding process for people that are new to bitcoin.
@@ -36,9 +38,9 @@ _Carry out the points step by step as described here. This is the quickest way t
 - [option: button](/docs/guide/button.md)
 - [option: camera](/docs/guide/camera.md)
 - [option: lockout relay](/docs/guide/relay.md)
-- [option: RPi image from scratch](/docs/guide/add_on_zero2.md)
+- [option: RPi image from scratch](/docs/guide/rpi_image_from_scratch.md)
 
-If you want to update your ATM version, see this guide: [Update](/docs/guide/we_need_your_help.md)
+If you want to update your ATM with LNbits, see this guide: [Update](/docs/guide/perform_update.md)
 
 More information of how to setup the LightningATM can be found here https://docs.lightningatm.me. Also join the Telegram group of LightningATM builders here https://t.me/lightningatm_building or contact 21isenough on Twitter (https://twitter.com/21isenough).
 

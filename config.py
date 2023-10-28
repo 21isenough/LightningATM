@@ -107,7 +107,7 @@ CONFIG_FILE = get_config_file()
 conf = create_config()
 
 ######################################################
-### (Do not change and of these parameters unless  ###
+### (Do not change any of these parameters unless  ###
 ### you know exactly what you are doing.           ###
 ######################################################
 
@@ -126,7 +126,7 @@ if "papirus" in conf["atm"]["display"]:
         print("Papirus library not installed.")
         sys.exit("Exiting...")
 
-# Display - Waveshare 2.13 is 250 * 122 pixels
+# Display - Waveshare 2.13 V2 is 250 * 122 pixels
 elif "waveshare2in13v2" in conf["atm"]["display"]:
     try:
         from waveshare_epd import epd2in13_V2
@@ -134,6 +134,16 @@ elif "waveshare2in13v2" in conf["atm"]["display"]:
     except ImportError:
         logger.warning("Waveshare display library not installed.")
         print("Waveshare2in13v2 library not installed.")
+        sys.exit("Exiting...")
+
+# Display - Waveshare 2.13 V3 is 250 * 122 pixels
+elif "waveshare2in13v3" in conf["atm"]["display"]:
+    try:
+        from waveshare_epd import epd2in13_V3
+        WAVESHARE = epd2in13_V3.EPD()
+    except ImportError:
+        logger.warning("Waveshare display library not installed.")
+        print("Waveshare2in13v3 library not installed.")
         sys.exit("Exiting...")
 
 # Display - Waveshare 2.13 (D) is 212 * 104 pixels
@@ -166,6 +176,16 @@ elif "waveshare2in7" in conf["atm"]["display"]:
         print("Waveshare2in7 library not installed.")
         sys.exit("Exiting...")
 
+# Display - Waveshare 2.9 (D) is 296 * 128 pixels
+elif "waveshare2in9d" in conf["atm"]["display"]:
+    try:
+        from waveshare_epd import epd2in9d
+        WAVESHARE = epd2in9d.EPD()
+    except ImportError:
+        logger.warning("Waveshare display library not installed.")
+        print("Waveshare2in9d library not installed.")
+        sys.exit("Exiting...")
+
 # Display - Inky pHAT
 elif "inkyphat" in conf["atm"]["display"]:
     try:
@@ -179,6 +199,10 @@ elif "inkyphat" in conf["atm"]["display"]:
         logger.warning("Inky display library not installed.")
         print("Inkyphat library not installed.")
         sys.exit("Exiting...")
+
+# This could help for testing purposes (e.g. tests/lnbits_lnurlw.py)
+elif "testing" in conf["atm"]["display"]:
+    logger.warning("Display is in testing mode. This won't work in production.")
 
 # Display - No configuration match
 else:

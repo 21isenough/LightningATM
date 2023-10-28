@@ -4,7 +4,7 @@
 
     - Raspberry Pi Zero WH (best option, with populated header) [link](https://www.google.com/search?q=Raspberry+Pi+Zero+WH) 
     - Raspberry Pi Zero W (without header, you have to solder a header) [link](https://www.google.com/search?q=Raspberry+Pi+Zero+W) 
-    - Raspberry Pi Zero 2 W (possible, but you have to do an image from [scratch](/docs/guide/add_on_zero2.md)) [link](https://www.google.com/search?q=Raspberry+Pi+Zero+2+W) 
+    - Raspberry Pi Zero 2 W (possible, but you have to create an image from [scratch](/docs/guide/rpi_image_from_scratch.md)) [link](https://www.google.com/search?q=Raspberry+Pi+Zero+2+W) 
 
 - Micro SD Card (16 - 64 GB tested) [link](https://www.google.com/search?q=Micro+SD+Card) 
 - DC-DC Adjustable Step Up Power Module (5V->12V) e.g. [LM2587S](https://www.ebay.de/itm/DC-DC-Adjustable-Step-up-Boost-Power-Supply-LM2587S-3V-5V-12V-to-19V-24V-30V-36V-/402196830271) or [HW-637](https://www.amazon.de/Converter-verstellbar-Spannungsregler-Effizienz-Board-Green-1-gr%C3%BCn/dp/B07S5YH2MB)

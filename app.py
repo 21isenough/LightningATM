@@ -13,10 +13,12 @@ import config
 import lndrest
 import lntxbot
 import qr
+import lnbits
 
 import utils
 import importlib
 from PIL import Image
+
 
 # Initialize inputs and outputs
 button_signal = Button(5, False)
@@ -113,11 +115,11 @@ def button_pushed():
         activewallet = config.conf["atm"]["activewallet"]
         camera = config.conf["atm"]["camera"]
         # Determine if LNURL Withdrawls are possible
-        if lnurlproxy == "active" or activewallet == "lntxbot":
+        if lnurlproxy == "active" or activewallet == "lnbits":
             # 1. Ask if wallet supports LNURL, if camera available
             # 2. Offer to cancel and switch to normal scan
             # 3. Process payment
-            if activewallet == "lntxbot" and camera == True:
+            if activewallet == "lnbits" and camera == True:
                 display.update_lnurl_cancel_notice()
                 time.sleep(5)
                 if config.PUSHES == 1:
@@ -137,10 +139,44 @@ def button_pushed():
                     return
 
             # If no camera is available, process LNURL directly
-            if activewallet == "lntxbot":
+            if activewallet == "lnbits":
                 # Process LNURL
                 logger.info("LNURL process stared")
-                lntxbot.process_using_lnurl(config.SATS)
+                
+                # lnbits invoice or lnurlw?
+                if config.conf["lnbits"]["method"] == "invoice":
+                    while config.INVOICE is False:
+                        display.update_qr_failed()
+                        time.sleep(1)
+                        display.update_qr_request()
+                        qrcode = qr.scan()
+                        config.INVOICE = lnbits.evaluate_scan(qrcode)
+                    display.update_payout_screen()
+                    lnbits.handle_invoice()
+                    softreset()
+                    return
+                elif config.conf["lnbits"]["method"] == "lnurlw":
+                    # Process LNURL
+                    import requests
+                    resp = lnbits.create_lnurlw()
+                    qr_img = utils.generate_lnurl_qr(resp["lnurl"])
+                    # TODO Adjust size according to screen used
+                    qr_img = qr_img.resize((122, 122), resample=0)
+
+                    # draw the qr code on the e-ink screen
+                    display.draw_lnurl_qr(qr_img)
+                    success = lnbits.wait_for_lnurlw_redemption(resp["id"], timeout=int(config.conf["lnbits"].get("timeout", 90)))
+                    if success:
+                        pass
+                    else:
+                        pass # some feedback for the user would be cool!
+                    softreset()
+                    return
+                else:
+                    logger.error("Invalid method defined for LNbits: " + config.conf['lnbits'].get('method'))
+                    softreset()
+                    return
+                
                 softreset()
                 return
             
@@ -383,7 +419,10 @@ def coins_inserted():
 def monitor_coins_and_button():
     """Monitors coins inserted and buttons pushed
     """
-    # time.sleep(0.5)
+    
+    # 200 ms sleep for CPU idle and other processes
+    time.sleep(0.1)
+    # Too long a delay will have a negative effect on the coin detection and the lockout relay
 
     #Wifi monitoring causes undesirable behavior sometimes.
     #ssid=check_connectivity()

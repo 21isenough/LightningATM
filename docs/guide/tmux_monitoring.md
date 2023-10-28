@@ -51,7 +51,7 @@ Example tmux window
 
 ![tmux window](../pictures/tmux_monitoring_terminal.png)
 
-Two withdrawals were made here. Once 5 cents and once 1.60 euros (10 cents + 50 cents + 1 euro). Left side you see the pulses. Right side you see the coins to it. 2 = 5 Cent, 3 = 10 Cent, 5 = 50 Cent, 6 = 1 Euro. The final balance is 152048 satoshis.
+Two withdrawals were made here. Once 5 cents and once 10 cent. Left side you see the pulses. Right side you see the coins to it. 2 pulses = 5 Cent = 199 Sats and 3 pulses = 10 Cent = 399 Sats. After that the program was stopped manually with CTRL+c.
 
 ---
 
