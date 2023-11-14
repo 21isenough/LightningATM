@@ -14,6 +14,7 @@ import lndrest
 import lntxbot
 import qr
 import lnbits
+import blink
 
 import utils
 import importlib
@@ -142,7 +143,7 @@ def button_pushed():
             if activewallet == "lnbits":
                 # Process LNURL
                 logger.info("LNURL process stared")
-                
+                                
                 # lnbits invoice or lnurlw?
                 if config.conf["lnbits"]["method"] == "invoice":
                     while config.INVOICE is False:
@@ -185,7 +186,7 @@ def button_pushed():
                 time.sleep(5)
                 if config.PUSHES == 1:
                     # Process LNURL
-                    # Only implemented for LND BTCPay so far
+                    # Only implemented for LND BTCPay and Blink so far
                     import requests, json, qrcode
 
                     request_url = config.conf["lnurl"]["lnurlproxyurl"]
@@ -202,12 +203,15 @@ def button_pushed():
                     invoice = requests.get(response.json()["callback"])
 
                     config.INVOICE = invoice.json()["invoice"]
-                    lndrest.handle_invoice()
+                    if activewallet == "btcpay":
+                        lndrest.handle_invoice()
+                    elif activewallet == "blink":
+                        blink.handle_invoice()
                     softreset()
                     return
                 if config.PUSHES > 1:
                     # Process QR code scan
-                    # Only implemented for LND BTCPay so far
+                    # Only implemented for LND BTCPay and Blink so far
                     display.update_qr_request()
                     qrcode = qr.scan()
                     config.INVOICE = lndrest.evaluate_scan(qrcode)
@@ -218,7 +222,10 @@ def button_pushed():
                         qrcode = qr.scan()
                         config.INVOICE = lndrest.evaluate_scan(qrcode)
                     display.update_payout_screen()
-                    lndrest.handle_invoice()
+                    if activewallet == "btcpay":
+                        lndrest.handle_invoice()
+                    elif activewallet == "blink":
+                        blink.handle_invoice()
                     softreset()
                     return
         elif config.conf["atm"]["activewallet"] == "btcpay_lnd":
