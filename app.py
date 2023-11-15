@@ -143,7 +143,7 @@ def button_pushed():
             if activewallet == "lnbits":
                 # Process LNURL
                 logger.info("LNURL process stared")
-                                
+                
                 # lnbits invoice or lnurlw?
                 if config.conf["lnbits"]["method"] == "invoice":
                     while config.INVOICE is False:
