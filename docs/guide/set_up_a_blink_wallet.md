@@ -22,10 +22,12 @@ Get more info and download the app from [blink.sv](https://blink.sv). To learn m
 ### API key
 
 * create a new key on the `API Keys` tab
+* give it a name and choose a `Scope` which permits to send payments (Read and Write)
+* the default expiry is 90 days
 
   <img src="../pictures/set_up_a_blink_wallet_api_key.png" alt="api_key" width="50%">
 
-* copy the key and paste it into the config.ini file under the `[blink]` section
+* copy the key (starting with `blink_` ) and paste it into the config.ini file under the `[blink]` section
 
 ## Set the config.ini file
 
@@ -101,6 +103,6 @@ Get more info and download the app from [blink.sv](https://blink.sv). To learn m
 * remember to top up the funding wallet with some sats
 * easiest to monitor the payouts if you are logged in to the Blink app on your phone
 * be aware when testing that paying the same account is not allowed (cannot withdraw from the LightningATM to the same account from which the credentials are used)
-* note the date of the expiry of the API key (valid for 3 months by default) and create a new one before the ATM stops working
+* note the date of the expiry of the API key (valid for 90 days by default) and create a new one before the ATM stops working
 
 #### [edit_config.md](/docs/guide/edit_config.md)  ᐊ  previous | next ᐅ [edit_config.md#test-the-settings-or-the-entire-atm-once](/docs/guide/edit_config.md#test-the-settings-or-the-entire-atm-once)
