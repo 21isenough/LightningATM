@@ -1,10 +1,12 @@
 ## Instruction to update the ATM 📜🧐
 
-We have now added LNbits as a new funding source for the LightningATM. 🎉
+We have now added LNbits and Blink as a new funding source for the LightningATM. 🎉
 
-### 1. Quick guide on how to set up an LNbits wallet
+### 1. Quick guide on how to set up an LNbits wallet or Blink wallet
 
 A quick guide how to set up an LNbits wallet find [here](/docs/guide/set_up_an_lnbits_wallet.md)
+
+A quick guide how to set up an Blink wallet find [here](/docs/guide/set_up_a_blink_wallet.md)
 
 ### 2. Update the LigthningATM 
 
@@ -20,7 +22,7 @@ Now your ATM is set to the new version. Next you have to configure it for the ne
 
     $ nano ~/.lightningATM/config.ini
 
-#### Add the following lines at the very end
+#### Add the following lines at the very end for LNbits and 🆕 for Blink
 
 ```
 [lnbits]
@@ -31,19 +33,35 @@ apikey =
 method = lnurlw
 # only for lnurlw - millisseconds to redeem the lnurlw
 timeout = 90000
+
+[blink]
+graphql_endpoint = https://api.blink.sv/graphql
+api_key = blink_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+wallet_id = 5dxxxxxxxxxxxxxxxxxxxxx
 ```
 
-`Note:` Customize your `apikey = 8682516eaf0c457...` from the LNbis wallet.
+`Note for LNbits:` Customize your `apikey = 8682516eaf0c457...` from the LNbis wallet. See [here](/docs/guide/set_up_an_lnbits_wallet.md)
 
-#### Change active wallet to lnbits
+`Note for Blink:` Customize your `api_key` and `wallet_id` from Blink wallet. See [here](/docs/guide/set_up_a_blink_wallet.md). 
+
+#### Change active wallet to LNbits
 
     [atm]
     ..
     activewallet = lnbits
-    
-#### Check the config.ini again
 
-One or the other may have an older version of the LightningATM. Two things have been added. The option language and camera. Check if you have the following variable under [ATM]. If not, add them.
+#### Or change active wallet to Blink
+
+    [atm]
+    ..
+    activewallet = blink
+
+and
+
+    [lnurl]
+    lnurlproxy = active
+    
+#### In case you have a very old config.ini. Check this too.
 
     [atm]
     ..
@@ -75,7 +93,7 @@ Log file to debug
 
 ### 5. Final step
 
-Restart the LightningATM service
+Restart the LightningATM service by power cycle
 
     $ sudo systemctl start LightningATM.service
 
