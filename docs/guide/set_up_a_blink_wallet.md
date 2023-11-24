@@ -105,4 +105,4 @@ Get more info and download the app from [blink.sv](https://blink.sv). To learn m
 * be aware when testing that paying the same account is not allowed (cannot withdraw from the LightningATM to the same account from which the credentials are used)
 * note the date of the expiry of the API key (valid for 90 days by default) and create a new one before the ATM stops working
 
-#### [edit_config.md](/docs/guide/edit_config.md)  ᐊ  previous | next ᐅ [edit_config.md#test-the-settings-or-the-entire-atm-once](/docs/guide/edit_config.md#test-the-settings-or-the-entire-atm-once)
+#### [edit_config.md](/docs/guide/edit_config.md)  ᐊ  previous 
