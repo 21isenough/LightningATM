@@ -1,6 +1,9 @@
 # LightningATM
 
-### 🆕🆕🆕 If you want to update your ATM with LNbits, see this guide: [Update](/docs/guide/perform_update.md) 🆕🆕🆕
+### 🔥🔥🔥 Now a seconde funding source next to LNbits is available. 🔥🔥🔥
+### 👉👉👉 [blink.sv](https://www.blink.sv/) 🔥 See how to update: [Update](/docs/guide/perform_update.md) 👈👈👈
+
+
 
 This LightningATM was built to distribute small amounts of BTC - obviously - it only accepts coins. It shall demonstrate the power of Bitcoins Lightning Network. A two cent coin is enough to buy some satoshis at the LightningATM.
 
