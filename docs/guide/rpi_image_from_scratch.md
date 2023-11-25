@@ -25,7 +25,7 @@ This is only a guide for creating a compatible version. Deviations are possible 
 
 ### 1. Download and burn the raw image
 
-Find the appropriate Raspberry Pi OS (32-bit) image from the raspberrypi.org [Archive](https://downloads.raspberrypi.org/raspios_armhf/images/) and download it. You can use a newer version, but the "2022-01-28-raspios-bullseye-armhf.zip" version was tested for this tutorial. Unpack the file and write the image with [balenaEtcher](https://www.balena.io/etcher/). When done, remove the microSD.
+Find the appropriate Raspberry Pi OS (32-bit) image from the raspberrypi.org [Archive](https://downloads.raspberrypi.org/raspios_armhf/images/) and download it. You can use a newer version, but the "2023-05-03-raspios-bullseye-armhf.img.xz" version was tested for this tutorial. Unpack the file and write the image with [balenaEtcher](https://www.balena.io/etcher/). When done, remove the microSD.
 
 ### 2. Add SSH, userconf and Wifi data to the raw image
 
