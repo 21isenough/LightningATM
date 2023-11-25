@@ -48,13 +48,35 @@ $ nano ~/.lightningATM/config.ini
 
 #### Set activate wallet type / example LNbits 
 
-- If you would like to set a BTCPayServer wallet, get further information here: [BTCPayServer](https://docs.lightningatm.me/lightningatm-setup/wallet-setup/lnd_btcpay)
+- If you would like to set a BTCPayServer wallet, get further information here: [BTCPayServer](https://docs.lightningatm.me/lightningatm-setup/wallet-setup/lnd_btcpay) - NOT RECOMENDET -
 - To use the Blink wallet as the funding source continue here: [Blink](/docs/guide/set_up_a_blink_wallet.md)
 - Note: A quick guide how to set up an LNbits wallet find [here](/docs/guide/set_up_an_lnbits_wallet.md)
 
+For LNbits:
+
 ```
+	[atm]
+	..
 	activewallet = lnbits
 ```
+```
+	[lnurl]
+	lnurlproxy = inactive
+```
+
+For Blink:
+
+```
+	[atm]
+	..
+	activewallet = blink
+```
+```
+	[lnurl]
+	lnurlproxy = active
+```
+Note: leave `lnurlproxyurl = https://api.lightningatm.me/v1/lnurl` like it is.
+
 #### Under `[lnbits]` customize the data for the LNbits wallet
 
 ```
@@ -69,7 +91,17 @@ timeout = 90000
 ```
 Note: Here you only need to specify the `apikey`. You get this from the [LNbits wallet](/docs/guide/set_up_an_lnbits_wallet.md), e.g. `apikey = 8682516eaf0c457...`
 
-#### Set the coins to the pulses
+#### For Blink wallet customize the data unter `[blink]` 
+
+```
+[blink]
+graphql_endpoint = https://api.blink.sv/graphql
+api_key = blink_xxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+wallet_id = 5dxxxxxxxxxxxxxxxxxxxxx
+```
+Note: You can see how it works [here](/docs/guide/set_up_a_blink_wallet.md)
+
+#### Next, set the coins to the pulses
 
 - Each coin generates a specific number of pulses. Here 2 to 7 pulses.
 
