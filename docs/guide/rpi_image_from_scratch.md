@@ -25,7 +25,7 @@ This is only a guide for creating a compatible version. Deviations are possible 
 
 ### 1. Download and burn the raw image
 
-Find the appropriate Raspberry Pi OS (32-bit) image from the raspberrypi.org [Archive](https://downloads.raspberrypi.org/raspios_armhf/images/) and download it. You can use a newer version, but the "2022-01-28-raspios-bullseye-armhf.zip" version was tested for this tutorial. Unpack the file and write the image with [balenaEtcher](https://www.balena.io/etcher/). When done, remove the microSD.
+Find the appropriate Raspberry Pi OS (32-bit) image from the raspberrypi.org [Archive](https://downloads.raspberrypi.org/raspios_armhf/images/) and download it. You can use a newer version, but the "2023-05-03-raspios-bullseye-armhf.img.xz" version was tested for this tutorial. Unpack the file and write the image with [balenaEtcher](https://www.balena.io/etcher/). When done, remove the microSD.
 
 ### 2. Add SSH, userconf and Wifi data to the raw image
 
@@ -33,9 +33,9 @@ Find the appropriate Raspberry Pi OS (32-bit) image from the raspberrypi.org [Ar
 - Create a `wpa_supplicant.conf` file as described in chapter [sd card and wifi](/docs/guide/sdcard_and_wifi.md). This gives the Raspberry Pi the necessary information about your Wifi.
 - Create a file named `userconf` with __no__ file extension and add the next content:
 	```
-	pi:$6$AkXCaGAo9kHlKdQS$FOsYUzv6Ypm/QEw78HBidWQtT1n83T4IsQcmDsWdOfZDgHTd1HUoVT6c3VZ6WDHC36/OHt380mIFiMyHlAU8A/
+	pi:$6$gUTh.xbNW9Ascyjs$xM4whEiad2GXu3wffSDgb8W77Zgv6BWENQ226goAF93ltX.bOJOktLqOLouaO0/SW5jKye10HjOGH6Y/5.VF90
 	```
-	This content sets the password for the `pi` user to `password`. In newer versions as Bullseye the default password is not set automatically so we need to make this step.
+	This content sets the password for the `pi` user to `raspberry`. In newer versions as Bullseye the default password is not set automatically so we need to make this step.
 - Put the newly written microSD back into the computer slot and copy the three files into the "boot" directory.
 - Remove the microSD. It is now ready for the Raspberry Pi.
 
@@ -54,9 +54,8 @@ After starting the Zero 2 and waiting a few minutes. Then you can log in as desc
 <img src="../pictures/add_on_zero2_SPI_1.png" width="500">
 <img src="../pictures/add_on_zero2_SPI_2.png" width="500">
 <img src="../pictures/add_on_zero2_SPI_3.png" width="500">
-<img src="../pictures/add_on_zero2_SPI_4.png" width="500">
 
-- Exit with "Finish".
+- "YES", "OK" and then exit with "Finish".
 
 ### 4. Option: Install PaPiRus display library 
 
@@ -78,13 +77,11 @@ Choose your display size
 It's the same like described in chapter [sdcard_and_wifi](/docs/guide/sdcard_and_wifi.md). Run the following commands one by one.
 
 ```
-	$ sudo apt update && sudo apt upgrade
+	$ sudo apt update && sudo apt upgrade -y   # -> press "q" if ask for
 	$ git clone https://github.com/21isenough/LightningATM.git
 	$ cd ~/LightningATM/
-	$ pip3 install -r requirements.txt
+	$ pip3 install -r requirements.txt   # -> Be patient, it may take some time
 ```
-Note: When updating, you sometimes have to confirm with `y`.
-
 ### 6. Install and test the display
 
 Please refer to the [display](/docs/guide/display.md) chapter on docs.
@@ -95,10 +92,31 @@ $ git clone https://github.com/waveshare/e-Paper
 $ cd ~/e-Paper/RaspberryPi*/python
 $ sudo python3 setup.py install
 ```
+Test your display
+```
+$ cd ~/e-Paper/RaspberryPi_JetsonNano/python/examples
+$ sudo python3 ./epd_2in13_V3_test.py
+```
+__Note:__ Choose you display type. You can find alle types [here](https://github.com/waveshareteam/e-Paper/tree/master/RaspberryPi_JetsonNano/python/examples). Normaly it should be one of this:
+```
+epd_2in13_test.py
+epd_2in13_V2_test.py
+epd_2in13_V3_test.py
+epd_2in13_V4_test.py
+epd_2in13d_test.py (the flexible golden one)
+epd_2in7_test.py
+epd_2in7_V2_test.py
+..
+```
+If necessary, test it.
 
 ### 7. Create and edit the config.ini
 
-Start the app.py once.
+If successful testet the dsipalay. Start the app.py once.
+```
+$ cd ~/LightningATM/
+$ ./app.py
+```
 
 <img src="../pictures/add_on_zero2_edit_config.png" width="400">
 
