@@ -54,9 +54,8 @@ After starting the Zero 2 and waiting a few minutes. Then you can log in as desc
 <img src="../pictures/add_on_zero2_SPI_1.png" width="500">
 <img src="../pictures/add_on_zero2_SPI_2.png" width="500">
 <img src="../pictures/add_on_zero2_SPI_3.png" width="500">
-<img src="../pictures/add_on_zero2_SPI_4.png" width="500">
 
-- Exit with "Finish".
+- "YES", "OK" and then exit with "Finish".
 
 ### 4. Option: Install PaPiRus display library 
 
@@ -78,13 +77,11 @@ Choose your display size
 It's the same like described in chapter [sdcard_and_wifi](/docs/guide/sdcard_and_wifi.md). Run the following commands one by one.
 
 ```
-	$ sudo apt update && sudo apt upgrade
+	$ sudo apt update && sudo apt upgrade -y   # -> press "q" if ask for
 	$ git clone https://github.com/21isenough/LightningATM.git
 	$ cd ~/LightningATM/
 	$ pip3 install -r requirements.txt
 ```
-Note: When updating, you sometimes have to confirm with `y`.
-
 ### 6. Install and test the display
 
 Please refer to the [display](/docs/guide/display.md) chapter on docs.
@@ -95,10 +92,31 @@ $ git clone https://github.com/waveshare/e-Paper
 $ cd ~/e-Paper/RaspberryPi*/python
 $ sudo python3 setup.py install
 ```
+Test your display
+```
+$ cd ~/e-Paper/RaspberryPi_JetsonNano/python/examples
+$ sudo python3 ./epd_2in13_V3_test.py
+```
+__Note:__ Choose you display type. You can find alle types [here](https://github.com/waveshareteam/e-Paper/tree/master/RaspberryPi_JetsonNano/python/examples). Normaly it should be one of this:
+```
+epd_2in13_test.py
+epd_2in13_V2_test.py
+epd_2in13_V3_test.py
+epd_2in13_V4_test.py
+epd_2in13d_test.py (the flexible golden one)
+epd_2in7_test.py
+epd_2in7_V2_test.py
+..
+```
+If necessary, test it.
 
 ### 7. Create and edit the config.ini
 
-Start the app.py once.
+If successful testet the dsipalay. Start the app.py once.
+```
+$ cd ~/LightningATM/
+$ ./app.py
+```
 
 <img src="../pictures/add_on_zero2_edit_config.png" width="400">
 
