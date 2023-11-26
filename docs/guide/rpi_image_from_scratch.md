@@ -80,7 +80,7 @@ It's the same like described in chapter [sdcard_and_wifi](/docs/guide/sdcard_and
 	$ sudo apt update && sudo apt upgrade -y   # -> press "q" if ask for
 	$ git clone https://github.com/21isenough/LightningATM.git
 	$ cd ~/LightningATM/
-	$ pip3 install -r requirements.txt
+	$ pip3 install -r requirements.txt   # -> Be patient, it may take some time
 ```
 ### 6. Install and test the display
 
