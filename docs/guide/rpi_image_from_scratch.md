@@ -33,9 +33,9 @@ Find the appropriate Raspberry Pi OS (32-bit) image from the raspberrypi.org [Ar
 - Create a `wpa_supplicant.conf` file as described in chapter [sd card and wifi](/docs/guide/sdcard_and_wifi.md). This gives the Raspberry Pi the necessary information about your Wifi.
 - Create a file named `userconf` with __no__ file extension and add the next content:
 	```
-	pi:$6$AkXCaGAo9kHlKdQS$FOsYUzv6Ypm/QEw78HBidWQtT1n83T4IsQcmDsWdOfZDgHTd1HUoVT6c3VZ6WDHC36/OHt380mIFiMyHlAU8A/
+	pi:$6$gUTh.xbNW9Ascyjs$xM4whEiad2GXu3wffSDgb8W77Zgv6BWENQ226goAF93ltX.bOJOktLqOLouaO0/SW5jKye10HjOGH6Y/5.VF90
 	```
-	This content sets the password for the `pi` user to `password`. In newer versions as Bullseye the default password is not set automatically so we need to make this step.
+	This content sets the password for the `pi` user to `raspberry`. In newer versions as Bullseye the default password is not set automatically so we need to make this step.
 - Put the newly written microSD back into the computer slot and copy the three files into the "boot" directory.
 - Remove the microSD. It is now ready for the Raspberry Pi.
 
